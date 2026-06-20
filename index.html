@@ -34,7 +34,7 @@
 
     <a class="navbar-brand me-2" href="index.html">ggsketch</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -92,7 +92,7 @@
 </p>
 <p><img src="reference/figures/README-hero.png" alt="A sketchy hachure-filled bar chart titled ggsketch" width="80%"></p>
 
-<p><code>ggsketch</code> gives you first-class ggplot2 geoms (<code><a href="reference/geom_sketch_col.html">geom_sketch_col()</a></code>, <code><a href="reference/geom_sketch_line.html">geom_sketch_line()</a></code>, <code><a href="reference/geom_sketch_point.html">geom_sketch_point()</a></code>, …) that render with a wobbly, hand-drawn look: roughened double-stroke outlines and hachure / cross-hatch / zigzag / dots / dashed fills. Because the geoms are real grid grobs wrapped in <code>ggproto</code>, they compose with <code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes()</a></code>, stats, scales, facets, and coords, and draw correctly on <strong>every</strong> R graphics device — screen, PNG, PDF, and SVG.</p>
+<p><code>ggsketch</code> gives you ggplot2 geoms (<code><a href="reference/geom_sketch_col.html">geom_sketch_col()</a></code>, <code><a href="reference/geom_sketch_line.html">geom_sketch_line()</a></code>, <code><a href="reference/geom_sketch_point.html">geom_sketch_point()</a></code>, …) that render with a wobbly, hand-drawn look: roughened double-stroke outlines and hachure / cross-hatch / zigzag / dots / dashed fills. Because the geoms are real grid grobs wrapped in <code>ggproto</code>, they compose with <code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes()</a></code>, stats, scales, facets, and coords, and draw correctly on <strong>every</strong> R graphics device — screen, PNG, PDF, and SVG.</p>
 <div class="section level2">
 <h2 id="why-another-sketch-package">Why another sketch package?<a class="anchor" aria-label="anchor" href="#why-another-sketch-package"></a>
 </h2>
@@ -205,6 +205,12 @@
 <code><a href="reference/annotate_sketch.html">annotate_sketch()</a></code>, <code><a href="reference/theme_sketch.html">theme_sketch()</a></code>
 </td>
 </tr>
+<tr>
+<td>Frame &amp; scales</td>
+<td>
+<code><a href="reference/element_sketch_line.html">element_sketch_line()</a></code>, <code><a href="reference/element_sketch_line.html">element_sketch_rect()</a></code> (via <code>theme_sketch(rough_frame = TRUE)</code>), <code><a href="reference/scale_sketch.html">scale_colour_sketch()</a></code>, <code><a href="reference/scale_sketch.html">scale_fill_sketch()</a></code>, <code><a href="reference/register_sketch_font.html">register_sketch_font()</a></code>
+</td>
+</tr>
 </tbody>
 </table>
 <div class="section level3">
@@ -239,7 +245,7 @@
 <tr>
 <td><code>fill_style</code></td>
 <td>
-<code>"hachure"</code>, <code>"cross_hatch"</code>, <code>"zigzag"</code>, <code>"zigzag_line"</code>, <code>"dots"</code>, <code>"dashed"</code>, <code>"solid"</code>
+<code>"hachure"</code>, <code>"cross_hatch"</code>, <code>"zigzag"</code>, <code>"zigzag_line"</code>, <code>"scribble"</code>, <code>"dots"</code>, <code>"dashed"</code>, <code>"solid"</code>
 </td>
 </tr>
 <tr>

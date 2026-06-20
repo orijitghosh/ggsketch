@@ -145,6 +145,26 @@ The signature filled look — roughened outlines with hachure-style fills.
   : A hand-drawn theme for ggplot2
 - [`ggsketch_check_fonts()`](https://orijitghosh.github.io/ggsketch/reference/ggsketch_check_fonts.md)
   : Check for optional handwriting fonts
+- [`register_sketch_font()`](https://orijitghosh.github.io/ggsketch/reference/register_sketch_font.md)
+  : Register a handwriting font for reproducible sketch text
+
+## Sketch frame & colour scales
+
+Hand-drawn theme elements (gridlines, panel border, axis ticks) and a
+matching paper-and-ink colour palette.
+
+- [`element_sketch_line()`](https://orijitghosh.github.io/ggsketch/reference/element_sketch_line.md)
+  [`element_sketch_rect()`](https://orijitghosh.github.io/ggsketch/reference/element_sketch_line.md)
+  : Hand-drawn theme elements
+- [`scale_colour_sketch()`](https://orijitghosh.github.io/ggsketch/reference/scale_sketch.md)
+  [`scale_color_sketch()`](https://orijitghosh.github.io/ggsketch/reference/scale_sketch.md)
+  [`scale_fill_sketch()`](https://orijitghosh.github.io/ggsketch/reference/scale_sketch.md)
+  [`scale_colour_sketch_c()`](https://orijitghosh.github.io/ggsketch/reference/scale_sketch.md)
+  [`scale_color_sketch_c()`](https://orijitghosh.github.io/ggsketch/reference/scale_sketch.md)
+  [`scale_fill_sketch_c()`](https://orijitghosh.github.io/ggsketch/reference/scale_sketch.md)
+  : Sketch colour and fill scales
+- [`sketch_palette()`](https://orijitghosh.github.io/ggsketch/reference/sketch_palette.md)
+  : The ggsketch qualitative colour palette
 
 ## Legend keys
 

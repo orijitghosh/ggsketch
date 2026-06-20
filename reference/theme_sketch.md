@@ -2,10 +2,10 @@
 
 A sketch-style theme based on
 [`ggplot2::theme_bw()`](https://ggplot2.tidyverse.org/reference/ggtheme.html)
-with a paper-and-ink palette that complements the rough geoms. Light
-(default) and dark presets are available via `dark`. The sketchiness of
-the *marks* comes from the geoms themselves; this theme styles the
-surrounding frame, typography, and background.
+with a muted palette to match the rough geoms. Light (default) and dark
+presets are available via `dark`. The sketchiness of the *marks* comes
+from the geoms themselves; this theme styles the surrounding frame,
+typography, and background.
 
 ## Usage
 
@@ -15,7 +15,10 @@ theme_sketch(
   base_family = "",
   base_line_size = base_size/22,
   base_rect_size = base_size/22,
-  dark = FALSE
+  dark = FALSE,
+  rough_frame = FALSE,
+  roughness = 0.5,
+  seed = NULL
 )
 ```
 
@@ -45,6 +48,25 @@ theme_sketch(
   If `TRUE`, use the dark "chalkboard" preset. Default `FALSE` (light
   "paper" preset).
 
+- rough_frame:
+
+  If `TRUE`, draw the *frame* itself hand-drawn: the major gridlines,
+  panel border, and axis ticks become roughened sketch grobs (via
+  [`element_sketch_line()`](https://orijitghosh.github.io/ggsketch/reference/element_sketch_line.md)
+  /
+  [`element_sketch_rect()`](https://orijitghosh.github.io/ggsketch/reference/element_sketch_line.md))
+  so the frame matches the marks. Default `FALSE`.
+
+- roughness:
+
+  Roughness for the rough frame (only used when `rough_frame = TRUE`).
+  Default 0.5.
+
+- seed:
+
+  Integer seed for the rough frame, for reproducible wobble. `NULL` uses
+  `getOption("ggsketch.seed", 1L)`.
+
 ## Value
 
 A [`ggplot2::theme`](https://ggplot2.tidyverse.org/reference/theme.html)
@@ -53,7 +75,11 @@ object.
 ## See also
 
 Other sketch-theme:
-[`ggsketch_check_fonts()`](https://orijitghosh.github.io/ggsketch/reference/ggsketch_check_fonts.md)
+[`element_sketch_line()`](https://orijitghosh.github.io/ggsketch/reference/element_sketch_line.md),
+[`ggsketch_check_fonts()`](https://orijitghosh.github.io/ggsketch/reference/ggsketch_check_fonts.md),
+[`register_sketch_font()`](https://orijitghosh.github.io/ggsketch/reference/register_sketch_font.md),
+[`scale_sketch`](https://orijitghosh.github.io/ggsketch/reference/scale_sketch.md),
+[`sketch_palette()`](https://orijitghosh.github.io/ggsketch/reference/sketch_palette.md)
 
 ## Examples
 
@@ -63,4 +89,6 @@ p <- ggplot(mtcars, aes(wt, mpg)) + geom_sketch_point(seed = 1L)
 p + theme_sketch()
 
 p + theme_sketch(dark = TRUE)
+
+p + theme_sketch(rough_frame = TRUE)
 ```

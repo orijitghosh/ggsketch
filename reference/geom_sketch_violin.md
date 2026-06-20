@@ -87,7 +87,7 @@ An object of class `GeomSketchViolin` (inherits from `Geom`, `ggproto`,
 - fill_style:
 
   One of `"hachure"`, `"cross_hatch"`, `"zigzag"`, `"zigzag_line"`,
-  `"dots"`, `"dashed"`, or `"solid"`. Default `"hachure"`.
+  `"scribble"`, `"dots"`, `"dashed"`, or `"solid"`. Default `"hachure"`.
 
 - hachure_angle:
 

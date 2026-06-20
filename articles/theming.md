@@ -3,7 +3,7 @@
 The sketchiness of the *marks* comes from the geoms.
 [`theme_sketch()`](https://orijitghosh.github.io/ggsketch/reference/theme_sketch.md)
 styles the surrounding frame — typography, gridlines, background — with
-a paper-and-ink palette that complements them.
+a muted palette to match.
 
 ## Light and dark presets
 
@@ -53,10 +53,10 @@ ggplot(mtcars, aes(wt, mpg)) +
 
 ## Handwriting fonts (optional)
 
-The look does **not** depend on fonts — but a handwriting face for the
-text completes the effect. Pass a family name to `base_family`, or use
-`"auto"` to pick the first installed handwriting font (falling back to
-the device default if none are found).
+The look does **not** depend on fonts, but a handwriting face for the
+text adds to it. Pass a family name to `base_family`, or use `"auto"` to
+pick the first installed handwriting font (falling back to the device
+default if none are found).
 
 ``` r
 

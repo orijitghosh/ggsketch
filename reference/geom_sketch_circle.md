@@ -106,7 +106,7 @@ An object of class `GeomSketchCircle` (inherits from
 - fill_style:
 
   Fill style when `fill` is mapped: `"hachure"`, `"cross_hatch"`,
-  `"zigzag"`, `"dots"`, `"dashed"`. Default `"hachure"`.
+  `"zigzag"`, `"scribble"`, `"dots"`, `"dashed"`. Default `"hachure"`.
 
 - hachure_angle:
 

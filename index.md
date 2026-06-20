@@ -6,7 +6,7 @@
 ![A sketchy hachure-filled bar chart titled
 ggsketch](reference/figures/README-hero.png)
 
-`ggsketch` gives you first-class ggplot2 geoms
+`ggsketch` gives you ggplot2 geoms
 ([`geom_sketch_col()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_col.md),
 [`geom_sketch_line()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_line.md),
 [`geom_sketch_point()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_point.md),
@@ -71,6 +71,7 @@ default with `options(ggsketch.seed = 1L)`.
 | Areas & curves | [`geom_sketch_polygon()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_polygon.md), [`geom_sketch_ribbon()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_ribbon.md), [`geom_sketch_area()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_ribbon.md), [`geom_sketch_density()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_density.md), [`geom_sketch_smooth()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_smooth.md) |
 | Circular & composed | [`geom_sketch_circle()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_circle.md), [`geom_sketch_ellipse()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_circle.md), [`geom_sketch_segment()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_segment.md), [`geom_sketch_step()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_segment.md), [`geom_sketch_boxplot()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_boxplot.md) |
 | Helpers | [`annotate_sketch()`](https://orijitghosh.github.io/ggsketch/reference/annotate_sketch.md), [`theme_sketch()`](https://orijitghosh.github.io/ggsketch/reference/theme_sketch.md) |
+| Frame & scales | [`element_sketch_line()`](https://orijitghosh.github.io/ggsketch/reference/element_sketch_line.md), [`element_sketch_rect()`](https://orijitghosh.github.io/ggsketch/reference/element_sketch_line.md) (via `theme_sketch(rough_frame = TRUE)`), [`scale_colour_sketch()`](https://orijitghosh.github.io/ggsketch/reference/scale_sketch.md), [`scale_fill_sketch()`](https://orijitghosh.github.io/ggsketch/reference/scale_sketch.md), [`register_sketch_font()`](https://orijitghosh.github.io/ggsketch/reference/register_sketch_font.md) |
 
 ### Shared sketch parameters
 
@@ -80,7 +81,7 @@ default with `options(ggsketch.seed = 1L)`.
 | `bowing` | How much segments bow outward |
 | `n_passes` | Overlaid strokes (2 = the classic “double stroke”) |
 | `seed` | Integer for reproducible wobble |
-| `fill_style` | `"hachure"`, `"cross_hatch"`, `"zigzag"`, `"zigzag_line"`, `"dots"`, `"dashed"`, `"solid"` |
+| `fill_style` | `"hachure"`, `"cross_hatch"`, `"zigzag"`, `"zigzag_line"`, `"scribble"`, `"dots"`, `"dashed"`, `"solid"` |
 | `hachure_angle`, `hachure_gap`, `fill_weight` | Fill line angle, spacing, and weight |
 
 ## How it works

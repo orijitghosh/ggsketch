@@ -32,7 +32,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ggsketch</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -96,8 +96,8 @@ reproducible.</p>
 <div class="section level2">
 <h2 id="bars-and-columns">Bars and columns<a class="anchor" aria-label="anchor" href="#bars-and-columns"></a>
 </h2>
-<p><code><a href="../reference/geom_sketch_col.html">geom_sketch_col()</a></code> is the signature geom: a roughened
-outline with a hachure (pencil-shading) fill.</p>
+<p><code><a href="../reference/geom_sketch_col.html">geom_sketch_col()</a></code> draws a roughened outline with a
+hachure (pencil-shading) fill.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sales</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>product <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Alpha"</span>, <span class="st">"Bravo"</span>, <span class="st">"Charlie"</span>, <span class="st">"Delta"</span>, <span class="st">"Echo"</span><span class="op">)</span>,</span>
 <span>                    units   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">34</span>, <span class="fl">51</span>, <span class="fl">22</span>, <span class="fl">47</span>, <span class="fl">39</span><span class="op">)</span><span class="op">)</span></span>
@@ -364,8 +364,7 @@ closed polygon and hachure-fills it.</p>
 <h2 id="function-curves">Function curves<a class="anchor" aria-label="anchor" href="#function-curves"></a>
 </h2>
 <p><code><a href="../reference/geom_sketch_function.html">geom_sketch_function()</a></code> sketches an analytic curve over
-the x range — handy for teaching or overlaying a theoretical
-density.</p>
+the x range, for example to overlay a theoretical density.</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_sketch_function.html">geom_sketch_function</a></span><span class="op">(</span>fun <span class="op">=</span> <span class="va">dnorm</span>, colour <span class="op">=</span> <span class="st">"#2E86C1"</span>, linewidth <span class="op">=</span> <span class="fl">0.9</span>,</span>
@@ -650,6 +649,106 @@ fill style:</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Dark preset"</span>, x <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/theme_sketch.html">theme_sketch</a></span><span class="op">(</span>dark <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="gallery_files/figure-html/dark-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
+</div>
+<div class="section level2">
+<h2 id="a-hand-drawn-frame">A hand-drawn frame<a class="anchor" aria-label="anchor" href="#a-hand-drawn-frame"></a>
+</h2>
+<p>By default <code><a href="../reference/theme_sketch.html">theme_sketch()</a></code> keeps the gridlines, panel
+border, and axis ticks crisp. Pass <code>rough_frame = TRUE</code> and
+the frame is roughened too, so it matches the marks.</p>
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">sales</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">product</span>, <span class="va">units</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_sketch_col.html">geom_sketch_col</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"#7BAFD4"</span>, seed <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Everything wobbles"</span>, x <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/theme_sketch.html">theme_sketch</a></span><span class="op">(</span>rough_frame <span class="op">=</span> <span class="cn">TRUE</span>, seed <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span></code></pre></div>
+<p><img src="gallery_files/figure-html/rough-frame-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
+<p>The roughened elements are real theme elements —
+<code><a href="../reference/element_sketch_line.html">element_sketch_line()</a></code> and
+<code><a href="../reference/element_sketch_line.html">element_sketch_rect()</a></code> — so you can also drop them into any
+theme yourself and tune their <code>roughness</code>,
+<code>bowing</code>, and <code>seed</code>:</p>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">wt</span>, <span class="va">mpg</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_sketch_point.html">geom_sketch_point</a></span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/theme_sketch.html">theme_sketch</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span></span>
+<span>    panel.grid.major <span class="op">=</span> <span class="fu"><a href="../reference/element_sketch_line.html">element_sketch_line</a></span><span class="op">(</span>roughness <span class="op">=</span> <span class="fl">0.8</span>, seed <span class="op">=</span> <span class="fl">7L</span><span class="op">)</span>,</span>
+<span>    axis.ticks       <span class="op">=</span> <span class="fu"><a href="../reference/element_sketch_line.html">element_sketch_line</a></span><span class="op">(</span>roughness <span class="op">=</span> <span class="fl">0.6</span>, seed <span class="op">=</span> <span class="fl">8L</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p><img src="gallery_files/figure-html/element-sketch-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
+</div>
+<div class="section level2">
+<h2 id="a-matching-palette">A matching palette<a class="anchor" aria-label="anchor" href="#a-matching-palette"></a>
+</h2>
+<p><code><a href="../reference/scale_sketch.html">scale_colour_sketch()</a></code> / <code><a href="../reference/scale_sketch.html">scale_fill_sketch()</a></code>
+use a qualitative palette (<code><a href="../reference/sketch_palette.html">sketch_palette()</a></code>) chosen to suit
+the hand-drawn look:</p>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span>, colour <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_sketch_point.html">geom_sketch_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2.5</span>, seed <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/scale_sketch.html">scale_colour_sketch</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"scale_colour_sketch()"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/theme_sketch.html">theme_sketch</a></span><span class="op">(</span>rough_frame <span class="op">=</span> <span class="cn">TRUE</span>, seed <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span></span></code></pre></div>
+<p><img src="gallery_files/figure-html/scale-discrete-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
+<p>For continuous data the <code>*_sketch_c()</code> variants give an
+ink-on-paper gradient:</p>
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">faithful</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">eruptions</span>, <span class="va">waiting</span>, colour <span class="op">=</span> <span class="va">waiting</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_sketch_point.html">geom_sketch_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2.5</span>, seed <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/scale_sketch.html">scale_colour_sketch_c</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"scale_colour_sketch_c()"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/theme_sketch.html">theme_sketch</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="gallery_files/figure-html/scale-continuous-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
+</div>
+<div class="section level2">
+<h2 id="the-scribble-fill">The scribble fill<a class="anchor" aria-label="anchor" href="#the-scribble-fill"></a>
+</h2>
+<p><code>"scribble"</code> is one continuous winding stroke that
+overshoots the boundary, like scribbling to fill a shape:</p>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">sales</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">product</span>, <span class="va">units</span>, fill <span class="op">=</span> <span class="va">product</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_sketch_col.html">geom_sketch_col</a></span><span class="op">(</span>fill_style <span class="op">=</span> <span class="st">"scribble"</span>, seed <span class="op">=</span> <span class="fl">3L</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/scale_sketch.html">scale_fill_sketch</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"fill_style = \"scribble\""</span>, x <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/theme_sketch.html">theme_sketch</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="gallery_files/figure-html/scribble-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
+<p>It works anywhere a <code>fill_style</code> is accepted. The eight
+styles:</p>
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">styles</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hachure"</span>, <span class="st">"cross_hatch"</span>, <span class="st">"zigzag"</span>, <span class="st">"zigzag_line"</span>,</span>
+<span>            <span class="st">"scribble"</span>, <span class="st">"dots"</span>, <span class="st">"dashed"</span>, <span class="st">"solid"</span><span class="op">)</span></span>
+<span><span class="va">grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span>col <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, row <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">grid</span><span class="op">$</span><span class="va">style</span> <span class="op">&lt;-</span> <span class="va">styles</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">grid</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">grid</span><span class="op">)</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="../reference/geom_sketch_rect.html">geom_sketch_rect</a></span><span class="op">(</span></span>
+<span>      data <span class="op">=</span> <span class="va">grid</span><span class="op">[</span><span class="va">i</span>, <span class="op">]</span>,</span>
+<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>xmin <span class="op">=</span> <span class="va">col</span> <span class="op">-</span> <span class="fl">0.45</span>, xmax <span class="op">=</span> <span class="va">col</span> <span class="op">+</span> <span class="fl">0.45</span>,</span>
+<span>          ymin <span class="op">=</span> <span class="va">row</span> <span class="op">-</span> <span class="fl">0.4</span>,  ymax <span class="op">=</span> <span class="va">row</span> <span class="op">+</span> <span class="fl">0.4</span><span class="op">)</span>,</span>
+<span>      fill <span class="op">=</span> <span class="st">"#7BAFD4"</span>, fill_style <span class="op">=</span> <span class="va">grid</span><span class="op">$</span><span class="va">style</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, seed <span class="op">=</span> <span class="va">i</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">col</span>, <span class="va">row</span> <span class="op">-</span> <span class="fl">0.55</span>, label <span class="op">=</span> <span class="va">style</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_equal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"The eight fill styles"</span>, x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/theme_sketch.html">theme_sketch</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="gallery_files/figure-html/fill-styles-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
+</div>
+<div class="section level2">
+<h2 id="reproducible-handwriting-fonts">Reproducible handwriting fonts<a class="anchor" aria-label="anchor" href="#reproducible-handwriting-fonts"></a>
+</h2>
+<p><code><a href="../reference/geom_sketch_text.html">geom_sketch_text()</a></code> picks up a handwriting face
+preinstalled on your OS, but for results that reproduce on any machine
+or CI runner, register a font file explicitly with
+<code><a href="../reference/register_sketch_font.html">register_sketch_font()</a></code> and a font-aware device (ragg,
+svglite, cairo):</p>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/register_sketch_font.html">register_sketch_font</a></span><span class="op">(</span><span class="st">"Caveat"</span>, <span class="st">"path/to/Caveat-Regular.ttf"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">lab</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, label <span class="op">=</span> <span class="va">txt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_sketch_text.html">geom_sketch_text</a></span><span class="op">(</span>family <span class="op">=</span> <span class="st">"Caveat"</span>, size <span class="op">=</span> <span class="fl">8</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/theme_sketch.html">theme_sketch</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

@@ -1,5 +1,36 @@
 # Changelog
 
+## ggsketch 1.4.0
+
+The frame can now be roughened too, plus a matching colour palette, a
+new fill style, and reproducible fonts.
+
+- **Rough theme elements.**
+  [`element_sketch_line()`](https://orijitghosh.github.io/ggsketch/reference/element_sketch_line.md)
+  and
+  [`element_sketch_rect()`](https://orijitghosh.github.io/ggsketch/reference/element_sketch_line.md)
+  render gridlines, panel borders, and axis ticks as roughened sketch
+  grobs. `theme_sketch(rough_frame = TRUE)` turns them on so the frame
+  matches the marks. Works on ggplot2 3.5 and 4.0 (S3 `element_grob`
+  methods; sketch params stored as attributes that survive theme
+  merging).
+- **Sketch colour scales.**
+  [`scale_colour_sketch()`](https://orijitghosh.github.io/ggsketch/reference/scale_sketch.md)
+  /
+  [`scale_fill_sketch()`](https://orijitghosh.github.io/ggsketch/reference/scale_sketch.md)
+  use a qualitative palette
+  ([`sketch_palette()`](https://orijitghosh.github.io/ggsketch/reference/sketch_palette.md))
+  chosen to suit the hand-drawn look; the `*_sketch_c()` variants give a
+  continuous blue gradient.
+- **New fill style `"scribble"`** — one continuous winding stroke that
+  overshoots the boundary, like scribbling to fill a shape. Available
+  everywhere a `fill_style` is accepted.
+- **Reproducible fonts.**
+  [`register_sketch_font()`](https://orijitghosh.github.io/ggsketch/reference/register_sketch_font.md)
+  registers a handwriting font file (via systemfonts) so the result
+  reproduces on any machine or CI runner without a system install; the
+  font resolver now also finds registered fonts.
+
 ## ggsketch 1.3.0
 
 New geoms (Tier 3, first batch — 2-D density and text):
@@ -20,9 +51,9 @@ New geoms (Tier 3, first batch — 2-D density and text):
   [`ggplot2::geom_text()`](https://ggplot2.tidyverse.org/reference/geom_text.html),
   and the font resolver falls back to handwriting faces preinstalled on
   Windows/macOS (Segoe Print, Ink Free, Bradley Hand, Chalkboard, Comic
-  Sans MS, …) so a sketchy face is found out of the box even when Caveat
-  is not installed. Use a font-aware device (ragg, svglite, cairo) to
-  render the handwriting font; the base GDI
+  Sans MS, …) so a sketchy face is found even when Caveat is not
+  installed. Use a font-aware device (ragg, svglite, cairo) to render
+  the handwriting font; the base GDI
   [`png()`](https://rdrr.io/r/grDevices/png.html) device may fall back
   to the default family.
 

@@ -33,5 +33,5 @@
 - [Theming &
   fonts](https://orijitghosh.github.io/ggsketch/articles/theming.md):
 
-  theme_sketch() light and dark presets, the paper-and-ink palette, and
+  theme_sketch() light and dark presets, the muted colour palette, and
   optional handwriting fonts.

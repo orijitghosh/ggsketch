@@ -8,8 +8,7 @@ sets a `seed` so the wobble is reproducible.
 ## Bars and columns
 
 [`geom_sketch_col()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_col.md)
-is the signature geom: a roughened outline with a hachure
-(pencil-shading) fill.
+draws a roughened outline with a hachure (pencil-shading) fill.
 
 ``` r
 
@@ -384,8 +383,8 @@ ggplot(mpg, aes(displ, hwy)) +
 ## Function curves
 
 [`geom_sketch_function()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_function.md)
-sketches an analytic curve over the x range — handy for teaching or
-overlaying a theoretical density.
+sketches an analytic curve over the x range, for example to overlay a
+theoretical density.
 
 ``` r
 
@@ -753,3 +752,135 @@ ggplot(sales, aes(product, units, fill = product)) +
 ```
 
 ![](gallery_files/figure-html/dark-1.png)
+
+## A hand-drawn frame
+
+By default
+[`theme_sketch()`](https://orijitghosh.github.io/ggsketch/reference/theme_sketch.md)
+keeps the gridlines, panel border, and axis ticks crisp. Pass
+`rough_frame = TRUE` and the frame is roughened too, so it matches the
+marks.
+
+``` r
+
+ggplot(sales, aes(product, units)) +
+  geom_sketch_col(fill = "#7BAFD4", seed = 1L) +
+  labs(title = "Everything wobbles", x = NULL) +
+  theme_sketch(rough_frame = TRUE, seed = 1L)
+```
+
+![](gallery_files/figure-html/rough-frame-1.png)
+
+The roughened elements are real theme elements —
+[`element_sketch_line()`](https://orijitghosh.github.io/ggsketch/reference/element_sketch_line.md)
+and
+[`element_sketch_rect()`](https://orijitghosh.github.io/ggsketch/reference/element_sketch_line.md)
+— so you can also drop them into any theme yourself and tune their
+`roughness`, `bowing`, and `seed`:
+
+``` r
+
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_sketch_point(seed = 1L) +
+  theme_sketch() +
+  theme(
+    panel.grid.major = element_sketch_line(roughness = 0.8, seed = 7L),
+    axis.ticks       = element_sketch_line(roughness = 0.6, seed = 8L)
+  )
+```
+
+![](gallery_files/figure-html/element-sketch-1.png)
+
+## A matching palette
+
+[`scale_colour_sketch()`](https://orijitghosh.github.io/ggsketch/reference/scale_sketch.md)
+/
+[`scale_fill_sketch()`](https://orijitghosh.github.io/ggsketch/reference/scale_sketch.md)
+use a qualitative palette
+([`sketch_palette()`](https://orijitghosh.github.io/ggsketch/reference/sketch_palette.md))
+chosen to suit the hand-drawn look:
+
+``` r
+
+ggplot(mpg, aes(displ, hwy, colour = drv)) +
+  geom_sketch_point(size = 2.5, seed = 1L) +
+  scale_colour_sketch() +
+  labs(title = "scale_colour_sketch()") +
+  theme_sketch(rough_frame = TRUE, seed = 2L)
+```
+
+![](gallery_files/figure-html/scale-discrete-1.png)
+
+For continuous data the `*_sketch_c()` variants give an ink-on-paper
+gradient:
+
+``` r
+
+ggplot(faithful, aes(eruptions, waiting, colour = waiting)) +
+  geom_sketch_point(size = 2.5, seed = 1L) +
+  scale_colour_sketch_c() +
+  labs(title = "scale_colour_sketch_c()") +
+  theme_sketch()
+```
+
+![](gallery_files/figure-html/scale-continuous-1.png)
+
+## The scribble fill
+
+`"scribble"` is one continuous winding stroke that overshoots the
+boundary, like scribbling to fill a shape:
+
+``` r
+
+ggplot(sales, aes(product, units, fill = product)) +
+  geom_sketch_col(fill_style = "scribble", seed = 3L, show.legend = FALSE) +
+  scale_fill_sketch() +
+  labs(title = "fill_style = \"scribble\"", x = NULL) +
+  theme_sketch()
+```
+
+![](gallery_files/figure-html/scribble-1.png)
+
+It works anywhere a `fill_style` is accepted. The eight styles:
+
+``` r
+
+styles <- c("hachure", "cross_hatch", "zigzag", "zigzag_line",
+            "scribble", "dots", "dashed", "solid")
+grid <- expand.grid(col = 1:4, row = 1:2)
+grid$style <- styles
+ggplot(grid) +
+  lapply(seq_len(nrow(grid)), function(i) {
+    geom_sketch_rect(
+      data = grid[i, ],
+      aes(xmin = col - 0.45, xmax = col + 0.45,
+          ymin = row - 0.4,  ymax = row + 0.4),
+      fill = "#7BAFD4", fill_style = grid$style[i], seed = i
+    )
+  }) +
+  geom_text(aes(col, row - 0.55, label = style), size = 3) +
+  coord_equal() +
+  labs(title = "The eight fill styles", x = NULL, y = NULL) +
+  theme_sketch() +
+  theme(axis.text = element_blank())
+```
+
+![](gallery_files/figure-html/fill-styles-1.png)
+
+## Reproducible handwriting fonts
+
+[`geom_sketch_text()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_text.md)
+picks up a handwriting face preinstalled on your OS, but for results
+that reproduce on any machine or CI runner, register a font file
+explicitly with
+[`register_sketch_font()`](https://orijitghosh.github.io/ggsketch/reference/register_sketch_font.md)
+and a font-aware device (ragg, svglite, cairo):
+
+``` r
+
+register_sketch_font("Caveat", "path/to/Caveat-Regular.ttf")
+
+ggplot(lab, aes(x, y, label = txt)) +
+  geom_sketch_text(family = "Caveat", size = 8) +
+  theme_sketch()
+```

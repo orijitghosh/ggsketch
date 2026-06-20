@@ -17,6 +17,7 @@
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/annotate_sketch.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/curve_fill.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/draw_key_sketch.html</loc></url>
+<url><loc>https://orijitghosh.github.io/ggsketch/reference/element_sketch_line.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/geom_sketch_abline.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/geom_sketch_bin2d.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/geom_sketch_boxplot.html</loc></url>
@@ -50,11 +51,14 @@
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/ggsketch_check_fonts.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/hachure_fill.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/index.html</loc></url>
+<url><loc>https://orijitghosh.github.io/ggsketch/reference/register_sketch_font.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/rough_bezier.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/rough_ellipse.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/roughen_polyline.html</loc></url>
+<url><loc>https://orijitghosh.github.io/ggsketch/reference/scale_sketch.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/sketch_ellipse_grob.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/sketch_fill.html</loc></url>
+<url><loc>https://orijitghosh.github.io/ggsketch/reference/sketch_palette.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/sketch_path_grob.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/sketch_polygon_grob.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/theme_sketch.html</loc></url>
