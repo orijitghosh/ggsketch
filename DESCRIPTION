@@ -27,6 +27,7 @@ Imports:
 Suggests:
     hexbin,
     knitr,
+    MASS,
     quantreg,
     ragg,
     rmarkdown,

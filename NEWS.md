@@ -9,7 +9,13 @@ New geoms (Tier 3, first batch — 2-D density and text):
 * `geom_sketch_hex()` — hexagonal binning heatmap (needs the optional `hexbin`
   package).
 * `geom_sketch_text()` and `geom_sketch_label()` — text in a handwriting font
-  (the sketch of text is the font, not roughened glyphs).
+  (the sketch of text is the font, not roughened glyphs). They now honour
+  `nudge_x`/`nudge_y` like `ggplot2::geom_text()`, and the font resolver falls
+  back to handwriting faces preinstalled on Windows/macOS (Segoe Print, Ink
+  Free, Bradley Hand, Chalkboard, Comic Sans MS, …) so a sketchy face is found
+  out of the box even when Caveat is not installed. Use a font-aware device
+  (ragg, svglite, cairo) to render the handwriting font; the base GDI `png()`
+  device may fall back to the default family.
 
 Still to come in Tier 3: filled contour / 2-D density bands
 (`*_filled`, which need multi-ring hole-aware hachure) and `geom_sketch_dotplot()`.

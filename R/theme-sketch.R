@@ -7,16 +7,38 @@
 #'
 #' Cosmetic only (ADR-0005): the sketch look comes from geometry, not fonts.
 #' Returns `""` (device default) when none of `fonts` are installed, or when
-#' `systemfonts` is not available — never errors.
+#' `systemfonts` is not available — never errors. The default list tries the
+#' preferred (brand) handwriting faces first, then falls back to handwriting
+#' fonts that ship with Windows / macOS so a sketchy face is usually found
+#' without the user installing anything.
 #' @param fonts Candidate families, tried in order.
 #' @return A single font family string (`""` = device default).
 #' @noRd
-resolve_sketch_font <- function(fonts = c("Caveat", "xkcd", "Humor Sans",
-                                          "Permanent Marker", "Indie Flower")) {
+resolve_sketch_font <- function(fonts = sketch_font_candidates()) {
   if (!requireNamespace("systemfonts", quietly = TRUE)) return("")
   sys <- systemfonts::system_fonts()
   hit <- fonts[fonts %in% sys$family]
   if (length(hit) > 0L) hit[[1L]] else ""
+}
+
+#' Default handwriting-font candidates, most preferred first
+#'
+#' Preferred (brand) faces lead, then handwriting fonts preinstalled on Windows
+#' and macOS so the resolver usually finds one without the user installing
+#' anything. `Comic Sans MS` is the last resort (near-universal).
+#' @return Character vector of font families.
+#' @noRd
+sketch_font_candidates <- function() {
+  c(
+    # preferred / brand (best match for the pkgdown theme)
+    "Caveat", "xkcd", "Humor Sans", "Permanent Marker", "Indie Flower",
+    # macOS preinstalled
+    "Chalkboard", "Chalkboard SE", "Bradley Hand",
+    # Windows preinstalled
+    "Segoe Print", "Ink Free", "Bradley Hand ITC", "Segoe Script",
+    # near-universal last resort
+    "Comic Sans MS"
+  )
 }
 
 #' A hand-drawn theme for ggplot2
@@ -105,15 +127,14 @@ theme_sketch <- function(base_size      = 11,
 #' The sketch *look* in ggsketch comes from geometry, not fonts, so this is
 #' purely cosmetic (ADR-0005).
 #'
-#' @param fonts Character vector of font families to check. Defaults to common
-#'   handwriting fonts.
+#' @param fonts Character vector of font families to check. Defaults to the
+#'   same candidate list [geom_sketch_text()] resolves against — preferred
+#'   handwriting faces first, then fonts preinstalled on Windows / macOS.
 #' @return Invisibly returns a logical vector (font available?); prints a
 #'   formatted report.
 #' @family sketch-theme
 #' @export
-ggsketch_check_fonts <- function(
-    fonts = c("xkcd", "Humor Sans", "Permanent Marker",
-              "Caveat", "Indie Flower")) {
+ggsketch_check_fonts <- function(fonts = sketch_font_candidates()) {
   if (!requireNamespace("systemfonts", quietly = TRUE)) {
     cli::cli_inform(c(
       "!" = "Install {.pkg systemfonts} to detect system fonts.",

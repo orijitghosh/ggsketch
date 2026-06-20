@@ -59,7 +59,7 @@ geom_sketch_contour <- function(mapping     = NULL,
 #' @return A `ggplot2` layer object.
 #' @family sketch-geoms
 #' @export
-#' @examples
+#' @examplesIf requireNamespace("MASS", quietly = TRUE)
 #' library(ggplot2)
 #' ggplot(faithful, aes(eruptions, waiting)) +
 #'   geom_sketch_point(colour = "grey60", seed = 1L) +

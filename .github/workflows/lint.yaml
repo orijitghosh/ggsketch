@@ -25,7 +25,7 @@ jobs:
           extra-packages: any::lintr
           needs: lint
 
-      - name: T-ARCH-01 Layer-1 purity check (no grid:: or ggplot2:: in core-*.R)
+      - name: "T-ARCH-01 Layer-1 purity check (core-*.R must not call grid/ggplot2)"
         run: |
           core_files <- list.files("R", pattern = "^core-", full.names = TRUE)
           if (length(core_files) == 0) {
@@ -35,9 +35,12 @@ jobs:
           violations <- character(0)
           for (f in core_files) {
             lines <- readLines(f)
-            bad <- grep("grid::|ggplot2::", lines, value = TRUE)
+            # Strip comments before scanning so doc comments that *mention*
+            # the rule (e.g. "# No grid::/ggplot2::") aren't false positives.
+            code <- sub("#.*$", "", lines)
+            bad <- grep("grid::|ggplot2::", code, value = TRUE)
             if (length(bad) > 0) {
-              violations <- c(violations, paste0(f, ": ", bad))
+              violations <- c(violations, paste0(f, ": ", trimws(bad)))
             }
           }
           if (length(violations) > 0) {

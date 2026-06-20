@@ -4,7 +4,14 @@
 png_render <- function(p) {
   tmp <- tempfile(fileext = ".png")
   on.exit(unlink(tmp), add = TRUE)
-  png(tmp, width = 5, height = 4, units = "in", res = 72)
+  # Prefer ragg: unlike the base GDI png() device it can resolve the
+  # handwriting font geom_sketch_text() picks, so the test is warning-free
+  # and matches how pkgdown/knitr render these geoms.
+  if (requireNamespace("ragg", quietly = TRUE)) {
+    ragg::agg_png(tmp, width = 5, height = 4, units = "in", res = 72)
+  } else {
+    png(tmp, width = 5, height = 4, units = "in", res = 72)
+  }
   print(p)
   dev.off()
   file.size(tmp)
@@ -24,6 +31,7 @@ test_that("geom_sketch_contour() builds and renders", {
 # ---- density2d --------------------------------------------------------------
 
 test_that("geom_sketch_density2d() builds and renders", {
+  skip_if_not_installed("MASS")  # stat_density_2d() uses MASS::kde2d()
   p <- ggplot2::ggplot(faithful, ggplot2::aes(eruptions, waiting)) +
     geom_sketch_density2d(seed = 1L)
   expect_no_error(ggplot2::ggplot_build(p))

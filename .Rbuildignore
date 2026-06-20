@@ -15,3 +15,4 @@
 ^\.gitignore$
 ^\.gitattributes$
 ^\.git$
+^\.claude$

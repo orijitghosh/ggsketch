@@ -72,11 +72,13 @@ analogue of \code{\link[ggplot2:geom_density_2d]{ggplot2::geom_density_2d()}} / 
 \code{x} and \code{y} aesthetics. Uses \pkg{MASS} (pulled in by ggplot2).
 }
 \examples{
+\dontshow{if (requireNamespace("MASS", quietly = TRUE)) withAutoprint(\{ # examplesIf}
 library(ggplot2)
 ggplot(faithful, aes(eruptions, waiting)) +
   geom_sketch_point(colour = "grey60", seed = 1L) +
   geom_sketch_density2d(colour = "#884EA0", seed = 2L) +
   theme_sketch()
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other sketch-geoms: 
