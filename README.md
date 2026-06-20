@@ -19,7 +19,7 @@
 ## Why another sketch package?
 
 |   | ggsketch | [ggrough](https://github.com/xvrdm/ggrough) |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | Approach | **Native ggplot2 geoms** (grid grobs) | Post-hoc convert a finished plot to SVG, redraw in HTML Canvas |
 | Output | Any device: screen / PNG / **PDF** / SVG | HTML widget only (breaks static PDF/PNG) |
 | Composes with `aes()` / stats / scales / facets | Yes | No (operates on the rendered plot) |
@@ -57,22 +57,23 @@ Every randomized routine is seeded, so a given `seed` always produces the same w
 ## The geoms
 
 | Family | Geoms |
-|------------------------------------|------------------------------------|
+|----|----|
 | Lines & points | `geom_sketch_line()`, `geom_sketch_path()`, `geom_sketch_point()` |
 | Bars & tiles | `geom_sketch_col()`, `geom_sketch_bar()`, `geom_sketch_rect()`, `geom_sketch_tile()` |
 | Areas & curves | `geom_sketch_polygon()`, `geom_sketch_ribbon()`, `geom_sketch_area()`, `geom_sketch_density()`, `geom_sketch_smooth()` |
 | Circular & composed | `geom_sketch_circle()`, `geom_sketch_ellipse()`, `geom_sketch_segment()`, `geom_sketch_step()`, `geom_sketch_boxplot()` |
 | Helpers | `annotate_sketch()`, `theme_sketch()` |
+| Frame & scales | `element_sketch_line()`, `element_sketch_rect()` (via `theme_sketch(rough_frame = TRUE)`), `scale_colour_sketch()`, `scale_fill_sketch()`, `register_sketch_font()` |
 
 ### Shared sketch parameters
 
 | Parameter | Meaning |
-|------------------------------------|------------------------------------|
+|----|----|
 | `roughness` | How far points are jittered (0 = ruler-straight, \~1 default, \>3 loose) |
 | `bowing` | How much segments bow outward |
 | `n_passes` | Overlaid strokes (2 = the classic "double stroke") |
 | `seed` | Integer for reproducible wobble |
-| `fill_style` | `"hachure"`, `"cross_hatch"`, `"zigzag"`, `"zigzag_line"`, `"dots"`, `"dashed"`, `"solid"` |
+| `fill_style` | `"hachure"`, `"cross_hatch"`, `"zigzag"`, `"zigzag_line"`, `"scribble"`, `"dots"`, `"dashed"`, `"solid"` |
 | `hachure_angle`, `hachure_gap`, `fill_weight` | Fill line angle, spacing, and weight |
 
 ## How it works

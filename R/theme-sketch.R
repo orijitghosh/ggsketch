@@ -17,7 +17,11 @@
 resolve_sketch_font <- function(fonts = sketch_font_candidates()) {
   if (!requireNamespace("systemfonts", quietly = TRUE)) return("")
   sys <- systemfonts::system_fonts()
-  hit <- fonts[fonts %in% sys$family]
+  # Also honour fonts registered via register_sketch_font() (reproducible,
+  # no OS install) — these live in the systemfonts registry, not system_fonts().
+  reg <- tryCatch(systemfonts::registry_fonts(), error = function(e) NULL)
+  available <- unique(c(sys$family, reg$family))
+  hit <- fonts[fonts %in% available]
   if (length(hit) > 0L) hit[[1L]] else ""
 }
 
@@ -58,6 +62,14 @@ sketch_font_candidates <- function() {
 #' @param base_rect_size Rect size (default `base_size / 22`).
 #' @param dark If `TRUE`, use the dark "chalkboard" preset. Default `FALSE`
 #'   (light "paper" preset).
+#' @param rough_frame If `TRUE`, draw the *frame* itself hand-drawn: the major
+#'   gridlines, panel border, and axis ticks become roughened sketch grobs (via
+#'   [element_sketch_line()] / [element_sketch_rect()]) so the whole plot — not
+#'   just the marks — looks hand-drawn. Default `FALSE`.
+#' @param roughness Roughness for the rough frame (only used when
+#'   `rough_frame = TRUE`). Default 0.5.
+#' @param seed Integer seed for the rough frame, for reproducible wobble. `NULL`
+#'   uses `getOption("ggsketch.seed", 1L)`.
 #' @return A `ggplot2::theme` object.
 #' @family sketch-theme
 #' @export
@@ -66,11 +78,15 @@ sketch_font_candidates <- function() {
 #' p <- ggplot(mtcars, aes(wt, mpg)) + geom_sketch_point(seed = 1L)
 #' p + theme_sketch()
 #' p + theme_sketch(dark = TRUE)
+#' p + theme_sketch(rough_frame = TRUE)
 theme_sketch <- function(base_size      = 11,
                           base_family    = "",
                           base_line_size = base_size / 22,
                           base_rect_size = base_size / 22,
-                          dark           = FALSE) {
+                          dark           = FALSE,
+                          rough_frame    = FALSE,
+                          roughness      = 0.5,
+                          seed           = NULL) {
   if (identical(base_family, "auto")) base_family <- resolve_sketch_font()
 
   pal <- if (dark) {
@@ -81,7 +97,7 @@ theme_sketch <- function(base_size      = 11,
          grid_major = "grey85", grid_minor = "grey92", border = "grey40")
   }
 
-  ggplot2::theme_bw(
+  t <- ggplot2::theme_bw(
     base_size      = base_size,
     base_family    = base_family,
     base_line_size = base_line_size,
@@ -119,6 +135,27 @@ theme_sketch <- function(base_size      = 11,
       legend.title      = ggplot2::element_text(colour = pal$ink),
       complete          = TRUE
     )
+
+  if (isTRUE(rough_frame)) {
+    t <- t %+replace% ggplot2::theme(
+      panel.grid.major = element_sketch_line(
+        colour = pal$grid_major, linewidth = 0.3,
+        roughness = roughness * 0.8, bowing = roughness, seed = seed
+      ),
+      panel.border = element_sketch_rect(
+        colour = pal$border, fill = NA, linewidth = 0.8,
+        roughness = roughness, bowing = roughness * 0.6,
+        seed = seed_offset(resolve_seed(seed), 9001L)
+      ),
+      axis.ticks = element_sketch_line(
+        colour = pal$border, linewidth = 0.4,
+        roughness = roughness, bowing = roughness,
+        seed = seed_offset(resolve_seed(seed), 4242L)
+      )
+    )
+  }
+
+  t
 }
 
 #' Check for optional handwriting fonts

@@ -78,6 +78,15 @@ reference:
       - annotate_sketch
       - theme_sketch
       - ggsketch_check_fonts
+      - register_sketch_font
+  - title: Sketch frame & colour scales
+    desc: >
+      Hand-drawn theme elements (gridlines, panel border, axis ticks) and a
+      matching paper-and-ink colour palette.
+    contents:
+      - element_sketch_line
+      - scale_sketch
+      - sketch_palette
   - title: Legend keys
     desc: The sketchy `draw_key` functions wired into every geom.
     contents:

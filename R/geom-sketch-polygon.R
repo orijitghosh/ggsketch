@@ -92,7 +92,7 @@ GeomSketchPolygon <- ggplot2::ggproto(
 #' @param n_passes Number of stroke passes. Default 2.
 #' @param seed Integer seed. `NULL` uses `getOption("ggsketch.seed", 1L)`.
 #' @param fill_style One of `"hachure"`, `"cross_hatch"`, `"zigzag"`,
-#'   `"zigzag_line"`, `"dots"`, `"dashed"`, or `"solid"`. Default `"hachure"`.
+#'   `"zigzag_line"`, `"scribble"`, `"dots"`, `"dashed"`, or `"solid"`. Default `"hachure"`.
 #' @param hachure_angle Fill line angle in degrees. Default 45.
 #' @param hachure_gap Fill line gap in npc units (`NULL` = 7% of diagonal).
 #' @param fill_weight Stroke weight for fill lines. Default 0.5.

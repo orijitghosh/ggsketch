@@ -9,7 +9,10 @@ theme_sketch(
   base_family = "",
   base_line_size = base_size/22,
   base_rect_size = base_size/22,
-  dark = FALSE
+  dark = FALSE,
+  rough_frame = FALSE,
+  roughness = 0.5,
+  seed = NULL
 )
 }
 \arguments{
@@ -26,6 +29,17 @@ explicit family name.}
 
 \item{dark}{If \code{TRUE}, use the dark "chalkboard" preset. Default \code{FALSE}
 (light "paper" preset).}
+
+\item{rough_frame}{If \code{TRUE}, draw the \emph{frame} itself hand-drawn: the major
+gridlines, panel border, and axis ticks become roughened sketch grobs (via
+\code{\link[=element_sketch_line]{element_sketch_line()}} / \code{\link[=element_sketch_rect]{element_sketch_rect()}}) so the whole plot — not
+just the marks — looks hand-drawn. Default \code{FALSE}.}
+
+\item{roughness}{Roughness for the rough frame (only used when
+\code{rough_frame = TRUE}). Default 0.5.}
+
+\item{seed}{Integer seed for the rough frame, for reproducible wobble. \code{NULL}
+uses \code{getOption("ggsketch.seed", 1L)}.}
 }
 \value{
 A \code{ggplot2::theme} object.
@@ -42,9 +56,14 @@ library(ggplot2)
 p <- ggplot(mtcars, aes(wt, mpg)) + geom_sketch_point(seed = 1L)
 p + theme_sketch()
 p + theme_sketch(dark = TRUE)
+p + theme_sketch(rough_frame = TRUE)
 }
 \seealso{
 Other sketch-theme: 
-\code{\link{ggsketch_check_fonts}()}
+\code{\link{element_sketch_line}()},
+\code{\link{ggsketch_check_fonts}()},
+\code{\link{register_sketch_font}()},
+\code{\link{scale_sketch}},
+\code{\link{sketch_palette}()}
 }
 \concept{sketch-theme}

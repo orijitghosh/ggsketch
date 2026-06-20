@@ -35,6 +35,8 @@ sketch_fill <- function(px, py,
                               roughness, bowing, seed),
     zigzag_line = zigzag_line_fill(px, py, hachure_gap, hachure_angle,
                                     roughness, bowing, seed),
+    scribble   = scribble_fill(px, py, hachure_gap, hachure_angle,
+                                roughness, bowing, seed),
     dots       = dots_fill(px, py, hachure_gap, hachure_angle,
                             roughness, seed),
     dashed     = dashed_fill(px, py, hachure_gap, hachure_angle,
@@ -113,6 +115,44 @@ zigzag_line_fill <- function(px, py, gap, angle, roughness, bowing, seed) {
   } else {
     list(pts)
   }
+}
+
+# ---- scribble ---------------------------------------------------------------
+
+#' Scribble fill: one continuous winding stroke that overshoots the boundary,
+#' like quickly scribbling to fill a shape by hand.
+#' @noRd
+scribble_fill <- function(px, py, gap, angle, roughness, bowing, seed) {
+  lines <- hachure_fill(px, py, gap, angle, 0, 0, seed_offset(seed, 0L))
+  if (length(lines) == 0L) return(list())
+
+  # Liveliness floor: scribbles read as scribbles even when fill roughness is low.
+  rough <- max(roughness, 0.6)
+
+  within_seed(seed_offset(seed, 2000L), {
+    pts <- vector("list", length(lines))
+    for (i in seq_along(lines)) {
+      seg <- lines[[i]]
+      a   <- seg[1L, ]
+      b   <- seg[nrow(seg), ]
+      d   <- c(b[["x"]] - a[["x"]], b[["y"]] - a[["y"]])
+      len <- sqrt(sum(d^2))
+      if (len > 1e-9) {
+        u   <- d / len
+        os  <- gap * 0.6
+        a   <- c(x = a[["x"]] - u[1L] * os * stats::runif(1L, 0.2, 1),
+                 y = a[["y"]] - u[2L] * os * stats::runif(1L, 0.2, 1))
+        b   <- c(x = b[["x"]] + u[1L] * os * stats::runif(1L, 0.2, 1),
+                 y = b[["y"]] + u[2L] * os * stats::runif(1L, 0.2, 1))
+      }
+      # Alternate direction so the stroke is continuous (boustrophedon).
+      pts[[i]] <- if (i %% 2L == 0L) rbind(b, a) else rbind(a, b)
+    }
+    path <- do.call(rbind, pts)
+    if (nrow(path) < 2L) return(list())
+    roughen_polyline(path[, "x"], path[, "y"], rough, bowing,
+                     n_passes = 1L, seed = seed_offset(seed, 3000L))
+  })
 }
 
 # ---- dots -------------------------------------------------------------------

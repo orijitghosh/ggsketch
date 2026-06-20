@@ -44,9 +44,12 @@ makeContent.SketchPathGrob <- function(x) {
     return(setChildren(x, gList(nullGrob())))
   }
 
-  # Convert npc → inches (roughening is in inch space, R4)
-  xi <- as.numeric(convertX(unit(x$x, "npc"), "inches"))
-  yi <- as.numeric(convertY(unit(x$y, "npc"), "inches"))
+  # Convert to inches (roughening is in inch space, R4). Coordinates may be
+  # plain numeric (treated as npc) or grid units (e.g. from theme elements).
+  xi <- if (is.unit(x$x)) as.numeric(convertX(x$x, "inches")) else
+    as.numeric(convertX(unit(x$x, "npc"), "inches"))
+  yi <- if (is.unit(x$y)) as.numeric(convertY(x$y, "inches")) else
+    as.numeric(convertY(unit(x$y, "npc"), "inches"))
 
   # Split into groups
   id <- x$id %||% rep(1L, length(xi))
@@ -64,7 +67,7 @@ makeContent.SketchPathGrob <- function(x) {
       # Single point — draw a tiny ellipse marker
       ci <- ci + 1L
       children[[ci]] <- circleGrob(
-        x = unit(x$x[idx], "npc"), y = unit(x$y[idx], "npc"),
+        x = unit(gx, "inches"), y = unit(gy, "inches"),
         r = unit(0.005, "npc"),
         gp = x$gp
       )

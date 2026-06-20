@@ -1,3 +1,23 @@
+# ggsketch 1.4.0
+
+"Complete the look" + fidelity. The frame can now be hand-drawn too, there's a
+matching colour palette, a new fill style, and reproducible fonts.
+
+* **Rough theme elements.** `element_sketch_line()` and `element_sketch_rect()`
+  render gridlines, panel borders, and axis ticks as roughened sketch grobs.
+  `theme_sketch(rough_frame = TRUE)` turns them on so the whole plot — not just
+  the marks — looks hand-drawn. Works on ggplot2 3.5 and 4.0 (S3 `element_grob`
+  methods; sketch params stored as attributes that survive theme merging).
+* **Sketch colour scales.** `scale_colour_sketch()` / `scale_fill_sketch()` use a
+  curated paper-and-ink qualitative palette (`sketch_palette()`); the `*_sketch_c()`
+  variants give a continuous blue gradient.
+* **New fill style `"scribble"`** — one continuous winding stroke that overshoots
+  the boundary, like quickly scribbling to fill a shape. Available everywhere a
+  `fill_style` is accepted.
+* **Reproducible fonts.** `register_sketch_font()` registers a handwriting font
+  file (via systemfonts) so the look reproduces on any machine/CI without a
+  system install; the font resolver now also finds registered fonts.
+
 # ggsketch 1.3.0
 
 New geoms (Tier 3, first batch — 2-D density and text):

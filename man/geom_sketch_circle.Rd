@@ -77,7 +77,8 @@ geom_sketch_ellipse(
 \item{seed}{Integer seed. \code{NULL} uses \code{getOption("ggsketch.seed", 1L)}.}
 
 \item{fill_style}{Fill style when \code{fill} is mapped: \code{"hachure"},
-\code{"cross_hatch"}, \code{"zigzag"}, \code{"dots"}, \code{"dashed"}. Default \code{"hachure"}.}
+\code{"cross_hatch"}, \code{"zigzag"}, \code{"scribble"}, \code{"dots"}, \code{"dashed"}. Default
+\code{"hachure"}.}
 
 \item{hachure_angle}{Fill line angle in degrees. Default 45.}
 

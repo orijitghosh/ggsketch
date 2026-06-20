@@ -599,3 +599,105 @@ ggplot(sales, aes(product, units, fill = product)) +
   labs(title = "Dark preset", x = NULL) +
   theme_sketch(dark = TRUE)
 ```
+
+## A hand-drawn frame
+
+By default `theme_sketch()` keeps the gridlines, panel border, and axis ticks
+crisp. Pass `rough_frame = TRUE` and the *frame itself* is roughened too — so the
+whole plot, not just the marks, looks drawn by hand.
+
+```{r rough-frame}
+ggplot(sales, aes(product, units)) +
+  geom_sketch_col(fill = "#7BAFD4", seed = 1L) +
+  labs(title = "Everything wobbles", x = NULL) +
+  theme_sketch(rough_frame = TRUE, seed = 1L)
+```
+
+The roughened elements are real theme elements — `element_sketch_line()` and
+`element_sketch_rect()` — so you can also drop them into any theme yourself and
+tune their `roughness`, `bowing`, and `seed`:
+
+```{r element-sketch}
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_sketch_point(seed = 1L) +
+  theme_sketch() +
+  theme(
+    panel.grid.major = element_sketch_line(roughness = 0.8, seed = 7L),
+    axis.ticks       = element_sketch_line(roughness = 0.6, seed = 8L)
+  )
+```
+
+## A matching palette
+
+`scale_colour_sketch()` / `scale_fill_sketch()` use a curated paper-and-ink
+qualitative palette (`sketch_palette()`) that suits the hand-drawn look:
+
+```{r scale-discrete}
+ggplot(mpg, aes(displ, hwy, colour = drv)) +
+  geom_sketch_point(size = 2.5, seed = 1L) +
+  scale_colour_sketch() +
+  labs(title = "scale_colour_sketch()") +
+  theme_sketch(rough_frame = TRUE, seed = 2L)
+```
+
+For continuous data the `*_sketch_c()` variants give an ink-on-paper gradient:
+
+```{r scale-continuous}
+ggplot(faithful, aes(eruptions, waiting, colour = waiting)) +
+  geom_sketch_point(size = 2.5, seed = 1L) +
+  scale_colour_sketch_c() +
+  labs(title = "scale_colour_sketch_c()") +
+  theme_sketch()
+```
+
+## The scribble fill
+
+`"scribble"` joins the fill-style family — one continuous winding stroke that
+overshoots the boundary, like quickly scribbling to fill a shape:
+
+```{r scribble}
+ggplot(sales, aes(product, units, fill = product)) +
+  geom_sketch_col(fill_style = "scribble", seed = 3L, show.legend = FALSE) +
+  scale_fill_sketch() +
+  labs(title = "fill_style = \"scribble\"", x = NULL) +
+  theme_sketch()
+```
+
+It works anywhere a `fill_style` is accepted — here are the eight styles side by
+side:
+
+```{r fill-styles}
+styles <- c("hachure", "cross_hatch", "zigzag", "zigzag_line",
+            "scribble", "dots", "dashed", "solid")
+grid <- expand.grid(col = 1:4, row = 1:2)
+grid$style <- styles
+ggplot(grid) +
+  lapply(seq_len(nrow(grid)), function(i) {
+    geom_sketch_rect(
+      data = grid[i, ],
+      aes(xmin = col - 0.45, xmax = col + 0.45,
+          ymin = row - 0.4,  ymax = row + 0.4),
+      fill = "#7BAFD4", fill_style = grid$style[i], seed = i
+    )
+  }) +
+  geom_text(aes(col, row - 0.55, label = style), size = 3) +
+  coord_equal() +
+  labs(title = "The eight fill styles", x = NULL, y = NULL) +
+  theme_sketch() +
+  theme(axis.text = element_blank())
+```
+
+## Reproducible handwriting fonts
+
+`geom_sketch_text()` picks up a handwriting face preinstalled on your OS, but for
+results that reproduce on any machine or CI runner, register a font file
+explicitly with `register_sketch_font()` and a font-aware device (ragg, svglite,
+cairo):
+
+```r
+register_sketch_font("Caveat", "path/to/Caveat-Regular.ttf")
+
+ggplot(lab, aes(x, y, label = txt)) +
+  geom_sketch_text(family = "Caveat", size = 8) +
+  theme_sketch()
+```

@@ -75,7 +75,7 @@ geom_sketch_area(
 \item{seed}{Integer seed. \code{NULL} uses \code{getOption("ggsketch.seed", 1L)}.}
 
 \item{fill_style}{One of \code{"hachure"}, \code{"cross_hatch"}, \code{"zigzag"},
-\code{"zigzag_line"}, \code{"dots"}, \code{"dashed"}, or \code{"solid"}. Default \code{"hachure"}.}
+\code{"zigzag_line"}, \code{"scribble"}, \code{"dots"}, \code{"dashed"}, or \code{"solid"}. Default \code{"hachure"}.}
 
 \item{hachure_angle}{Fill line angle in degrees. Default 45.}
 

@@ -53,6 +53,29 @@ test_that("zigzag_line fill produces a continuous zigzag path", {
   expect_gt(length(result), 0)
 })
 
+test_that("scribble fill produces a continuous winding stroke", {
+  px <- c(0, 1, 1, 0)
+  py <- c(0, 0, 1, 1)
+  result <- sketch_fill(px, py,
+    fill_style = "scribble", hachure_gap = 0.1,
+    hachure_angle = 45, roughness = 0.6, seed = 1L
+  )
+  expect_true(is.list(result))
+  expect_gt(length(result), 0)
+  for (seg in result) {
+    expect_true(is.matrix(seg))
+    expect_equal(ncol(seg), 2L)
+  }
+})
+
+test_that("scribble fill is deterministic", {
+  px <- c(0, 1, 1, 0)
+  py <- c(0, 0, 1, 1)
+  r1 <- sketch_fill(px, py, fill_style = "scribble", seed = 7L)
+  r2 <- sketch_fill(px, py, fill_style = "scribble", seed = 7L)
+  expect_identical(r1, r2)
+})
+
 test_that("dots fill produces small ellipse segments", {
   px <- c(0, 1, 1, 0)
   py <- c(0, 0, 1, 1)
@@ -198,7 +221,7 @@ test_that("dashed geometry snapshot (P3-T3)", {
 test_that("all fill styles render via sketch_polygon_grob (T-LOOK-01)", {
   skip_if_not_installed("grid")
   styles <- c("hachure", "cross_hatch", "zigzag", "zigzag_line",
-               "dots", "dashed", "solid")
+               "scribble", "dots", "dashed", "solid")
   for (style in styles) {
     g <- sketch_polygon_grob(
       x = c(0.1, 0.9, 0.9, 0.1),

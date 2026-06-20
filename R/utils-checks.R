@@ -29,7 +29,7 @@ check_non_negative <- function(x, arg = rlang::caller_arg(x),
 check_fill_style <- function(x, arg = rlang::caller_arg(x),
                               call = rlang::caller_env()) {
   choices <- c("hachure", "cross_hatch", "zigzag", "zigzag_line",
-               "dots", "dashed", "solid")
+               "scribble", "dots", "dashed", "solid")
   if (!is.character(x) || length(x) != 1L || !x %in% choices) {
     cli::cli_abort(
       "{.arg {arg}} must be one of {.or {choices}}, not {.val {x}}.",
