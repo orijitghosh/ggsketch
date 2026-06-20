@@ -3,8 +3,8 @@
 > Grammar-native, hand-drawn geoms for **ggplot2** - the rough.js sketch
 > aesthetic in **pure R**, with no JavaScript and no browser.
 
-![A sketchy hachure-filled bar chart titled
-ggsketch](reference/figures/README-hero.png)
+![Sketchy hachure-filled violin plots of highway mpg by vehicle class,
+with a handwriting-font title](reference/figures/README-hero.png)
 
 `ggsketch` gives you ggplot2 geoms
 ([`geom_sketch_col()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_col.md),
@@ -71,12 +71,12 @@ the sketch colour palette, and a roughened linear fit:
 points, and linear fits coloured by
 drivetrain](reference/figures/README-showcase.png)
 
-The same look across distributions and fills — hachure-filled violins
-and the new `"scribble"` fill, both on the sketch palette:
+Overlapping densities and the new `"scribble"` fill, both on the sketch
+palette:
 
 |  |  |
 |----|----|
-| ![Hachure-filled sketch violin plots of highway mpg by vehicle class](reference/figures/README-violin.png) | ![Scribble-filled sketch bar chart](reference/figures/README-bars.png) |
+| ![Overlapping sketch density curves of highway mpg by drivetrain](reference/figures/README-density.png) | ![Scribble-filled sketch bar chart](reference/figures/README-bars.png) |
 
 A filled area and line over time, again with a roughened frame:
 
