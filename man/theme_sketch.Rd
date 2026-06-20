@@ -32,8 +32,8 @@ explicit family name.}
 
 \item{rough_frame}{If \code{TRUE}, draw the \emph{frame} itself hand-drawn: the major
 gridlines, panel border, and axis ticks become roughened sketch grobs (via
-\code{\link[=element_sketch_line]{element_sketch_line()}} / \code{\link[=element_sketch_rect]{element_sketch_rect()}}) so the whole plot — not
-just the marks — looks hand-drawn. Default \code{FALSE}.}
+\code{\link[=element_sketch_line]{element_sketch_line()}} / \code{\link[=element_sketch_rect]{element_sketch_rect()}}) so the frame matches the
+marks. Default \code{FALSE}.}
 
 \item{roughness}{Roughness for the rough frame (only used when
 \code{rough_frame = TRUE}). Default 0.5.}
@@ -45,8 +45,8 @@ uses \code{getOption("ggsketch.seed", 1L)}.}
 A \code{ggplot2::theme} object.
 }
 \description{
-A sketch-style theme based on \code{\link[ggplot2:ggtheme]{ggplot2::theme_bw()}} with a paper-and-ink
-palette that complements the rough geoms.  Light (default) and dark presets
+A sketch-style theme based on \code{\link[ggplot2:ggtheme]{ggplot2::theme_bw()}} with a muted palette to
+match the rough geoms.  Light (default) and dark presets
 are available via \code{dark}.  The sketchiness of the \emph{marks} comes from the
 geoms themselves; this theme styles the surrounding frame, typography, and
 background.

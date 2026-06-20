@@ -1,4 +1,4 @@
-# Layer 3 — rough theme elements (v1.4 "complete the look")
+# Layer 3 — rough theme elements (v1.4)
 # Hand-drawn gridlines, panel borders and axis ticks. `element_grob()` is an S3
 # generic (UseMethod) in both ggplot2 3.5 and 4.0, so we prepend an
 # "element_sketch_*" S3 class to a normal element and supply the method. ggplot2

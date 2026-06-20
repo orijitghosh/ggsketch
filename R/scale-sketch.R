@@ -1,7 +1,7 @@
 # Layer 3 — sketch colour/fill scales (v1.4)
-# A curated qualitative palette + a continuous gradient that match the
-# paper-and-ink identity (primary Carolina blue #7BAFD4). Chosen to stay
-# reasonably distinguishable for common colour-vision deficiencies.
+# A qualitative palette + a continuous gradient built around the package
+# primary (Carolina blue #7BAFD4). Chosen to stay reasonably distinguishable
+# for common colour-vision deficiencies.
 # (ADR-0011 cut the fill-*pattern* scale from v1; this is a colour scale.)
 
 #' The ggsketch qualitative colour palette
@@ -49,8 +49,8 @@ sketch_gradient <- function() c("#EAF3FA", "#7BAFD4", "#34536B")
 
 #' Sketch colour and fill scales
 #'
-#' Discrete scales (`scale_colour_sketch()`, `scale_fill_sketch()`) use the
-#' curated [sketch_palette()]; the continuous variants (`*_sketch_c()`) use a
+#' Discrete scales (`scale_colour_sketch()`, `scale_fill_sketch()`) use
+#' [sketch_palette()]; the continuous variants (`*_sketch_c()`) use a
 #' paper-to-ink blue gradient. They pair with [theme_sketch()] and the sketch
 #' geoms but work with any ggplot2 layer.
 #'

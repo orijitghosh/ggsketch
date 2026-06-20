@@ -1,7 +1,7 @@
 # Layer 3 — theme_sketch() (P2-T5, P6-T1)
 # Typography + panel aesthetics with light and dark presets. The sketch *look*
 # of the marks comes from the geoms (Layer 2 rough grobs); the theme provides a
-# complementary paper-and-ink palette.
+# matching muted palette.
 
 #' Pick the first available handwriting font, or fall back to the device default
 #'
@@ -47,8 +47,8 @@ sketch_font_candidates <- function() {
 
 #' A hand-drawn theme for ggplot2
 #'
-#' A sketch-style theme based on [ggplot2::theme_bw()] with a paper-and-ink
-#' palette that complements the rough geoms.  Light (default) and dark presets
+#' A sketch-style theme based on [ggplot2::theme_bw()] with a muted palette to
+#' match the rough geoms.  Light (default) and dark presets
 #' are available via `dark`.  The sketchiness of the *marks* comes from the
 #' geoms themselves; this theme styles the surrounding frame, typography, and
 #' background.
@@ -64,8 +64,8 @@ sketch_font_candidates <- function() {
 #'   (light "paper" preset).
 #' @param rough_frame If `TRUE`, draw the *frame* itself hand-drawn: the major
 #'   gridlines, panel border, and axis ticks become roughened sketch grobs (via
-#'   [element_sketch_line()] / [element_sketch_rect()]) so the whole plot — not
-#'   just the marks — looks hand-drawn. Default `FALSE`.
+#'   [element_sketch_line()] / [element_sketch_rect()]) so the frame matches the
+#'   marks. Default `FALSE`.
 #' @param roughness Roughness for the rough frame (only used when
 #'   `rough_frame = TRUE`). Default 0.5.
 #' @param seed Integer seed for the rough frame, for reproducible wobble. `NULL`

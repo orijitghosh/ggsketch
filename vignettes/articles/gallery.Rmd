@@ -31,8 +31,8 @@ scales, facets, and coords — and renders on any device. Every example sets a
 
 ## Bars and columns
 
-`geom_sketch_col()` is the signature geom: a roughened outline with a hachure
-(pencil-shading) fill.
+`geom_sketch_col()` draws a roughened outline with a hachure (pencil-shading)
+fill.
 
 ```{r col-basic}
 sales <- data.frame(product = c("Alpha", "Bravo", "Charlie", "Delta", "Echo"),
@@ -317,8 +317,8 @@ ggplot(mpg, aes(displ, hwy)) +
 
 ## Function curves
 
-`geom_sketch_function()` sketches an analytic curve over the x range — handy for
-teaching or overlaying a theoretical density.
+`geom_sketch_function()` sketches an analytic curve over the x range, for example
+to overlay a theoretical density.
 
 ```{r function}
 ggplot(data.frame(x = c(-4, 4)), aes(x)) +
@@ -603,8 +603,8 @@ ggplot(sales, aes(product, units, fill = product)) +
 ## A hand-drawn frame
 
 By default `theme_sketch()` keeps the gridlines, panel border, and axis ticks
-crisp. Pass `rough_frame = TRUE` and the *frame itself* is roughened too — so the
-whole plot, not just the marks, looks drawn by hand.
+crisp. Pass `rough_frame = TRUE` and the frame is roughened too, so it matches
+the marks.
 
 ```{r rough-frame}
 ggplot(sales, aes(product, units)) +
@@ -629,8 +629,8 @@ ggplot(mtcars, aes(wt, mpg)) +
 
 ## A matching palette
 
-`scale_colour_sketch()` / `scale_fill_sketch()` use a curated paper-and-ink
-qualitative palette (`sketch_palette()`) that suits the hand-drawn look:
+`scale_colour_sketch()` / `scale_fill_sketch()` use a qualitative palette
+(`sketch_palette()`) chosen to suit the hand-drawn look:
 
 ```{r scale-discrete}
 ggplot(mpg, aes(displ, hwy, colour = drv)) +
@@ -652,8 +652,8 @@ ggplot(faithful, aes(eruptions, waiting, colour = waiting)) +
 
 ## The scribble fill
 
-`"scribble"` joins the fill-style family — one continuous winding stroke that
-overshoots the boundary, like quickly scribbling to fill a shape:
+`"scribble"` is one continuous winding stroke that overshoots the boundary, like
+scribbling to fill a shape:
 
 ```{r scribble}
 ggplot(sales, aes(product, units, fill = product)) +
@@ -663,8 +663,7 @@ ggplot(sales, aes(product, units, fill = product)) +
   theme_sketch()
 ```
 
-It works anywhere a `fill_style` is accepted — here are the eight styles side by
-side:
+It works anywhere a `fill_style` is accepted. The eight styles:
 
 ```{r fill-styles}
 styles <- c("hachure", "cross_hatch", "zigzag", "zigzag_line",

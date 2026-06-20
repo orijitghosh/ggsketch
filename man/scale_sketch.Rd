@@ -32,8 +32,8 @@ scale_fill_sketch_c(..., aesthetics = "fill")
 A ggplot2 scale object.
 }
 \description{
-Discrete scales (\code{scale_colour_sketch()}, \code{scale_fill_sketch()}) use the
-curated \code{\link[=sketch_palette]{sketch_palette()}}; the continuous variants (\verb{*_sketch_c()}) use a
+Discrete scales (\code{scale_colour_sketch()}, \code{scale_fill_sketch()}) use
+\code{\link[=sketch_palette]{sketch_palette()}}; the continuous variants (\verb{*_sketch_c()}) use a
 paper-to-ink blue gradient. They pair with \code{\link[=theme_sketch]{theme_sketch()}} and the sketch
 geoms but work with any ggplot2 layer.
 }

@@ -14,7 +14,7 @@
 
 </p>
 
-`ggsketch` gives you first-class ggplot2 geoms (`geom_sketch_col()`, `geom_sketch_line()`, `geom_sketch_point()`, …) that render with a wobbly, hand-drawn look: roughened double-stroke outlines and hachure / cross-hatch / zigzag / dots / dashed fills. Because the geoms are real grid grobs wrapped in `ggproto`, they compose with `aes()`, stats, scales, facets, and coords, and draw correctly on **every** R graphics device — screen, PNG, PDF, and SVG.
+`ggsketch` gives you ggplot2 geoms (`geom_sketch_col()`, `geom_sketch_line()`, `geom_sketch_point()`, …) that render with a wobbly, hand-drawn look: roughened double-stroke outlines and hachure / cross-hatch / zigzag / dots / dashed fills. Because the geoms are real grid grobs wrapped in `ggproto`, they compose with `aes()`, stats, scales, facets, and coords, and draw correctly on **every** R graphics device — screen, PNG, PDF, and SVG.
 
 ## Why another sketch package?
 
