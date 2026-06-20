@@ -54,6 +54,29 @@ ggplot(df, aes(product, units)) +
 
 Every randomized routine is seeded, so a given `seed` always produces the same wobble — your plots are reproducible. Set a session-wide default with `options(ggsketch.seed = 1L)`.
 
+## Showcase
+
+A scatter with a hand-drawn frame (`theme_sketch(rough_frame = TRUE)`), the sketch colour palette, and a roughened linear fit:
+
+<p align="center">
+<img src="man/figures/README-showcase.png" alt="Sketchy scatter of fuel economy with hand-drawn gridlines, roughened points, and linear fits coloured by drivetrain" width="100%"/>
+</p>
+
+The same look across distributions and fills — hachure-filled violins and the new `"scribble"` fill, both on the sketch palette:
+
+<table>
+<tr>
+<td width="50%"><img src="man/figures/README-violin.png" alt="Hachure-filled sketch violin plots of highway mpg by vehicle class" width="100%"/></td>
+<td width="50%"><img src="man/figures/README-bars.png" alt="Scribble-filled sketch bar chart" width="100%"/></td>
+</tr>
+</table>
+
+A filled area and line over time, again with a roughened frame:
+
+<p align="center">
+<img src="man/figures/README-area.png" alt="Sketchy hachure-filled area and line chart of US unemployment over time" width="100%"/>
+</p>
+
 ## The geoms
 
 | Family | Geoms |
