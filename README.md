@@ -1,9 +1,3 @@
----
-editor_options: 
-  markdown: 
-    wrap: 72
----
-
 # ggsketch <img src="man/figures/logo.png" alt="ggsketch hex logo" align="right" height="139"/>
 
 <!-- badges: start -->
