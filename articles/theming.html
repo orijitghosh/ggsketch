@@ -137,19 +137,58 @@ face for the text adds to it. Pass a family name to
 <code>base_family</code>, or use <code>"auto"</code> to pick the first
 installed handwriting font (falling back to the device default if none
 are found).</p>
+<div class="section level3">
+<h3 id="what-they-look-like">What they look like<a class="anchor" aria-label="anchor" href="#what-they-look-like"></a>
+</h3>
+<p>A few handwriting faces that pair well with the geoms — Google Fonts
+like <a href="https://fonts.google.com/specimen/Caveat" class="external-link">Caveat</a>, <a href="https://fonts.google.com/specimen/Permanent+Marker" class="external-link">Permanent
+Marker</a>, and <a href="https://fonts.google.com/specimen/Indie+Flower" class="external-link">Indie Flower</a>,
+plus the handwriting fonts that ship with Windows and macOS (Segoe
+Print, Ink Free, Bradley Hand, Chalkboard, Comic Sans MS). The specimen
+below renders whichever of those are installed on the build machine.</p>
+<p><em>No handwriting fonts were found on the build machine, so the
+specimen is skipped. Install one of the faces above (or register one —
+see below) to see it here.</em></p>
+</div>
+<div class="section level3">
+<h3 id="using-one">Using one<a class="anchor" aria-label="anchor" href="#using-one"></a>
+</h3>
+<p>Pass <code>base_family = "auto"</code> to style the whole theme with
+the first installed handwriting font; <code><a href="../reference/geom_sketch_text.html">geom_sketch_text()</a></code>
+picks it up the same way.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">sales</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">product</span>, <span class="va">units</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_sketch_col.html">geom_sketch_col</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"#7BAFD4"</span>, seed <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_sketch_text.html">geom_sketch_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">units</span><span class="op">)</span>, nudge_y <span class="op">=</span> <span class="fl">2.5</span>, size <span class="op">=</span> <span class="fl">6</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"base_family = \"auto\""</span>, x <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/theme_sketch.html">theme_sketch</a></span><span class="op">(</span>base_family <span class="op">=</span> <span class="st">"auto"</span><span class="op">)</span></span></code></pre></div>
 <p>Check what is available on your machine:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggsketch_check_fonts.html">ggsketch_check_fonts</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Available handwriting fonts:</span></span>
 <span><span class="co">#&gt;   Caveat</span></span></code></pre></div>
-<p><code><a href="../reference/ggsketch_check_fonts.html">ggsketch_check_fonts()</a></code> needs the optional
+</div>
+<div class="section level3">
+<h3 id="reproducible-fonts">Reproducible fonts<a class="anchor" aria-label="anchor" href="#reproducible-fonts"></a>
+</h3>
+<p>To get the <em>same</em> face on any machine or CI runner — without
+relying on a system install — download a font once (e.g. Caveat from
+Google Fonts) and register it with <code><a href="../reference/register_sketch_font.html">register_sketch_font()</a></code>,
+then render with a font-aware device (ragg, svglite, cairo):</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/register_sketch_font.html">register_sketch_font</a></span><span class="op">(</span><span class="st">"Caveat"</span>, <span class="st">"~/fonts/Caveat-Regular.ttf"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">sales</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">product</span>, <span class="va">units</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_sketch_col.html">geom_sketch_col</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"#7BAFD4"</span>, seed <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_sketch_text.html">geom_sketch_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">units</span><span class="op">)</span>, family <span class="op">=</span> <span class="st">"Caveat"</span>, nudge_y <span class="op">=</span> <span class="fl">2.5</span>, size <span class="op">=</span> <span class="fl">6</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Registered font"</span>, x <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/theme_sketch.html">theme_sketch</a></span><span class="op">(</span>base_family <span class="op">=</span> <span class="st">"Caveat"</span><span class="op">)</span></span></code></pre></div>
+<p><code><a href="../reference/ggsketch_check_fonts.html">ggsketch_check_fonts()</a></code> and
+<code><a href="../reference/register_sketch_font.html">register_sketch_font()</a></code> need the optional
 <code>systemfonts</code> package; without it (or without any handwriting
 font), everything still renders with the device default — ggsketch never
 makes fonts a hard dependency.</p>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

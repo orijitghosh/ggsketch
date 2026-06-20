@@ -58,10 +58,33 @@ text adds to it. Pass a family name to `base_family`, or use `"auto"` to
 pick the first installed handwriting font (falling back to the device
 default if none are found).
 
+### What they look like
+
+A few handwriting faces that pair well with the geoms — Google Fonts
+like [Caveat](https://fonts.google.com/specimen/Caveat), [Permanent
+Marker](https://fonts.google.com/specimen/Permanent+Marker), and [Indie
+Flower](https://fonts.google.com/specimen/Indie+Flower), plus the
+handwriting fonts that ship with Windows and macOS (Segoe Print, Ink
+Free, Bradley Hand, Chalkboard, Comic Sans MS). The specimen below
+renders whichever of those are installed on the build machine.
+
+*No handwriting fonts were found on the build machine, so the specimen
+is skipped. Install one of the faces above (or register one — see below)
+to see it here.*
+
+### Using one
+
+Pass `base_family = "auto"` to style the whole theme with the first
+installed handwriting font;
+[`geom_sketch_text()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_text.md)
+picks it up the same way.
+
 ``` r
 
 ggplot(sales, aes(product, units)) +
   geom_sketch_col(fill = "#7BAFD4", seed = 1L) +
+  geom_sketch_text(aes(label = units), nudge_y = 2.5, size = 6) +
+  labs(title = "base_family = \"auto\"", x = NULL) +
   theme_sketch(base_family = "auto")
 ```
 
@@ -74,7 +97,28 @@ ggsketch_check_fonts()
 #>   Caveat
 ```
 
+### Reproducible fonts
+
+To get the *same* face on any machine or CI runner — without relying on
+a system install — download a font once (e.g. Caveat from Google Fonts)
+and register it with
+[`register_sketch_font()`](https://orijitghosh.github.io/ggsketch/reference/register_sketch_font.md),
+then render with a font-aware device (ragg, svglite, cairo):
+
+``` r
+
+register_sketch_font("Caveat", "~/fonts/Caveat-Regular.ttf")
+
+ggplot(sales, aes(product, units)) +
+  geom_sketch_col(fill = "#7BAFD4", seed = 1L) +
+  geom_sketch_text(aes(label = units), family = "Caveat", nudge_y = 2.5, size = 6) +
+  labs(title = "Registered font", x = NULL) +
+  theme_sketch(base_family = "Caveat")
+```
+
 [`ggsketch_check_fonts()`](https://orijitghosh.github.io/ggsketch/reference/ggsketch_check_fonts.md)
-needs the optional `systemfonts` package; without it (or without any
+and
+[`register_sketch_font()`](https://orijitghosh.github.io/ggsketch/reference/register_sketch_font.md)
+need the optional `systemfonts` package; without it (or without any
 handwriting font), everything still renders with the device default —
 ggsketch never makes fonts a hard dependency.
