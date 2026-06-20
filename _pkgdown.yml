@@ -13,7 +13,7 @@ template:
   opengraph:
     image:
       src: man/figures/README-hero.png
-      alt: "A sketchy hachure-filled bar chart titled ggsketch"
+      alt: "Sketchy hachure-filled violin plots of highway mpg by vehicle class"
 
 home:
   title: "ggsketch — hand-drawn geoms for ggplot2"
