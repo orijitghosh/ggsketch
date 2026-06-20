@@ -1,3 +1,35 @@
+# ggsketch 1.3.0
+
+New geoms (Tier 3, first batch — 2-D density and text):
+
+* `geom_sketch_contour()` — hand-drawn contour lines of a surface (via
+  `stat_contour`).
+* `geom_sketch_density2d()` / `geom_sketch_density_2d()` — 2-D kernel-density
+  contour lines (via `stat_density_2d`).
+* `geom_sketch_hex()` — hexagonal binning heatmap (needs the optional `hexbin`
+  package).
+* `geom_sketch_text()` and `geom_sketch_label()` — text in a handwriting font
+  (the sketch of text is the font, not roughened glyphs).
+
+Still to come in Tier 3: filled contour / 2-D density bands
+(`*_filled`, which need multi-ring hole-aware hachure) and `geom_sketch_dotplot()`.
+
+# ggsketch 1.2.0
+
+New geoms (Tier 2 coverage — more stats and connectors; reuse existing grobs,
+one new optional dependency):
+
+* `geom_sketch_count()` — points sized by overplot count (via `stat_sum`).
+* `geom_sketch_function()` — sketch a function curve (via `stat_function`).
+* `geom_sketch_qq()` and `geom_sketch_qq_line()` — quantile-quantile points and
+  reference line.
+* `geom_sketch_quantile()` — quantile regression lines (needs the optional
+  `quantreg` package).
+* `geom_sketch_rug()` — marginal ticks along the panel edges (`sides`).
+* `geom_sketch_spoke()` — segments from `(x, y)` by `angle` + `radius`.
+* `geom_sketch_curve()` — hand-drawn curved connector (quadratic Bezier).
+* `geom_sketch_bin2d()` / `geom_sketch_bin_2d()` — rectangular 2-D bin heatmap.
+
 # ggsketch 1.1.0
 
 New geoms (Tier 1 coverage — all reuse the existing grobs and base ggplot2

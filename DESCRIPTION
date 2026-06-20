@@ -1,6 +1,6 @@
 Package: ggsketch
 Title: Grammar-Native Hand-Drawn Geoms for ggplot2
-Version: 1.1.0
+Version: 1.3.0
 Authors@R:
     person("Arijit", "Ghosh", email = "arijitghosh2009@gmail.com",
            role = c("aut", "cre"))
@@ -25,7 +25,9 @@ Imports:
     scales (>= 1.2.0),
     withr (>= 2.5.0)
 Suggests:
+    hexbin,
     knitr,
+    quantreg,
     ragg,
     rmarkdown,
     svglite,

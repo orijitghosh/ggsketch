@@ -2,7 +2,8 @@
 title: "Gallery — every geom"
 description: >
   A tour of every ggsketch geom with runnable examples, from bars and lines to
-  boxplots, ribbons, circles, and annotations.
+  histograms, violins, intervals, Q-Q plots, quantile fits, reference lines,
+  curves, and annotations.
 ---
 
 ```{r setup, include = FALSE}
@@ -74,6 +75,25 @@ ggplot(sales, aes(reorder(product, units), units)) +
   theme_sketch()
 ```
 
+## Histograms and frequency polygons
+
+`geom_sketch_histogram()` bins a continuous variable and draws hand-drawn bars;
+`geom_sketch_freqpoly()` draws the same counts as a roughened line.
+
+```{r histogram}
+ggplot(faithful, aes(eruptions)) +
+  geom_sketch_histogram(fill = "#7BAFD4", bins = 20, seed = 1L) +
+  labs(title = "Old Faithful eruption times") +
+  theme_sketch()
+```
+
+```{r freqpoly}
+ggplot(mpg, aes(hwy, colour = drv)) +
+  geom_sketch_freqpoly(bins = 15, linewidth = 0.9, seed = 2L) +
+  labs(title = "Highway mpg by drivetrain", x = "hwy") +
+  theme_sketch()
+```
+
 ## Lines, paths, and points
 
 ```{r line}
@@ -114,6 +134,65 @@ ggplot(ggplot2::economics_long, aes(date, value01, colour = variable)) +
   theme_sketch()
 ```
 
+## Point sizes
+
+`size` behaves like any ggplot2 point size. Set it to a constant for bigger or
+smaller markers:
+
+```{r point-size-fixed}
+sz <- data.frame(x = 1:5, y = 1, s = c(2, 4, 6, 9, 13))
+ggplot(sz, aes(x, y)) +
+  geom_sketch_point(size = sz$s, colour = "#2E86C1", seed = 1L) +
+  labs(title = "Fixed point sizes (2 → 13)", x = NULL, y = NULL) +
+  theme_sketch()
+```
+
+Or map `size` to a variable for a bubble chart — pair it with
+`scale_size_area()` so the *area* (not radius) encodes the value:
+
+```{r point-size-mapped}
+ggplot(mtcars, aes(wt, mpg, size = hp, colour = factor(cyl))) +
+  geom_sketch_point(alpha = 0.9, seed = 2L) +
+  scale_size_area("horsepower", max_size = 14) +
+  scale_colour_brewer("cylinders", palette = "Dark2") +
+  labs(title = "Bubble chart: size = horsepower") +
+  theme_sketch()
+```
+
+A small-multiples sweep of a single size aesthetic:
+
+```{r point-size-grid}
+grid <- expand.grid(x = 1:6, y = 1:3)
+grid$s <- seq(1.5, 11, length.out = nrow(grid))
+ggplot(grid, aes(x, y, size = s)) +
+  geom_sketch_point(colour = "#884EA0", show.legend = FALSE, seed = 3L) +
+  scale_size_identity() +
+  labs(title = "Increasing point size", x = NULL, y = NULL) +
+  theme_sketch()
+```
+
+## Jitter and count
+
+`geom_sketch_jitter()` spreads overplotted points; `geom_sketch_count()` sizes a
+single point by how many observations sit there.
+
+```{r jitter}
+ggplot(mpg, aes(class, hwy)) +
+  geom_sketch_jitter(width = 0.2, height = 0, colour = "#5D6D7E",
+                     size = 2, seed = 1L) +
+  labs(title = "Jittered highway mpg", x = NULL) +
+  theme_sketch() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+```
+
+```{r count}
+ggplot(mpg, aes(cty, hwy)) +
+  geom_sketch_count(colour = "#C0392B", seed = 2L) +
+  scale_size_area(max_size = 8) +
+  labs(title = "Overplot count") +
+  theme_sketch()
+```
+
 ## Rectangles and tiles
 
 ```{r rect}
@@ -136,6 +215,27 @@ ggplot(td, aes(x, y, fill = z)) +
   geom_sketch_tile(seed = 2L, hachure_gap = 0.18) +
   scale_fill_viridis_c() +
   labs(title = "geom_sketch_tile()") +
+  theme_sketch()
+```
+
+A sketchy 2-D bin heatmap with `geom_sketch_bin2d()` (cells default to a hachure
+fill, shaded by count):
+
+```{r bin2d}
+ggplot(faithful, aes(eruptions, waiting)) +
+  geom_sketch_bin2d(bins = 12, seed = 3L) +
+  scale_fill_viridis_c() +
+  labs(title = "geom_sketch_bin2d()") +
+  theme_sketch()
+```
+
+`geom_sketch_hex()` bins into hexagons instead (needs the **hexbin** package):
+
+```{r hex, eval = requireNamespace("hexbin", quietly = TRUE)}
+ggplot(faithful, aes(eruptions, waiting)) +
+  geom_sketch_hex(bins = 12, seed = 4L) +
+  scale_fill_viridis_c(option = "magma") +
+  labs(title = "geom_sketch_hex()") +
   theme_sketch()
 ```
 
@@ -181,6 +281,20 @@ ggplot(faithful, aes(eruptions)) +
   theme_sketch()
 ```
 
+## Violins
+
+`geom_sketch_violin()` mirrors a kernel density into a closed polygon and
+hachure-fills it.
+
+```{r violin}
+ggplot(mpg, aes(class, hwy, fill = class)) +
+  geom_sketch_violin(seed = 1L, show.legend = FALSE) +
+  scale_fill_brewer(palette = "Set3") +
+  labs(title = "Highway mpg distribution by class", x = NULL) +
+  theme_sketch() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+```
+
 ## Smooths
 
 A hand-drawn fit with a roughened confidence band:
@@ -198,6 +312,48 @@ ggplot(mpg, aes(displ, hwy)) +
   geom_sketch_point(colour = "grey50", seed = 1L) +
   geom_sketch_smooth(seed = 2L, colour = "darkorange") +
   labs(title = "loess fit") +
+  theme_sketch()
+```
+
+## Function curves
+
+`geom_sketch_function()` sketches an analytic curve over the x range — handy for
+teaching or overlaying a theoretical density.
+
+```{r function}
+ggplot(data.frame(x = c(-4, 4)), aes(x)) +
+  geom_sketch_function(fun = dnorm, colour = "#2E86C1", linewidth = 0.9,
+                       seed = 1L) +
+  geom_sketch_function(fun = dnorm, args = list(sd = 1.6),
+                       colour = "#C0392B", linewidth = 0.9, seed = 2L) +
+  labs(title = "Two normal densities", y = "density") +
+  theme_sketch()
+```
+
+## Q-Q plots
+
+`geom_sketch_qq()` draws the quantile-quantile points and `geom_sketch_qq_line()`
+the reference line. Map data to the `sample` aesthetic.
+
+```{r qq}
+ggplot(mtcars, aes(sample = mpg)) +
+  geom_sketch_qq(size = 2.5, seed = 1L) +
+  geom_sketch_qq_line(colour = "#C8553D", linewidth = 0.8, seed = 2L) +
+  labs(title = "Normal Q-Q plot of mpg", x = "theoretical", y = "sample") +
+  theme_sketch()
+```
+
+## Quantile regression
+
+`geom_sketch_quantile()` fits and draws quantile regression lines (requires the
+optional **quantreg** package).
+
+```{r quantile, eval = requireNamespace("quantreg", quietly = TRUE)}
+ggplot(mpg, aes(displ, hwy)) +
+  geom_sketch_point(colour = "grey60", seed = 1L) +
+  geom_sketch_quantile(quantiles = c(0.1, 0.5, 0.9), colour = "#6C3483",
+                       linewidth = 0.9, seed = 2L) +
+  labs(title = "10th / 50th / 90th percentile fits") +
   theme_sketch()
 ```
 
@@ -242,6 +398,139 @@ ggplot(stp, aes(x, y)) +
   geom_sketch_step(colour = "purple", linewidth = 1, seed = 4L) +
   geom_sketch_point(seed = 5L) +
   labs(title = "geom_sketch_step()") +
+  theme_sketch()
+```
+
+## Curves and spokes
+
+`geom_sketch_curve()` is a curved connector (a quadratic Bézier); `curvature`
+sets how much it bends.
+
+```{r curve}
+cdf <- data.frame(x = c(1, 1, 1), y = c(1, 2, 3),
+                  xend = c(4, 4, 4), yend = c(1, 2, 3))
+ggplot(cdf, aes(x, y)) +
+  geom_sketch_curve(aes(xend = xend, yend = yend), curvature = 0.4,
+                    colour = "#1A5276", linewidth = 0.9, seed = 1L) +
+  geom_sketch_point(seed = 2L) +
+  geom_sketch_point(aes(x = xend, y = yend), seed = 3L) +
+  labs(title = "geom_sketch_curve()") +
+  theme_sketch()
+```
+
+`geom_sketch_spoke()` draws a segment from each point by `angle` and `radius` —
+useful for vector fields.
+
+```{r spoke}
+field <- expand.grid(x = 1:6, y = 1:6)
+field$angle  <- with(field, atan2(y - 3.5, x - 3.5))
+field$radius <- 0.6
+ggplot(field, aes(x, y)) +
+  geom_sketch_spoke(aes(angle = angle, radius = radius),
+                    colour = "#117A65", seed = 1L) +
+  geom_sketch_point(size = 1.5, seed = 2L) +
+  coord_equal() +
+  labs(title = "geom_sketch_spoke()") +
+  theme_sketch()
+```
+
+## Rugs
+
+`geom_sketch_rug()` adds marginal ticks along the panel edges (`sides`).
+
+```{r rug}
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_sketch_point(colour = "#2C3E50", seed = 1L) +
+  geom_sketch_rug(sides = "bl", colour = "#7B241C", seed = 2L) +
+  labs(title = "Scatter with marginal rug") +
+  theme_sketch()
+```
+
+## Intervals and uncertainty
+
+The interval family draws hand-drawn ranges: `geom_sketch_linerange()`,
+`geom_sketch_pointrange()`, `geom_sketch_errorbar()`, and
+`geom_sketch_crossbar()`.
+
+```{r intervals}
+est <- data.frame(
+  group = c("A", "B", "C", "D"),
+  mean  = c(4.1, 5.6, 3.2, 6.0),
+  lo    = c(3.2, 4.9, 2.4, 5.1),
+  hi    = c(5.0, 6.4, 4.1, 6.8)
+)
+ggplot(est, aes(group, mean)) +
+  geom_sketch_pointrange(aes(ymin = lo, ymax = hi), colour = "#1F618D",
+                         seed = 1L) +
+  labs(title = "Point estimates with 95% intervals", x = NULL) +
+  theme_sketch()
+```
+
+```{r errorbar}
+ggplot(est, aes(group, mean)) +
+  geom_sketch_col(fill = "#AED6F1", width = 0.6, seed = 1L) +
+  geom_sketch_errorbar(aes(ymin = lo, ymax = hi), width = 0.3, seed = 2L) +
+  labs(title = "Bars with error bars", x = NULL) +
+  theme_sketch()
+```
+
+```{r crossbar}
+ggplot(est, aes(group, mean)) +
+  geom_sketch_crossbar(aes(ymin = lo, ymax = hi), fill = "#FCF3CF",
+                       fill_style = "hachure", seed = 3L) +
+  labs(title = "geom_sketch_crossbar()", x = NULL) +
+  theme_sketch()
+```
+
+## Reference lines
+
+`geom_sketch_abline()`, `geom_sketch_hline()`, and `geom_sketch_vline()` span the
+panel with a gentle wobble.
+
+```{r reference}
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_sketch_point(seed = 1L) +
+  geom_sketch_hline(yintercept = 20, colour = "#C0392B", seed = 2L) +
+  geom_sketch_vline(xintercept = 3.3, colour = "#2471A3", seed = 3L) +
+  geom_sketch_abline(slope = -5, intercept = 37, colour = "#117864",
+                     linetype = 2, seed = 4L) +
+  labs(title = "Reference lines") +
+  theme_sketch()
+```
+
+## Contours and 2-D density
+
+`geom_sketch_contour()` draws contour lines of a surface (needs `z`);
+`geom_sketch_density2d()` contours a 2-D kernel density estimate.
+
+```{r contour}
+ggplot(faithfuld, aes(waiting, eruptions, z = density)) +
+  geom_sketch_contour(colour = "#2E4053", seed = 1L) +
+  labs(title = "geom_sketch_contour()") +
+  theme_sketch()
+```
+
+```{r density2d}
+ggplot(faithful, aes(eruptions, waiting)) +
+  geom_sketch_point(colour = "grey70", seed = 1L) +
+  geom_sketch_density2d(colour = "#884EA0", linewidth = 0.7, seed = 2L) +
+  labs(title = "geom_sketch_density2d()") +
+  theme_sketch()
+```
+
+## Text
+
+The sketch of text is a *handwriting font*, not roughened glyphs.
+`geom_sketch_text()` uses the first installed handwriting face (and falls back to
+the device default otherwise).
+
+```{r text}
+lab <- data.frame(x = c(2, 4, 3), y = c(3, 4, 1.5),
+                  txt = c("hand", "drawn", "labels"))
+ggplot(lab, aes(x, y, label = txt)) +
+  geom_sketch_point(size = 3, colour = "#C0392B") +
+  geom_sketch_text(size = 7, nudge_y = 0.4) +
+  labs(title = "geom_sketch_text()") +
   theme_sketch()
 ```
 

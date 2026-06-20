@@ -31,6 +31,9 @@ reference:
       - geom_sketch_path
       - geom_sketch_point
       - geom_sketch_jitter
+      - geom_sketch_count
+      - geom_sketch_function
+      - geom_sketch_rug
   - title: Bars, tiles & rectangles
     desc: The signature filled look — roughened outlines with hachure-style fills.
     contents:
@@ -42,6 +45,16 @@ reference:
       - geom_sketch_density
       - geom_sketch_violin
       - geom_sketch_boxplot
+      - geom_sketch_bin2d
+      - geom_sketch_hex
+  - title: Contours & 2-D density
+    contents:
+      - geom_sketch_contour
+      - geom_sketch_density2d
+  - title: Models & quantiles
+    contents:
+      - geom_sketch_quantile
+      - geom_sketch_qq
   - title: Areas, ribbons & curves
     contents:
       - geom_sketch_polygon
@@ -57,8 +70,11 @@ reference:
     contents:
       - geom_sketch_circle
       - geom_sketch_segment
-  - title: Annotations, theme & fonts
+      - geom_sketch_curve
+      - geom_sketch_spoke
+  - title: Text, annotations, theme & fonts
     contents:
+      - geom_sketch_text
       - annotate_sketch
       - theme_sketch
       - ggsketch_check_fonts
