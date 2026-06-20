@@ -2,10 +2,7 @@
 ^\.Rproj\.user$
 ^\.github$
 ^tools$
-^BUILD_PLAN\.md$
-^PRD\.md$
-^TESTING\.md$
-^DECISIONS\.md$
+^dev$
 ^tutorial\.R$
 ^LICENSE\.md$
 ^Rplots\.pdf$
@@ -14,6 +11,8 @@
 ^cran-comments\.md$
 ^_pkgdown\.yml$
 ^docs$
+^vignettes/articles$
+^pkgdown$
 ^\.gitignore$
 ^\.gitattributes$
 ^\.git$

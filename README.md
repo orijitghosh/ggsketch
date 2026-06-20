@@ -1,7 +1,7 @@
 # ggsketch
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/arijitghosh2009/ggsketch/actions/workflows/check.yaml/badge.svg)](https://github.com/arijitghosh2009/ggsketch/actions/workflows/check.yaml)
+[![R-CMD-check](https://github.com/orijitghosh/ggsketch/actions/workflows/check.yaml/badge.svg)](https://github.com/orijitghosh/ggsketch/actions/workflows/check.yaml)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 <!-- badges: end -->
@@ -38,7 +38,7 @@ fills that gap with native geoms.
 
 ```r
 # install.packages("pak")
-pak::pak("arijitghosh2009/ggsketch")
+pak::pak("orijitghosh/ggsketch")
 ```
 
 `ggsketch` is pure R (`NeedsCompilation: no`); its only hard dependencies are

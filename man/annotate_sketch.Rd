@@ -60,10 +60,12 @@ ggplot(mtcars, aes(wt, mpg)) +
 }
 \seealso{
 Other sketch-geoms: 
+\code{\link{GeomSketchAbline}},
 \code{\link{GeomSketchBoxplot}},
 \code{\link{GeomSketchCol}},
 \code{\link{GeomSketchEllipse}},
 \code{\link{GeomSketchLine}},
+\code{\link{GeomSketchLinerange}},
 \code{\link{GeomSketchPath}},
 \code{\link{GeomSketchPoint}},
 \code{\link{GeomSketchPolygon}},
@@ -71,6 +73,9 @@ Other sketch-geoms:
 \code{\link{GeomSketchRibbon}},
 \code{\link{GeomSketchSegment}},
 \code{\link{GeomSketchSmooth}},
-\code{\link{geom_sketch_density}()}
+\code{\link{GeomSketchViolin}},
+\code{\link{geom_sketch_density}()},
+\code{\link{geom_sketch_histogram}()},
+\code{\link{geom_sketch_jitter}()}
 }
 \concept{sketch-geoms}

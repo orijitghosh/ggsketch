@@ -1,3 +1,18 @@
+# ggsketch 1.1.0
+
+New geoms (Tier 1 coverage — all reuse the existing grobs and base ggplot2
+stats; no new hard dependencies):
+
+* `geom_sketch_histogram()` and `geom_sketch_freqpoly()` — binned distributions
+  (via `stat_bin`).
+* `geom_sketch_jitter()` — `geom_sketch_point()` with a jitter position.
+* `geom_sketch_violin()` — mirrored kernel density with hachure fill (via
+  `stat_ydensity`).
+* Interval family: `geom_sketch_linerange()`, `geom_sketch_pointrange()`,
+  `geom_sketch_errorbar()`, `geom_sketch_crossbar()`.
+* Reference lines: `geom_sketch_abline()`, `geom_sketch_hline()`,
+  `geom_sketch_vline()`.
+
 # ggsketch 1.0.0
 
 First public release. A grammar-native, pure-R implementation of the rough.js

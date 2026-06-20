@@ -1,44 +1,86 @@
-url: https://arijitghosh2009.github.io/ggsketch/
+url: https://orijitghosh.github.io/ggsketch/
 
 template:
   bootstrap: 5
+  light-switch: true
+  bslib:
+    base_font: {google: "Karla"}
+    heading_font: {google: "Caveat"}
+    code_font: {google: "JetBrains Mono"}
+    primary: "#7BAFD4"
+    border-radius: 0.5rem
+    btn-border-radius: 0.5rem
+  opengraph:
+    image:
+      src: man/figures/README-hero.png
+      alt: "A sketchy hachure-filled bar chart titled ggsketch"
+
+home:
+  title: "ggsketch — hand-drawn geoms for ggplot2"
+  description: >
+    Grammar-native, hand-drawn (rough.js style) geoms for ggplot2, in pure R.
 
 reference:
+  - title: Package
+    contents:
+      - ggsketch-package
   - title: Lines & points
+    desc: Sketchy paths, connected lines, and roughened-marker scatter points.
     contents:
       - geom_sketch_line
       - geom_sketch_path
       - geom_sketch_point
-  - title: Bars & tiles
+      - geom_sketch_jitter
+  - title: Bars, tiles & rectangles
+    desc: The signature filled look — roughened outlines with hachure-style fills.
     contents:
       - geom_sketch_col
       - geom_sketch_rect
-  - title: Areas & curves
+  - title: Distributions
+    contents:
+      - geom_sketch_histogram
+      - geom_sketch_density
+      - geom_sketch_violin
+      - geom_sketch_boxplot
+  - title: Areas, ribbons & curves
     contents:
       - geom_sketch_polygon
       - geom_sketch_ribbon
-      - geom_sketch_density
       - geom_sketch_smooth
+  - title: Intervals & uncertainty
+    contents:
+      - geom_sketch_linerange
+  - title: Reference lines
+    contents:
+      - geom_sketch_abline
   - title: Circular & composed
     contents:
       - geom_sketch_circle
       - geom_sketch_segment
-      - geom_sketch_boxplot
-  - title: Helpers & theme
+  - title: Annotations, theme & fonts
     contents:
       - annotate_sketch
       - theme_sketch
       - ggsketch_check_fonts
   - title: Legend keys
+    desc: The sketchy `draw_key` functions wired into every geom.
     contents:
       - draw_key_sketch
-  - title: Lower-level grobs
+  - title: Building blocks (grid grobs — Layer 2)
+    desc: Lower-level grobs that re-roughen in device space inside `makeContent()`.
     contents:
       - sketch_path_grob
       - sketch_polygon_grob
       - sketch_ellipse_grob
-
-articles:
-  - title: Get started
+  - title: Core geometry (Layer 1 — pure, no grid/ggplot2)
+    desc: The number-to-number routines that produce the hand-drawn coordinates.
     contents:
-      - ggsketch
+      - roughen_polyline
+      - rough_ellipse
+      - rough_bezier
+      - hachure_fill
+      - sketch_fill
+      - curve_fill
+  - title: internal
+    contents:
+      - GeomSketchNull

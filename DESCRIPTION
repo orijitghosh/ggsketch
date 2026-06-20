@@ -1,6 +1,6 @@
 Package: ggsketch
 Title: Grammar-Native Hand-Drawn Geoms for ggplot2
-Version: 1.0.0
+Version: 1.1.0
 Authors@R:
     person("Arijit", "Ghosh", email = "arijitghosh2009@gmail.com",
            role = c("aut", "cre"))
@@ -13,8 +13,8 @@ Description: Provides ggplot2 geoms that render with a hand-drawn / sketchy
     algorithm description (Shihn, 2020) and Wood et al. (2012) — see
     inst/NOTICE for attribution.
 License: MIT + file LICENSE
-URL: https://github.com/arijitghosh2009/ggsketch
-BugReports: https://github.com/arijitghosh2009/ggsketch/issues
+URL: https://github.com/orijitghosh/ggsketch
+BugReports: https://github.com/orijitghosh/ggsketch/issues
 Depends:
     R (>= 4.1.0)
 Imports:

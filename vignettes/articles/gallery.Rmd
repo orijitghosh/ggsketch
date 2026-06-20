@@ -1,0 +1,312 @@
+---
+title: "Gallery — every geom"
+description: >
+  A tour of every ggsketch geom with runnable examples, from bars and lines to
+  boxplots, ribbons, circles, and annotations.
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse   = TRUE,
+  comment    = "#>",
+  message    = FALSE,
+  warning    = FALSE,
+  fig.width  = 7,
+  fig.height = 4.2,
+  dpi        = 120,
+  dev        = "ragg_png",
+  out.width  = "100%",
+  fig.align  = "center"
+)
+library(ggplot2)
+library(ggsketch)
+set.seed(1)
+options(ggsketch.seed = 1)
+```
+
+Everything here is a real ggplot2 layer, so it composes with `aes()`, stats,
+scales, facets, and coords — and renders on any device. Every example sets a
+`seed` so the wobble is reproducible.
+
+## Bars and columns
+
+`geom_sketch_col()` is the signature geom: a roughened outline with a hachure
+(pencil-shading) fill.
+
+```{r col-basic}
+sales <- data.frame(product = c("Alpha", "Bravo", "Charlie", "Delta", "Echo"),
+                    units   = c(34, 51, 22, 47, 39))
+
+ggplot(sales, aes(product, units)) +
+  geom_sketch_col(fill = "#7BAFD4", seed = 1L) +
+  labs(title = "Units sold", x = NULL) +
+  theme_sketch()
+```
+
+Map `fill` to a variable like any ggplot2 bar. Each bar gets its own seed offset,
+so no two bars wobble identically.
+
+```{r col-mapped}
+ggplot(sales, aes(product, units, fill = product)) +
+  geom_sketch_col(seed = 2L, show.legend = FALSE) +
+  scale_fill_brewer(palette = "Set2") +
+  labs(title = "Mapped fill", x = NULL) +
+  theme_sketch()
+```
+
+`geom_sketch_bar()` counts rows for you (like `geom_bar()`):
+
+```{r bar-count}
+ggplot(mpg, aes(class)) +
+  geom_sketch_bar(fill = "#C39BD3", seed = 3L) +
+  labs(title = "Vehicle count by class", x = NULL) +
+  theme_sketch() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+```
+
+Bars flip and stack just like the originals:
+
+```{r col-flip}
+ggplot(sales, aes(reorder(product, units), units)) +
+  geom_sketch_col(fill = "#F1948A", seed = 1L) +
+  coord_flip() +
+  labs(title = "Horizontal bars", x = NULL) +
+  theme_sketch()
+```
+
+## Lines, paths, and points
+
+```{r line}
+econ <- economics[economics$date > as.Date("2000-01-01"), ]
+ggplot(econ, aes(date, unemploy)) +
+  geom_sketch_line(colour = "steelblue", linewidth = 0.8, seed = 1L) +
+  labs(title = "US unemployment", x = NULL, y = "thousands") +
+  theme_sketch()
+```
+
+`geom_sketch_point()` draws each point as a small roughened ellipse:
+
+```{r point}
+ggplot(mtcars, aes(wt, mpg, colour = factor(cyl))) +
+  geom_sketch_point(size = 4, seed = 1L) +
+  scale_colour_brewer("cylinders", palette = "Dark2") +
+  labs(title = "Fuel economy vs weight") +
+  theme_sketch()
+```
+
+Lines and points compose like any layers:
+
+```{r line-point}
+df <- data.frame(x = 1:12, y = c(3, 5, 4, 7, 6, 9, 8, 11, 9, 12, 11, 14))
+ggplot(df, aes(x, y)) +
+  geom_sketch_line(colour = "grey40", seed = 3L) +
+  geom_sketch_point(size = 4, colour = "firebrick", seed = 8L) +
+  labs(title = "Trend with markers") +
+  theme_sketch()
+```
+
+Multiple groups, one seed per group:
+
+```{r line-groups}
+ggplot(ggplot2::economics_long, aes(date, value01, colour = variable)) +
+  geom_sketch_line(seed = 5L) +
+  labs(title = "Five series, hand-drawn", x = NULL, y = NULL) +
+  theme_sketch()
+```
+
+## Rectangles and tiles
+
+```{r rect}
+rects <- data.frame(xmin = c(1, 3, 5), xmax = c(2, 4, 6),
+                    ymin = 0, ymax = c(2, 4, 3))
+ggplot(rects) +
+  geom_sketch_rect(aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax,
+                       fill = factor(xmin)),
+                   seed = 1L, show.legend = FALSE) +
+  labs(title = "geom_sketch_rect()") +
+  theme_sketch()
+```
+
+A sketchy heatmap with `geom_sketch_tile()`:
+
+```{r tile}
+td <- expand.grid(x = 1:8, y = 1:6)
+td$z <- td$x + td$y
+ggplot(td, aes(x, y, fill = z)) +
+  geom_sketch_tile(seed = 2L, hachure_gap = 0.18) +
+  scale_fill_viridis_c() +
+  labs(title = "geom_sketch_tile()") +
+  theme_sketch()
+```
+
+## Polygons, ribbons, areas, and densities
+
+Concave polygons fill correctly (the hachure respects every notch):
+
+```{r polygon}
+ang  <- seq(0, 2 * pi, length.out = 11)[-11]
+r    <- rep(c(1, 0.45), length.out = 10)
+star <- data.frame(x = r * cos(ang), y = r * sin(ang))
+ggplot(star, aes(x, y)) +
+  geom_sketch_polygon(fill = "tomato", seed = 1L) +
+  coord_equal() +
+  labs(title = "A concave star") +
+  theme_sketch()
+```
+
+```{r ribbon-area}
+band <- data.frame(x = 1:20)
+band$y  <- 10 + 5 * sin(seq(0, 3 * pi, length.out = 20))
+band$lo <- band$y - 2
+band$hi <- band$y + 2
+
+ggplot(band, aes(x)) +
+  geom_sketch_ribbon(aes(ymin = lo, ymax = hi), fill = "plum", seed = 2L) +
+  geom_sketch_line(aes(y = y), seed = 3L) +
+  labs(title = "Ribbon + line") +
+  theme_sketch()
+```
+
+```{r area}
+ggplot(band, aes(x, y)) +
+  geom_sketch_area(fill = "lightgreen", seed = 3L) +
+  labs(title = "geom_sketch_area()") +
+  theme_sketch()
+```
+
+```{r density}
+ggplot(faithful, aes(eruptions)) +
+  geom_sketch_density(fill = "khaki", seed = 4L) +
+  labs(title = "Old Faithful eruptions") +
+  theme_sketch()
+```
+
+## Smooths
+
+A hand-drawn fit with a roughened confidence band:
+
+```{r smooth}
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_sketch_point(seed = 1L) +
+  geom_sketch_smooth(method = "lm", formula = y ~ x, seed = 2L) +
+  labs(title = "Linear fit with CI band") +
+  theme_sketch()
+```
+
+```{r smooth-loess}
+ggplot(mpg, aes(displ, hwy)) +
+  geom_sketch_point(colour = "grey50", seed = 1L) +
+  geom_sketch_smooth(seed = 2L, colour = "darkorange") +
+  labs(title = "loess fit") +
+  theme_sketch()
+```
+
+## Circles and ellipses
+
+Radii are in data units, so use `coord_equal()` for true circles:
+
+```{r circle}
+cdf <- data.frame(x = c(1, 3, 2), y = c(1, 1, 2.5),
+                  r = c(0.6, 0.9, 0.5), grp = c("a", "b", "c"))
+ggplot(cdf, aes(x, y, r = r, fill = grp)) +
+  geom_sketch_circle(seed = 1L, show.legend = FALSE) +
+  coord_equal() +
+  labs(title = "geom_sketch_circle()") +
+  theme_sketch()
+```
+
+```{r ellipse}
+edf <- data.frame(x = c(1, 3), y = c(1, 2), a = c(1.4, 0.8), b = c(0.6, 1.2))
+ggplot(edf, aes(x, y, a = a, b = b, fill = factor(x))) +
+  geom_sketch_ellipse(seed = 2L, show.legend = FALSE) +
+  coord_equal() +
+  labs(title = "geom_sketch_ellipse()") +
+  theme_sketch()
+```
+
+## Segments and steps
+
+```{r segment}
+sdf <- data.frame(x = 1:4, y = c(1, 3, 2, 4),
+                  xend = 2:5, yend = c(3, 1, 4, 2))
+ggplot(sdf) +
+  geom_sketch_segment(aes(x = x, y = y, xend = xend, yend = yend),
+                      colour = "darkgreen", linewidth = 1, seed = 3L) +
+  labs(title = "geom_sketch_segment()") +
+  theme_sketch()
+```
+
+```{r step}
+stp <- data.frame(x = 1:8, y = c(1, 3, 2, 5, 4, 6, 5, 8))
+ggplot(stp, aes(x, y)) +
+  geom_sketch_step(colour = "purple", linewidth = 1, seed = 4L) +
+  geom_sketch_point(seed = 5L) +
+  labs(title = "geom_sketch_step()") +
+  theme_sketch()
+```
+
+## Boxplots
+
+A composed geom: rough IQR box, thick median, whiskers, and sketchy outliers.
+
+```{r boxplot}
+ggplot(mpg, aes(class, hwy)) +
+  geom_sketch_boxplot(seed = 1L) +
+  labs(title = "Highway mpg by class", x = NULL) +
+  theme_sketch() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+```
+
+By default the box is `fill_style = "solid"` (outline only). For coloured,
+shaded boxes, map `fill` and switch on a fill style:
+
+```{r boxplot-hachure}
+ggplot(mpg, aes(class, hwy, fill = class)) +
+  geom_sketch_boxplot(fill_style = "hachure", seed = 1L, show.legend = FALSE) +
+  scale_fill_brewer(palette = "Pastel1") +
+  labs(title = "Hachure-filled boxes", x = NULL) +
+  theme_sketch() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+```
+
+## Annotations
+
+`annotate_sketch()` adds one-off hand-drawn marks (no `aes()` inheritance):
+
+```{r annotate}
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_sketch_point(seed = 1L) +
+  annotate_sketch("rect", xmin = 3, xmax = 4, ymin = 15, ymax = 22,
+                  fill = NA, colour = "red", seed = 2L) +
+  annotate_sketch("segment", x = 2, y = 32, xend = 3.4, yend = 21,
+                  colour = "blue", linewidth = 1, seed = 3L) +
+  annotate_sketch("circle", x = 5, y = 30, r = 0.4,
+                  colour = "darkgreen", fill = "green", seed = 4L) +
+  labs(title = "Highlighting with annotate_sketch()") +
+  theme_sketch()
+```
+
+## Composition: facets, scales, coords
+
+Sketch geoms respect the full grammar.
+
+```{r facet}
+ggplot(mpg, aes(displ, hwy)) +
+  geom_sketch_point(size = 2.5, colour = "#34495E", seed = 9L) +
+  geom_sketch_smooth(method = "lm", formula = y ~ x, seed = 10L) +
+  facet_wrap(~drv, labeller = label_both) +
+  labs(title = "Faceted by drivetrain") +
+  theme_sketch()
+```
+
+## Dark mode
+
+Every example above works with `theme_sketch(dark = TRUE)`:
+
+```{r dark}
+ggplot(sales, aes(product, units, fill = product)) +
+  geom_sketch_col(seed = 1L, show.legend = FALSE) +
+  scale_fill_brewer(palette = "Set2") +
+  labs(title = "Dark preset", x = NULL) +
+  theme_sketch(dark = TRUE)
+```
