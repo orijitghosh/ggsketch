@@ -1,6 +1,6 @@
 # ggsketch
 
-> Grammar-native, hand-drawn geoms for **ggplot2** — the rough.js sketch
+> Grammar-native, hand-drawn geoms for **ggplot2** - the rough.js sketch
 > aesthetic in **pure R**, with no JavaScript and no browser.
 
 ![A sketchy hachure-filled bar chart titled
