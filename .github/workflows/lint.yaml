@@ -1,0 +1,100 @@
+name: Lint & layer-purity check
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: 'release'
+          use-public-rspm: true
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::lintr
+          needs: lint
+
+      - name: T-ARCH-01 Layer-1 purity check (no grid:: or ggplot2:: in core-*.R)
+        run: |
+          core_files <- list.files("R", pattern = "^core-", full.names = TRUE)
+          if (length(core_files) == 0) {
+            cat("No core-*.R files yet — purity check skipped.\n")
+            quit(status = 0)
+          }
+          violations <- character(0)
+          for (f in core_files) {
+            lines <- readLines(f)
+            bad <- grep("grid::|ggplot2::", lines, value = TRUE)
+            if (length(bad) > 0) {
+              violations <- c(violations, paste0(f, ": ", bad))
+            }
+          }
+          if (length(violations) > 0) {
+            cat("T-ARCH-01 FAILED — grid:: or ggplot2:: found in core-*.R:\n")
+            cat(violations, sep = "\n")
+            quit(status = 1)
+          }
+          cat("T-ARCH-01 PASSED — no grid::/ggplot2:: in core-*.R\n")
+        shell: Rscript {0}
+
+      - name: T-PKG-02 No JavaScript files
+        run: |
+          js_files <- list.files(".", pattern = "\\.js$", recursive = TRUE)
+          # allow node_modules only if present (shouldn't be)
+          js_files <- js_files[!grepl("node_modules", js_files)]
+          if (length(js_files) > 0) {
+            cat("T-PKG-02 FAILED — .js files found:\n", paste(js_files, collapse = "\n"), "\n")
+            quit(status = 1)
+          }
+          cat("T-PKG-02 PASSED — no .js files\n")
+        shell: Rscript {0}
+
+      - name: T-PKG-04 No rough.js source strings
+        run: |
+          # Grep for known rough.js internal identifiers that would indicate
+          # copy-pasted source (ADR-0003 enforcement).
+          roughjs_identifiers <- c(
+            "hachureFill", "getIntersectingLines", "RoughPath",
+            "roughCanvas", "roughSVG", "pointsOnPath",
+            "getAngle.*hachure", "fillSketch"
+          )
+          pattern <- paste(roughjs_identifiers, collapse = "|")
+          r_files <- list.files("R", pattern = "\\.R$", full.names = TRUE)
+          violations <- character(0)
+          for (f in r_files) {
+            lines <- readLines(f)
+            bad <- grep(pattern, lines, value = TRUE)
+            if (length(bad) > 0) violations <- c(violations, paste0(f, ": ", bad))
+          }
+          if (length(violations) > 0) {
+            cat("T-PKG-04 FAILED — rough.js identifiers found:\n")
+            cat(violations, sep = "\n")
+            quit(status = 1)
+          }
+          cat("T-PKG-04 PASSED — no rough.js source identifiers\n")
+        shell: Rscript {0}
+
+      - name: T-PKG-04b inst/NOTICE present
+        run: |
+          if (!file.exists("inst/NOTICE")) {
+            cat("T-PKG-04b FAILED — inst/NOTICE missing\n")
+            quit(status = 1)
+          }
+          cat("T-PKG-04b PASSED — inst/NOTICE present\n")
+        shell: Rscript {0}
+
+      - name: Lint R code
+        run: lintr::lint_package()
+        shell: Rscript {0}
+        continue-on-error: true

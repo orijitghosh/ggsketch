@@ -1,0 +1,44 @@
+url: https://arijitghosh2009.github.io/ggsketch/
+
+template:
+  bootstrap: 5
+
+reference:
+  - title: Lines & points
+    contents:
+      - geom_sketch_line
+      - geom_sketch_path
+      - geom_sketch_point
+  - title: Bars & tiles
+    contents:
+      - geom_sketch_col
+      - geom_sketch_rect
+  - title: Areas & curves
+    contents:
+      - geom_sketch_polygon
+      - geom_sketch_ribbon
+      - geom_sketch_density
+      - geom_sketch_smooth
+  - title: Circular & composed
+    contents:
+      - geom_sketch_circle
+      - geom_sketch_segment
+      - geom_sketch_boxplot
+  - title: Helpers & theme
+    contents:
+      - annotate_sketch
+      - theme_sketch
+      - ggsketch_check_fonts
+  - title: Legend keys
+    contents:
+      - draw_key_sketch
+  - title: Lower-level grobs
+    contents:
+      - sketch_path_grob
+      - sketch_polygon_grob
+      - sketch_ellipse_grob
+
+articles:
+  - title: Get started
+    contents:
+      - ggsketch

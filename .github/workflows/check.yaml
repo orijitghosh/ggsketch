@@ -1,0 +1,58 @@
+name: R CMD check
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  R-CMD-check:
+    runs-on: ${{ matrix.config.os }}
+    name: ${{ matrix.config.os }} (ggplot2 ${{ matrix.config.ggplot2 }})
+
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          # ggplot2 3.5.x — latest CRAN release in the 3.5 series
+          - {os: ubuntu-latest,  r: 'release', ggplot2: '3.5'}
+          - {os: windows-latest, r: 'release', ggplot2: '3.5'}
+          - {os: macOS-latest,   r: 'release', ggplot2: '3.5'}
+          # ggplot2 4.0.x — current release
+          - {os: ubuntu-latest,  r: 'release', ggplot2: '4.0'}
+          - {os: windows-latest, r: 'release', ggplot2: '4.0'}
+          - {os: macOS-latest,   r: 'release', ggplot2: '4.0'}
+
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_KEEP_PKG_SOURCE: yes
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: ${{ matrix.config.r }}
+          use-public-rspm: true
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::rcmdcheck
+          needs: check
+
+      - name: Pin ggplot2 version
+        run: |
+          if ("${{ matrix.config.ggplot2 }}" == "3.5") {
+            pak::pak("cran/ggplot2@3.5.1")
+          }
+        shell: Rscript {0}
+
+      - name: Check ggplot2 version
+        run: cat("ggplot2:", as.character(packageVersion("ggplot2")), "\n")
+        shell: Rscript {0}
+
+      - uses: r-lib/actions/check-r-package@v2
+        with:
+          args: 'c("--as-cran", "--no-manual")'
+          error-on: '"note"'

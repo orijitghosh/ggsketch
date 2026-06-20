@@ -1,0 +1,32 @@
+name: vdiffr image snapshots
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  vdiffr:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: 'release'
+          use-public-rspm: true
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::vdiffr, any::svglite, any::ragg
+          needs: check
+
+      - name: Run vdiffr tests
+        run: |
+          options(vdiffr.fig.ext = "svg")
+          testthat::test_package("ggsketch", filter = "vdiffr")
+        shell: Rscript {0}

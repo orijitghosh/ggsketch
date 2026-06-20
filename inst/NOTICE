@@ -1,0 +1,27 @@
+ggsketch — NOTICE
+=================
+
+This package reimplements sketchy-rendering algorithms in original R code.
+It is NOT affiliated with, endorsed by, or derived from the rough.js project.
+
+ALGORITHMIC INSPIRATION
+-----------------------
+
+rough.js (https://github.com/rough-stuff/rough)
+  Copyright (c) 2019 Preet Shihn
+  MIT License
+  The hachure scan-line AET algorithm, line roughening (endpoint + 50%/75%
+  randomisation, bowing, dampening), ellipse point-count auto-adjustment,
+  and curve flatness/tolerance split described in
+  "How to emulate hand-drawn shapes / Algorithms behind RoughJS"
+  (https://shihn.ca/posts/2020/roughjs-algorithms/) inspired this package.
+  No rough.js source code is copied, translated, or vendored here.
+
+Wood, J., Isenberg, P., Isenberg, T., Dykes, J., Boukhelifa, N., & Slingsby, A. (2012).
+  Sketchy Rendering for Information Visualization.
+  IEEE Transactions on Visualization and Computer Graphics, 18(12), 2749–2758.
+  https://doi.org/10.1109/TVCG.2012.262
+  Referenced in the rough.js algorithm description above.
+
+ggsketch uses the MIT license. The above projects inspired the algorithms;
+they neither license ggsketch nor are affiliated with it.

@@ -1,0 +1,143 @@
+# Layer 3 — theme_sketch() (P2-T5, P6-T1)
+# Typography + panel aesthetics with light and dark presets. The sketch *look*
+# of the marks comes from the geoms (Layer 2 rough grobs); the theme provides a
+# complementary paper-and-ink palette.
+
+#' Pick the first available handwriting font, or fall back to the device default
+#'
+#' Cosmetic only (ADR-0005): the sketch look comes from geometry, not fonts.
+#' Returns `""` (device default) when none of `fonts` are installed, or when
+#' `systemfonts` is not available — never errors.
+#' @param fonts Candidate families, tried in order.
+#' @return A single font family string (`""` = device default).
+#' @noRd
+resolve_sketch_font <- function(fonts = c("Caveat", "xkcd", "Humor Sans",
+                                          "Permanent Marker", "Indie Flower")) {
+  if (!requireNamespace("systemfonts", quietly = TRUE)) return("")
+  sys <- systemfonts::system_fonts()
+  hit <- fonts[fonts %in% sys$family]
+  if (length(hit) > 0L) hit[[1L]] else ""
+}
+
+#' A hand-drawn theme for ggplot2
+#'
+#' A sketch-style theme based on [ggplot2::theme_bw()] with a paper-and-ink
+#' palette that complements the rough geoms.  Light (default) and dark presets
+#' are available via `dark`.  The sketchiness of the *marks* comes from the
+#' geoms themselves; this theme styles the surrounding frame, typography, and
+#' background.
+#'
+#' @param base_size Base font size (default 11).
+#' @param base_family Base font family. `""` (default) uses the device default.
+#'   `"auto"` picks the first installed handwriting font (see
+#'   [ggsketch_check_fonts()]), falling back to the device default. Or pass an
+#'   explicit family name.
+#' @param base_line_size Line size (default `base_size / 22`).
+#' @param base_rect_size Rect size (default `base_size / 22`).
+#' @param dark If `TRUE`, use the dark "chalkboard" preset. Default `FALSE`
+#'   (light "paper" preset).
+#' @return A `ggplot2::theme` object.
+#' @family sketch-theme
+#' @export
+#' @examples
+#' library(ggplot2)
+#' p <- ggplot(mtcars, aes(wt, mpg)) + geom_sketch_point(seed = 1L)
+#' p + theme_sketch()
+#' p + theme_sketch(dark = TRUE)
+theme_sketch <- function(base_size      = 11,
+                          base_family    = "",
+                          base_line_size = base_size / 22,
+                          base_rect_size = base_size / 22,
+                          dark           = FALSE) {
+  if (identical(base_family, "auto")) base_family <- resolve_sketch_font()
+
+  pal <- if (dark) {
+    list(paper = "#1E1E24", ink = "#E8E6DF", ink_soft = "#B8B6AF",
+         grid_major = "#3A3A44", grid_minor = "#2C2C34", border = "#9A9AA2")
+  } else {
+    list(paper = "#FFFEF5", ink = "grey20", ink_soft = "grey40",
+         grid_major = "grey85", grid_minor = "grey92", border = "grey40")
+  }
+
+  ggplot2::theme_bw(
+    base_size      = base_size,
+    base_family    = base_family,
+    base_line_size = base_line_size,
+    base_rect_size = base_rect_size
+  ) %+replace%
+    ggplot2::theme(
+      panel.grid.major  = ggplot2::element_line(colour = pal$grid_major,
+                                                linewidth = 0.3),
+      panel.grid.minor  = ggplot2::element_line(colour = pal$grid_minor,
+                                                linewidth = 0.2),
+      panel.border      = ggplot2::element_rect(colour = pal$border, fill = NA,
+                                                linewidth = 0.8),
+      panel.background  = ggplot2::element_rect(fill = pal$paper, colour = NA),
+      plot.background   = ggplot2::element_rect(fill = pal$paper, colour = NA),
+      axis.ticks        = ggplot2::element_line(colour = pal$border,
+                                                linewidth = 0.4),
+      axis.text         = ggplot2::element_text(colour = pal$ink_soft,
+                                                size = base_size * 0.8),
+      axis.title        = ggplot2::element_text(colour = pal$ink,
+                                                size = base_size),
+      plot.title        = ggplot2::element_text(colour = pal$ink, face = "bold",
+                                                size = base_size * 1.2,
+                                                hjust = 0,
+                                                margin = ggplot2::margin(b = 8)),
+      plot.subtitle     = ggplot2::element_text(colour = pal$ink_soft,
+                                                size = base_size * 0.9,
+                                                hjust = 0,
+                                                margin = ggplot2::margin(b = 8)),
+      plot.caption      = ggplot2::element_text(colour = pal$ink_soft,
+                                                size = base_size * 0.7,
+                                                hjust = 1),
+      legend.background = ggplot2::element_rect(fill = pal$paper, colour = NA),
+      legend.key        = ggplot2::element_rect(fill = pal$paper, colour = NA),
+      legend.text       = ggplot2::element_text(colour = pal$ink_soft),
+      legend.title      = ggplot2::element_text(colour = pal$ink),
+      complete          = TRUE
+    )
+}
+
+#' Check for optional handwriting fonts
+#'
+#' Diagnoses whether a handwriting-style font is available on this device.
+#' The sketch *look* in ggsketch comes from geometry, not fonts, so this is
+#' purely cosmetic (ADR-0005).
+#'
+#' @param fonts Character vector of font families to check. Defaults to common
+#'   handwriting fonts.
+#' @return Invisibly returns a logical vector (font available?); prints a
+#'   formatted report.
+#' @family sketch-theme
+#' @export
+ggsketch_check_fonts <- function(
+    fonts = c("xkcd", "Humor Sans", "Permanent Marker",
+              "Caveat", "Indie Flower")) {
+  if (!requireNamespace("systemfonts", quietly = TRUE)) {
+    cli::cli_inform(c(
+      "!" = "Install {.pkg systemfonts} to detect system fonts.",
+      "i" = "ggsketch works fine without a handwriting font."
+    ))
+    return(invisible(stats::setNames(rep(NA, length(fonts)), fonts)))
+  }
+
+  sys_fonts <- systemfonts::system_fonts()
+  available <- stats::setNames(
+    vapply(fonts, function(f) any(sys_fonts$family == f), logical(1L)),
+    fonts
+  )
+
+  if (any(available)) {
+    cli::cli_inform(c(
+      "v" = "Available handwriting fonts:",
+      " " = paste(" ", names(available)[available], collapse = "\n")
+    ))
+  } else {
+    cli::cli_inform(c(
+      "!" = "No handwriting fonts found. ggsketch will use the default device font.",
+      "i" = "The sketch look comes from geometry, not fonts."
+    ))
+  }
+  invisible(available)
+}

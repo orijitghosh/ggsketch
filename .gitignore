@@ -1,0 +1,29 @@
+# RStudio
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+# R build / check artifacts
+*.Rcheck/
+*.tar.gz
+/doc/
+/Meta/
+Rplots.pdf
+
+# Scratch probes (kept locally, not versioned)
+tools/probes/_*.R
+tools/probes/_*.png
+tools/probes/_*.pdf
+tools/probes/_*.svg
+
+# pkgdown output
+docs/
+
+# vdiffr / testthat failure artifacts (never commit these)
+*.new.svg
+*.Rout.fail
+
+# OS cruft
+.DS_Store
+Thumbs.db
