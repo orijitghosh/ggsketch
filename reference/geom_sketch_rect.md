@@ -1,0 +1,185 @@
+# Sketchy rectangle / tile geom
+
+Draws filled rectangles with a hand-drawn roughened outline and a
+hachure, cross-hatch, zigzag, dots, dashed, or solid fill.
+`geom_sketch_rect()` takes the `xmin`/`xmax`/`ymin`/`ymax` aesthetics;
+`geom_sketch_tile()` takes `x`/`y` centres with optional
+`width`/`height` (like
+[`ggplot2::geom_tile()`](https://ggplot2.tidyverse.org/reference/geom_tile.html)).
+
+## Usage
+
+``` r
+GeomSketchRect
+
+geom_sketch_rect(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  ...,
+  roughness = 1,
+  bowing = 1,
+  n_passes = 2L,
+  seed = NULL,
+  fill_style = "hachure",
+  hachure_angle = 45,
+  hachure_gap = NULL,
+  fill_weight = 0.5,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
+
+GeomSketchTile
+
+geom_sketch_tile(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  ...,
+  width = NULL,
+  height = NULL,
+  roughness = 1,
+  bowing = 1,
+  n_passes = 2L,
+  seed = NULL,
+  fill_style = "hachure",
+  hachure_angle = 45,
+  hachure_gap = NULL,
+  fill_weight = 0.5,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
+```
+
+## Format
+
+An object of class `GeomSketchRect` (inherits from `Geom`, `ggproto`,
+`gg`) of length 6.
+
+An object of class `GeomSketchTile` (inherits from `GeomSketchRect`,
+`Geom`, `ggproto`, `gg`) of length 5.
+
+## Arguments
+
+- mapping:
+
+  Set of aesthetic mappings created by
+  [`ggplot2::aes()`](https://ggplot2.tidyverse.org/reference/aes.html).
+
+- data:
+
+  Data to display.
+
+- stat:
+
+  Statistical transformation. Default `"identity"`.
+
+- position:
+
+  Position adjustment. Default `"identity"`.
+
+- ...:
+
+  Other arguments passed on to the layer.
+
+- roughness:
+
+  Non-negative roughness (0 = straight). Default 1.
+
+- bowing:
+
+  Non-negative bowing multiplier. Default 1.
+
+- n_passes:
+
+  Number of stroke passes. Default 2.
+
+- seed:
+
+  Integer seed. `NULL` uses `getOption("ggsketch.seed", 1L)`.
+
+- fill_style:
+
+  One of `"hachure"`, `"cross_hatch"`, `"zigzag"`, `"zigzag_line"`,
+  `"dots"`, `"dashed"`, or `"solid"`. Default `"hachure"`.
+
+- hachure_angle:
+
+  Fill line angle in degrees. Default 45.
+
+- hachure_gap:
+
+  Fill line gap in data units (`NULL` = 15% of width).
+
+- fill_weight:
+
+  Stroke weight for fill lines. Default 0.5.
+
+- na.rm:
+
+  Remove missing values silently? Default `FALSE`.
+
+- show.legend:
+
+  Logical; include in legend?
+
+- inherit.aes:
+
+  Override default aesthetics?
+
+- width, height:
+
+  Tile size overrides for `geom_sketch_tile()`. `NULL` uses the data
+  resolution.
+
+## Value
+
+A `ggplot2` layer object.
+
+## See also
+
+Other sketch-geoms:
+[`GeomSketchAbline`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_abline.md),
+[`GeomSketchBoxplot`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_boxplot.md),
+[`GeomSketchCol`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_col.md),
+[`GeomSketchCurve`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_curve.md),
+[`GeomSketchEllipse`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_circle.md),
+[`GeomSketchHex`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_hex.md),
+[`GeomSketchLine`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_line.md),
+[`GeomSketchLinerange`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_linerange.md),
+[`GeomSketchPath`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_path.md),
+[`GeomSketchPoint`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_point.md),
+[`GeomSketchPolygon`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_polygon.md),
+[`GeomSketchRibbon`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_ribbon.md),
+[`GeomSketchRug`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_rug.md),
+[`GeomSketchSegment`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_segment.md),
+[`GeomSketchSmooth`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_smooth.md),
+[`GeomSketchSpoke`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_spoke.md),
+[`GeomSketchViolin`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_violin.md),
+[`annotate_sketch()`](https://orijitghosh.github.io/ggsketch/reference/annotate_sketch.md),
+[`geom_sketch_bin2d()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_bin2d.md),
+[`geom_sketch_contour()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_contour.md),
+[`geom_sketch_count()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_count.md),
+[`geom_sketch_density()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_density.md),
+[`geom_sketch_density2d()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_density2d.md),
+[`geom_sketch_function()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_function.md),
+[`geom_sketch_histogram()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_histogram.md),
+[`geom_sketch_jitter()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_jitter.md),
+[`geom_sketch_qq()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_qq.md),
+[`geom_sketch_quantile()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_quantile.md),
+[`geom_sketch_text()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_text.md)
+
+## Examples
+
+``` r
+library(ggplot2)
+df <- data.frame(xmin = 1, xmax = 3, ymin = 1, ymax = 4)
+ggplot(df) +
+  geom_sketch_rect(aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax),
+                   seed = 1L) +
+  theme_sketch()
+```
