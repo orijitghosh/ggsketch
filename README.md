@@ -2,7 +2,7 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/orijitghosh/ggsketch/actions/workflows/check.yaml/badge.svg)](https://github.com/orijitghosh/ggsketch/actions/workflows/check.yaml) [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![R-CMD-check](https://github.com/orijitghosh/ggsketch/actions/workflows/check.yaml/badge.svg)](https://github.com/orijitghosh/ggsketch/actions/workflows/check.yaml) [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT) [![pkgdown site](https://img.shields.io/badge/docs-pkgdown-blue.svg)](https://orijitghosh.github.io/ggsketch/)
 
 <!-- badges: end -->
 
@@ -36,6 +36,8 @@ pak::pak("orijitghosh/ggsketch")
 ```
 
 `ggsketch` is pure R (`NeedsCompilation: no`); its only hard dependencies are ggplot2, grid, rlang, scales, cli, and withr.
+
+Full documentation and a gallery of every geom: <https://orijitghosh.github.io/ggsketch/>.
 
 ## Quick start
 

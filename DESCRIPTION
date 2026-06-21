@@ -13,7 +13,8 @@ Description: Provides ggplot2 geoms that render with a hand-drawn / sketchy
     algorithm description (Shihn, 2020) and Wood et al. (2012) — see
     inst/NOTICE for attribution.
 License: MIT + file LICENSE
-URL: https://github.com/orijitghosh/ggsketch
+URL: https://github.com/orijitghosh/ggsketch,
+    https://orijitghosh.github.io/ggsketch/
 BugReports: https://github.com/orijitghosh/ggsketch/issues
 Depends:
     R (>= 4.1.0)
