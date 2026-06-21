@@ -14,6 +14,7 @@ Provides ggplot2 geoms that render with a hand-drawn / sketchy aesthetic — rou
 Useful links:
 \itemize{
   \item \url{https://github.com/orijitghosh/ggsketch}
+  \item \url{https://orijitghosh.github.io/ggsketch/}
   \item Report bugs at \url{https://github.com/orijitghosh/ggsketch/issues}
 }
 

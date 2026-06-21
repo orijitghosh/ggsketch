@@ -68,12 +68,11 @@ A scatter with a hand-drawn frame (`theme_sketch(rough_frame = TRUE)`), the sket
 
 Overlapping densities and the new `"scribble"` fill, both on the sketch palette:
 
-<table>
-<tr>
-<td width="50%"><img src="man/figures/README-density.png" alt="Overlapping sketch density curves of highway mpg by drivetrain" width="100%"/></td>
-<td width="50%"><img src="man/figures/README-bars.png" alt="Scribble-filled sketch bar chart" width="100%"/></td>
-</tr>
-</table>
+<p align="center">
+
+<img src="man/figures/README-density.png" alt="Overlapping sketch density curves of highway mpg by drivetrain" width="48%"/> <img src="man/figures/README-bars.png" alt="Scribble-filled sketch bar chart" width="48%"/>
+
+</p>
 
 A filled area and line over time, again with a roughened frame:
 
