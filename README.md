@@ -19,7 +19,7 @@
 ## Why another sketch package?
 
 |   | ggsketch | [ggrough](https://github.com/xvrdm/ggrough) |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | Approach | **Native ggplot2 geoms** (grid grobs) | Post-hoc convert a finished plot to SVG, redraw in HTML Canvas |
 | Output | Any device: screen / PNG / **PDF** / SVG | HTML widget only (breaks static PDF/PNG) |
 | Composes with `aes()` / stats / scales / facets | Yes | No (operates on the rendered plot) |
@@ -85,7 +85,7 @@ A filled area and line over time, again with a roughened frame:
 ## The geoms
 
 | Family | Geoms |
-|----|----|
+|------------------------------------|------------------------------------|
 | Lines & points | `geom_sketch_line()`, `geom_sketch_path()`, `geom_sketch_point()` |
 | Bars & tiles | `geom_sketch_col()`, `geom_sketch_bar()`, `geom_sketch_rect()`, `geom_sketch_tile()` |
 | Areas & curves | `geom_sketch_polygon()`, `geom_sketch_ribbon()`, `geom_sketch_area()`, `geom_sketch_density()`, `geom_sketch_smooth()` |
@@ -96,7 +96,7 @@ A filled area and line over time, again with a roughened frame:
 ### Shared sketch parameters
 
 | Parameter | Meaning |
-|----|----|
+|------------------------------------|------------------------------------|
 | `roughness` | How far points are jittered (0 = ruler-straight, \~1 default, \>3 loose) |
 | `bowing` | How much segments bow outward |
 | `n_passes` | Overlaid strokes (2 = the classic "double stroke") |
