@@ -17,8 +17,8 @@ geom_sketch_point(
   stat = "identity",
   position = "identity",
   ...,
-  roughness = 0.5,
-  bowing = 1,
+  roughness = NULL,
+  bowing = NULL,
   n_passes = 2L,
   seed = NULL,
   na.rm = FALSE,
@@ -28,7 +28,7 @@ geom_sketch_point(
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings. Supports \code{x}, \code{y}, \code{colour},
-\code{size}, \code{alpha}.}
+\code{size}, \code{alpha}, and \code{roughness}.}
 
 \item{data}{Data to display.}
 
@@ -58,10 +58,21 @@ Default 2.}
 Draws points as small roughened ellipses, giving each a hand-drawn feel.
 Equivalent to \code{geom_point()} with a sketch aesthetic.
 }
+\details{
+Unlike the other geoms, \code{roughness} is a \emph{mappable aesthetic} here: set it to a
+constant (\code{geom_sketch_point(roughness = 2)}) or map it to a variable
+(\code{aes(roughness = z)}) to make each point wobble more or less. Mapped values
+are used as-is (there is no roughness scale), so keep them in a sensible range
+(roughly 0 to 3); use \code{I()} or rescale your variable if needed.
+}
 \examples{
 library(ggplot2)
 ggplot(mtcars, aes(wt, mpg)) +
   geom_sketch_point(roughness = 0.5, seed = 1L)
+
+# Map roughness to a variable for per-point wobble.
+ggplot(mtcars, aes(wt, mpg, roughness = hp / 50)) +
+  geom_sketch_point(size = 3, seed = 1L)
 }
 \seealso{
 Other sketch-geoms: 

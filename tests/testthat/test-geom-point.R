@@ -50,6 +50,29 @@ test_that("per-point colours reach the grob (continuous scale, one group)", {
   expect_gt(length(unique(cols)), 1L)
 })
 
+test_that("roughness is a mappable aesthetic on points", {
+  df <- data.frame(x = 1:6, y = 1:6, z = c(0, 0, 0, 3, 3, 3))
+  # constant via param, mapped via aes, and default all build
+  expect_no_error(ggplot2::ggplot_build(
+    ggplot2::ggplot(df, ggplot2::aes(x, y)) + geom_sketch_point(roughness = 2, seed = 1L)))
+  p <- ggplot2::ggplot(df, ggplot2::aes(x, y, roughness = z)) +
+    geom_sketch_point(size = 4, seed = 1L)
+  built <- ggplot2::ggplot_build(p)$data[[1]]
+  expect_true("roughness" %in% names(built))
+  expect_gt(length(unique(built$roughness)), 1L)
+
+  # per-point roughness reaches the grob: smooth (z=0) points have far fewer
+  # distinct vertices than wobbly (z=3) ones. Compare two single-point grobs.
+  smooth <- grid::makeContent(sketch_point_grob(0.5, 0.5, size = 6, roughness = 0, seed = 1L))
+  wobbly <- grid::makeContent(sketch_point_grob(0.5, 0.5, size = 6, roughness = 3, seed = 1L))
+  span <- function(g) {
+    xs <- unlist(lapply(g$children, function(ch)
+      unlist(lapply(ch$children, function(p) as.numeric(p$x)))))
+    diff(range(xs))
+  }
+  expect_gt(span(wobbly), span(smooth))
+})
+
 test_that("index_gpar picks element i and recycles scalars", {
   gp <- grid::gpar(col = c("a", "b", "c"), lwd = 2, lineend = "round")
   expect_identical(index_gpar(gp, 2L)$col, "b")

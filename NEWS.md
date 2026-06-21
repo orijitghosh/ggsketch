@@ -1,12 +1,16 @@
 # ggsketch 1.5.0
 
-Annotation toolkit (first piece): sketch-native comparison brackets.
+Annotation toolkit (first piece) and the start of roughness-as-an-aesthetic.
 
 * **`geom_sketch_bracket()`** draws a hand-drawn significance / comparison
   bracket spanning `xmin` to `xmax` at height `y`, with short end tips and an
   optional handwriting `label` (e.g. a p-value or "n.s.") centred above. The
   sketch counterpart of a `ggsignif` bracket, for marking pairwise comparisons
   on boxplots, bars, and violins.
+* **`roughness` is now a mappable aesthetic on `geom_sketch_point()`.** Map it to
+  a variable (`aes(roughness = z)`) so each point wobbles more or less, or set a
+  constant. Mapped values are used as-is (no roughness scale yet), so keep them
+  roughly in 0-3. Rolling the same treatment out to the other geoms is planned.
 
 # ggsketch 1.4.0
 

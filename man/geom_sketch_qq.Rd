@@ -41,7 +41,7 @@ geom_sketch_qq_line(
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings. Supports \code{x}, \code{y}, \code{colour},
-\code{size}, \code{alpha}.}
+\code{size}, \code{alpha}, and \code{roughness}.}
 
 \item{data}{Data to display.}
 

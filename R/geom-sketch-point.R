@@ -44,17 +44,19 @@ makeContent.SketchPointGrob <- function(x) {
   # Size: ggplot2 uses mm units; 1 mm ≈ 0.0394 inches
   # Default size 1.5 pt → radius ≈ 0.01 inches
   sizes_in <- as.numeric(x$size) * 0.0394 / 2  # radius in inches
+  rough    <- as.numeric(x$roughness)          # may be per-point (aes mappable)
 
   children <- vector("list", length(xi))
 
   for (i in seq_along(xi)) {
     r   <- max(sizes_in[min(i, length(sizes_in))], 0.002)
+    r_i <- max(rough[[((i - 1L) %% length(rough)) + 1L]], 0)
     s_i <- seed_offset(x$seed, i * 53L)
     gp_i <- index_gpar(x$gp, i)  # per-point colour/lwd (aesthetics map per row)
     passes <- rough_ellipse(
       cx = xi[i], cy = yi[i],
       rx = r, ry = r,
-      roughness = x$roughness,
+      roughness = r_i,
       n_passes  = x$n_passes,
       seed      = s_i
     )
@@ -89,30 +91,31 @@ GeomSketchPoint <- ggplot2::ggproto(
     fill      = NA,
     alpha     = NA,
     shape     = 19,
-    stroke    = 0.5
+    stroke    = 0.5,
+    roughness = 0.5
   ),
 
+  # roughness is an aesthetic here (mappable per point); n_passes/seed stay
+  # layer params. bowing is accepted but unused (points are roughened ellipses).
   parameters = function(self, extra = FALSE) {
-    c("roughness", "bowing", "n_passes", "seed", "na.rm")
+    c("bowing", "n_passes", "seed", "na.rm")
   },
 
   draw_key = draw_key_sketch_point,
 
   draw_group = function(data, panel_params, coord,
-                         roughness = 0.5, bowing = 1, n_passes = 2L,
-                         seed = NULL, ...) {
+                         bowing = 1, n_passes = 2L, seed = NULL, ...) {
     if (nrow(data) == 0L) return(nullGrob())
 
     coords <- coord$transform(data, panel_params)
-    sp     <- resolve_sketch_params(roughness, bowing, n_passes, seed)
 
     sketch_point_grob(
       x         = coords$x,
       y         = coords$y,
       size      = coords$size,
-      roughness = sp$roughness,
-      n_passes  = sp$n_passes,
-      seed      = sp$seed,
+      roughness = coords$roughness,
+      n_passes  = max(1L, as.integer(n_passes)),
+      seed      = resolve_seed(seed),
       gp        = gpar(
         col = scales::alpha(coords$colour, coords$alpha),
         lwd = coords$stroke * ggplot2::.pt,
@@ -127,27 +130,43 @@ GeomSketchPoint <- ggplot2::ggproto(
 #' Draws points as small roughened ellipses, giving each a hand-drawn feel.
 #' Equivalent to `geom_point()` with a sketch aesthetic.
 #'
+#' Unlike the other geoms, `roughness` is a *mappable aesthetic* here: set it to a
+#' constant (`geom_sketch_point(roughness = 2)`) or map it to a variable
+#' (`aes(roughness = z)`) to make each point wobble more or less. Mapped values
+#' are used as-is (there is no roughness scale), so keep them in a sensible range
+#' (roughly 0 to 3); use `I()` or rescale your variable if needed.
+#'
 #' @inheritParams geom_sketch_path
 #' @param mapping Set of aesthetic mappings. Supports `x`, `y`, `colour`,
-#'   `size`, `alpha`.
+#'   `size`, `alpha`, and `roughness`.
 #' @family sketch-geoms
 #' @export
 #' @examples
 #' library(ggplot2)
 #' ggplot(mtcars, aes(wt, mpg)) +
 #'   geom_sketch_point(roughness = 0.5, seed = 1L)
+#'
+#' # Map roughness to a variable for per-point wobble.
+#' ggplot(mtcars, aes(wt, mpg, roughness = hp / 50)) +
+#'   geom_sketch_point(size = 3, seed = 1L)
 geom_sketch_point <- function(mapping     = NULL,
                                data        = NULL,
                                stat        = "identity",
                                position    = "identity",
                                ...,
-                               roughness   = 0.5,
-                               bowing      = 1,
+                               roughness   = NULL,
+                               bowing      = NULL,
                                n_passes    = 2L,
                                seed        = NULL,
                                na.rm       = FALSE,
                                show.legend = NA,
                                inherit.aes = TRUE) {
+  # `roughness` is a mappable aesthetic here. It defaults to NULL so we only set
+  # it as a constant when the user passes one; otherwise an `aes(roughness = )`
+  # mapping (or the default_aes value) is used and not overridden.
+  params <- list(n_passes = as.integer(n_passes), seed = seed, na.rm = na.rm, ...)
+  if (!is.null(roughness)) params$roughness <- roughness
+  if (!is.null(bowing))    params$bowing    <- bowing
   ggplot2::layer(
     data        = data,
     mapping     = mapping,
@@ -156,9 +175,6 @@ geom_sketch_point <- function(mapping     = NULL,
     position    = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params      = list(
-      roughness = roughness, bowing = bowing, n_passes = as.integer(n_passes),
-      seed = seed, na.rm = na.rm, ...
-    )
+    params      = params
   )
 }
