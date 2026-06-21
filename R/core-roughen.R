@@ -35,9 +35,15 @@ roughen_point <- function(x, y, roughness) {
 #' @param x0,y0 Start point (inches).
 #' @param x1,y1 End point (inches).
 #' @param roughness,bowing Sketch parameters.
+#' @param p0,p3 Optional pre-roughened endpoints (each `c(x, y)`). When supplied
+#'   the endpoints are used as-is instead of being jittered here, so multiple
+#'   passes over the same polyline share vertices and read as one stroke gone
+#'   over twice rather than two parallel lines. `NULL` (default) keeps the
+#'   stand-alone behaviour of roughening the endpoints.
 #' @return A 2-column (x, y) matrix of sampled path points.
 #' @noRd
-roughen_segment <- function(x0, y0, x1, y1, roughness, bowing) {
+roughen_segment <- function(x0, y0, x1, y1, roughness, bowing,
+                            p0 = NULL, p3 = NULL) {
   dx  <- x1 - x0
   dy  <- y1 - y0
   len <- sqrt(dx^2 + dy^2)
@@ -49,9 +55,11 @@ roughen_segment <- function(x0, y0, x1, y1, roughness, bowing) {
 
   off <- line_offset(len, roughness)
 
-  # Roughen endpoints
-  p0 <- roughen_point(x0, y0, off)
-  p3 <- roughen_point(x1, y1, off)
+  # Roughen endpoints (unless shared, pre-roughened endpoints were supplied)
+  if (is.null(p0)) p0 <- roughen_point(x0, y0, off)
+  if (is.null(p3)) p3 <- roughen_point(x1, y1, off)
+  p0 <- c(x = p0[[1L]], y = p0[[2L]])
+  p3 <- c(x = p3[[1L]], y = p3[[2L]])
 
   # Unit normal (leftward)
   nx <- -dy / len
@@ -105,13 +113,35 @@ roughen_polyline <- function(x, y,
             length(x) >= 2L)
   seed <- resolve_seed(seed)
 
+  n <- length(x)
+
+  # Jitter each vertex ONCE, shared across all passes. This is what makes the
+  # double stroke read as one hand-drawn line gone over twice instead of two
+  # parallel lines: the passes meet at every vertex and only the interior bows
+  # differ. Each vertex's jitter radius scales with its adjacent segment lengths.
+  seglen <- sqrt(diff(x)^2 + diff(y)^2)
+  verts <- within_seed(seed_offset(seed, 7L), {
+    vxx <- numeric(n); vyy <- numeric(n)
+    for (i in seq_len(n)) {
+      la  <- if (i > 1L) seglen[i - 1L] else seglen[1L]
+      lb  <- if (i < n)  seglen[i]      else seglen[n - 1L]
+      off <- line_offset((la + lb) / 2, roughness)
+      p   <- roughen_point(x[i], y[i], off)
+      vxx[i] <- p[["x"]]; vyy[i] <- p[["y"]]
+    }
+    list(vx = vxx, vy = vyy)
+  })
+  vx <- verts$vx; vy <- verts$vy
+
   lapply(seq_len(n_passes), function(pass) {
     s <- seed_offset(seed, (pass - 1L) * 1000L)
     within_seed(s, {
-      segs <- vector("list", length(x) - 1L)
-      for (i in seq_len(length(x) - 1L)) {
+      segs <- vector("list", n - 1L)
+      for (i in seq_len(n - 1L)) {
         segs[[i]] <- roughen_segment(x[i], y[i], x[i + 1L], y[i + 1L],
-                                     roughness, bowing)
+                                     roughness, bowing,
+                                     p0 = c(vx[i], vy[i]),
+                                     p3 = c(vx[i + 1L], vy[i + 1L]))
       }
       # Concatenate, dropping duplicate junction points
       do.call(rbind, lapply(seq_along(segs), function(k) {
