@@ -1,6 +1,7 @@
 # ggsketch 1.5.0
 
-Annotation toolkit (first piece) and the start of roughness-as-an-aesthetic.
+Annotation toolkit (first piece), roughness-as-an-aesthetic, and a real solid
+fill.
 
 * **`geom_sketch_bracket()`** draws a hand-drawn significance / comparison
   bracket spanning `xmin` to `xmax` at height `y`, with short end tips and an
@@ -9,8 +10,19 @@ Annotation toolkit (first piece) and the start of roughness-as-an-aesthetic.
   on boxplots, bars, and violins.
 * **`roughness` is now a mappable aesthetic on `geom_sketch_point()`.** Map it to
   a variable (`aes(roughness = z)`) so each point wobbles more or less, or set a
-  constant. Mapped values are used as-is (no roughness scale yet), so keep them
-  roughly in 0-3. Rolling the same treatment out to the other geoms is planned.
+  constant. A mapped variable is rescaled to a legible roughness band by the new
+  **`scale_roughness_continuous()`** (default range `c(0.01, 0.75)`), applied
+  automatically just like `scale_size()`; wrap values in `I()` to use them as raw
+  roughness. Rolling the mappable treatment out to the other geoms is planned.
+
+### Bug fixes
+
+* `fill_style = "solid"` now actually paints the shape with its fill colour
+  instead of leaving the interior empty. Previously "solid" drew the outline
+  only, so the fill colour was computed and then never used and the shape stayed
+  transparent (most visible on bars/columns and on boxplots, whose box is white
+  by default). The fill follows the roughened boundary so the hand-drawn edge is
+  kept. Shapes with no fill (`fill = NA`) stay outline-only as before.
 
 # ggsketch 1.4.0
 

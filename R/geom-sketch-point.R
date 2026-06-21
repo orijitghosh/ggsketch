@@ -131,23 +131,33 @@ GeomSketchPoint <- ggplot2::ggproto(
 #' Equivalent to `geom_point()` with a sketch aesthetic.
 #'
 #' Unlike the other geoms, `roughness` is a *mappable aesthetic* here: set it to a
-#' constant (`geom_sketch_point(roughness = 2)`) or map it to a variable
-#' (`aes(roughness = z)`) to make each point wobble more or less. Mapped values
-#' are used as-is (there is no roughness scale), so keep them in a sensible range
-#' (roughly 0 to 3); use `I()` or rescale your variable if needed.
+#' constant (`geom_sketch_point(roughness = 2)`) so every point wobbles the same
+#' amount, or map it to a variable (`aes(roughness = z)`) so each point wobbles
+#' more or less. A mapped variable is rescaled to a legible roughness band by
+#' [scale_roughness_continuous()] (the default range is `c(0.01, 0.75)`), exactly
+#' as `scale_size()` rescales to a size range. Wrap values in [base::I()] to use
+#' them as raw roughness instead.
 #'
 #' @inheritParams geom_sketch_path
 #' @param mapping Set of aesthetic mappings. Supports `x`, `y`, `colour`,
 #'   `size`, `alpha`, and `roughness`.
 #' @family sketch-geoms
+#' @seealso [scale_roughness_continuous()] to control how a mapped variable is
+#'   turned into roughness.
 #' @export
 #' @examples
 #' library(ggplot2)
 #' ggplot(mtcars, aes(wt, mpg)) +
 #'   geom_sketch_point(roughness = 0.5, seed = 1L)
 #'
-#' # Map roughness to a variable for per-point wobble.
-#' ggplot(mtcars, aes(wt, mpg, roughness = hp / 50)) +
+#' # A constant sets how wobbly every point is.
+#' ggplot(mtcars, aes(wt, mpg)) +
+#'   geom_sketch_point(roughness = 0, size = 3, seed = 1L)    # clean circles
+#' ggplot(mtcars, aes(wt, mpg)) +
+#'   geom_sketch_point(roughness = 1.5, size = 3, seed = 1L)  # very sketchy
+#'
+#' # Map roughness to a variable: rescaled to c(0.01, 0.75) by default.
+#' ggplot(mtcars, aes(wt, mpg, roughness = hp)) +
 #'   geom_sketch_point(size = 3, seed = 1L)
 geom_sketch_point <- function(mapping     = NULL,
                                data        = NULL,

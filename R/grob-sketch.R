@@ -172,7 +172,23 @@ makeContent.SketchPolygonGrob <- function(x) {
     gy   <- yi[idx]
     s_base <- seed_offset(x$seed, g * 37L)
 
-    # --- fill lines ---
+    # Roughened, closed outline. Computed first so the "solid" fill can reuse it
+    # as the fill boundary (keeping the hand-drawn edge). Explicit seed offsets
+    # mean the draw order does not change the RNG stream.
+    passes <- NULL
+    if (length(gx) >= 2L) {
+      cx <- c(gx, gx[1L])
+      cy <- c(gy, gy[1L])
+      passes <- roughen_polyline(
+        cx, cy,
+        roughness = x$roughness,
+        bowing    = x$bowing,
+        n_passes  = x$n_passes,
+        seed      = seed_offset(s_base, 2000L)
+      )
+    }
+
+    # --- fill ---
     if (!is.null(x$fill_style) && x$fill_style != "solid") {
       fill_segs <- sketch_fill(
         gx, gy,
@@ -195,22 +211,22 @@ makeContent.SketchPolygonGrob <- function(x) {
           gp = fill_gp_seg
         )
       }
+    } else if (identical(x$fill_style, "solid") && !is.null(passes)) {
+      # Solid fill: paint the roughened boundary with the fill colour. Skipped
+      # when there is no fill (col NA) so outline-only stays outline-only.
+      solid_col <- index_gpar(x$fill_gp, g)$col
+      if (length(solid_col) && !is.na(solid_col)) {
+        fp <- passes[[1L]]
+        children[[length(children) + 1L]] <- polygonGrob(
+          x  = unit(fp[, "x"], "inches"),
+          y  = unit(fp[, "y"], "inches"),
+          gp = gpar(fill = solid_col, col = NA)
+        )
+      }
     }
 
     # --- rough outline (n_passes) ---
-    if (length(gx) >= 2L) {
-      # Close the polygon
-      cx <- c(gx, gx[1L])
-      cy <- c(gy, gy[1L])
-
-      passes <- roughen_polyline(
-        cx, cy,
-        roughness = x$roughness,
-        bowing    = x$bowing,
-        n_passes  = x$n_passes,
-        seed      = seed_offset(s_base, 2000L)
-      )
-
+    if (!is.null(passes)) {
       for (pass in passes) {
         children[[length(children) + 1L]] <- polylineGrob(
           x  = unit(pass[, "x"], "inches"),
@@ -287,6 +303,7 @@ makeContent.SketchEllipseGrob <- function(x) {
 
   children <- list()
   do_fill  <- !is.null(x$fill_style) && !identical(x$fill_style, "solid")
+  do_solid <- identical(x$fill_style, "solid")
 
   for (i in seq_len(n)) {
     if (rx[i] <= 0 || ry[i] <= 0) next
@@ -294,8 +311,17 @@ makeContent.SketchEllipseGrob <- function(x) {
     outline_gp_i <- index_gpar(x$outline_gp, i)  # per-shape colour (maps per row)
     fill_gp_i    <- index_gpar(x$fill_gp, i)
 
-    # --- fill: a clean ellipse boundary fed to the scan-line filler ---
+    # Roughened outline (also the solid-fill boundary). Computed first; explicit
+    # seed offsets keep the RNG stream independent of draw order.
+    passes <- rough_ellipse(
+      cx = cx[i], cy = cy[i], rx = rx[i], ry = ry[i],
+      roughness = x$roughness, n_passes = x$n_passes,
+      seed = seed_offset(s_base, 2000L)
+    )
+
+    # --- fill ---
     if (do_fill) {
+      # a clean ellipse boundary fed to the scan-line filler
       th   <- seq(0, 2 * pi, length.out = 64L)
       bx   <- cx[i] + rx[i] * cos(th)
       by   <- cy[i] + ry[i] * sin(th)
@@ -317,14 +343,19 @@ makeContent.SketchEllipseGrob <- function(x) {
           gp = fill_gp_seg
         )
       }
+    } else if (do_solid) {
+      # paint the roughened boundary with the fill colour (skip when fill is NA)
+      solid_col <- fill_gp_i$col
+      if (length(solid_col) && !is.na(solid_col)) {
+        fp <- passes[[1L]]
+        children[[length(children) + 1L]] <- polygonGrob(
+          x = unit(fp[, "x"], "inches"), y = unit(fp[, "y"], "inches"),
+          gp = gpar(fill = solid_col, col = NA)
+        )
+      }
     }
 
     # --- roughened outline ---
-    passes <- rough_ellipse(
-      cx = cx[i], cy = cy[i], rx = rx[i], ry = ry[i],
-      roughness = x$roughness, n_passes = x$n_passes,
-      seed = seed_offset(s_base, 2000L)
-    )
     for (pass in passes) {
       children[[length(children) + 1L]] <- polylineGrob(
         x = unit(pass[, "x"], "inches"), y = unit(pass[, "y"], "inches"),

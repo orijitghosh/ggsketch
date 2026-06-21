@@ -87,6 +87,7 @@ reference:
     contents:
       - element_sketch_line
       - scale_sketch
+      - scale_roughness_continuous
       - sketch_palette
   - title: Legend keys
     desc: The sketchy `draw_key` functions wired into every geom.

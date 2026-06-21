@@ -60,21 +60,32 @@ Equivalent to \code{geom_point()} with a sketch aesthetic.
 }
 \details{
 Unlike the other geoms, \code{roughness} is a \emph{mappable aesthetic} here: set it to a
-constant (\code{geom_sketch_point(roughness = 2)}) or map it to a variable
-(\code{aes(roughness = z)}) to make each point wobble more or less. Mapped values
-are used as-is (there is no roughness scale), so keep them in a sensible range
-(roughly 0 to 3); use \code{I()} or rescale your variable if needed.
+constant (\code{geom_sketch_point(roughness = 2)}) so every point wobbles the same
+amount, or map it to a variable (\code{aes(roughness = z)}) so each point wobbles
+more or less. A mapped variable is rescaled to a legible roughness band by
+\code{\link[=scale_roughness_continuous]{scale_roughness_continuous()}} (the default range is \code{c(0.01, 0.75)}), exactly
+as \code{scale_size()} rescales to a size range. Wrap values in \code{\link[base:AsIs]{base::I()}} to use
+them as raw roughness instead.
 }
 \examples{
 library(ggplot2)
 ggplot(mtcars, aes(wt, mpg)) +
   geom_sketch_point(roughness = 0.5, seed = 1L)
 
-# Map roughness to a variable for per-point wobble.
-ggplot(mtcars, aes(wt, mpg, roughness = hp / 50)) +
+# A constant sets how wobbly every point is.
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_sketch_point(roughness = 0, size = 3, seed = 1L)    # clean circles
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_sketch_point(roughness = 1.5, size = 3, seed = 1L)  # very sketchy
+
+# Map roughness to a variable: rescaled to c(0.01, 0.75) by default.
+ggplot(mtcars, aes(wt, mpg, roughness = hp)) +
   geom_sketch_point(size = 3, seed = 1L)
 }
 \seealso{
+\code{\link[=scale_roughness_continuous]{scale_roughness_continuous()}} to control how a mapped variable is
+turned into roughness.
+
 Other sketch-geoms: 
 \code{\link{GeomSketchAbline}},
 \code{\link{GeomSketchBoxplot}},

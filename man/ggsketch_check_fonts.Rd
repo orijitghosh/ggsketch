@@ -24,6 +24,7 @@ purely cosmetic (ADR-0005).
 Other sketch-theme: 
 \code{\link{element_sketch_line}()},
 \code{\link{register_sketch_font}()},
+\code{\link{scale_roughness_continuous}()},
 \code{\link{scale_sketch}},
 \code{\link{sketch_palette}()},
 \code{\link{theme_sketch}()}

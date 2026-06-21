@@ -49,6 +49,7 @@ ggplot(mtcars, aes(wt, mpg)) +
 Other sketch-theme: 
 \code{\link{element_sketch_line}()},
 \code{\link{ggsketch_check_fonts}()},
+\code{\link{scale_roughness_continuous}()},
 \code{\link{scale_sketch}},
 \code{\link{sketch_palette}()},
 \code{\link{theme_sketch}()}
