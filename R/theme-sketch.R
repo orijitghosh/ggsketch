@@ -7,22 +7,61 @@
 #'
 #' Cosmetic only (ADR-0005): the sketch look comes from geometry, not fonts.
 #' Returns `""` (device default) when none of `fonts` are installed, or when
-#' `systemfonts` is not available — never errors. The default list tries the
+#' `systemfonts` is not available - never errors. The default list tries the
 #' preferred (brand) handwriting faces first, then falls back to handwriting
 #' fonts that ship with Windows / macOS so a sketchy face is usually found
 #' without the user installing anything.
+#'
+#' Variable fonts (e.g. Caveat ships as `Caveat-VariableFont_wght.ttf`) cannot be
+#' rendered by name on ragg/svglite - the device silently falls back to the
+#' default family, which is why a handwriting face often "does not show up".
+#' systemfonts does not reliably flag variable fonts, so we pin the matched
+#' family to a renderable instance under a derived name and return that. The pin
+#' is idempotent (cached in the registry) and a no-op alias for plain fonts.
 #' @param fonts Candidate families, tried in order.
 #' @return A single font family string (`""` = device default).
 #' @noRd
 resolve_sketch_font <- function(fonts = sketch_font_candidates()) {
   if (!requireNamespace("systemfonts", quietly = TRUE)) return("")
   sys <- systemfonts::system_fonts()
-  # Also honour fonts registered via register_sketch_font() (reproducible,
-  # no OS install) — these live in the systemfonts registry, not system_fonts().
+  # Fonts registered via register_sketch_font() (or a previous pin below) live
+  # in the systemfonts registry, not system_fonts(); honour both.
   reg <- tryCatch(systemfonts::registry_fonts(), error = function(e) NULL)
-  available <- unique(c(sys$family, reg$family))
-  hit <- fonts[fonts %in% available]
-  if (length(hit) > 0L) hit[[1L]] else ""
+  registered <- unique(reg$family)
+
+  for (f in fonts) {
+    if (f %in% registered) return(f)              # already renderable by name
+    if (!(f %in% sys$family)) next
+    pinned <- paste0(f, " (ggsketch)")
+    if (pinned %in% registered) return(pinned)
+    if (pin_sketch_font(f, sys, pinned)) return(pinned)
+    return(f)                                     # best effort if the pin fails
+  }
+  ""
+}
+
+#' Pin an installed family to a renderable instance under `name`
+#'
+#' Works around devices not rendering some installed faces (notably variable
+#' fonts) by name. Prefers `systemfonts::register_variant()` (handles variable
+#' axes), falling back to `register_font()` with the regular face's file path.
+#' Returns `TRUE` on success.
+#' @noRd
+pin_sketch_font <- function(family, sys, name) {
+  if ("register_variant" %in% getNamespaceExports("systemfonts")) {
+    ok <- tryCatch({
+      systemfonts::register_variant(name = name, family = family)
+      TRUE
+    }, error = function(e) FALSE)
+    if (ok) return(TRUE)
+  }
+  rows  <- sys[sys$family == family, , drop = FALSE]
+  plain <- rows[grepl("regular|book|normal", tolower(rows$style)), , drop = FALSE]
+  if (nrow(plain) == 0L) plain <- rows[1L, , drop = FALSE]
+  tryCatch({
+    systemfonts::register_font(name = name, plain = plain$path[[1L]])
+    TRUE
+  }, error = function(e) FALSE)
 }
 
 #' Default handwriting-font candidates, most preferred first

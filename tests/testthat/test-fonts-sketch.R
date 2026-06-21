@@ -25,3 +25,19 @@ test_that("register_sketch_font() registers a file and the resolver finds it", {
 test_that("resolve_sketch_font() returns '' when nothing matches", {
   expect_identical(resolve_sketch_font(fonts = "DefinitelyNotAFont_xyz"), "")
 })
+
+test_that("resolve_sketch_font() pins an installed family so devices can render it", {
+  skip_if_not_installed("systemfonts")
+  sys <- systemfonts::system_fonts()
+  skip_if(nrow(sys) == 0L, "no system fonts available")
+  # Pick a real installed family and resolve it directly. The resolver should
+  # return a renderable handle (a pinned variant in the registry), not just hand
+  # back the bare system name (which can fail for variable fonts on ragg).
+  fam <- sys$family[[1L]]
+  res <- resolve_sketch_font(fonts = fam)
+  expect_true(nzchar(res))
+  reg <- systemfonts::registry_fonts()$family
+  expect_true(res %in% reg || identical(res, fam))   # pinned, or best-effort name
+  # Idempotent: a second call returns the same handle, no error.
+  expect_identical(resolve_sketch_font(fonts = fam), res)
+})

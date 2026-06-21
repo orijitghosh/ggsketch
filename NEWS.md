@@ -28,6 +28,14 @@ style, and reproducible fonts.
   one hand-drawn line gone over twice rather than two parallel lines. Previously
   each pass jittered the vertices independently and the strokes could drift apart
   on short or flat edges (most visible on outlines like violins).
+* `geom_sketch_boxplot()` draws the median with much less bowing so the thick
+  median line reads as one firm line rather than a bowed lens.
+* The handwriting-font resolver (`base_family = "auto"`, `geom_sketch_text()`)
+  now handles variable fonts. A face such as Caveat that ships as a variable font
+  cannot be drawn by name on ragg/svglite (the device falls back to the default),
+  so the resolver pins a renderable instance automatically. This is why a
+  handwriting face now shows up out of the box, with no manual
+  `register_sketch_font()` call needed.
 
 # ggsketch 1.3.0
 
