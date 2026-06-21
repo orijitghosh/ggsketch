@@ -93,10 +93,14 @@ sketch_font_candidates <- function() {
 #' background.
 #'
 #' @param base_size Base font size (default 11).
-#' @param base_family Base font family. `""` (default) uses the device default.
+#' @param base_family Base font family. Defaults to
+#'   `getOption("ggsketch.base_family", "")`; `""` uses the device default.
 #'   `"auto"` picks the first installed handwriting font (see
-#'   [ggsketch_check_fonts()]), falling back to the device default. Or pass an
-#'   explicit family name.
+#'   [ggsketch_check_fonts()]), falling back to the device default. Set
+#'   `options(ggsketch.base_family = "auto")` to make every sketch plot's text
+#'   (titles, axes, legend) use handwriting, not just the labels drawn by
+#'   [geom_sketch_text()] / [geom_sketch_bracket()]. Or pass an explicit family
+#'   name.
 #' @param base_line_size Line size (default `base_size / 22`).
 #' @param base_rect_size Rect size (default `base_size / 22`).
 #' @param dark If `TRUE`, use the dark "chalkboard" preset. Default `FALSE`
@@ -119,7 +123,7 @@ sketch_font_candidates <- function() {
 #' p + theme_sketch(dark = TRUE)
 #' p + theme_sketch(rough_frame = TRUE)
 theme_sketch <- function(base_size      = 11,
-                          base_family    = "",
+                          base_family    = getOption("ggsketch.base_family", ""),
                           base_line_size = base_size / 22,
                           base_rect_size = base_size / 22,
                           dark           = FALSE,

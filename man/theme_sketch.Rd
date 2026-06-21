@@ -6,7 +6,7 @@
 \usage{
 theme_sketch(
   base_size = 11,
-  base_family = "",
+  base_family = getOption("ggsketch.base_family", ""),
   base_line_size = base_size/22,
   base_rect_size = base_size/22,
   dark = FALSE,
@@ -18,10 +18,14 @@ theme_sketch(
 \arguments{
 \item{base_size}{Base font size (default 11).}
 
-\item{base_family}{Base font family. \code{""} (default) uses the device default.
+\item{base_family}{Base font family. Defaults to
+\code{getOption("ggsketch.base_family", "")}; \code{""} uses the device default.
 \code{"auto"} picks the first installed handwriting font (see
-\code{\link[=ggsketch_check_fonts]{ggsketch_check_fonts()}}), falling back to the device default. Or pass an
-explicit family name.}
+\code{\link[=ggsketch_check_fonts]{ggsketch_check_fonts()}}), falling back to the device default. Set
+\code{options(ggsketch.base_family = "auto")} to make every sketch plot's text
+(titles, axes, legend) use handwriting, not just the labels drawn by
+\code{\link[=geom_sketch_text]{geom_sketch_text()}} / \code{\link[=geom_sketch_bracket]{geom_sketch_bracket()}}. Or pass an explicit family
+name.}
 
 \item{base_line_size}{Line size (default \code{base_size / 22}).}
 

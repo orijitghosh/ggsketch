@@ -13,7 +13,7 @@ GeomSketchBoxplot <- ggplot2::ggproto(
 
   default_aes = ggplot2::aes(
     colour    = "grey20",
-    fill      = "white",
+    fill      = NA,
     linewidth = 0.5,
     linetype  = 1,
     alpha     = NA,
@@ -133,8 +133,10 @@ GeomSketchBoxplot <- ggplot2::ggproto(
 #' @param bowing Non-negative bowing multiplier. Default 1.
 #' @param n_passes Number of stroke passes. Default 2.
 #' @param seed Integer seed. `NULL` uses `getOption("ggsketch.seed", 1L)`.
-#' @param fill_style Box fill style. Default `"solid"` (no hachure); set e.g.
-#'   `"hachure"` for shaded boxes.
+#' @param fill_style Box fill style. Default `"solid"`. The box is outline-only
+#'   until you give it a `fill` (the default `fill` is `NA`); set `fill` for a
+#'   solid box, or use e.g. `fill_style = "hachure"` with a `fill` for shaded
+#'   boxes.
 #' @param hachure_angle,hachure_gap,fill_weight Fill parameters.
 #' @param outliers Draw outlier points? Default `TRUE`.
 #' @param na.rm Remove missing values silently? Default `FALSE`.

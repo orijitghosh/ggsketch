@@ -50,8 +50,10 @@ geom_sketch_boxplot(
 
 \item{seed}{Integer seed. \code{NULL} uses \code{getOption("ggsketch.seed", 1L)}.}
 
-\item{fill_style}{Box fill style. Default \code{"solid"} (no hachure); set e.g.
-\code{"hachure"} for shaded boxes.}
+\item{fill_style}{Box fill style. Default \code{"solid"}. The box is outline-only
+until you give it a \code{fill} (the default \code{fill} is \code{NA}); set \code{fill} for a
+solid box, or use e.g. \code{fill_style = "hachure"} with a \code{fill} for shaded
+boxes.}
 
 \item{hachure_angle, hachure_gap, fill_weight}{Fill parameters.}
 

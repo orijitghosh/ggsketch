@@ -23,11 +23,20 @@ library(ggplot2)
 library(ggsketch)
 set.seed(1)
 options(ggsketch.seed = 1)
+# Use a handwriting font for *all* plot text (titles, axes, legends), not just
+# the labels drawn by geom_sketch_text()/geom_sketch_bracket(). This sets the
+# default base_family for every theme_sketch() call below.
+options(ggsketch.base_family = "auto")
 ```
 
 Everything here is a real ggplot2 layer, so it composes with `aes()`, stats,
 scales, facets, and coords — and renders on any device. Every example sets a
 `seed` so the wobble is reproducible.
+
+Every plot uses a handwriting font throughout via
+`options(ggsketch.base_family = "auto")` in setup; without it, `theme_sketch()`
+keeps the device default font and only the labels that geoms draw themselves
+(`geom_sketch_text()`, `geom_sketch_bracket()`) are hand-drawn.
 
 ## Bars and columns
 
@@ -170,6 +179,39 @@ ggplot(grid, aes(x, y, size = s)) +
   labs(title = "Increasing point size", x = NULL, y = NULL) +
   theme_sketch()
 ```
+
+## Point roughness
+
+For `geom_sketch_point()`, `roughness` is a *mappable aesthetic*. As a constant
+it sets how wobbly every marker is — from clean circles up to very shaky:
+
+```{r point-rough-const}
+rg <- data.frame(x = 1:4, y = 1, r = c(0, 0.4, 0.9, 1.6))
+ggplot(rg, aes(x, y)) +
+  geom_sketch_point(aes(roughness = I(r)), size = 14, colour = "#2E86C1",
+                    seed = 1L) +
+  geom_sketch_text(aes(label = r), nudge_y = -0.5, size = 6) +
+  labs(title = "roughness 0 → 1.6 (constant per point)",
+       x = NULL, y = NULL) +
+  ylim(0.3, 1.3) +
+  theme_sketch() +
+  theme(axis.text = element_blank())
+```
+
+Map it to a variable and the values are rescaled to a legible band by
+`scale_roughness_continuous()` (applied automatically, default `c(0.01, 0.75)`),
+so points can encode a third variable through how shaky they look:
+
+```{r point-rough-mapped}
+ggplot(mtcars, aes(wt, mpg, roughness = hp, colour = factor(cyl))) +
+  geom_sketch_point(size = 4, seed = 1L) +
+  scale_colour_brewer("cylinders", palette = "Dark2") +
+  labs(title = "roughness mapped to horsepower") +
+  theme_sketch()
+```
+
+Use `I()` to pass raw roughness through unscaled, or
+`scale_roughness_continuous(range = ...)` to widen the band.
 
 ## Jitter and count
 
@@ -546,8 +588,8 @@ ggplot(mpg, aes(class, hwy)) +
   theme(axis.text.x = element_text(angle = 30, hjust = 1))
 ```
 
-By default the box is `fill_style = "solid"` (outline only). For coloured,
-shaded boxes, map `fill` and switch on a fill style:
+By default the box is outline-only (its `fill` is `NA`). Give it a `fill` for a
+solid box, or map `fill` and switch on a fill style for coloured, shaded boxes:
 
 ```{r boxplot-hachure}
 ggplot(mpg, aes(class, hwy, fill = class)) +
@@ -702,7 +744,7 @@ ggplot(grid) +
       fill = "#7BAFD4", fill_style = grid$style[i], seed = i
     )
   }) +
-  geom_text(aes(col, row - 0.55, label = style), size = 3) +
+  geom_sketch_text(aes(col, row - 0.55, label = style), size = 4) +
   coord_equal() +
   labs(title = "The eight fill styles", x = NULL, y = NULL) +
   theme_sketch() +

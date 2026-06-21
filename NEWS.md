@@ -20,9 +20,18 @@ fill.
 * `fill_style = "solid"` now actually paints the shape with its fill colour
   instead of leaving the interior empty. Previously "solid" drew the outline
   only, so the fill colour was computed and then never used and the shape stayed
-  transparent (most visible on bars/columns and on boxplots, whose box is white
-  by default). The fill follows the roughened boundary so the hand-drawn edge is
-  kept. Shapes with no fill (`fill = NA`) stay outline-only as before.
+  transparent (most visible on solid bars/columns). The fill follows the
+  roughened boundary so the hand-drawn edge is kept. Shapes with no fill
+  (`fill = NA`) stay outline-only as before.
+* `geom_sketch_boxplot()` now defaults to `fill = NA`, so the box stays
+  outline-only (as it effectively was before solid fill started painting). Pass a
+  `fill` for a solid box, or `fill_style = "hachure"` with a `fill` for a shaded
+  one.
+* `theme_sketch(base_family = )` now defaults to
+  `getOption("ggsketch.base_family", "")`, so `options(ggsketch.base_family =
+  "auto")` makes every sketch plot's text (titles, axes, legend) use a
+  handwriting font, not only the labels drawn by `geom_sketch_text()` /
+  `geom_sketch_bracket()`.
 
 # ggsketch 1.4.0
 
