@@ -42,6 +42,9 @@ pak::pak("orijitghosh/ggsketch")
 `ggsketch` is pure R (`NeedsCompilation: no`); its only hard
 dependencies are ggplot2, grid, rlang, scales, cli, and withr.
 
+Full documentation and a gallery of every geom:
+<https://orijitghosh.github.io/ggsketch/>.
+
 ## Quick start
 
 ``` r
@@ -74,9 +77,9 @@ drivetrain](reference/figures/README-showcase.png)
 Overlapping densities and the new `"scribble"` fill, both on the sketch
 palette:
 
-|  |  |
-|----|----|
-| ![Overlapping sketch density curves of highway mpg by drivetrain](reference/figures/README-density.png) | ![Scribble-filled sketch bar chart](reference/figures/README-bars.png) |
+![Overlapping sketch density curves of highway mpg by
+drivetrain](reference/figures/README-density.png)![Scribble-filled
+sketch bar chart](reference/figures/README-bars.png)
 
 A filled area and line over time, again with a roughened frame:
 
