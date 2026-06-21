@@ -59,11 +59,12 @@ GeomSketchBoxplot <- ggplot2::ggproto(
     tx <- function(xx, yy) {
       coord$transform(data.frame(x = xx, y = yy), panel_params)
     }
-    seg_grob <- function(xx, yy, off, lwd_mult = 1) {
+    seg_grob <- function(xx, yy, off, lwd_mult = 1, bow_mult = 1) {
       pts <- tx(xx, yy)
       sketch_path_grob(
         x = pts$x, y = pts$y,
-        roughness = sp$roughness, bowing = sp$bowing, n_passes = sp$n_passes,
+        roughness = sp$roughness, bowing = sp$bowing * bow_mult,
+        n_passes = sp$n_passes,
         seed = seed_offset(sp$seed, off),
         gp = gpar(col = col, lwd = row$linewidth * lwd_mult * ggplot2::.pt,
                   lty = row$linetype, lineend = "round")
@@ -92,10 +93,11 @@ GeomSketchBoxplot <- ggplot2::ggproto(
                         lty = row$linetype, lineend = "round", linejoin = "round")
     )
 
-    # --- median line (thicker) ---
+    # --- median line (thicker; little bowing so it reads as one firm line
+    #     rather than a bowed lens at double the linewidth) ---
     grobs[[length(grobs) + 1L]] <-
       seg_grob(c(row$xmin, row$xmax), c(row$middle, row$middle), 4L,
-               lwd_mult = 2)
+               lwd_mult = 2, bow_mult = 0.2)
 
     # --- outliers ---
     if (outliers && !is.null(data$outliers) &&
