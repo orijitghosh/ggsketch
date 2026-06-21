@@ -16,8 +16,8 @@ geom_sketch_point(
   stat = "identity",
   position = "identity",
   ...,
-  roughness = 0.5,
-  bowing = 1,
+  roughness = NULL,
+  bowing = NULL,
   n_passes = 2L,
   seed = NULL,
   na.rm = FALSE,
@@ -36,7 +36,7 @@ An object of class `GeomSketchPoint` (inherits from `Geom`, `ggproto`,
 - mapping:
 
   Set of aesthetic mappings. Supports `x`, `y`, `colour`, `size`,
-  `alpha`.
+  `alpha`, and `roughness`.
 
 - data:
 
@@ -83,11 +83,29 @@ An object of class `GeomSketchPoint` (inherits from `Geom`, `ggproto`,
 
   If `FALSE`, override the default aesthetics.
 
+## Details
+
+Unlike the other geoms, `roughness` is a *mappable aesthetic* here: set
+it to a constant (`geom_sketch_point(roughness = 2)`) so every point
+wobbles the same amount, or map it to a variable (`aes(roughness = z)`)
+so each point wobbles more or less. A mapped variable is rescaled to a
+legible roughness band by
+[`scale_roughness_continuous()`](https://orijitghosh.github.io/ggsketch/reference/scale_roughness_continuous.md)
+(the default range is `c(0.01, 0.75)`), exactly as
+[`scale_size()`](https://ggplot2.tidyverse.org/reference/scale_size.html)
+rescales to a size range. Wrap values in
+[`base::I()`](https://rdrr.io/r/base/AsIs.html) to use them as raw
+roughness instead.
+
 ## See also
+
+[`scale_roughness_continuous()`](https://orijitghosh.github.io/ggsketch/reference/scale_roughness_continuous.md)
+to control how a mapped variable is turned into roughness.
 
 Other sketch-geoms:
 [`GeomSketchAbline`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_abline.md),
 [`GeomSketchBoxplot`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_boxplot.md),
+[`GeomSketchBracket`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_bracket.md),
 [`GeomSketchCol`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_col.md),
 [`GeomSketchCurve`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_curve.md),
 [`GeomSketchEllipse`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_circle.md),
@@ -122,4 +140,17 @@ Other sketch-geoms:
 library(ggplot2)
 ggplot(mtcars, aes(wt, mpg)) +
   geom_sketch_point(roughness = 0.5, seed = 1L)
+
+
+# A constant sets how wobbly every point is.
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_sketch_point(roughness = 0, size = 3, seed = 1L)    # clean circles
+
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_sketch_point(roughness = 1.5, size = 3, seed = 1L)  # very sketchy
+
+
+# Map roughness to a variable: rescaled to c(0.01, 0.75) by default.
+ggplot(mtcars, aes(wt, mpg, roughness = hp)) +
+  geom_sketch_point(size = 3, seed = 1L)
 ```

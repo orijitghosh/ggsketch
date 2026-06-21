@@ -30,6 +30,7 @@ report.
 Other sketch-theme:
 [`element_sketch_line()`](https://orijitghosh.github.io/ggsketch/reference/element_sketch_line.md),
 [`register_sketch_font()`](https://orijitghosh.github.io/ggsketch/reference/register_sketch_font.md),
+[`scale_roughness_continuous()`](https://orijitghosh.github.io/ggsketch/reference/scale_roughness_continuous.md),
 [`scale_sketch`](https://orijitghosh.github.io/ggsketch/reference/scale_sketch.md),
 [`sketch_palette()`](https://orijitghosh.github.io/ggsketch/reference/sketch_palette.md),
 [`theme_sketch()`](https://orijitghosh.github.io/ggsketch/reference/theme_sketch.md)

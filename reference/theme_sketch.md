@@ -12,7 +12,7 @@ typography, and background.
 ``` r
 theme_sketch(
   base_size = 11,
-  base_family = "",
+  base_family = getOption("ggsketch.base_family", ""),
   base_line_size = base_size/22,
   base_rect_size = base_size/22,
   dark = FALSE,
@@ -30,10 +30,18 @@ theme_sketch(
 
 - base_family:
 
-  Base font family. `""` (default) uses the device default. `"auto"`
-  picks the first installed handwriting font (see
+  Base font family. Defaults to `getOption("ggsketch.base_family", "")`;
+  `""` uses the device default. `"auto"` picks the first installed
+  handwriting font (see
   [`ggsketch_check_fonts()`](https://orijitghosh.github.io/ggsketch/reference/ggsketch_check_fonts.md)),
-  falling back to the device default. Or pass an explicit family name.
+  falling back to the device default. Set
+  `options(ggsketch.base_family = "auto")` to make every sketch plot's
+  text (titles, axes, legend) use handwriting, not just the labels drawn
+  by
+  [`geom_sketch_text()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_text.md)
+  /
+  [`geom_sketch_bracket()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_bracket.md).
+  Or pass an explicit family name.
 
 - base_line_size:
 
@@ -78,6 +86,7 @@ Other sketch-theme:
 [`element_sketch_line()`](https://orijitghosh.github.io/ggsketch/reference/element_sketch_line.md),
 [`ggsketch_check_fonts()`](https://orijitghosh.github.io/ggsketch/reference/ggsketch_check_fonts.md),
 [`register_sketch_font()`](https://orijitghosh.github.io/ggsketch/reference/register_sketch_font.md),
+[`scale_roughness_continuous()`](https://orijitghosh.github.io/ggsketch/reference/scale_roughness_continuous.md),
 [`scale_sketch`](https://orijitghosh.github.io/ggsketch/reference/scale_sketch.md),
 [`sketch_palette()`](https://orijitghosh.github.io/ggsketch/reference/sketch_palette.md)
 

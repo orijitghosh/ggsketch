@@ -1,5 +1,50 @@
 # Changelog
 
+## ggsketch 1.5.0
+
+Annotation toolkit (first piece), roughness-as-an-aesthetic, and a real
+solid fill.
+
+- **[`geom_sketch_bracket()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_bracket.md)**
+  draws a hand-drawn significance / comparison bracket spanning `xmin`
+  to `xmax` at height `y`, with short end tips and an optional
+  handwriting `label` (e.g. a p-value or “n.s.”) centred above. The
+  sketch counterpart of a `ggsignif` bracket, for marking pairwise
+  comparisons on boxplots, bars, and violins.
+- **`roughness` is now a mappable aesthetic on
+  [`geom_sketch_point()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_point.md).**
+  Map it to a variable (`aes(roughness = z)`) so each point wobbles more
+  or less, or set a constant. A mapped variable is rescaled to a legible
+  roughness band by the new
+  **[`scale_roughness_continuous()`](https://orijitghosh.github.io/ggsketch/reference/scale_roughness_continuous.md)**
+  (default range `c(0.01, 0.75)`), applied automatically just like
+  [`scale_size()`](https://ggplot2.tidyverse.org/reference/scale_size.html);
+  wrap values in [`I()`](https://rdrr.io/r/base/AsIs.html) to use them
+  as raw roughness. Rolling the mappable treatment out to the other
+  geoms is planned (see `dev/FUTURE-TODO.md`).
+
+#### Bug fixes
+
+- `fill_style = "solid"` now actually paints the shape with its fill
+  colour instead of leaving the interior empty. Previously “solid” drew
+  the outline only, so the fill colour was computed and then never used
+  and the shape stayed transparent (most visible on solid bars/columns).
+  The fill follows the roughened boundary so the hand-drawn edge is
+  kept. Shapes with no fill (`fill = NA`) stay outline-only as before.
+- [`geom_sketch_boxplot()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_boxplot.md)
+  now defaults to `fill = NA`, so the box stays outline-only (as it
+  effectively was before solid fill started painting). Pass a `fill` for
+  a solid box, or `fill_style = "hachure"` with a `fill` for a shaded
+  one.
+- `theme_sketch(base_family = )` now defaults to
+  `getOption("ggsketch.base_family", "")`, so
+  `options(ggsketch.base_family = "auto")` makes every sketch plot’s
+  text (titles, axes, legend) use a handwriting font, not only the
+  labels drawn by
+  [`geom_sketch_text()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_text.md)
+  /
+  [`geom_sketch_bracket()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_bracket.md).
+
 ## ggsketch 1.4.0
 
 The frame can now be roughened too, plus a matching colour palette, a
@@ -48,6 +93,18 @@ new fill style, and reproducible fonts.
   lines. Previously each pass jittered the vertices independently and
   the strokes could drift apart on short or flat edges (most visible on
   outlines like violins).
+- [`geom_sketch_boxplot()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_boxplot.md)
+  draws the median with much less bowing so the thick median line reads
+  as one firm line rather than a bowed lens.
+- The handwriting-font resolver (`base_family = "auto"`,
+  [`geom_sketch_text()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_text.md))
+  now handles variable fonts. A face such as Caveat that ships as a
+  variable font cannot be drawn by name on ragg/svglite (the device
+  falls back to the default), so the resolver pins a renderable instance
+  automatically. This is why a handwriting face now shows up out of the
+  box, with no manual
+  [`register_sketch_font()`](https://orijitghosh.github.io/ggsketch/reference/register_sketch_font.md)
+  call needed.
 
 ## ggsketch 1.3.0
 

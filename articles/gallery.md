@@ -5,6 +5,15 @@ Everything here is a real ggplot2 layer, so it composes with
 scales, facets, and coords — and renders on any device. Every example
 sets a `seed` so the wobble is reproducible.
 
+Every plot uses a handwriting font throughout via
+`options(ggsketch.base_family = "auto")` in setup; without it,
+[`theme_sketch()`](https://orijitghosh.github.io/ggsketch/reference/theme_sketch.md)
+keeps the device default font and only the labels that geoms draw
+themselves
+([`geom_sketch_text()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_text.md),
+[`geom_sketch_bracket()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_bracket.md))
+are hand-drawn.
+
 ## Bars and columns
 
 [`geom_sketch_col()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_col.md)
@@ -191,6 +200,49 @@ ggplot(grid, aes(x, y, size = s)) +
 ```
 
 ![](gallery_files/figure-html/point-size-grid-1.png)
+
+## Point roughness
+
+For
+[`geom_sketch_point()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_point.md),
+`roughness` is a *mappable aesthetic*. As a constant it sets how wobbly
+every marker is — from clean circles up to very shaky:
+
+``` r
+
+rg <- data.frame(x = 1:4, y = 1, r = c(0, 0.4, 0.9, 1.6))
+ggplot(rg, aes(x, y)) +
+  geom_sketch_point(aes(roughness = I(r)), size = 14, colour = "#2E86C1",
+                    seed = 1L) +
+  geom_sketch_text(aes(label = r), nudge_y = -0.5, size = 6) +
+  labs(title = "roughness 0 → 1.6 (constant per point)",
+       x = NULL, y = NULL) +
+  ylim(0.3, 1.3) +
+  theme_sketch() +
+  theme(axis.text = element_blank())
+```
+
+![](gallery_files/figure-html/point-rough-const-1.png)
+
+Map it to a variable and the values are rescaled to a legible band by
+[`scale_roughness_continuous()`](https://orijitghosh.github.io/ggsketch/reference/scale_roughness_continuous.md)
+(applied automatically, default `c(0.01, 0.75)`), so points can encode a
+third variable through how shaky they look:
+
+``` r
+
+ggplot(mtcars, aes(wt, mpg, roughness = hp, colour = factor(cyl))) +
+  geom_sketch_point(size = 4, seed = 1L) +
+  scale_colour_brewer("cylinders", palette = "Dark2") +
+  labs(title = "roughness mapped to horsepower") +
+  theme_sketch()
+```
+
+![](gallery_files/figure-html/point-rough-mapped-1.png)
+
+Use [`I()`](https://rdrr.io/r/base/AsIs.html) to pass raw roughness
+through unscaled, or `scale_roughness_continuous(range = ...)` to widen
+the band.
 
 ## Jitter and count
 
@@ -684,8 +736,9 @@ ggplot(mpg, aes(class, hwy)) +
 
 ![](gallery_files/figure-html/boxplot-1.png)
 
-By default the box is `fill_style = "solid"` (outline only). For
-coloured, shaded boxes, map `fill` and switch on a fill style:
+By default the box is outline-only (its `fill` is `NA`). Give it a
+`fill` for a solid box, or map `fill` and switch on a fill style for
+coloured, shaded boxes:
 
 ``` r
 
@@ -721,6 +774,33 @@ ggplot(mtcars, aes(wt, mpg)) +
 ```
 
 ![](gallery_files/figure-html/annotate-1.png)
+
+## Significance brackets
+
+[`geom_sketch_bracket()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_bracket.md)
+draws a hand-drawn comparison bracket with an optional handwriting
+label, for marking pairwise comparisons (a sketchy `ggsignif`).
+
+``` r
+
+brackets <- data.frame(
+  xmin  = c(1, 2),
+  xmax  = c(2, 3),
+  y     = c(40, 45),
+  label = c("p = 0.03", "n.s.")
+)
+ggplot(mpg, aes(drv, hwy)) +
+  geom_sketch_boxplot(seed = 1L) +
+  geom_sketch_bracket(
+    data = brackets,
+    aes(xmin = xmin, xmax = xmax, y = y, label = label),
+    seed = 2L
+  ) +
+  labs(title = "Pairwise comparisons", x = "drivetrain") +
+  theme_sketch()
+```
+
+![](gallery_files/figure-html/bracket-1.png)
 
 ## Composition: facets, scales, coords
 
@@ -858,7 +938,7 @@ ggplot(grid) +
       fill = "#7BAFD4", fill_style = grid$style[i], seed = i
     )
   }) +
-  geom_text(aes(col, row - 0.55, label = style), size = 3) +
+  geom_sketch_text(aes(col, row - 0.55, label = style), size = 4) +
   coord_equal() +
   labs(title = "The eight fill styles", x = NULL, y = NULL) +
   theme_sketch() +

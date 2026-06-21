@@ -78,8 +78,10 @@ An object of class `GeomSketchBoxplot` (inherits from `Geom`, `ggproto`,
 
 - fill_style:
 
-  Box fill style. Default `"solid"` (no hachure); set e.g. `"hachure"`
-  for shaded boxes.
+  Box fill style. Default `"solid"`. The box is outline-only until you
+  give it a `fill` (the default `fill` is `NA`); set `fill` for a solid
+  box, or use e.g. `fill_style = "hachure"` with a `fill` for shaded
+  boxes.
 
 - hachure_angle, hachure_gap, fill_weight:
 
@@ -109,6 +111,7 @@ A `ggplot2` layer object.
 
 Other sketch-geoms:
 [`GeomSketchAbline`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_abline.md),
+[`GeomSketchBracket`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_bracket.md),
 [`GeomSketchCol`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_col.md),
 [`GeomSketchCurve`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_curve.md),
 [`GeomSketchEllipse`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_circle.md),

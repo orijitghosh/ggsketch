@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ggsketch</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,9 +43,26 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/orijitghosh/ggsketch/blob/v1.4.0/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/orijitghosh/ggsketch/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.5.0" id="ggsketch-150">ggsketch 1.5.0<a class="anchor" aria-label="anchor" href="#ggsketch-150"></a></h2>
+<p>Annotation toolkit (first piece), roughness-as-an-aesthetic, and a real solid fill.</p>
+<ul><li>
+<strong><code><a href="../reference/geom_sketch_bracket.html">geom_sketch_bracket()</a></code></strong> draws a hand-drawn significance / comparison bracket spanning <code>xmin</code> to <code>xmax</code> at height <code>y</code>, with short end tips and an optional handwriting <code>label</code> (e.g. a p-value or “n.s.”) centred above. The sketch counterpart of a <code>ggsignif</code> bracket, for marking pairwise comparisons on boxplots, bars, and violins.</li>
+<li>
+<strong><code>roughness</code> is now a mappable aesthetic on <code><a href="../reference/geom_sketch_point.html">geom_sketch_point()</a></code>.</strong> Map it to a variable (<code>aes(roughness = z)</code>) so each point wobbles more or less, or set a constant. A mapped variable is rescaled to a legible roughness band by the new <strong><code><a href="../reference/scale_roughness_continuous.html">scale_roughness_continuous()</a></code></strong> (default range <code>c(0.01, 0.75)</code>), applied automatically just like <code><a href="https://ggplot2.tidyverse.org/reference/scale_size.html" class="external-link">scale_size()</a></code>; wrap values in <code><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I()</a></code> to use them as raw roughness. Rolling the mappable treatment out to the other geoms is planned (see <code>dev/FUTURE-TODO.md</code>).</li>
+</ul><div class="section level4">
+<h4 id="bug-fixes-1-5-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-1-5-0"></a></h4>
+<ul><li>
+<code>fill_style = "solid"</code> now actually paints the shape with its fill colour instead of leaving the interior empty. Previously “solid” drew the outline only, so the fill colour was computed and then never used and the shape stayed transparent (most visible on solid bars/columns). The fill follows the roughened boundary so the hand-drawn edge is kept. Shapes with no fill (<code>fill = NA</code>) stay outline-only as before.</li>
+<li>
+<code><a href="../reference/geom_sketch_boxplot.html">geom_sketch_boxplot()</a></code> now defaults to <code>fill = NA</code>, so the box stays outline-only (as it effectively was before solid fill started painting). Pass a <code>fill</code> for a solid box, or <code>fill_style = "hachure"</code> with a <code>fill</code> for a shaded one.</li>
+<li>
+<code>theme_sketch(base_family = )</code> now defaults to <code>getOption("ggsketch.base_family", "")</code>, so <code>options(ggsketch.base_family = "auto")</code> makes every sketch plot’s text (titles, axes, legend) use a handwriting font, not only the labels drawn by <code><a href="../reference/geom_sketch_text.html">geom_sketch_text()</a></code> / <code><a href="../reference/geom_sketch_bracket.html">geom_sketch_bracket()</a></code>.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.4.0" id="ggsketch-140">ggsketch 1.4.0<a class="anchor" aria-label="anchor" href="#ggsketch-140"></a></h2>
 <p>The frame can now be roughened too, plus a matching colour palette, a new fill style, and reproducible fonts.</p>
@@ -62,6 +79,9 @@
 <ul><li>
 <code><a href="../reference/geom_sketch_point.html">geom_sketch_point()</a></code> (and <code><a href="../reference/geom_sketch_circle.html">geom_sketch_circle()</a></code> / <code><a href="../reference/geom_sketch_circle.html">geom_sketch_ellipse()</a></code>) now draw each mark in its own colour when the colour/fill aesthetic varies within a single group — e.g. a continuous scale such as <code><a href="../reference/scale_sketch.html">scale_colour_sketch_c()</a></code>. Previously every mark took the first point’s colour, so a gradient looked flat.</li>
 <li>The double-stroke outline now shares its vertices across passes, so it reads as one hand-drawn line gone over twice rather than two parallel lines. Previously each pass jittered the vertices independently and the strokes could drift apart on short or flat edges (most visible on outlines like violins).</li>
+<li>
+<code><a href="../reference/geom_sketch_boxplot.html">geom_sketch_boxplot()</a></code> draws the median with much less bowing so the thick median line reads as one firm line rather than a bowed lens.</li>
+<li>The handwriting-font resolver (<code>base_family = "auto"</code>, <code><a href="../reference/geom_sketch_text.html">geom_sketch_text()</a></code>) now handles variable fonts. A face such as Caveat that ships as a variable font cannot be drawn by name on ragg/svglite (the device falls back to the default), so the resolver pins a renderable instance automatically. This is why a handwriting face now shows up out of the box, with no manual <code><a href="../reference/register_sketch_font.html">register_sketch_font()</a></code> call needed.</li>
 </ul></div>
 </div>
     <div class="section level2">

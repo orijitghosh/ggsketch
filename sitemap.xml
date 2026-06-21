@@ -21,6 +21,7 @@
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/geom_sketch_abline.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/geom_sketch_bin2d.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/geom_sketch_boxplot.html</loc></url>
+<url><loc>https://orijitghosh.github.io/ggsketch/reference/geom_sketch_bracket.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/geom_sketch_circle.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/geom_sketch_col.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/geom_sketch_contour.html</loc></url>
@@ -55,6 +56,7 @@
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/rough_bezier.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/rough_ellipse.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/roughen_polyline.html</loc></url>
+<url><loc>https://orijitghosh.github.io/ggsketch/reference/scale_roughness_continuous.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/scale_sketch.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/sketch_ellipse_grob.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/sketch_fill.html</loc></url>

@@ -83,6 +83,7 @@ A ggplot2 theme element carrying an `element_sketch_*` subclass.
 Other sketch-theme:
 [`ggsketch_check_fonts()`](https://orijitghosh.github.io/ggsketch/reference/ggsketch_check_fonts.md),
 [`register_sketch_font()`](https://orijitghosh.github.io/ggsketch/reference/register_sketch_font.md),
+[`scale_roughness_continuous()`](https://orijitghosh.github.io/ggsketch/reference/scale_roughness_continuous.md),
 [`scale_sketch`](https://orijitghosh.github.io/ggsketch/reference/scale_sketch.md),
 [`sketch_palette()`](https://orijitghosh.github.io/ggsketch/reference/sketch_palette.md),
 [`theme_sketch()`](https://orijitghosh.github.io/ggsketch/reference/theme_sketch.md)

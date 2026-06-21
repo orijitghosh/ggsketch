@@ -141,6 +141,9 @@ The signature filled look — roughened outlines with hachure-style fills.
   : Sketchy text and labels
 - [`annotate_sketch()`](https://orijitghosh.github.io/ggsketch/reference/annotate_sketch.md)
   : Sketchy annotations
+- [`GeomSketchBracket`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_bracket.md)
+  [`geom_sketch_bracket()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_bracket.md)
+  : Sketchy significance / comparison brackets
 - [`theme_sketch()`](https://orijitghosh.github.io/ggsketch/reference/theme_sketch.md)
   : A hand-drawn theme for ggplot2
 - [`ggsketch_check_fonts()`](https://orijitghosh.github.io/ggsketch/reference/ggsketch_check_fonts.md)
@@ -156,6 +159,7 @@ matching paper-and-ink colour palette.
 - [`element_sketch_line()`](https://orijitghosh.github.io/ggsketch/reference/element_sketch_line.md)
   [`element_sketch_rect()`](https://orijitghosh.github.io/ggsketch/reference/element_sketch_line.md)
   : Hand-drawn theme elements
+
 - [`scale_colour_sketch()`](https://orijitghosh.github.io/ggsketch/reference/scale_sketch.md)
   [`scale_color_sketch()`](https://orijitghosh.github.io/ggsketch/reference/scale_sketch.md)
   [`scale_fill_sketch()`](https://orijitghosh.github.io/ggsketch/reference/scale_sketch.md)
@@ -163,6 +167,13 @@ matching paper-and-ink colour palette.
   [`scale_color_sketch_c()`](https://orijitghosh.github.io/ggsketch/reference/scale_sketch.md)
   [`scale_fill_sketch_c()`](https://orijitghosh.github.io/ggsketch/reference/scale_sketch.md)
   : Sketch colour and fill scales
+
+- [`scale_roughness_continuous()`](https://orijitghosh.github.io/ggsketch/reference/scale_roughness_continuous.md)
+  [`scale_roughness()`](https://orijitghosh.github.io/ggsketch/reference/scale_roughness_continuous.md)
+  :
+
+  Continuous scale for the sketch `roughness` aesthetic
+
 - [`sketch_palette()`](https://orijitghosh.github.io/ggsketch/reference/sketch_palette.md)
   : The ggsketch qualitative colour palette
 
