@@ -77,6 +77,7 @@ ggplot(data.frame(x = c(-3, 3)), aes(x)) +
 Other sketch-geoms: 
 \code{\link{GeomSketchAbline}},
 \code{\link{GeomSketchBoxplot}},
+\code{\link{GeomSketchBracket}},
 \code{\link{GeomSketchCol}},
 \code{\link{GeomSketchCurve}},
 \code{\link{GeomSketchEllipse}},

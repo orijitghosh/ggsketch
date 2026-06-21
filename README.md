@@ -90,7 +90,7 @@ A filled area and line over time, again with a roughened frame:
 | Bars & tiles | `geom_sketch_col()`, `geom_sketch_bar()`, `geom_sketch_rect()`, `geom_sketch_tile()` |
 | Areas & curves | `geom_sketch_polygon()`, `geom_sketch_ribbon()`, `geom_sketch_area()`, `geom_sketch_density()`, `geom_sketch_smooth()` |
 | Circular & composed | `geom_sketch_circle()`, `geom_sketch_ellipse()`, `geom_sketch_segment()`, `geom_sketch_step()`, `geom_sketch_boxplot()` |
-| Helpers | `annotate_sketch()`, `theme_sketch()` |
+| Helpers & annotation | `annotate_sketch()`, `geom_sketch_bracket()` (significance brackets), `theme_sketch()` |
 | Frame & scales | `element_sketch_line()`, `element_sketch_rect()` (via `theme_sketch(rough_frame = TRUE)`), `scale_colour_sketch()`, `scale_fill_sketch()`, `register_sketch_font()` |
 
 ### Shared sketch parameters

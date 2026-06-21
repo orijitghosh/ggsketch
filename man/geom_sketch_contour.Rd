@@ -74,6 +74,7 @@ ggplot(faithfuld, aes(waiting, eruptions, z = density)) +
 Other sketch-geoms: 
 \code{\link{GeomSketchAbline}},
 \code{\link{GeomSketchBoxplot}},
+\code{\link{GeomSketchBracket}},
 \code{\link{GeomSketchCol}},
 \code{\link{GeomSketchCurve}},
 \code{\link{GeomSketchEllipse}},

@@ -1,3 +1,13 @@
+# ggsketch 1.5.0
+
+Annotation toolkit (first piece): sketch-native comparison brackets.
+
+* **`geom_sketch_bracket()`** draws a hand-drawn significance / comparison
+  bracket spanning `xmin` to `xmax` at height `y`, with short end tips and an
+  optional handwriting `label` (e.g. a p-value or "n.s.") centred above. The
+  sketch counterpart of a `ggsignif` bracket, for marking pairwise comparisons
+  on boxplots, bars, and violins.
+
 # ggsketch 1.4.0
 
 The frame can now be roughened too, plus a matching colour palette, a new fill

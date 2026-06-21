@@ -575,6 +575,29 @@ ggplot(mtcars, aes(wt, mpg)) +
   theme_sketch()
 ```
 
+## Significance brackets
+
+`geom_sketch_bracket()` draws a hand-drawn comparison bracket with an optional
+handwriting label, for marking pairwise comparisons (a sketchy `ggsignif`).
+
+```{r bracket}
+brackets <- data.frame(
+  xmin  = c(1, 2),
+  xmax  = c(2, 3),
+  y     = c(40, 45),
+  label = c("p = 0.03", "n.s.")
+)
+ggplot(mpg, aes(drv, hwy)) +
+  geom_sketch_boxplot(seed = 1L) +
+  geom_sketch_bracket(
+    data = brackets,
+    aes(xmin = xmin, xmax = xmax, y = y, label = label),
+    seed = 2L
+  ) +
+  labs(title = "Pairwise comparisons", x = "drivetrain") +
+  theme_sketch()
+```
+
 ## Composition: facets, scales, coords
 
 Sketch geoms respect the full grammar.

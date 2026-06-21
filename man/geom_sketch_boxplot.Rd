@@ -81,6 +81,7 @@ ggplot(mpg, aes(class, hwy)) +
 \seealso{
 Other sketch-geoms: 
 \code{\link{GeomSketchAbline}},
+\code{\link{GeomSketchBracket}},
 \code{\link{GeomSketchCol}},
 \code{\link{GeomSketchCurve}},
 \code{\link{GeomSketchEllipse}},

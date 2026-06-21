@@ -98,6 +98,7 @@ ggplot(mtcars, aes(wt, mpg)) +
 \seealso{
 Other sketch-geoms: 
 \code{\link{GeomSketchBoxplot}},
+\code{\link{GeomSketchBracket}},
 \code{\link{GeomSketchCol}},
 \code{\link{GeomSketchCurve}},
 \code{\link{GeomSketchEllipse}},

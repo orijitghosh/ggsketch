@@ -109,6 +109,7 @@ ggplot(df, aes(x, y)) +
 Other sketch-geoms: 
 \code{\link{GeomSketchAbline}},
 \code{\link{GeomSketchBoxplot}},
+\code{\link{GeomSketchBracket}},
 \code{\link{GeomSketchCurve}},
 \code{\link{GeomSketchEllipse}},
 \code{\link{GeomSketchHex}},

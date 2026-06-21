@@ -75,6 +75,7 @@ ggplot(df, aes(x, y)) +
 Other sketch-geoms: 
 \code{\link{GeomSketchAbline}},
 \code{\link{GeomSketchBoxplot}},
+\code{\link{GeomSketchBracket}},
 \code{\link{GeomSketchCol}},
 \code{\link{GeomSketchEllipse}},
 \code{\link{GeomSketchHex}},

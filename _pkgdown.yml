@@ -76,6 +76,7 @@ reference:
     contents:
       - geom_sketch_text
       - annotate_sketch
+      - geom_sketch_bracket
       - theme_sketch
       - ggsketch_check_fonts
       - register_sketch_font

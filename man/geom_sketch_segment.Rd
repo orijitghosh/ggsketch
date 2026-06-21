@@ -97,6 +97,7 @@ ggplot(df) +
 Other sketch-geoms: 
 \code{\link{GeomSketchAbline}},
 \code{\link{GeomSketchBoxplot}},
+\code{\link{GeomSketchBracket}},
 \code{\link{GeomSketchCol}},
 \code{\link{GeomSketchCurve}},
 \code{\link{GeomSketchEllipse}},
