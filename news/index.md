@@ -31,6 +31,19 @@ new fill style, and reproducible fonts.
   reproduces on any machine or CI runner without a system install; the
   font resolver now also finds registered fonts.
 
+#### Bug fixes
+
+- [`geom_sketch_point()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_point.md)
+  (and
+  [`geom_sketch_circle()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_circle.md)
+  /
+  [`geom_sketch_ellipse()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_circle.md))
+  now draw each mark in its own colour when the colour/fill aesthetic
+  varies within a single group — e.g. a continuous scale such as
+  [`scale_colour_sketch_c()`](https://orijitghosh.github.io/ggsketch/reference/scale_sketch.md).
+  Previously every mark took the first point’s colour, so a gradient
+  looked flat.
+
 ## ggsketch 1.3.0
 
 New geoms (Tier 3, first batch — 2-D density and text):
