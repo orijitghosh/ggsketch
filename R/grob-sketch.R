@@ -1,6 +1,21 @@
 # Layer 2 — sketch grobs with makeContent() (P2-T1)
 # Roughening happens in inch space inside makeContent() (R4, T-CORE-05).
 
+# Pick element `i` from each component of a gpar, recycling scalars. Aesthetics
+# (colour, lwd, alpha, …) arrive as per-row vectors when a single draw call
+# covers many shapes (e.g. a continuous colour scale = one group); applying the
+# whole vector to each shape's grob would make grid use only the first value, so
+# every shape would share one colour. Subsetting per shape fixes that.
+#' @noRd
+index_gpar <- function(gp, i) {
+  parts <- unclass(gp)
+  if (length(parts) == 0L) return(gp)
+  parts <- lapply(parts, function(v) {
+    if (length(v) > 1L) v[[((i - 1L) %% length(v)) + 1L]] else v
+  })
+  do.call(grid::gpar, parts)
+}
+
 # ---- sketch_path_grob -------------------------------------------------------
 
 #' Create a sketchy path grob
@@ -276,6 +291,8 @@ makeContent.SketchEllipseGrob <- function(x) {
   for (i in seq_len(n)) {
     if (rx[i] <= 0 || ry[i] <= 0) next
     s_base <- seed_offset(x$seed, i * 71L)
+    outline_gp_i <- index_gpar(x$outline_gp, i)  # per-shape colour (maps per row)
+    fill_gp_i    <- index_gpar(x$fill_gp, i)
 
     # --- fill: a clean ellipse boundary fed to the scan-line filler ---
     if (do_fill) {
@@ -292,7 +309,7 @@ makeContent.SketchEllipseGrob <- function(x) {
         bowing        = 0,
         seed          = seed_offset(s_base, 1000L)
       )
-      fill_gp_seg     <- x$fill_gp
+      fill_gp_seg     <- fill_gp_i
       fill_gp_seg$lwd <- x$fill_weight * ggplot2::.pt
       for (seg in segs) {
         children[[length(children) + 1L]] <- polylineGrob(
@@ -311,7 +328,7 @@ makeContent.SketchEllipseGrob <- function(x) {
     for (pass in passes) {
       children[[length(children) + 1L]] <- polylineGrob(
         x = unit(pass[, "x"], "inches"), y = unit(pass[, "y"], "inches"),
-        gp = x$outline_gp
+        gp = outline_gp_i
       )
     }
   }

@@ -50,6 +50,7 @@ makeContent.SketchPointGrob <- function(x) {
   for (i in seq_along(xi)) {
     r   <- max(sizes_in[min(i, length(sizes_in))], 0.002)
     s_i <- seed_offset(x$seed, i * 53L)
+    gp_i <- index_gpar(x$gp, i)  # per-point colour/lwd (aesthetics map per row)
     passes <- rough_ellipse(
       cx = xi[i], cy = yi[i],
       rx = r, ry = r,
@@ -62,7 +63,7 @@ makeContent.SketchPointGrob <- function(x) {
       polylineGrob(
         x  = unit(p[, "x"], "inches"),
         y  = unit(p[, "y"], "inches"),
-        gp = x$gp
+        gp = gp_i
       )
     })
     children[[i]] <- do.call(gList, pass_grobs)
