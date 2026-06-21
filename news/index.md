@@ -43,6 +43,11 @@ new fill style, and reproducible fonts.
   [`scale_colour_sketch_c()`](https://orijitghosh.github.io/ggsketch/reference/scale_sketch.md).
   Previously every mark took the first point’s colour, so a gradient
   looked flat.
+- The double-stroke outline now shares its vertices across passes, so it
+  reads as one hand-drawn line gone over twice rather than two parallel
+  lines. Previously each pass jittered the vertices independently and
+  the strokes could drift apart on short or flat edges (most visible on
+  outlines like violins).
 
 ## ggsketch 1.3.0
 

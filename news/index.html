@@ -61,6 +61,7 @@
 <h4 id="bug-fixes-1-4-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-1-4-0"></a></h4>
 <ul><li>
 <code><a href="../reference/geom_sketch_point.html">geom_sketch_point()</a></code> (and <code><a href="../reference/geom_sketch_circle.html">geom_sketch_circle()</a></code> / <code><a href="../reference/geom_sketch_circle.html">geom_sketch_ellipse()</a></code>) now draw each mark in its own colour when the colour/fill aesthetic varies within a single group — e.g. a continuous scale such as <code><a href="../reference/scale_sketch.html">scale_colour_sketch_c()</a></code>. Previously every mark took the first point’s colour, so a gradient looked flat.</li>
+<li>The double-stroke outline now shares its vertices across passes, so it reads as one hand-drawn line gone over twice rather than two parallel lines. Previously each pass jittered the vertices independently and the strokes could drift apart on short or flat edges (most visible on outlines like violins).</li>
 </ul></div>
 </div>
     <div class="section level2">
