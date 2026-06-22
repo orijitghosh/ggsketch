@@ -76,7 +76,7 @@ A \code{ggplot2} layer object.
 }
 \description{
 Bins data into hexagons and draws each as a hand-drawn hexagon shaded by
-count — the sketch analogue of \code{\link[ggplot2:geom_hex]{ggplot2::geom_hex()}} / \code{\link[ggplot2:geom_hex]{ggplot2::stat_bin_hex()}}.
+count - the sketch analogue of \code{\link[ggplot2:geom_hex]{ggplot2::geom_hex()}} / \code{\link[ggplot2:geom_hex]{ggplot2::stat_bin_hex()}}.
 Requires the optional \pkg{hexbin} package.
 }
 \examples{

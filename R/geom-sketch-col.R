@@ -1,4 +1,4 @@
-# Layer 3 — geom_sketch_col() / geom_sketch_bar() (P3-T2)
+# Layer 3 - geom_sketch_col() / geom_sketch_bar() (P3-T2)
 # Each bar is a roughened polygon with hachure fill via sketch_polygon_grob().
 
 # ---- GeomSketchCol ----------------------------------------------------------

@@ -1,4 +1,4 @@
-# Layer 3 — geom_sketch_polygon() (P4-T1)
+# Layer 3 - geom_sketch_polygon() (P4-T1)
 # Concave-safe hachure fill + rough outline. Exercises the AET scan-line fill
 # (P1-T7) on arbitrary polygons via sketch_polygon_grob().
 

@@ -1,4 +1,4 @@
-# Layer 1 — derived fill styles (P1-T8)
+# Layer 1 - derived fill styles (P1-T8)
 # No grid:: or ggplot2:: (T-ARCH-01).
 
 #' Dispatch fill-style to the appropriate Layer-1 fill function
@@ -47,7 +47,7 @@ sketch_fill <- function(px, py,
 
 # ---- cross_hatch ------------------------------------------------------------
 
-#' Cross-hatch fill: hachure at angle θ and θ+90°
+#' Cross-hatch fill: hachure at angle theta and theta+90 deg
 #' @noRd
 cross_hatch_fill <- function(px, py, gap, angle, roughness, bowing, seed) {
   a <- hachure_fill(px, py, gap, angle,       roughness, bowing,
@@ -234,9 +234,9 @@ dashed_fill <- function(px, py, gap, angle, roughness, bowing, seed) {
 
 # ---- curve-fill bridge (P1-T9) ----------------------------------------------
 
-#' Flatten a closed Bézier boundary to a polygon, then fill
+#' Flatten a closed Bezier boundary to a polygon, then fill
 #'
-#' For area/ribbon/density geoms: converts a curved boundary (list of Bézier
+#' For area/ribbon/density geoms: converts a curved boundary (list of Bezier
 #' control-point sets) into a polygon approximation, then applies `sketch_fill`.
 #'
 #' @param bezier_list List of 4-element lists, each with `P0`, `P1`, `P2`,
@@ -252,7 +252,7 @@ curve_fill <- function(bezier_list,
                         tol     = 1e-3,
                         rdp_eps = 1e-4,
                         ...) {
-  # Flatten each Bézier segment to a polyline and concatenate
+  # Flatten each Bezier segment to a polyline and concatenate
   pts_list <- lapply(bezier_list, function(b) {
     pts <- flatten_bezier(b$P0[1L], b$P0[2L],
                            b$P1[1L], b$P1[2L],

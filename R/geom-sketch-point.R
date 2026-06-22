@@ -1,4 +1,4 @@
-# Layer 3 — geom_sketch_point() (P2-T4)
+# Layer 3 - geom_sketch_point() (P2-T4)
 # Each point is a small rough ellipse rendered in makeContent().
 
 # ---- SketchPointGrob --------------------------------------------------------
@@ -37,12 +37,12 @@ makeContent.SketchPointGrob <- function(x) {
     return(setChildren(x, gList(nullGrob())))
   }
 
-  # Convert npc → inches
+  # Convert npc -> inches
   xi   <- as.numeric(convertX(unit(x$x, "npc"), "inches"))
   yi   <- as.numeric(convertY(unit(x$y, "npc"), "inches"))
 
-  # Size: ggplot2 uses mm units; 1 mm ≈ 0.0394 inches
-  # Default size 1.5 pt → radius ≈ 0.01 inches
+  # Size: ggplot2 uses mm units; 1 mm approx 0.0394 inches
+  # Default size 1.5 pt -> radius approx 0.01 inches
   sizes_in <- as.numeric(x$size) * 0.0394 / 2  # radius in inches
   rough    <- as.numeric(x$roughness)          # may be per-point (aes mappable)
 

@@ -1,10 +1,10 @@
-# Layer 3 — geom_sketch_function() (Tier 2)
+# Layer 3 - geom_sketch_function() (Tier 2)
 # Sketch a function curve over the x range using stat_function, drawn as a
 # roughened path. Great for teaching / annotating analytic curves.
 
 #' Sketchy function curve
 #'
-#' Draws the curve of a function `y = fun(x)` with a hand-drawn stroke — the
+#' Draws the curve of a function `y = fun(x)` with a hand-drawn stroke - the
 #' sketch analogue of [ggplot2::geom_function()], built on
 #' [ggplot2::stat_function()].
 #'

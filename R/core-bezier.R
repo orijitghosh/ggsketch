@@ -1,16 +1,16 @@
-# Layer 1 — cubic Bézier sampling, flatness test, RDP, rough_bezier (P1-T5)
+# Layer 1 - cubic Bezier sampling, flatness test, RDP, rough_bezier (P1-T5)
 # No grid:: or ggplot2:: (T-ARCH-01).
 
-# ---- cubic Bézier sampling --------------------------------------------------
+# ---- cubic Bezier sampling --------------------------------------------------
 
-#' Sample points along a cubic Bézier curve
+#' Sample points along a cubic Bezier curve
 #'
 #' @param x0,y0 P0 (start)
 #' @param x1,y1 P1 (first control)
 #' @param x2,y2 P2 (second control)
 #' @param x3,y3 P3 (end)
 #' @param n Number of sample points (including endpoints).
-#' @return n×2 matrix with columns `x` and `y`.
+#' @return nx2 matrix with columns `x` and `y`.
 #' @noRd
 sample_cubic_bezier <- function(x0, y0, x1, y1, x2, y2, x3, y3, n = 10L) {
   t  <- seq(0, 1, length.out = n)
@@ -22,10 +22,10 @@ sample_cubic_bezier <- function(x0, y0, x1, y1, x2, y2, x3, y3, n = 10L) {
 
 # ---- flatness test ----------------------------------------------------------
 
-#' Is a cubic Bézier segment flat within tolerance?
+#' Is a cubic Bezier segment flat within tolerance?
 #'
 #' Flatness = max perpendicular distance from the interior control points (P1,
-#' P2) to the chord P0→P3.
+#' P2) to the chord P0 -> P3.
 #'
 #' @return Logical scalar.
 #' @noRd
@@ -44,7 +44,7 @@ bezier_is_flat <- function(x0, y0, x1, y1, x2, y2, x3, y3, tol) {
 
 # ---- adaptive subdivision (de Casteljau) ------------------------------------
 
-#' Flatten a cubic Bézier to a polyline via adaptive subdivision
+#' Flatten a cubic Bezier to a polyline via adaptive subdivision
 #'
 #' Returns a 2-column matrix of points along the curve, guaranteed to
 #' approximate the curve within `tol` inches.
@@ -78,7 +78,7 @@ flatten_bezier <- function(x0, y0, x1, y1, x2, y2, x3, y3,
   rbind(left, right[-1L, , drop = FALSE])
 }
 
-# ---- Ramer–Douglas–Peucker --------------------------------------------------
+# ---- Ramer-Douglas-Peucker --------------------------------------------------
 
 #' RDP polyline reduction
 #'
@@ -90,7 +90,7 @@ rdp_reduce <- function(pts, epsilon) {
   n <- nrow(pts)
   if (n <= 2L) return(pts)
 
-  # Find point with max perpendicular distance to chord (first→last)
+  # Find point with max perpendicular distance to chord (first -> last)
   x0 <- pts[1L, "x"]; y0 <- pts[1L, "y"]
   x1 <- pts[n,  "x"]; y1 <- pts[n,  "y"]
   chord_len <- sqrt((x1 - x0)^2 + (y1 - y0)^2)
@@ -116,7 +116,7 @@ rdp_reduce <- function(pts, epsilon) {
 
 # ---- rough_bezier -----------------------------------------------------------
 
-#' Roughen a cubic Bézier curve
+#' Roughen a cubic Bezier curve
 #'
 #' Applies roughness to all four control points, then flattens and reduces the
 #' curve. Returns `n_passes` roughened polyline paths.
@@ -124,7 +124,7 @@ rdp_reduce <- function(pts, epsilon) {
 #' @param P0,P1,P2,P3 Control points as length-2 numeric vectors c(x, y) in
 #'   inch space.
 #' @param roughness Non-negative roughness radius (inches). Default 1.
-#' @param bowing Bowing multiplier (currently not applied to Bézier control
+#' @param bowing Bowing multiplier (currently not applied to Bezier control
 #'   points separately; roughness serves the role). Default 1.
 #' @param n_passes Number of stroke passes. Default 2.
 #' @param seed Integer seed for reproducibility.

@@ -1,8 +1,8 @@
-# Layer 3 — reproducible handwriting fonts (v1.6)
+# Layer 3 - reproducible handwriting fonts (v1.6)
 # The sketch look of text comes from a handwriting *font* (ADR-0005). Relying on
 # an OS-installed face is not reproducible across machines/CI. These helpers let
 # a user register a font file once (via systemfonts) so the same family is
-# available to font-aware devices (ragg, svglite, cairo) everywhere — no system
+# available to font-aware devices (ragg, svglite, cairo) everywhere - no system
 # install required. systemfonts is an optional dependency (Suggests).
 
 #' Register a handwriting font for reproducible sketch text

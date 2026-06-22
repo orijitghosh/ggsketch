@@ -2,7 +2,7 @@
 % Please edit documentation in R/core-bezier.R
 \name{rough_bezier}
 \alias{rough_bezier}
-\title{Roughen a cubic Bézier curve}
+\title{Roughen a cubic Bezier curve}
 \usage{
 rough_bezier(
   P0,
@@ -23,7 +23,7 @@ inch space.}
 
 \item{roughness}{Non-negative roughness radius (inches). Default 1.}
 
-\item{bowing}{Bowing multiplier (currently not applied to Bézier control
+\item{bowing}{Bowing multiplier (currently not applied to Bezier control
 points separately; roughness serves the role). Default 1.}
 
 \item{n_passes}{Number of stroke passes. Default 2.}

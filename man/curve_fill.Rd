@@ -2,7 +2,7 @@
 % Please edit documentation in R/core-fill-styles.R
 \name{curve_fill}
 \alias{curve_fill}
-\title{Flatten a closed Bézier boundary to a polygon, then fill}
+\title{Flatten a closed Bezier boundary to a polygon, then fill}
 \usage{
 curve_fill(bezier_list, tol = 0.001, rdp_eps = 1e-04, ...)
 }
@@ -21,7 +21,7 @@ closed path.}
 List of fill-line segments (same structure as \code{sketch_fill}).
 }
 \description{
-For area/ribbon/density geoms: converts a curved boundary (list of Bézier
+For area/ribbon/density geoms: converts a curved boundary (list of Bezier
 control-point sets) into a polygon approximation, then applies \code{sketch_fill}.
 }
 \seealso{

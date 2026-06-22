@@ -64,7 +64,7 @@ Default 2.}
 A \code{ggplot2} layer object.
 }
 \description{
-Draws short hand-drawn ticks along the panel edges, one per observation — the
+Draws short hand-drawn ticks along the panel edges, one per observation - the
 sketch analogue of \code{\link[ggplot2:geom_rug]{ggplot2::geom_rug()}}. Maps the \code{x} and/or \code{y} aesthetics.
 }
 \examples{

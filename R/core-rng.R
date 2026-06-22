@@ -1,4 +1,4 @@
-# Layer 1 — seeded RNG stream (ADR-0004, R5, T-CORE-06)
+# Layer 1 - seeded RNG stream (ADR-0004, R5, T-CORE-06)
 # All randomised Layer-1 functions call within_seed() rather than bare runif/rnorm.
 # The user's global .Random.seed is NEVER mutated.
 

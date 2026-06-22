@@ -1,4 +1,4 @@
-# Layer 3 — roughness aesthetic scale (v1.5)
+# Layer 3 - roughness aesthetic scale (v1.5)
 # Default continuous scale for `aes(roughness = )`. It rescales a mapped variable
 # to a legible roughness band, exactly as `scale_size()` rescales to a size band,
 # so users can map raw variables without thinking in roughness units. ggplot2

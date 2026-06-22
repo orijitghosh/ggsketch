@@ -1,6 +1,6 @@
-# Layer 3 — geom_sketch_contour() / geom_sketch_density2d() (Tier 3)
+# Layer 3 - geom_sketch_contour() / geom_sketch_density2d() (Tier 3)
 # Contour lines (stat_contour) and 2-D kernel-density contours (stat_density_2d)
-# are both grouped paths — one roughened polyline per contour piece. Both reuse
+# are both grouped paths - one roughened polyline per contour piece. Both reuse
 # GeomSketchPath, so no new core geometry is needed.
 
 #' Sketchy contour lines
@@ -51,7 +51,7 @@ geom_sketch_contour <- function(mapping     = NULL,
 #' Sketchy 2-D density contours
 #'
 #' `geom_sketch_density2d()` (alias `geom_sketch_density_2d()`) draws contour
-#' lines of a 2-D kernel density estimate with a hand-drawn stroke — the sketch
+#' lines of a 2-D kernel density estimate with a hand-drawn stroke - the sketch
 #' analogue of [ggplot2::geom_density_2d()] / [ggplot2::stat_density_2d()]. Needs
 #' `x` and `y` aesthetics. Uses \pkg{MASS} (pulled in by ggplot2).
 #'

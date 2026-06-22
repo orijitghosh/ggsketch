@@ -91,7 +91,7 @@ A \code{ggplot2} layer object.
 }
 \description{
 Bins data into a rectangular grid and draws each cell as a hand-drawn
-rectangle shaded by count — the sketch analogue of \code{\link[ggplot2:geom_bin_2d]{ggplot2::geom_bin_2d()}} /
+rectangle shaded by count - the sketch analogue of \code{\link[ggplot2:geom_bin_2d]{ggplot2::geom_bin_2d()}} /
 \code{\link[ggplot2:geom_bin_2d]{ggplot2::stat_bin_2d()}}. \code{geom_sketch_bin2d()} and \code{geom_sketch_bin_2d()}
 are aliases.
 }

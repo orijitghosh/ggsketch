@@ -1,4 +1,4 @@
-# Layer 3 — rough theme elements (v1.4)
+# Layer 3 - rough theme elements (v1.4)
 # Hand-drawn gridlines, panel borders and axis ticks. `element_grob()` is an S3
 # generic (UseMethod) in both ggplot2 3.5 and 4.0, so we prepend an
 # "element_sketch_*" S3 class to a normal element and supply the method. ggplot2
@@ -37,7 +37,7 @@ sk_get <- function(el, name, default) {
 #' @param linetype Line type.
 #' @param lineend Line end style.
 #' @param fill Fill colour (`element_sketch_rect()` only). `NA` draws the
-#'   outline only — the usual choice for a panel border.
+#'   outline only - the usual choice for a panel border.
 #' @param roughness,bowing,n_passes,seed Sketch parameters (see
 #'   [geom_sketch_path()]). Defaults are gentle, suited to a frame.
 #' @param ... Passed to the underlying ggplot2 element constructor.

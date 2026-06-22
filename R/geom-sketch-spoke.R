@@ -1,4 +1,4 @@
-# Layer 3 — geom_sketch_spoke() (Tier 2)
+# Layer 3 - geom_sketch_spoke() (Tier 2)
 # A spoke is a segment defined by an origin (x, y), an angle, and a radius.
 # We compute xend/yend in setup_data and reuse GeomSketchSegment to draw.
 
@@ -30,7 +30,7 @@ GeomSketchSpoke <- ggplot2::ggproto(
 
 #' Sketchy spoke geom
 #'
-#' Draws line segments from `(x, y)` at a given `angle` (radians) and `radius` —
+#' Draws line segments from `(x, y)` at a given `angle` (radians) and `radius` - 
 #' the sketch analogue of [ggplot2::geom_spoke()]. Handy for vector / flow
 #' fields. Internally reuses [GeomSketchSegment].
 #'

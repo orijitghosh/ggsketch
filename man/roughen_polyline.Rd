@@ -8,7 +8,7 @@ roughen_polyline(x, y, roughness = 1, bowing = 1, n_passes = 2L, seed = NULL)
 }
 \arguments{
 \item{x, y}{Numeric vectors of polyline vertices in inch space. Must have
-the same length ≥ 2.}
+the same length >= 2.}
 
 \item{roughness}{Non-negative roughness radius (inches at scale). Default 1.}
 

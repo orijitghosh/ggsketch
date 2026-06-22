@@ -1,4 +1,4 @@
-# Layer 3 — reference lines (Tier 1)
+# Layer 3 - reference lines (Tier 1)
 # geom_sketch_abline / _hline / _vline. Each spans the panel; endpoints are
 # derived from panel_params ranges, then drawn as a roughened segment.
 
@@ -94,7 +94,7 @@ GeomSketchVline <- ggplot2::ggproto(
 
 #' Sketchy reference lines
 #'
-#' Hand-drawn `abline` / `hline` / `vline` reference lines that span the panel —
+#' Hand-drawn `abline` / `hline` / `vline` reference lines that span the panel - 
 #' the sketch analogues of [ggplot2::geom_abline()], [ggplot2::geom_hline()], and
 #' [ggplot2::geom_vline()]. As with ggplot2, you usually pass the intercepts as
 #' arguments rather than mapping them.

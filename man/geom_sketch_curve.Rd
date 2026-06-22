@@ -59,7 +59,7 @@ one side, negative to the other. Default \code{0.5}.}
 A \code{ggplot2} layer object.
 }
 \description{
-Draws a hand-drawn curved segment from \verb{(x, y)} to \verb{(xend, yend)} — the sketch
+Draws a hand-drawn curved segment from \verb{(x, y)} to \verb{(xend, yend)} - the sketch
 analogue of \code{\link[ggplot2:geom_segment]{ggplot2::geom_curve()}}. The curve is a quadratic Bezier whose
 bend is controlled by \code{curvature}.
 }

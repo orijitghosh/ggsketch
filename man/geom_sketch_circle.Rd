@@ -99,7 +99,7 @@ A \code{ggplot2} layer object.
 \code{geom_sketch_circle()} draws roughened circles of radius \code{r} (data units);
 \code{geom_sketch_ellipse()} draws ellipses with semi-axes \code{a} (x) and \code{b} (y).
 Radii are in data units, so on a non-square panel a circle appears
-elliptical — use \code{\link[ggplot2:coord_fixed]{ggplot2::coord_equal()}} for true circles.  These are
+elliptical - use \code{\link[ggplot2:coord_fixed]{ggplot2::coord_equal()}} for true circles.  These are
 annotation-style geoms (cf. \code{ggforce::geom_circle()}).
 }
 \examples{

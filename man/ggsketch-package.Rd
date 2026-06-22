@@ -4,11 +4,11 @@
 \name{ggsketch-package}
 \alias{ggsketch}
 \alias{ggsketch-package}
-\title{ggsketch: Grammar-Native Hand-Drawn Geoms for ggplot2}
+\title{ggsketch: Grammar-Native Hand-Drawn Geoms for 'ggplot2'}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Provides ggplot2 geoms that render with a hand-drawn / sketchy aesthetic — roughened strokes, double-pass lines, and hachure / cross-hatch / zigzag / dots fill patterns. Implemented as pure-R grid grobs wrapped in first-class ggproto geoms, composable with aes(), stats, scales, and faceting. Works on every R graphics device (PDF/PNG/SVG/screen) with no browser dependency. Algorithms are reimplemented from the published rough.js algorithm description (Shihn, 2020) and Wood et al. (2012) — see inst/NOTICE for attribution.
+Provides 'ggplot2' geoms that render with a hand-drawn, sketchy aesthetic: roughened strokes, double-pass lines, and hachure, cross-hatch, zigzag, and dots fill patterns. Implemented as pure-R 'grid' grobs wrapped in 'ggproto' geoms, composable with aes(), stats, scales, and faceting. Works on every R graphics device (PDF, PNG, SVG, screen) with no browser dependency. Algorithms are reimplemented from the published 'rough.js' algorithm description (Shihn, 2020, \url{https://shihn.ca/posts/2020/roughjs-algorithms/}) and Wood and others (2012, \doi{10.1109/TVCG.2012.262}); see the NOTICE file in the package sources for attribution.
 }
 \seealso{
 Useful links:

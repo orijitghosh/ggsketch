@@ -62,7 +62,7 @@ ignored (the rough outline always traces the full band).}
 \item{inherit.aes}{Override default aesthetics?}
 }
 \description{
-Draws a kernel density estimate as a hand-drawn filled area — the sketch
+Draws a kernel density estimate as a hand-drawn filled area - the sketch
 analogue of \code{\link[ggplot2:geom_density]{ggplot2::geom_density()}}.  Drawing is delegated to
 \link{GeomSketchArea}; the kernel density is computed by \code{\link[ggplot2:geom_density]{ggplot2::stat_density()}}.
 }

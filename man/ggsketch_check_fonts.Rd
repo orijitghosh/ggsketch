@@ -8,7 +8,7 @@ ggsketch_check_fonts(fonts = sketch_font_candidates())
 }
 \arguments{
 \item{fonts}{Character vector of font families to check. Defaults to the
-same candidate list \code{\link[=geom_sketch_text]{geom_sketch_text()}} resolves against — preferred
+same candidate list \code{\link[=geom_sketch_text]{geom_sketch_text()}} resolves against - preferred
 handwriting faces first, then fonts preinstalled on Windows / macOS.}
 }
 \value{

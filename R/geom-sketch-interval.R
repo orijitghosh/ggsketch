@@ -1,4 +1,4 @@
-# Layer 3 — interval geoms (Tier 1)
+# Layer 3 - interval geoms (Tier 1)
 # geom_sketch_linerange / _pointrange / _errorbar / _crossbar.
 # All express an uncertainty interval (ymin..ymax) at x; built from sketch paths
 # (and a point or box). Vertical orientation; horizontal is a future addition.

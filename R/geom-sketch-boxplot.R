@@ -1,4 +1,4 @@
-# Layer 3 — geom_sketch_boxplot() (P5-T3)
+# Layer 3 - geom_sketch_boxplot() (P5-T3)
 # A composed geom: rough IQR rectangle + median line + whisker segments +
 # outlier sketch points. Uses stat_boxplot for the five-number summary.
 
@@ -122,7 +122,7 @@ GeomSketchBoxplot <- ggplot2::ggproto(
 #'
 #' A hand-drawn box-and-whisker plot: a roughened IQR box, a thick median line,
 #' rough whiskers, and sketchy outlier points.  Uses [ggplot2::stat_boxplot()]
-#' for the five-number summary — the sketch analogue of
+#' for the five-number summary - the sketch analogue of
 #' [ggplot2::geom_boxplot()].
 #'
 #' @param mapping Set of aesthetic mappings created by [ggplot2::aes()].

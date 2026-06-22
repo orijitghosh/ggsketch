@@ -74,7 +74,7 @@ A \code{ggplot2} layer object.
 }
 \description{
 Draws a hand-drawn violin (mirrored kernel density) with a roughened outline
-and a hachure-style fill — the sketch analogue of \code{\link[ggplot2:geom_violin]{ggplot2::geom_violin()}}.
+and a hachure-style fill - the sketch analogue of \code{\link[ggplot2:geom_violin]{ggplot2::geom_violin()}}.
 Uses \code{\link[ggplot2:geom_violin]{ggplot2::stat_ydensity()}}.
 }
 \examples{

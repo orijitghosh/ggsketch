@@ -1,4 +1,4 @@
-# Layer 3 — geom_sketch_rug() (Tier 2)
+# Layer 3 - geom_sketch_rug() (Tier 2)
 # Marginal rug: short roughened ticks along the panel edges, one per observation.
 # `sides` selects which edges (t/r/b/l); ticks are drawn in npc space since we
 # already have the panel edges.
@@ -69,7 +69,7 @@ GeomSketchRug <- ggplot2::ggproto(
 
 #' Sketchy marginal rug
 #'
-#' Draws short hand-drawn ticks along the panel edges, one per observation — the
+#' Draws short hand-drawn ticks along the panel edges, one per observation - the
 #' sketch analogue of [ggplot2::geom_rug()]. Maps the `x` and/or `y` aesthetics.
 #'
 #' @inheritParams geom_sketch_path

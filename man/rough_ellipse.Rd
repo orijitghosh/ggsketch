@@ -22,7 +22,7 @@ List of \code{n_passes} 2-column (x, y) matrices of stroke points.
 }
 \description{
 Generates points around the ellipse, roughens them, and connects them with
-a smooth path (sampled cubic Bézier between consecutive point-pairs).
+a smooth path (sampled cubic Bezier between consecutive point-pairs).
 Deliberately leaves a small gap at the close point ("ends don't meet"
 hand-drawn effect).
 }

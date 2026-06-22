@@ -1,4 +1,4 @@
-# Layer 3 — geom_sketch_violin() (Tier 1)
+# Layer 3 - geom_sketch_violin() (Tier 1)
 # A violin is the kernel density mirrored about each group's x position. We build
 # that closed polygon and hand it to sketch_polygon_grob() for fill + outline.
 
@@ -88,7 +88,7 @@ GeomSketchViolin <- ggplot2::ggproto(
 #' Sketchy violin plot
 #'
 #' Draws a hand-drawn violin (mirrored kernel density) with a roughened outline
-#' and a hachure-style fill — the sketch analogue of [ggplot2::geom_violin()].
+#' and a hachure-style fill - the sketch analogue of [ggplot2::geom_violin()].
 #' Uses [ggplot2::stat_ydensity()].
 #'
 #' @inheritParams geom_sketch_polygon

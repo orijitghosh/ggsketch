@@ -1,4 +1,4 @@
-# Layer 3 — geom_sketch_hex() (Tier 3)
+# Layer 3 - geom_sketch_hex() (Tier 3)
 # Hexagonal binning: stat_binhex produces one row per hexagon (x, y centre,
 # width, height, count). We build each hexagon as a 6-vertex polygon and route
 # it through sketch_polygon_grob. Requires the optional 'hexbin' package (also
@@ -71,7 +71,7 @@ GeomSketchHex <- ggplot2::ggproto(
 #' Sketchy hexagonal heatmap
 #'
 #' Bins data into hexagons and draws each as a hand-drawn hexagon shaded by
-#' count — the sketch analogue of [ggplot2::geom_hex()] / [ggplot2::stat_bin_hex()].
+#' count - the sketch analogue of [ggplot2::geom_hex()] / [ggplot2::stat_bin_hex()].
 #' Requires the optional \pkg{hexbin} package.
 #'
 #' @inheritParams geom_sketch_col

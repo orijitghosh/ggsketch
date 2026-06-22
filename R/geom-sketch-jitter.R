@@ -1,11 +1,11 @@
-# Layer 3 — geom_sketch_jitter() (Tier 1)
+# Layer 3 - geom_sketch_jitter() (Tier 1)
 # geom_sketch_point() with a jitter position adjustment, to spread overplotted
 # points (the sketch analogue of geom_jitter()).
 
 #' Sketchy jittered points
 #'
 #' A convenience wrapper around [geom_sketch_point()] that adds a small amount of
-#' random position noise to reduce overplotting — the sketch analogue of
+#' random position noise to reduce overplotting - the sketch analogue of
 #' [ggplot2::geom_jitter()].
 #'
 #' @inheritParams geom_sketch_point

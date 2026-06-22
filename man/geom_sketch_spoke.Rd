@@ -60,7 +60,7 @@ supplied as aesthetics.}
 A \code{ggplot2} layer object.
 }
 \description{
-Draws line segments from \verb{(x, y)} at a given \code{angle} (radians) and \code{radius} —
+Draws line segments from \verb{(x, y)} at a given \code{angle} (radians) and \code{radius} -
 the sketch analogue of \code{\link[ggplot2:geom_spoke]{ggplot2::geom_spoke()}}. Handy for vector / flow
 fields. Internally reuses \link{GeomSketchSegment}.
 }

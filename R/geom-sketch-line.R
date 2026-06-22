@@ -1,4 +1,4 @@
-# Layer 3 — geom_sketch_line() and geom_sketch_path() (P2-T3)
+# Layer 3 - geom_sketch_line() and geom_sketch_path() (P2-T3)
 # Uses only the public ggplot2 extension API (R6, ADR-0002).
 
 # ---- GeomSketchPath ---------------------------------------------------------

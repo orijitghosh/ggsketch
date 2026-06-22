@@ -1,4 +1,4 @@
-# Layer 3 — geom_sketch_bin2d() (Tier 2)
+# Layer 3 - geom_sketch_bin2d() (Tier 2)
 # Rectangular 2-D bin heatmap: stat_bin_2d produces xmin/xmax/ymin/ymax and a
 # count, which we route through GeomSketchRect. Cells default to a hachure fill
 # (the package's "solid" style is outline-only), so the sketch look is preserved.
@@ -6,7 +6,7 @@
 #' Sketchy 2-D bin heatmap
 #'
 #' Bins data into a rectangular grid and draws each cell as a hand-drawn
-#' rectangle shaded by count — the sketch analogue of [ggplot2::geom_bin_2d()] /
+#' rectangle shaded by count - the sketch analogue of [ggplot2::geom_bin_2d()] /
 #' [ggplot2::stat_bin_2d()]. `geom_sketch_bin2d()` and `geom_sketch_bin_2d()`
 #' are aliases.
 #'

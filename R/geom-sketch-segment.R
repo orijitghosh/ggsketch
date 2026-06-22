@@ -1,4 +1,4 @@
-# Layer 3 — geom_sketch_segment() / geom_sketch_step() (P5-T2)
+# Layer 3 - geom_sketch_segment() / geom_sketch_step() (P5-T2)
 # Segment: one roughened 2-point path per row (x,y)->(xend,yend).
 # Step: stairstep the data, then draw as a single sketch path.
 

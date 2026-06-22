@@ -1,7 +1,7 @@
-# Layer 3 — geom_sketch_curve() (Tier 2)
+# Layer 3 - geom_sketch_curve() (Tier 2)
 # A curved connector from (x, y) to (xend, yend). We sample a quadratic Bezier
-# in transformed (npc) space — so the curvature reads consistently regardless of
-# data aspect — and hand the polyline to sketch_path_grob, which re-roughens it
+# in transformed (npc) space - so the curvature reads consistently regardless of
+# data aspect - and hand the polyline to sketch_path_grob, which re-roughens it
 # in device space (honouring R4: roughening happens in device inches).
 
 # ---- GeomSketchCurve --------------------------------------------------------
@@ -64,7 +64,7 @@ GeomSketchCurve <- ggplot2::ggproto(
 
 #' Sketchy curved connector
 #'
-#' Draws a hand-drawn curved segment from `(x, y)` to `(xend, yend)` — the sketch
+#' Draws a hand-drawn curved segment from `(x, y)` to `(xend, yend)` - the sketch
 #' analogue of [ggplot2::geom_curve()]. The curve is a quadratic Bezier whose
 #' bend is controlled by `curvature`.
 #'

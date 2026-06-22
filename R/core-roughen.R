@@ -1,4 +1,4 @@
-# Layer 1 — point and polyline roughening (P1-T3)
+# Layer 1 - point and polyline roughening (P1-T3)
 # No grid:: or ggplot2:: symbols (T-ARCH-01, R3).
 
 # ---- helpers ----------------------------------------------------------------
@@ -28,7 +28,7 @@ roughen_point <- function(x, y, roughness) {
 
 # ---- roughen_segment --------------------------------------------------------
 
-#' Roughen a single line segment into a sampled cubic Bézier path
+#' Roughen a single line segment into a sampled cubic Bezier path
 #'
 #' Internal; called within a `within_seed()` context.
 #'
@@ -77,7 +77,7 @@ roughen_segment <- function(x0, y0, x1, y1, roughness, bowing,
   p2x <- x0 + t2 * dx + off * stats::runif(1L, -1, 1) + bow * nx
   p2y <- y0 + t2 * dy + off * stats::runif(1L, -1, 1) + bow * ny
 
-  # Sample cubic Bézier at N_SEG points
+  # Sample cubic Bezier at N_SEG points
   N_SEG <- max(3L, ceiling(len * 10))
   sample_cubic_bezier(p0[["x"]], p0[["y"]],
                       p1x, p1y,
@@ -96,7 +96,7 @@ roughen_segment <- function(x0, y0, x1, y1, roughness, bowing,
 #' (T-CORE-06).
 #'
 #' @param x,y Numeric vectors of polyline vertices in inch space. Must have
-#'   the same length ≥ 2.
+#'   the same length >= 2.
 #' @param roughness Non-negative roughness radius (inches at scale). Default 1.
 #' @param bowing Non-negative bowing multiplier. Default 1.
 #' @param n_passes Positive integer number of stroke passes (default 2).

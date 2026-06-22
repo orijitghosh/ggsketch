@@ -1,4 +1,4 @@
-# Layer 3 — theme_sketch() (P2-T5, P6-T1)
+# Layer 3 - theme_sketch() (P2-T5, P6-T1)
 # Typography + panel aesthetics with light and dark presets. The sketch *look*
 # of the marks comes from the geoms (Layer 2 rough grobs); the theme provides a
 # matching muted palette.
@@ -208,7 +208,7 @@ theme_sketch <- function(base_size      = 11,
 #' purely cosmetic (ADR-0005).
 #'
 #' @param fonts Character vector of font families to check. Defaults to the
-#'   same candidate list [geom_sketch_text()] resolves against — preferred
+#'   same candidate list [geom_sketch_text()] resolves against - preferred
 #'   handwriting faces first, then fonts preinstalled on Windows / macOS.
 #' @return Invisibly returns a logical vector (font available?); prints a
 #'   formatted report.

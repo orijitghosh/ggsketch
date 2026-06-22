@@ -57,7 +57,7 @@ A \code{ggplot2} layer object.
 }
 \description{
 A convenience wrapper around \code{\link[=geom_sketch_point]{geom_sketch_point()}} that adds a small amount of
-random position noise to reduce overplotting — the sketch analogue of
+random position noise to reduce overplotting - the sketch analogue of
 \code{\link[ggplot2:geom_jitter]{ggplot2::geom_jitter()}}.
 }
 \examples{

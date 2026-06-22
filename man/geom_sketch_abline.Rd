@@ -82,7 +82,7 @@ default to a gentle \code{roughness = 0.6}.}
 A \code{ggplot2} layer object.
 }
 \description{
-Hand-drawn \code{abline} / \code{hline} / \code{vline} reference lines that span the panel —
+Hand-drawn \code{abline} / \code{hline} / \code{vline} reference lines that span the panel -
 the sketch analogues of \code{\link[ggplot2:geom_abline]{ggplot2::geom_abline()}}, \code{\link[ggplot2:geom_abline]{ggplot2::geom_hline()}}, and
 \code{\link[ggplot2:geom_abline]{ggplot2::geom_vline()}}. As with ggplot2, you usually pass the intercepts as
 arguments rather than mapping them.

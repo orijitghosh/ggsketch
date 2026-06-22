@@ -1,4 +1,4 @@
-# Layer 3 — geom_sketch_count() (Tier 2)
+# Layer 3 - geom_sketch_count() (Tier 2)
 # Sketch points sized by the number of overplotted observations (stat_sum).
 
 #' Sketchy count geom

@@ -62,7 +62,7 @@ Default 2.}
 A \code{ggplot2} layer object.
 }
 \description{
-Fits and draws quantile regression lines with a hand-drawn stroke — the
+Fits and draws quantile regression lines with a hand-drawn stroke - the
 sketch analogue of \code{\link[ggplot2:geom_quantile]{ggplot2::geom_quantile()}} / \code{\link[ggplot2:geom_quantile]{ggplot2::stat_quantile()}}.
 Requires the optional \pkg{quantreg} package.
 }

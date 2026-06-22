@@ -1,4 +1,4 @@
-# Layer 3 — geom_sketch_histogram() / geom_sketch_freqpoly() (Tier 1)
+# Layer 3 - geom_sketch_histogram() / geom_sketch_freqpoly() (Tier 1)
 # Both bin continuous data with stat_bin; histogram draws bars (col grob),
 # freqpoly connects the bin counts with a sketch path.
 

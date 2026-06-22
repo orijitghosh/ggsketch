@@ -1,10 +1,10 @@
-# Layer 3 — geom_sketch_density() (P4-T3)
+# Layer 3 - geom_sketch_density() (P4-T3)
 # A kernel-density curve drawn as a sketchy filled area. Reuses GeomSketchArea
 # for drawing; stat_density supplies `y = after_stat(density)`.
 
 #' Sketchy density geom
 #'
-#' Draws a kernel density estimate as a hand-drawn filled area — the sketch
+#' Draws a kernel density estimate as a hand-drawn filled area - the sketch
 #' analogue of [ggplot2::geom_density()].  Drawing is delegated to
 #' [GeomSketchArea]; the kernel density is computed by [ggplot2::stat_density()].
 #'

@@ -1,4 +1,4 @@
-# Layer 3 — geom_sketch_rect() / geom_sketch_tile() (P3-T1)
+# Layer 3 - geom_sketch_rect() / geom_sketch_tile() (P3-T1)
 # Hachure-filled rectangles with a roughened outline, via sketch_polygon_grob().
 
 # ---- GeomSketchRect ---------------------------------------------------------

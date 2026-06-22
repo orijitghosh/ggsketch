@@ -1,4 +1,4 @@
-# Layer 3 — geom_sketch_qq() / geom_sketch_qq_line() (Tier 2)
+# Layer 3 - geom_sketch_qq() / geom_sketch_qq_line() (Tier 2)
 # Quantile-quantile plot: points (stat_qq) plus a reference line (stat_qq_line).
 # Both reuse existing grobs; the only required aesthetic is `sample`.
 

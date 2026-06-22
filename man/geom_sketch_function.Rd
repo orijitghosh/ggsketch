@@ -63,7 +63,7 @@ Default 2.}
 A \code{ggplot2} layer object.
 }
 \description{
-Draws the curve of a function \code{y = fun(x)} with a hand-drawn stroke — the
+Draws the curve of a function \code{y = fun(x)} with a hand-drawn stroke - the
 sketch analogue of \code{\link[ggplot2:geom_function]{ggplot2::geom_function()}}, built on
 \code{\link[ggplot2:geom_function]{ggplot2::stat_function()}}.
 }

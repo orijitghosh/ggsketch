@@ -1,4 +1,4 @@
-# Layer 3 helper — annotate_sketch() (P5-T4)
+# Layer 3 helper - annotate_sketch() (P5-T4)
 # A sketch-flavoured analogue of ggplot2::annotate(): adds a single, fixed
 # annotation layer (constant aesthetics, inherit.aes = FALSE) using one of the
 # sketch geoms.
@@ -6,7 +6,7 @@
 #' Sketchy annotations
 #'
 #' The sketch analogue of [ggplot2::annotate()].  Creates a one-off layer of
-#' fixed, hand-drawn marks that do not inherit the plot's aesthetics — useful
+#' fixed, hand-drawn marks that do not inherit the plot's aesthetics - useful
 #' for highlighting, callouts, and reference shapes.
 #'
 #' @param geom Name of the sketch geom to draw. One of `"point"`, `"line"`,

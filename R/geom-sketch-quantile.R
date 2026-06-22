@@ -1,11 +1,11 @@
-# Layer 3 — geom_sketch_quantile() (Tier 2)
+# Layer 3 - geom_sketch_quantile() (Tier 2)
 # Quantile regression lines drawn as sketch paths (stat_quantile). Requires the
 # optional 'quantreg' package (Suggests), following ADR-0005's posture: a clear
 # cli message if missing, never a hard dependency.
 
 #' Sketchy quantile regression lines
 #'
-#' Fits and draws quantile regression lines with a hand-drawn stroke — the
+#' Fits and draws quantile regression lines with a hand-drawn stroke - the
 #' sketch analogue of [ggplot2::geom_quantile()] / [ggplot2::stat_quantile()].
 #' Requires the optional \pkg{quantreg} package.
 #'

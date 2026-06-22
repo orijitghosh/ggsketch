@@ -1,8 +1,8 @@
-# Layer 2 — sketch grobs with makeContent() (P2-T1)
+# Layer 2 - sketch grobs with makeContent() (P2-T1)
 # Roughening happens in inch space inside makeContent() (R4, T-CORE-05).
 
 # Pick element `i` from each component of a gpar, recycling scalars. Aesthetics
-# (colour, lwd, alpha, …) arrive as per-row vectors when a single draw call
+# (colour, lwd, alpha, ...) arrive as per-row vectors when a single draw call
 # covers many shapes (e.g. a continuous colour scale = one group); applying the
 # whole vector to each shape's grob would make grid use only the first value, so
 # every shape would share one colour. Subsetting per shape fixes that.
@@ -79,7 +79,7 @@ makeContent.SketchPathGrob <- function(x) {
     gy   <- yi[idx]
 
     if (length(gx) < 2L) {
-      # Single point — draw a tiny ellipse marker
+      # Single point - draw a tiny ellipse marker
       ci <- ci + 1L
       children[[ci]] <- circleGrob(
         x = unit(gx, "inches"), y = unit(gy, "inches"),
@@ -248,7 +248,7 @@ makeContent.SketchPolygonGrob <- function(x) {
 #' Draws one or more roughened ellipses whose centres are in npc \[0,1\] and
 #' whose radii are npc fractions of the viewport (converted to device inches in
 #' `makeContent()`, so a "circle" in data units may appear elliptical on a
-#' non-square panel — matching ggplot2's coordinate semantics).
+#' non-square panel - matching ggplot2's coordinate semantics).
 #'
 #' @param x,y Numeric npc centre coordinates (vectors).
 #' @param rx,ry Numeric npc radii (vectors, recycled to `x`).

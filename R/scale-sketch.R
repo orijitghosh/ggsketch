@@ -1,4 +1,4 @@
-# Layer 3 — sketch colour/fill scales (v1.4)
+# Layer 3 - sketch colour/fill scales (v1.4)
 # A qualitative palette + a continuous gradient built around the package
 # primary (Carolina blue #7BAFD4). Chosen to stay reasonably distinguishable
 # for common colour-vision deficiencies.

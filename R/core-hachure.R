@@ -1,4 +1,4 @@
-# Layer 1 — hachure scan-line fill via Active Edge Table (P1-T7)
+# Layer 1 - hachure scan-line fill via Active Edge Table (P1-T7)
 # Handles convex AND concave polygons (AC-5, T-FILL-01).
 # No grid:: or ggplot2:: (T-ARCH-01).
 

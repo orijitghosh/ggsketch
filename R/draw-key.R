@@ -1,4 +1,4 @@
-# Layer 3 — sketchy legend keys (P5-T5)
+# Layer 3 - sketchy legend keys (P5-T5)
 # Custom draw_key functions so legends match the hand-drawn body of each geom.
 # Each returns a grid grob drawn in the key viewport (npc [0,1]); the Layer-2
 # grobs convert npc -> inches inside that viewport via makeContent().

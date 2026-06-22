@@ -1,10 +1,10 @@
-# Layer 1 — rough ellipse / circle (P1-T4)
+# Layer 1 - rough ellipse / circle (P1-T4)
 # No grid:: or ggplot2:: (T-ARCH-01).
 
 #' Roughen an ellipse into one or more sketch stroke paths
 #'
 #' Generates points around the ellipse, roughens them, and connects them with
-#' a smooth path (sampled cubic Bézier between consecutive point-pairs).
+#' a smooth path (sampled cubic Bezier between consecutive point-pairs).
 #' Deliberately leaves a small gap at the close point ("ends don't meet"
 #' hand-drawn effect).
 #'
@@ -22,7 +22,7 @@ rough_ellipse <- function(cx, cy, rx, ry,
                            seed      = NULL) {
   seed <- resolve_seed(seed)
 
-  # Adaptive point count: enough points per inch of arc (spec §3.1)
+  # Adaptive point count: enough points per inch of arc (spec section 3.1)
   mean_radius <- sqrt((rx^2 + ry^2) / 2)
   arc_len     <- pi * mean_radius  # half circumference (rough estimate)
   n <- as.integer(min(max(10L, ceiling(arc_len / 0.1)), 200L))

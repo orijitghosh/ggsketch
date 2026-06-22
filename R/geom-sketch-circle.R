@@ -1,4 +1,4 @@
-# Layer 3 — geom_sketch_circle() / geom_sketch_ellipse() (P5-T1)
+# Layer 3 - geom_sketch_circle() / geom_sketch_ellipse() (P5-T1)
 # Annotation-style rough circles/ellipses sized in data units via
 # sketch_ellipse_grob() (radius converted to device inches in makeContent).
 
@@ -117,7 +117,7 @@ GeomSketchCircle <- ggplot2::ggproto(
 #' `geom_sketch_circle()` draws roughened circles of radius `r` (data units);
 #' `geom_sketch_ellipse()` draws ellipses with semi-axes `a` (x) and `b` (y).
 #' Radii are in data units, so on a non-square panel a circle appears
-#' elliptical — use [ggplot2::coord_equal()] for true circles.  These are
+#' elliptical - use [ggplot2::coord_equal()] for true circles.  These are
 #' annotation-style geoms (cf. `ggforce::geom_circle()`).
 #'
 #' @param mapping Set of aesthetic mappings created by [ggplot2::aes()].

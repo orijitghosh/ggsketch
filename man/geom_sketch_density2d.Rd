@@ -67,7 +67,7 @@ A \code{ggplot2} layer object.
 }
 \description{
 \code{geom_sketch_density2d()} (alias \code{geom_sketch_density_2d()}) draws contour
-lines of a 2-D kernel density estimate with a hand-drawn stroke — the sketch
+lines of a 2-D kernel density estimate with a hand-drawn stroke - the sketch
 analogue of \code{\link[ggplot2:geom_density_2d]{ggplot2::geom_density_2d()}} / \code{\link[ggplot2:geom_density_2d]{ggplot2::stat_density_2d()}}. Needs
 \code{x} and \code{y} aesthetics. Uses \pkg{MASS} (pulled in by ggplot2).
 }

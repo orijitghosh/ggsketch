@@ -1,4 +1,4 @@
-# Layer 3 — geom_sketch_text() / geom_sketch_label() (Tier 3)
+# Layer 3 - geom_sketch_text() / geom_sketch_label() (Tier 3)
 # Roughening glyph outlines is out of scope (ADR-0007): the "sketch" of text is a
 # *handwriting font*, not geometry. These geoms therefore reuse ggplot2's text
 # drawing but default the font family to the first installed handwriting face
@@ -9,7 +9,7 @@
 #'
 #' `geom_sketch_text()` and `geom_sketch_label()` add text in a handwriting font,
 #' the sketch counterparts of [ggplot2::geom_text()] and [ggplot2::geom_label()].
-#' Unlike the other geoms the strokes are not geometrically roughened — the
+#' Unlike the other geoms the strokes are not geometrically roughened - the
 #' hand-drawn feel comes from the font (see [ggsketch_check_fonts()] for which
 #' faces are available). If no handwriting font is installed they render with the
 #' device default family.
@@ -43,7 +43,7 @@
 #'   theme_sketch()
 #'
 #' # With no `family`, the first installed handwriting font is used. Render with
-#' # a font-capable device (ragg, svglite, cairo) to see it — the base pdf() /
+#' # a font-capable device (ragg, svglite, cairo) to see it - the base pdf() /
 #' # postscript() devices cannot use unregistered system fonts.
 #' \dontrun{
 #' ggplot(df, aes(x, y, label = lab)) +

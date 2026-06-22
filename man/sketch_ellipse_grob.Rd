@@ -45,7 +45,7 @@ A \code{SketchEllipseGrob} grob subclass.
 Draws one or more roughened ellipses whose centres are in npc [0,1] and
 whose radii are npc fractions of the viewport (converted to device inches in
 \code{makeContent()}, so a "circle" in data units may appear elliptical on a
-non-square panel — matching ggplot2's coordinate semantics).
+non-square panel - matching ggplot2's coordinate semantics).
 }
 \seealso{
 Other grob-layer: 

@@ -45,7 +45,7 @@ A \code{ggplot2} layer object.
 }
 \description{
 The sketch analogue of \code{\link[ggplot2:annotate]{ggplot2::annotate()}}.  Creates a one-off layer of
-fixed, hand-drawn marks that do not inherit the plot's aesthetics — useful
+fixed, hand-drawn marks that do not inherit the plot's aesthetics - useful
 for highlighting, callouts, and reference shapes.
 }
 \examples{

@@ -46,7 +46,7 @@ element_sketch_rect(
 \item{...}{Passed to the underlying ggplot2 element constructor.}
 
 \item{fill}{Fill colour (\code{element_sketch_rect()} only). \code{NA} draws the
-outline only — the usual choice for a panel border.}
+outline only - the usual choice for a panel border.}
 }
 \value{
 A ggplot2 theme element carrying an \verb{element_sketch_*} subclass.

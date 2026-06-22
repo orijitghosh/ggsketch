@@ -70,7 +70,7 @@ draws the roughened confidence band.}
 \item{inherit.aes}{Override default aesthetics?}
 }
 \description{
-Draws a hand-drawn fitted line with an optional roughened confidence band —
+Draws a hand-drawn fitted line with an optional roughened confidence band -
 the sketch analogue of \code{\link[ggplot2:geom_smooth]{ggplot2::geom_smooth()}}.  The fit is computed by
 \code{\link[ggplot2:geom_smooth]{ggplot2::stat_smooth()}} (\code{method}, \code{formula}, \code{se}, etc. pass through).
 }

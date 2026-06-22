@@ -1,4 +1,4 @@
-# Layer 3 — geom_sketch_ribbon() / geom_sketch_area() (P4-T2)
+# Layer 3 - geom_sketch_ribbon() / geom_sketch_area() (P4-T2)
 # A ribbon is the band between ymin and ymax; an area is a ribbon anchored at 0.
 # The band is assembled into one closed polygon (top edge forward, bottom edge
 # reversed) and handed to sketch_polygon_grob() for fill + rough outline.

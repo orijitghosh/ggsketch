@@ -1,4 +1,4 @@
-# Layer 3 — geom_sketch_smooth() (P4-T4)
+# Layer 3 - geom_sketch_smooth() (P4-T4)
 # A sketchy fitted line plus an optional roughened confidence band.
 # stat_smooth supplies x, y (fit) and ymin/ymax (CI when se = TRUE).
 
@@ -107,7 +107,7 @@ GeomSketchSmooth <- ggplot2::ggproto(
 
 #' Sketchy smoothed conditional mean
 #'
-#' Draws a hand-drawn fitted line with an optional roughened confidence band —
+#' Draws a hand-drawn fitted line with an optional roughened confidence band - 
 #' the sketch analogue of [ggplot2::geom_smooth()].  The fit is computed by
 #' [ggplot2::stat_smooth()] (`method`, `formula`, `se`, etc. pass through).
 #'
