@@ -48,7 +48,9 @@ geom_sketch_hex(
 
 \item{binwidth}{Hexagon width(s); overrides \code{bins} when supplied.}
 
-\item{roughness}{Non-negative roughness (0 = straight lines). Default 1.}
+\item{roughness}{Non-negative roughness (0 = straight lines). A mappable
+aesthetic (default 1): pass a constant, or map it per bar with
+\code{aes(roughness = )} (rescaled by \code{\link[=scale_roughness_continuous]{scale_roughness_continuous()}}).}
 
 \item{bowing}{Non-negative bowing multiplier. Default 1.}
 

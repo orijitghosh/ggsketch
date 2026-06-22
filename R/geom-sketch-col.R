@@ -15,13 +15,15 @@ GeomSketchCol <- ggplot2::ggproto(
     fill        = "grey65",
     linewidth   = 0.5,
     linetype    = 1,
-    alpha       = NA
+    alpha       = NA,
+    roughness   = 1
   ),
 
   draw_key = draw_key_sketch_polygon,
 
+  # roughness is a mappable aesthetic (per bar); the rest stay layer params.
   parameters = function(self, extra = FALSE) {
-    c("roughness", "bowing", "n_passes", "seed",
+    c("bowing", "n_passes", "seed",
       "fill_style", "hachure_angle", "hachure_gap", "fill_weight", "fill_roughness", "fill_seed", "width",
       "na.rm")
   },
@@ -74,7 +76,7 @@ GeomSketchCol <- ggplot2::ggproto(
       sketch_polygon_grob(
         x             = pts$x,
         y             = pts$y,
-        roughness     = sp$roughness,
+        roughness     = max(row$roughness, 0),
         bowing        = sp$bowing,
         n_passes      = sp$n_passes,
         seed          = seed_offset(sp$seed, i * 97L),
@@ -113,7 +115,9 @@ GeomSketchCol <- ggplot2::ggproto(
 #' @param stat Statistical transformation.  Default `"identity"` for
 #'   `geom_sketch_col()`; `"count"` for `geom_sketch_bar()`.
 #' @param position Position adjustment.  Default `"stack"`.
-#' @param roughness Non-negative roughness (0 = straight lines). Default 1.
+#' @param roughness Non-negative roughness (0 = straight lines). A mappable
+#'   aesthetic (default 1): pass a constant, or map it per bar with
+#'   `aes(roughness = )` (rescaled by [scale_roughness_continuous()]).
 #' @param bowing Non-negative bowing multiplier. Default 1.
 #' @param n_passes Number of stroke passes. Default 2.
 #' @param seed Integer seed. `NULL` uses `getOption("ggsketch.seed", 1L)`.
@@ -141,7 +145,7 @@ geom_sketch_col <- function(mapping       = NULL,
                               stat          = "identity",
                               position      = "stack",
                               ...,
-                              roughness     = 1,
+                              roughness     = NULL,
                               bowing        = 1,
                               n_passes      = 2L,
                               seed          = NULL,
@@ -153,6 +157,19 @@ geom_sketch_col <- function(mapping       = NULL,
                               na.rm         = FALSE,
                               show.legend   = NA,
                               inherit.aes   = TRUE) {
+  params <- list(
+    bowing        = bowing,
+    n_passes      = as.integer(n_passes),
+    seed          = seed,
+    fill_style    = fill_style,
+    hachure_angle = hachure_angle,
+    hachure_gap   = hachure_gap,
+    fill_weight   = fill_weight,
+    width         = width,
+    na.rm         = na.rm,
+    ...
+  )
+  if (!is.null(roughness)) params$roughness <- roughness
   ggplot2::layer(
     data        = data,
     mapping     = mapping,
@@ -161,19 +178,7 @@ geom_sketch_col <- function(mapping       = NULL,
     position    = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params      = list(
-      roughness     = roughness,
-      bowing        = bowing,
-      n_passes      = as.integer(n_passes),
-      seed          = seed,
-      fill_style    = fill_style,
-      hachure_angle = hachure_angle,
-      hachure_gap   = hachure_gap,
-      fill_weight   = fill_weight,
-      width         = width,
-      na.rm         = na.rm,
-      ...
-    )
+    params      = params
   )
 }
 
@@ -184,7 +189,7 @@ geom_sketch_bar <- function(mapping       = NULL,
                               stat          = "count",
                               position      = "stack",
                               ...,
-                              roughness     = 1,
+                              roughness     = NULL,
                               bowing        = 1,
                               n_passes      = 2L,
                               seed          = NULL,
@@ -196,6 +201,19 @@ geom_sketch_bar <- function(mapping       = NULL,
                               na.rm         = FALSE,
                               show.legend   = NA,
                               inherit.aes   = TRUE) {
+  params <- list(
+    bowing        = bowing,
+    n_passes      = as.integer(n_passes),
+    seed          = seed,
+    fill_style    = fill_style,
+    hachure_angle = hachure_angle,
+    hachure_gap   = hachure_gap,
+    fill_weight   = fill_weight,
+    width         = width,
+    na.rm         = na.rm,
+    ...
+  )
+  if (!is.null(roughness)) params$roughness <- roughness
   ggplot2::layer(
     data        = data,
     mapping     = mapping,
@@ -204,18 +222,6 @@ geom_sketch_bar <- function(mapping       = NULL,
     position    = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params      = list(
-      roughness     = roughness,
-      bowing        = bowing,
-      n_passes      = as.integer(n_passes),
-      seed          = seed,
-      fill_style    = fill_style,
-      hachure_angle = hachure_angle,
-      hachure_gap   = hachure_gap,
-      fill_weight   = fill_weight,
-      width         = width,
-      na.rm         = na.rm,
-      ...
-    )
+    params      = params
   )
 }
