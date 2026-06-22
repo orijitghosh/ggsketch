@@ -1,13 +1,16 @@
 # ggsketch 1.6.0 (development)
 
-* **`roughness` is now mappable on the bar and rectangle geoms.** Following
-  `geom_sketch_point()`, `roughness` is a mappable aesthetic on
-  `geom_sketch_col()` / `geom_sketch_bar()` and `geom_sketch_rect()` /
-  `geom_sketch_tile()`: map it per shape with `aes(roughness = )` (rescaled by
-  `scale_roughness_continuous()`) or set a constant. The default is unchanged
-  (`roughness = 1`), so existing plots render identically. Path-like geoms keep
-  `roughness` as a layer parameter (per-row roughness is ill-defined for a
-  single path).
+* **`roughness` is now a mappable aesthetic on the per-shape geoms.** Following
+  `geom_sketch_point()`, you can map `roughness` per shape with
+  `aes(roughness = )` (rescaled by `scale_roughness_continuous()`) or set a
+  constant on: `geom_sketch_col()` / `geom_sketch_bar()`, `geom_sketch_rect()` /
+  `geom_sketch_tile()`, `geom_sketch_circle()` / `geom_sketch_ellipse()`,
+  `geom_sketch_segment()` / `geom_sketch_spoke()`, and the point-based
+  `geom_sketch_jitter()` / `geom_sketch_count()`. `sketch_ellipse_grob()` now
+  takes a per-shape roughness vector. Defaults are unchanged, so existing plots
+  render identically. Path-like geoms (line, path, area, density, smooth, step,
+  reference lines, ...) keep `roughness` as a layer parameter, since per-row
+  roughness is ill-defined for a single path.
 * **Independent fill roughness and seed.** Every fill-bearing geom now accepts
   `fill_roughness` and `fill_seed`, so the fill texture can be controlled
   separately from the outline. Previously the fill roughness was hardwired to a

@@ -319,9 +319,10 @@ makeContent.SketchEllipseGrob <- function(x) {
   rx <- as.numeric(convertWidth(unit(x$rx, "npc"), "inches"))
   ry <- as.numeric(convertHeight(unit(x$ry, "npc"), "inches"))
 
-  n  <- length(cx)
-  rx <- rep(rx, length.out = n)
-  ry <- rep(ry, length.out = n)
+  n      <- length(cx)
+  rx     <- rep(rx, length.out = n)
+  ry     <- rep(ry, length.out = n)
+  rough_ <- rep(as.numeric(x$roughness), length.out = n)  # per-shape (mappable)
 
   children <- list()
   do_fill  <- !is.null(x$fill_style) && !identical(x$fill_style, "solid")
@@ -333,9 +334,12 @@ makeContent.SketchEllipseGrob <- function(x) {
     outline_gp_i <- index_gpar(x$outline_gp, i)  # per-shape colour (maps per row)
     fill_gp_i    <- index_gpar(x$fill_gp, i)
 
+    rough_i <- max(rough_[i], 0)
+
     # Fill roughness/seed default to a function of the outline's, but can be set
     # independently (NULL keeps the historical coupling).
-    fill_rough <- x$fill_roughness %||% (x$roughness * 0.4)
+    fill_rough <- if (is.null(x$fill_roughness)) rough_i * 0.4
+                  else x$fill_roughness[[((i - 1L) %% length(x$fill_roughness)) + 1L]]
     fill_base  <- if (is.null(x$fill_seed)) s_base
                   else seed_offset(resolve_seed(x$fill_seed), i * 71L)
 
@@ -343,7 +347,7 @@ makeContent.SketchEllipseGrob <- function(x) {
     # seed offsets keep the RNG stream independent of draw order.
     passes <- rough_ellipse(
       cx = cx[i], cy = cy[i], rx = rx[i], ry = ry[i],
-      roughness = x$roughness, n_passes = x$n_passes,
+      roughness = rough_i, n_passes = x$n_passes,
       seed = seed_offset(s_base, 2000L)
     )
 

@@ -16,13 +16,15 @@ GeomSketchEllipse <- ggplot2::ggproto(
     fill      = NA,
     linewidth = 0.5,
     linetype  = 1,
-    alpha     = NA
+    alpha     = NA,
+    roughness = 1
   ),
 
   draw_key = draw_key_sketch_polygon,
 
+  # roughness is a mappable aesthetic (per shape); the rest stay layer params.
   parameters = function(self, extra = FALSE) {
-    c("roughness", "bowing", "n_passes", "seed",
+    c("bowing", "n_passes", "seed",
       "fill_style", "hachure_angle", "hachure_gap", "fill_weight", "fill_roughness", "fill_seed", "na.rm")
   },
 
@@ -72,7 +74,7 @@ GeomSketchEllipse <- ggplot2::ggproto(
       y             = centre$y,
       rx            = rx,
       ry            = ry,
-      roughness     = sp$roughness,
+      roughness     = pmax(data$roughness, 0),
       n_passes      = sp$n_passes,
       seed          = sp$seed,
       fill_style    = fill_style,
@@ -130,7 +132,9 @@ GeomSketchCircle <- ggplot2::ggproto(
 #' @param data Data to display.
 #' @param stat Statistical transformation. Default `"identity"`.
 #' @param position Position adjustment. Default `"identity"`.
-#' @param roughness Non-negative roughness (0 = clean). Default 1.
+#' @param roughness Non-negative roughness (0 = clean). A mappable aesthetic
+#'   (default 1): pass a constant, or map it per shape with `aes(roughness = )`
+#'   (rescaled by [scale_roughness_continuous()]).
 #' @param bowing Non-negative bowing multiplier. Default 1.
 #' @param n_passes Number of stroke passes. Default 2.
 #' @param seed Integer seed. `NULL` uses `getOption("ggsketch.seed", 1L)`.
@@ -158,7 +162,7 @@ geom_sketch_circle <- function(mapping       = NULL,
                                 stat          = "identity",
                                 position      = "identity",
                                 ...,
-                                roughness     = 1,
+                                roughness     = NULL,
                                 bowing        = 1,
                                 n_passes      = 2L,
                                 seed          = NULL,
@@ -169,14 +173,16 @@ geom_sketch_circle <- function(mapping       = NULL,
                                 na.rm         = FALSE,
                                 show.legend   = NA,
                                 inherit.aes   = TRUE) {
+  params <- list(
+    bowing = bowing, n_passes = as.integer(n_passes),
+    seed = seed, fill_style = fill_style, hachure_angle = hachure_angle,
+    hachure_gap = hachure_gap, fill_weight = fill_weight, na.rm = na.rm, ...
+  )
+  if (!is.null(roughness)) params$roughness <- roughness
   ggplot2::layer(
     data = data, mapping = mapping, stat = stat, geom = GeomSketchCircle,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(
-      roughness = roughness, bowing = bowing, n_passes = as.integer(n_passes),
-      seed = seed, fill_style = fill_style, hachure_angle = hachure_angle,
-      hachure_gap = hachure_gap, fill_weight = fill_weight, na.rm = na.rm, ...
-    )
+    params = params
   )
 }
 
@@ -198,13 +204,15 @@ geom_sketch_ellipse <- function(mapping       = NULL,
                                  na.rm         = FALSE,
                                  show.legend   = NA,
                                  inherit.aes   = TRUE) {
+  params <- list(
+    bowing = bowing, n_passes = as.integer(n_passes),
+    seed = seed, fill_style = fill_style, hachure_angle = hachure_angle,
+    hachure_gap = hachure_gap, fill_weight = fill_weight, na.rm = na.rm, ...
+  )
+  if (!is.null(roughness)) params$roughness <- roughness
   ggplot2::layer(
     data = data, mapping = mapping, stat = stat, geom = GeomSketchEllipse,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(
-      roughness = roughness, bowing = bowing, n_passes = as.integer(n_passes),
-      seed = seed, fill_style = fill_style, hachure_angle = hachure_angle,
-      hachure_gap = hachure_gap, fill_weight = fill_weight, na.rm = na.rm, ...
-    )
+    params = params
   )
 }

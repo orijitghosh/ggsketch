@@ -26,7 +26,7 @@ geom_sketch_jitter <- function(mapping     = NULL,
                                 ...,
                                 width       = NULL,
                                 height      = NULL,
-                                roughness   = 0.5,
+                                roughness   = NULL,
                                 bowing      = 1,
                                 n_passes    = 2L,
                                 seed        = NULL,
@@ -39,12 +39,16 @@ geom_sketch_jitter <- function(mapping     = NULL,
       seed = if (is.null(seed)) NA else seed
     )
   }
+  # roughness is a mappable aesthetic (inherited from GeomSketchPoint): only push
+  # a constant when supplied, so it never clobbers an aes(roughness = ) mapping.
+  params <- list(
+    bowing = bowing, n_passes = as.integer(n_passes),
+    seed = seed, na.rm = na.rm, ...
+  )
+  if (!is.null(roughness)) params$roughness <- roughness
   ggplot2::layer(
     data = data, mapping = mapping, stat = stat, geom = GeomSketchPoint,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(
-      roughness = roughness, bowing = bowing, n_passes = as.integer(n_passes),
-      seed = seed, na.rm = na.rm, ...
-    )
+    params = params
   )
 }

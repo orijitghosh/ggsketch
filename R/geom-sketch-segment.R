@@ -15,13 +15,15 @@ GeomSketchSegment <- ggplot2::ggproto(
     colour    = "black",
     linewidth = 0.5,
     linetype  = 1,
-    alpha     = NA
+    alpha     = NA,
+    roughness = 1
   ),
 
   draw_key = draw_key_sketch_path,
 
+  # roughness is a mappable aesthetic (per segment); the rest stay layer params.
   parameters = function(self, extra = FALSE) {
-    c("roughness", "bowing", "n_passes", "seed", "na.rm")
+    c("bowing", "n_passes", "seed", "na.rm")
   },
 
   draw_panel = function(data, panel_params, coord,
@@ -39,7 +41,8 @@ GeomSketchSegment <- ggplot2::ggproto(
       )
       sketch_path_grob(
         x = pts$x, y = pts$y,
-        roughness = sp$roughness, bowing = sp$bowing, n_passes = sp$n_passes,
+        roughness = max(row$roughness, 0), bowing = sp$bowing,
+        n_passes = sp$n_passes,
         seed = seed_offset(sp$seed, i * 53L),
         gp = outline_gpar(
           colour = row$colour, linewidth = row$linewidth,
@@ -64,7 +67,10 @@ GeomSketchSegment <- ggplot2::ggproto(
 #' @param data Data to display.
 #' @param stat Statistical transformation. Default `"identity"`.
 #' @param position Position adjustment. Default `"identity"`.
-#' @param roughness Non-negative roughness (0 = straight). Default 1.
+#' @param roughness Non-negative roughness (0 = straight). Default 1. For
+#'   `geom_sketch_segment()` this is a mappable aesthetic (map it per segment
+#'   with `aes(roughness = )`, rescaled by [scale_roughness_continuous()]); for
+#'   `geom_sketch_step()` it is a layer parameter (one path per group).
 #' @param bowing Non-negative bowing multiplier. Default 1.
 #' @param n_passes Number of stroke passes. Default 2.
 #' @param seed Integer seed. `NULL` uses `getOption("ggsketch.seed", 1L)`.
@@ -87,20 +93,23 @@ geom_sketch_segment <- function(mapping     = NULL,
                                  stat        = "identity",
                                  position    = "identity",
                                  ...,
-                                 roughness   = 1,
+                                 roughness   = NULL,
                                  bowing      = 1,
                                  n_passes    = 2L,
                                  seed        = NULL,
                                  na.rm       = FALSE,
                                  show.legend = NA,
                                  inherit.aes = TRUE) {
+  # roughness is a mappable aesthetic: only push a constant when supplied.
+  params <- list(
+    bowing = bowing, n_passes = as.integer(n_passes),
+    seed = seed, na.rm = na.rm, ...
+  )
+  if (!is.null(roughness)) params$roughness <- roughness
   ggplot2::layer(
     data = data, mapping = mapping, stat = stat, geom = GeomSketchSegment,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(
-      roughness = roughness, bowing = bowing, n_passes = as.integer(n_passes),
-      seed = seed, na.rm = na.rm, ...
-    )
+    params = params
   )
 }
 

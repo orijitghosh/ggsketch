@@ -12,7 +12,7 @@ geom_sketch_jitter(
   ...,
   width = NULL,
   height = NULL,
-  roughness = 0.5,
+  roughness = NULL,
   bowing = 1,
   n_passes = 2L,
   seed = NULL,

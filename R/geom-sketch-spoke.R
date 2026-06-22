@@ -11,8 +11,9 @@ GeomSketchSpoke <- ggplot2::ggproto(
 
   required_aes = c("x", "y", "angle", "radius"),
 
+  # roughness is a mappable aesthetic (inherited from GeomSketchSegment).
   parameters = function(self, extra = FALSE) {
-    c("roughness", "bowing", "n_passes", "seed", "radius", "angle", "na.rm")
+    c("bowing", "n_passes", "seed", "radius", "angle", "na.rm")
   },
 
   setup_data = function(data, params) {
@@ -56,20 +57,23 @@ geom_sketch_spoke <- function(mapping     = NULL,
                               ...,
                               radius      = 1,
                               angle       = 0,
-                              roughness   = 1,
+                              roughness   = NULL,
                               bowing      = 1,
                               n_passes    = 2L,
                               seed        = NULL,
                               na.rm       = FALSE,
                               show.legend = NA,
                               inherit.aes = TRUE) {
+  # roughness is a mappable aesthetic: only push a constant when supplied.
+  params <- list(
+    radius = radius, angle = angle,
+    bowing = bowing, n_passes = as.integer(n_passes),
+    seed = seed, na.rm = na.rm, ...
+  )
+  if (!is.null(roughness)) params$roughness <- roughness
   ggplot2::layer(
     data = data, mapping = mapping, stat = stat, geom = GeomSketchSpoke,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(
-      radius = radius, angle = angle,
-      roughness = roughness, bowing = bowing, n_passes = as.integer(n_passes),
-      seed = seed, na.rm = na.rm, ...
-    )
+    params = params
   )
 }

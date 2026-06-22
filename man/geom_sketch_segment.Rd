@@ -21,7 +21,7 @@ geom_sketch_segment(
   stat = "identity",
   position = "identity",
   ...,
-  roughness = 1,
+  roughness = NULL,
   bowing = 1,
   n_passes = 2L,
   seed = NULL,
@@ -59,7 +59,10 @@ geom_sketch_step(
 
 \item{...}{Other arguments passed on to the layer.}
 
-\item{roughness}{Non-negative roughness (0 = straight). Default 1.}
+\item{roughness}{Non-negative roughness (0 = straight). Default 1. For
+\code{geom_sketch_segment()} this is a mappable aesthetic (map it per segment
+with \code{aes(roughness = )}, rescaled by \code{\link[=scale_roughness_continuous]{scale_roughness_continuous()}}); for
+\code{geom_sketch_step()} it is a layer parameter (one path per group).}
 
 \item{bowing}{Non-negative bowing multiplier. Default 1.}
 
