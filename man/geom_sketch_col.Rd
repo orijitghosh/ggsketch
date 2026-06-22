@@ -27,6 +27,7 @@ geom_sketch_col(
   hachure_gap = NULL,
   fill_weight = 0.5,
   width = NULL,
+  corner_radius = 0,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -47,6 +48,7 @@ geom_sketch_bar(
   hachure_gap = NULL,
   fill_weight = 0.5,
   width = NULL,
+  corner_radius = 0,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -84,6 +86,10 @@ aesthetic (default 1): pass a constant, or map it per bar with
 \item{fill_weight}{Stroke weight for fill lines. Default 0.5.}
 
 \item{width}{Bar width override. \code{NULL} uses 90\% of resolution.}
+
+\item{corner_radius}{Corner rounding as a fraction [0, 1] of each
+half-side. \code{0} (default) is square; a small value (e.g. \code{0.2}) gives
+gently rounded bars.}
 
 \item{na.rm}{Remove missing values silently? Default \code{FALSE}.}
 
@@ -127,6 +133,7 @@ Other sketch-geoms:
 \code{\link{GeomSketchSmooth}},
 \code{\link{GeomSketchSpoke}},
 \code{\link{GeomSketchViolin}},
+\code{\link{StatSketchPie}},
 \code{\link{annotate_sketch}()},
 \code{\link{geom_sketch_bin2d}()},
 \code{\link{geom_sketch_contour}()},

@@ -29,6 +29,7 @@ geom_sketch_rect(
   hachure_angle = 45,
   hachure_gap = NULL,
   fill_weight = 0.5,
+  corner_radius = 0,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -52,6 +53,7 @@ geom_sketch_tile(
   hachure_angle = 45,
   hachure_gap = NULL,
   fill_weight = 0.5,
+  corner_radius = 0,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -87,6 +89,9 @@ geom_sketch_tile(
 
 \item{fill_weight}{Stroke weight for fill lines. Default 0.5.}
 
+\item{corner_radius}{Corner rounding as a fraction [0, 1] of each
+half-side. \code{0} (default) gives sharp corners; \code{1} fully rounds the ends.}
+
 \item{na.rm}{Remove missing values silently? Default \code{FALSE}.}
 
 \item{show.legend}{Logical; include in legend?}
@@ -110,7 +115,7 @@ library(ggplot2)
 df <- data.frame(xmin = 1, xmax = 3, ymin = 1, ymax = 4)
 ggplot(df) +
   geom_sketch_rect(aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax),
-                   seed = 1L) +
+                   corner_radius = 0.3, seed = 1L) +
   theme_sketch()
 }
 \seealso{
@@ -133,6 +138,7 @@ Other sketch-geoms:
 \code{\link{GeomSketchSmooth}},
 \code{\link{GeomSketchSpoke}},
 \code{\link{GeomSketchViolin}},
+\code{\link{StatSketchPie}},
 \code{\link{annotate_sketch}()},
 \code{\link{geom_sketch_bin2d}()},
 \code{\link{geom_sketch_contour}()},

@@ -399,3 +399,139 @@ makeContent.SketchEllipseGrob <- function(x) {
   if (length(children) == 0L) children <- list(nullGrob())
   setChildren(x, do.call(gList, children))
 }
+
+# ---- sketch_wedge_grob ------------------------------------------------------
+
+#' Create a sketchy pie/donut-wedge grob
+#'
+#' Draws one or more annular sectors (pie or donut slices) sharing a centre,
+#' guaranteed circular regardless of panel shape: radii are taken as a fraction
+#' of the smaller panel dimension and the geometry is assembled in device
+#' inches inside `makeContent()`, then roughened. Each slice's roughened
+#' boundary is also reused as the fill region so the hand-drawn edge is kept.
+#'
+#' @param x0,y0 Centre in npc \[0,1\] (scalars).
+#' @param r,r0 Outer and inner radius as a fraction of the smaller panel
+#'   dimension (`r0 = 0` gives a pie, `r0 > 0` a donut).
+#' @param start,end Per-slice start/end angles in radians.
+#' @param roughness,bowing,n_passes,seed Sketch parameters for the outline.
+#' @param fill_style `"solid"` (default) paints each slice in its fill colour;
+#'   any other style (`"hachure"`, ...) hatches it instead.
+#' @param hachure_angle,hachure_gap,fill_weight Fill parameters (`hachure_gap`
+#'   is a fraction of the smaller panel dimension).
+#' @param fill_gp `gpar()` for the fill (per-slice `col` recycled).
+#' @param outline_gp `gpar()` for the rough outline (per-slice `col` recycled).
+#' @param name,vp Passed to `grid::gTree()`.
+#' @return A `SketchWedgeGrob` grob subclass.
+#' @family grob-layer
+#' @export
+sketch_wedge_grob <- function(x0, y0, r, r0 = 0,
+                              start, end,
+                              roughness     = 1,
+                              bowing        = 0.4,
+                              n_passes      = 2L,
+                              seed          = NULL,
+                              fill_style    = "solid",
+                              hachure_angle = 45,
+                              hachure_gap   = 0.07,
+                              fill_weight   = 0.5,
+                              fill_gp       = gpar(),
+                              outline_gp    = gpar(),
+                              name          = NULL,
+                              vp            = NULL) {
+  seed <- resolve_seed(seed)
+  gTree(
+    x0 = x0, y0 = y0, r = r, r0 = r0, start = start, end = end,
+    roughness = roughness, bowing = bowing, n_passes = as.integer(n_passes),
+    seed = seed,
+    fill_style = fill_style, hachure_angle = hachure_angle,
+    hachure_gap = hachure_gap, fill_weight = fill_weight,
+    fill_gp = fill_gp, outline_gp = outline_gp,
+    name = name, vp = vp,
+    cl = "SketchWedgeGrob"
+  )
+}
+
+#' @method makeContent SketchWedgeGrob
+#' @export
+makeContent.SketchWedgeGrob <- function(x) {
+  n_slice <- length(x$start)
+  if (n_slice == 0L) {
+    return(setChildren(x, gList(nullGrob())))
+  }
+
+  cxi  <- as.numeric(convertX(unit(x$x0, "npc"), "inches"))
+  cyi  <- as.numeric(convertY(unit(x$y0, "npc"), "inches"))
+  base <- min(as.numeric(convertWidth(unit(1, "npc"), "inches")),
+              as.numeric(convertHeight(unit(1, "npc"), "inches")))
+  r_in  <- x$r  * base
+  r0_in <- x$r0 * base
+
+  do_solid <- is.null(x$fill_style) || identical(x$fill_style, "solid")
+  children <- list()
+
+  for (i in seq_len(n_slice)) {
+    if (!is.finite(x$start[i]) || !is.finite(x$end[i]) ||
+        x$start[i] == x$end[i]) next
+
+    sect <- arc_sector(r0_in, r_in, x$start[i], x$end[i])
+    gx   <- cxi + sect$x
+    gy   <- cyi + sect$y
+
+    s_base       <- seed_offset(x$seed, i * 71L)
+    outline_gp_i <- index_gpar(x$outline_gp, i)
+    fill_gp_i    <- index_gpar(x$fill_gp, i)
+
+    # Roughened, closed boundary (computed first so "solid" can reuse it).
+    cxv    <- c(gx, gx[1L])
+    cyv    <- c(gy, gy[1L])
+    passes <- roughen_polyline(
+      cxv, cyv,
+      roughness = max(x$roughness, 0), bowing = x$bowing,
+      n_passes  = x$n_passes, seed = seed_offset(s_base, 2000L)
+    )
+
+    # --- fill ---
+    if (do_solid) {
+      solid_col <- fill_gp_i$col
+      if (length(solid_col) && !is.na(solid_col)) {
+        fp <- passes[[1L]]
+        children[[length(children) + 1L]] <- polygonGrob(
+          x  = unit(fp[, "x"], "inches"),
+          y  = unit(fp[, "y"], "inches"),
+          gp = gpar(fill = solid_col, col = NA)
+        )
+      }
+    } else {
+      segs <- sketch_fill(
+        gx, gy,
+        fill_style    = x$fill_style,
+        hachure_gap   = max(x$hachure_gap * base, 1e-3),
+        hachure_angle = x$hachure_angle,
+        fill_weight   = x$fill_weight,
+        roughness     = max(x$roughness, 0) * 0.5,
+        bowing        = 0,
+        seed          = seed_offset(s_base, 1000L)
+      )
+      fgp     <- fill_gp_i
+      fgp$lwd <- x$fill_weight * ggplot2::.pt
+      for (seg in segs) {
+        children[[length(children) + 1L]] <- polylineGrob(
+          x = unit(seg[, "x"], "inches"), y = unit(seg[, "y"], "inches"),
+          gp = fgp
+        )
+      }
+    }
+
+    # --- roughened outline ---
+    for (pass in passes) {
+      children[[length(children) + 1L]] <- polylineGrob(
+        x = unit(pass[, "x"], "inches"), y = unit(pass[, "y"], "inches"),
+        gp = outline_gp_i
+      )
+    }
+  }
+
+  if (length(children) == 0L) children <- list(nullGrob())
+  setChildren(x, do.call(gList, children))
+}

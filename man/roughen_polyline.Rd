@@ -31,6 +31,7 @@ Uses a seeded local RNG so the user's \code{.Random.seed} is never mutated
 Other sketch-core: 
 \code{\link{curve_fill}()},
 \code{\link{hachure_fill}()},
+\code{\link{rough_arc}()},
 \code{\link{rough_bezier}()},
 \code{\link{rough_ellipse}()},
 \code{\link{sketch_fill}()}

@@ -30,6 +30,7 @@ hand-drawn effect).
 Other sketch-core: 
 \code{\link{curve_fill}()},
 \code{\link{hachure_fill}()},
+\code{\link{rough_arc}()},
 \code{\link{rough_bezier}()},
 \code{\link{roughen_polyline}()},
 \code{\link{sketch_fill}()}

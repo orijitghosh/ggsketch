@@ -1,3 +1,21 @@
+# ggsketch 1.7.0 (development)
+
+* **Hand-drawn pie and donut charts.** `geom_sketch_pie()` draws a sketchy pie
+  (one slice per row, sized by the `amount` aesthetic and coloured by `fill`);
+  `geom_sketch_donut()` is the same with a hole. Slices stay circular on any
+  panel shape (radii are taken from the smaller panel dimension and assembled in
+  device space), so they look right without `coord_fixed()`. Slices are solid by
+  default, with a rough edge; pass any `fill_style` (`"hachure"`, ...) to hatch
+  them instead.
+* **Arc geometry (Layer 1).** New `rough_arc()` roughens an elliptical arc into
+  open hand-drawn strokes (the open-arc sibling of `rough_ellipse()`), and a new
+  `sketch_wedge_grob()` draws roughened pie/donut sectors. These are the arc
+  sampler that powers the pie/donut geoms.
+* **Rounded rectangles and bars.** `geom_sketch_rect()`, `geom_sketch_tile()`,
+  and `geom_sketch_col()` / `geom_sketch_bar()` gain a `corner_radius` argument
+  (a fraction `[0, 1]` of each half-side) for rounded corners. Default `0`
+  keeps sharp corners, so existing plots render identically.
+
 # ggsketch 1.6.0
 
 * **`roughness` is now a mappable aesthetic on the per-shape geoms.** Following

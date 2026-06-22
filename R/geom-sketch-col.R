@@ -25,7 +25,7 @@ GeomSketchCol <- ggplot2::ggproto(
   parameters = function(self, extra = FALSE) {
     c("bowing", "n_passes", "seed",
       "fill_style", "hachure_angle", "hachure_gap", "fill_weight", "fill_roughness", "fill_seed", "width",
-      "na.rm")
+      "corner_radius", "na.rm")
   },
 
   setup_data = function(data, params) {
@@ -53,6 +53,7 @@ GeomSketchCol <- ggplot2::ggproto(
                          fill_weight    = 0.5,
                          fill_roughness = NULL,
                          fill_seed      = NULL,
+                         corner_radius  = 0,
                          ...) {
     if (nrow(data) == 0L) return(nullGrob())
 
@@ -62,11 +63,9 @@ GeomSketchCol <- ggplot2::ggproto(
       row  <- data[i, , drop = FALSE]
       gap  <- hachure_gap %||% (abs(row$xmax - row$xmin) * 0.15)
 
-      # Rectangle corners (closed)
-      px <- c(row$xmin, row$xmax, row$xmax, row$xmin)
-      py <- c(row$ymin, row$ymin, row$ymax, row$ymax)
+      bnd <- rect_boundary(row$xmin, row$xmax, row$ymin, row$ymax, corner_radius)
       pts <- coord$transform(
-        data.frame(x = px, y = py, stringsAsFactors = FALSE),
+        data.frame(x = bnd$x, y = bnd$y, stringsAsFactors = FALSE),
         panel_params
       )
 
@@ -126,6 +125,9 @@ GeomSketchCol <- ggplot2::ggproto(
 #' @param hachure_angle Fill line angle in degrees. Default 45.
 #' @param hachure_gap Fill line gap in data units (`NULL` = 15% of bar width).
 #' @param fill_weight Stroke weight for fill lines. Default 0.5.
+#' @param corner_radius Corner rounding as a fraction \[0, 1\] of each
+#'   half-side. `0` (default) is square; a small value (e.g. `0.2`) gives
+#'   gently rounded bars.
 #' @param width Bar width override. `NULL` uses 90% of resolution.
 #' @param na.rm Remove missing values silently? Default `FALSE`.
 #' @param show.legend Logical; include in legend?
@@ -154,6 +156,7 @@ geom_sketch_col <- function(mapping       = NULL,
                               hachure_gap   = NULL,
                               fill_weight   = 0.5,
                               width         = NULL,
+                              corner_radius = 0,
                               na.rm         = FALSE,
                               show.legend   = NA,
                               inherit.aes   = TRUE) {
@@ -166,6 +169,7 @@ geom_sketch_col <- function(mapping       = NULL,
     hachure_gap   = hachure_gap,
     fill_weight   = fill_weight,
     width         = width,
+    corner_radius = corner_radius,
     na.rm         = na.rm,
     ...
   )
@@ -198,6 +202,7 @@ geom_sketch_bar <- function(mapping       = NULL,
                               hachure_gap   = NULL,
                               fill_weight   = 0.5,
                               width         = NULL,
+                              corner_radius = 0,
                               na.rm         = FALSE,
                               show.legend   = NA,
                               inherit.aes   = TRUE) {
@@ -210,6 +215,7 @@ geom_sketch_bar <- function(mapping       = NULL,
     hachure_gap   = hachure_gap,
     fill_weight   = fill_weight,
     width         = width,
+    corner_radius = corner_radius,
     na.rm         = na.rm,
     ...
   )

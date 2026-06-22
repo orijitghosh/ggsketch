@@ -82,6 +82,7 @@ Other sketch-geoms:
 \code{\link{GeomSketchSmooth}},
 \code{\link{GeomSketchSpoke}},
 \code{\link{GeomSketchViolin}},
+\code{\link{StatSketchPie}},
 \code{\link{annotate_sketch}()},
 \code{\link{geom_sketch_bin2d}()},
 \code{\link{geom_sketch_contour}()},
