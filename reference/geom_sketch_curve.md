@@ -1,6 +1,6 @@
 # Sketchy curved connector
 
-Draws a hand-drawn curved segment from `(x, y)` to `(xend, yend)` — the
+Draws a hand-drawn curved segment from `(x, y)` to `(xend, yend)` - the
 sketch analogue of
 [`ggplot2::geom_curve()`](https://ggplot2.tidyverse.org/reference/geom_segment.html).
 The curve is a quadratic Bezier whose bend is controlled by `curvature`.
@@ -62,7 +62,14 @@ An object of class `GeomSketchCurve` (inherits from `Geom`, `ggproto`,
 
 - roughness:
 
-  Non-negative roughness (0 = straight). Default 1.
+  Non-negative roughness (0 = straight). Default 1. For
+  [`geom_sketch_segment()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_segment.md)
+  this is a mappable aesthetic (map it per segment with
+  `aes(roughness = )`, rescaled by
+  [`scale_roughness_continuous()`](https://orijitghosh.github.io/ggsketch/reference/scale_roughness_continuous.md));
+  for
+  [`geom_sketch_step()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_segment.md)
+  it is a layer parameter (one path per group).
 
 - bowing:
 

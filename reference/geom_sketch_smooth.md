@@ -1,7 +1,7 @@
 # Sketchy smoothed conditional mean
 
 Draws a hand-drawn fitted line with an optional roughened confidence
-band — the sketch analogue of
+band - the sketch analogue of
 [`ggplot2::geom_smooth()`](https://ggplot2.tidyverse.org/reference/geom_smooth.html).
 The fit is computed by
 [`ggplot2::stat_smooth()`](https://ggplot2.tidyverse.org/reference/geom_smooth.html)

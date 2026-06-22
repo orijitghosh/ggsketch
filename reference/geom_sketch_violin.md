@@ -1,7 +1,7 @@
 # Sketchy violin plot
 
 Draws a hand-drawn violin (mirrored kernel density) with a roughened
-outline and a hachure-style fill — the sketch analogue of
+outline and a hachure-style fill - the sketch analogue of
 [`ggplot2::geom_violin()`](https://ggplot2.tidyverse.org/reference/geom_violin.html).
 Uses
 [`ggplot2::stat_ydensity()`](https://ggplot2.tidyverse.org/reference/geom_violin.html).

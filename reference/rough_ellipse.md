@@ -1,7 +1,7 @@
 # Roughen an ellipse into one or more sketch stroke paths
 
 Generates points around the ellipse, roughens them, and connects them
-with a smooth path (sampled cubic Bézier between consecutive
+with a smooth path (sampled cubic Bezier between consecutive
 point-pairs). Deliberately leaves a small gap at the close point ("ends
 don't meet" hand-drawn effect).
 

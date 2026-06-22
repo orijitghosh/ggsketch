@@ -1,8 +1,8 @@
 # Sketchy 2-D density contours
 
 `geom_sketch_density2d()` (alias `geom_sketch_density_2d()`) draws
-contour lines of a 2-D kernel density estimate with a hand-drawn stroke
-— the sketch analogue of
+contour lines of a 2-D kernel density estimate with a hand-drawn
+stroke - the sketch analogue of
 [`ggplot2::geom_density_2d()`](https://ggplot2.tidyverse.org/reference/geom_density_2d.html)
 /
 [`ggplot2::stat_density_2d()`](https://ggplot2.tidyverse.org/reference/geom_density_2d.html).

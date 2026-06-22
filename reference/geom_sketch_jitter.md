@@ -2,8 +2,8 @@
 
 A convenience wrapper around
 [`geom_sketch_point()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_point.md)
-that adds a small amount of random position noise to reduce overplotting
-— the sketch analogue of
+that adds a small amount of random position noise to reduce
+overplotting - the sketch analogue of
 [`ggplot2::geom_jitter()`](https://ggplot2.tidyverse.org/reference/geom_jitter.html).
 
 ## Usage
@@ -17,7 +17,7 @@ geom_sketch_jitter(
   ...,
   width = NULL,
   height = NULL,
-  roughness = 0.5,
+  roughness = NULL,
   bowing = 1,
   n_passes = 2L,
   seed = NULL,

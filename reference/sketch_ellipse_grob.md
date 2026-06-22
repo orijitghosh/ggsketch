@@ -3,7 +3,7 @@
 Draws one or more roughened ellipses whose centres are in npc \[0,1\]
 and whose radii are npc fractions of the viewport (converted to device
 inches in `makeContent()`, so a "circle" in data units may appear
-elliptical on a non-square panel — matching ggplot2's coordinate
+elliptical on a non-square panel - matching ggplot2's coordinate
 semantics).
 
 ## Usage
@@ -21,6 +21,8 @@ sketch_ellipse_grob(
   hachure_angle = 45,
   hachure_gap = 0.07,
   fill_weight = 0.5,
+  fill_roughness = NULL,
+  fill_seed = NULL,
   fill_gp = gpar(),
   outline_gp = gpar(),
   name = NULL,
@@ -46,6 +48,17 @@ sketch_ellipse_grob(
 
   Fill parameters; set `fill_style = NULL` or `"solid"` for outline
   only.
+
+- fill_roughness:
+
+  Roughness of the fill strokes. `NULL` (default) ties it to the outline
+  as `roughness * 0.4`; set a number to control the fill texture
+  independently of the outline.
+
+- fill_seed:
+
+  Seed for the fill strokes. `NULL` (default) derives it from `seed`;
+  set an integer to vary the fill pattern without moving the outline.
 
 - fill_gp:
 

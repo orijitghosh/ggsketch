@@ -1,7 +1,7 @@
 # Sketchy marginal rug
 
-Draws short hand-drawn ticks along the panel edges, one per observation
-— the sketch analogue of
+Draws short hand-drawn ticks along the panel edges, one per
+observation - the sketch analogue of
 [`ggplot2::geom_rug()`](https://ggplot2.tidyverse.org/reference/geom_rug.html).
 Maps the `x` and/or `y` aesthetics.
 

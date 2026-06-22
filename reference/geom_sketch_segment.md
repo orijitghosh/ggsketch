@@ -18,7 +18,7 @@ geom_sketch_segment(
   stat = "identity",
   position = "identity",
   ...,
-  roughness = 1,
+  roughness = NULL,
   bowing = 1,
   n_passes = 2L,
   seed = NULL,
@@ -79,7 +79,11 @@ An object of class `GeomSketchStep` (inherits from `Geom`, `ggproto`,
 
 - roughness:
 
-  Non-negative roughness (0 = straight). Default 1.
+  Non-negative roughness (0 = straight). Default 1. For
+  `geom_sketch_segment()` this is a mappable aesthetic (map it per
+  segment with `aes(roughness = )`, rescaled by
+  [`scale_roughness_continuous()`](https://orijitghosh.github.io/ggsketch/reference/scale_roughness_continuous.md));
+  for `geom_sketch_step()` it is a layer parameter (one path per group).
 
 - bowing:
 

@@ -1,7 +1,7 @@
 # Sketchy 2-D bin heatmap
 
 Bins data into a rectangular grid and draws each cell as a hand-drawn
-rectangle shaded by count — the sketch analogue of
+rectangle shaded by count - the sketch analogue of
 [`ggplot2::geom_bin_2d()`](https://ggplot2.tidyverse.org/reference/geom_bin_2d.html)
 /
 [`ggplot2::stat_bin_2d()`](https://ggplot2.tidyverse.org/reference/geom_bin_2d.html).
@@ -89,7 +89,10 @@ geom_sketch_bin_2d(
 
 - roughness:
 
-  Non-negative roughness (0 = straight lines). Default 1.
+  Non-negative roughness (0 = straight lines). A mappable aesthetic
+  (default 1): pass a constant, or map it per bar with
+  `aes(roughness = )` (rescaled by
+  [`scale_roughness_continuous()`](https://orijitghosh.github.io/ggsketch/reference/scale_roughness_continuous.md)).
 
 - bowing:
 

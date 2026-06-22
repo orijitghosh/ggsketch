@@ -1,7 +1,7 @@
 # Sketchy hexagonal heatmap
 
 Bins data into hexagons and draws each as a hand-drawn hexagon shaded by
-count — the sketch analogue of
+count - the sketch analogue of
 [`ggplot2::geom_hex()`](https://ggplot2.tidyverse.org/reference/geom_hex.html)
 /
 [`ggplot2::stat_bin_hex()`](https://ggplot2.tidyverse.org/reference/geom_hex.html).
@@ -75,7 +75,10 @@ An object of class `GeomSketchHex` (inherits from `Geom`, `ggproto`,
 
 - roughness:
 
-  Non-negative roughness (0 = straight lines). Default 1.
+  Non-negative roughness (0 = straight lines). A mappable aesthetic
+  (default 1): pass a constant, or map it per bar with
+  `aes(roughness = )` (rescaled by
+  [`scale_roughness_continuous()`](https://orijitghosh.github.io/ggsketch/reference/scale_roughness_continuous.md)).
 
 - bowing:
 

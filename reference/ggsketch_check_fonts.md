@@ -17,7 +17,7 @@ ggsketch_check_fonts(fonts = sketch_font_candidates())
   Character vector of font families to check. Defaults to the same
   candidate list
   [`geom_sketch_text()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_text.md)
-  resolves against — preferred handwriting faces first, then fonts
+  resolves against - preferred handwriting faces first, then fonts
   preinstalled on Windows / macOS.
 
 ## Value

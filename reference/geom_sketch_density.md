@@ -1,6 +1,6 @@
 # Sketchy density geom
 
-Draws a kernel density estimate as a hand-drawn filled area — the sketch
+Draws a kernel density estimate as a hand-drawn filled area - the sketch
 analogue of
 [`ggplot2::geom_density()`](https://ggplot2.tidyverse.org/reference/geom_density.html).
 Drawing is delegated to

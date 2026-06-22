@@ -19,6 +19,8 @@ sketch_polygon_grob(
   hachure_angle = 45,
   hachure_gap = 0.07,
   fill_weight = 0.5,
+  fill_roughness = NULL,
+  fill_seed = NULL,
   name = NULL,
   vp = NULL
 )
@@ -50,6 +52,17 @@ sketch_polygon_grob(
 - fill_style, hachure_angle, hachure_gap, fill_weight:
 
   Fill parameters.
+
+- fill_roughness:
+
+  Roughness of the fill strokes. `NULL` (default) ties it to the outline
+  as `roughness * 0.5`; set a number to control the fill texture
+  independently of the outline.
+
+- fill_seed:
+
+  Seed for the fill strokes. `NULL` (default) derives it from `seed`;
+  set an integer to vary the fill pattern without moving the outline.
 
 - name, vp:
 

@@ -16,7 +16,7 @@ roughen_polyline(x, y, roughness = 1, bowing = 1, n_passes = 2L, seed = NULL)
 - x, y:
 
   Numeric vectors of polyline vertices in inch space. Must have the same
-  length ≥ 2.
+  length \>= 2.
 
 - roughness:
 

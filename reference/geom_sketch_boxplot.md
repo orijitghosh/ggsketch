@@ -3,7 +3,7 @@
 A hand-drawn box-and-whisker plot: a roughened IQR box, a thick median
 line, rough whiskers, and sketchy outlier points. Uses
 [`ggplot2::stat_boxplot()`](https://ggplot2.tidyverse.org/reference/geom_boxplot.html)
-for the five-number summary — the sketch analogue of
+for the five-number summary - the sketch analogue of
 [`ggplot2::geom_boxplot()`](https://ggplot2.tidyverse.org/reference/geom_boxplot.html).
 
 ## Usage

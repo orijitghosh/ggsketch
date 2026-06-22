@@ -5,7 +5,7 @@ font, the sketch counterparts of
 [`ggplot2::geom_text()`](https://ggplot2.tidyverse.org/reference/geom_text.html)
 and
 [`ggplot2::geom_label()`](https://ggplot2.tidyverse.org/reference/geom_text.html).
-Unlike the other geoms the strokes are not geometrically roughened — the
+Unlike the other geoms the strokes are not geometrically roughened - the
 hand-drawn feel comes from the font (see
 [`ggsketch_check_fonts()`](https://orijitghosh.github.io/ggsketch/reference/ggsketch_check_fonts.md)
 for which faces are available). If no handwriting font is installed they
@@ -144,7 +144,7 @@ ggplot(df, aes(x, y, label = lab)) +
 
 
 # With no `family`, the first installed handwriting font is used. Render with
-# a font-capable device (ragg, svglite, cairo) to see it — the base pdf() /
+# a font-capable device (ragg, svglite, cairo) to see it - the base pdf() /
 # postscript() devices cannot use unregistered system fonts.
 if (FALSE) { # \dontrun{
 ggplot(df, aes(x, y, label = lab)) +

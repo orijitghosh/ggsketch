@@ -148,7 +148,7 @@ rough.js is © Preet Shihn and licensed MIT. ggsketch is licensed MIT.
 
 - [`ggsketch`](https://orijitghosh.github.io/ggsketch/reference/ggsketch-package.md)
   [`ggsketch-package`](https://orijitghosh.github.io/ggsketch/reference/ggsketch-package.md)
-  : ggsketch: Grammar-Native Hand-Drawn Geoms for ggplot2
+  : ggsketch: Grammar-Native Hand-Drawn Geoms for 'ggplot2'
 
 ## Lines & points
 
@@ -351,13 +351,13 @@ The number-to-number routines that produce the hand-drawn coordinates.
 - [`rough_ellipse()`](https://orijitghosh.github.io/ggsketch/reference/rough_ellipse.md)
   : Roughen an ellipse into one or more sketch stroke paths
 - [`rough_bezier()`](https://orijitghosh.github.io/ggsketch/reference/rough_bezier.md)
-  : Roughen a cubic Bézier curve
+  : Roughen a cubic Bezier curve
 - [`hachure_fill()`](https://orijitghosh.github.io/ggsketch/reference/hachure_fill.md)
   : Fill a polygon with hachure lines using the AET scan-line algorithm
 - [`sketch_fill()`](https://orijitghosh.github.io/ggsketch/reference/sketch_fill.md)
   : Dispatch fill-style to the appropriate Layer-1 fill function
 - [`curve_fill()`](https://orijitghosh.github.io/ggsketch/reference/curve_fill.md)
-  : Flatten a closed Bézier boundary to a polygon, then fill
+  : Flatten a closed Bezier boundary to a polygon, then fill
 
 # Articles
 

@@ -3,7 +3,7 @@
 `geom_sketch_circle()` draws roughened circles of radius `r` (data
 units); `geom_sketch_ellipse()` draws ellipses with semi-axes `a` (x)
 and `b` (y). Radii are in data units, so on a non-square panel a circle
-appears elliptical — use
+appears elliptical - use
 [`ggplot2::coord_equal()`](https://ggplot2.tidyverse.org/reference/coord_fixed.html)
 for true circles. These are annotation-style geoms (cf.
 `ggforce::geom_circle()`).
@@ -21,7 +21,7 @@ geom_sketch_circle(
   stat = "identity",
   position = "identity",
   ...,
-  roughness = 1,
+  roughness = NULL,
   bowing = 1,
   n_passes = 2L,
   seed = NULL,
@@ -89,7 +89,10 @@ An object of class `GeomSketchCircle` (inherits from
 
 - roughness:
 
-  Non-negative roughness (0 = clean). Default 1.
+  Non-negative roughness (0 = clean). A mappable aesthetic (default 1):
+  pass a constant, or map it per shape with `aes(roughness = )`
+  (rescaled by
+  [`scale_roughness_continuous()`](https://orijitghosh.github.io/ggsketch/reference/scale_roughness_continuous.md)).
 
 - bowing:
 

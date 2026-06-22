@@ -1,6 +1,6 @@
 # Sketchy quantile regression lines
 
-Fits and draws quantile regression lines with a hand-drawn stroke — the
+Fits and draws quantile regression lines with a hand-drawn stroke - the
 sketch analogue of
 [`ggplot2::geom_quantile()`](https://ggplot2.tidyverse.org/reference/geom_quantile.html)
 /

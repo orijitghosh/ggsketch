@@ -86,7 +86,10 @@ geom_sketch_freqpoly(
 
 - roughness:
 
-  Non-negative roughness (0 = straight lines). Default 1.
+  Non-negative roughness (0 = straight lines). A mappable aesthetic
+  (default 1): pass a constant, or map it per bar with
+  `aes(roughness = )` (rescaled by
+  [`scale_roughness_continuous()`](https://orijitghosh.github.io/ggsketch/reference/scale_roughness_continuous.md)).
 
 - bowing:
 

@@ -1,4 +1,4 @@
-# Roughen a cubic Bézier curve
+# Roughen a cubic Bezier curve
 
 Applies roughness to all four control points, then flattens and reduces
 the curve. Returns `n_passes` roughened polyline paths.
@@ -32,7 +32,7 @@ rough_bezier(
 
 - bowing:
 
-  Bowing multiplier (currently not applied to Bézier control points
+  Bowing multiplier (currently not applied to Bezier control points
   separately; roughness serves the role). Default 1.
 
 - n_passes:

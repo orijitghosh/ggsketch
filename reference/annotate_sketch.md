@@ -3,7 +3,7 @@
 The sketch analogue of
 [`ggplot2::annotate()`](https://ggplot2.tidyverse.org/reference/annotate.html).
 Creates a one-off layer of fixed, hand-drawn marks that do not inherit
-the plot's aesthetics — useful for highlighting, callouts, and reference
+the plot's aesthetics - useful for highlighting, callouts, and reference
 shapes.
 
 ## Usage

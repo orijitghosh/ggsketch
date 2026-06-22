@@ -13,7 +13,7 @@ geom_sketch_freqpoly() draws the same bin counts as a roughened line
 
     <a class="navbar-brand me-2" href="../index.html">ggsketch</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.6.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -135,7 +135,9 @@ geom_sketch_freqpoly() draws the same bin counts as a roughened line
 
 
 <dt id="arg-roughness">roughness<a class="anchor" aria-label="anchor" href="#arg-roughness"></a></dt>
-<dd><p>Non-negative roughness (0 = straight lines). Default 1.</p></dd>
+<dd><p>Non-negative roughness (0 = straight lines). A mappable
+aesthetic (default 1): pass a constant, or map it per bar with
+<code>aes(roughness = )</code> (rescaled by <code><a href="scale_roughness_continuous.html">scale_roughness_continuous()</a></code>).</p></dd>
 
 
 <dt id="arg-bowing">bowing<a class="anchor" aria-label="anchor" href="#arg-bowing"></a></dt>

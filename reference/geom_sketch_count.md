@@ -18,7 +18,7 @@ geom_sketch_count(
   stat = "sum",
   position = "identity",
   ...,
-  roughness = 0.5,
+  roughness = NULL,
   bowing = 1,
   n_passes = 2L,
   seed = NULL,

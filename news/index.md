@@ -1,5 +1,57 @@
 # Changelog
 
+## ggsketch 1.6.0
+
+- **`roughness` is now a mappable aesthetic on the per-shape geoms.**
+  Following
+  [`geom_sketch_point()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_point.md),
+  you can map `roughness` per shape with `aes(roughness = )` (rescaled
+  by
+  [`scale_roughness_continuous()`](https://orijitghosh.github.io/ggsketch/reference/scale_roughness_continuous.md))
+  or set a constant on:
+  [`geom_sketch_col()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_col.md)
+  /
+  [`geom_sketch_bar()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_col.md),
+  [`geom_sketch_rect()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_rect.md)
+  /
+  [`geom_sketch_tile()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_rect.md),
+  [`geom_sketch_circle()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_circle.md)
+  /
+  [`geom_sketch_ellipse()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_circle.md),
+  [`geom_sketch_segment()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_segment.md)
+  /
+  [`geom_sketch_spoke()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_spoke.md),
+  and the point-based
+  [`geom_sketch_jitter()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_jitter.md)
+  /
+  [`geom_sketch_count()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_count.md).
+  [`sketch_ellipse_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_ellipse_grob.md)
+  now takes a per-shape roughness vector. Defaults are unchanged, so
+  existing plots render identically. Path-like geoms (line, path, area,
+  density, smooth, step, reference lines, …) keep `roughness` as a layer
+  parameter, since per-row roughness is ill-defined for a single path.
+- **Independent fill roughness and seed.** Every fill-bearing geom now
+  accepts `fill_roughness` and `fill_seed`, so the fill texture can be
+  controlled separately from the outline. Previously the fill roughness
+  was hardwired to a fraction of the outline’s (`roughness * 0.5` for
+  polygons, `* 0.4` for ellipses) and shared the outline’s seed. The
+  defaults are unchanged (`NULL` keeps the historical coupling), so
+  existing plots render identically; set the values for a scratchier
+  fill under a clean edge, or to reshuffle the fill pattern without
+  moving the outline. Exposed on
+  [`sketch_polygon_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_polygon_grob.md)
+  /
+  [`sketch_ellipse_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_ellipse_grob.md)
+  and threaded through
+  [`geom_sketch_col()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_col.md)/`bar()`,
+  [`rect()`](https://rdrr.io/r/graphics/rect.html)/`tile()`,
+  [`polygon()`](https://rdrr.io/r/graphics/polygon.html),
+  `area()`/`ribbon()`,
+  [`density()`](https://rdrr.io/r/stats/density.html), `violin()`,
+  `circle()`/`ellipse()`, `crossbar()`,
+  [`boxplot()`](https://rdrr.io/r/graphics/boxplot.html), `hex()`, and
+  [`smooth()`](https://rdrr.io/r/stats/smooth.html).
+
 ## ggsketch 1.5.0
 
 Annotation toolkit (first piece), roughness-as-an-aesthetic, and a real

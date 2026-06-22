@@ -16,7 +16,7 @@ geom_sketch_col(
   stat = "identity",
   position = "stack",
   ...,
-  roughness = 1,
+  roughness = NULL,
   bowing = 1,
   n_passes = 2L,
   seed = NULL,
@@ -36,7 +36,7 @@ geom_sketch_bar(
   stat = "count",
   position = "stack",
   ...,
-  roughness = 1,
+  roughness = NULL,
   bowing = 1,
   n_passes = 2L,
   seed = NULL,
@@ -82,7 +82,10 @@ An object of class `GeomSketchCol` (inherits from `Geom`, `ggproto`,
 
 - roughness:
 
-  Non-negative roughness (0 = straight lines). Default 1.
+  Non-negative roughness (0 = straight lines). A mappable aesthetic
+  (default 1): pass a constant, or map it per bar with
+  `aes(roughness = )` (rescaled by
+  [`scale_roughness_continuous()`](https://orijitghosh.github.io/ggsketch/reference/scale_roughness_continuous.md)).
 
 - bowing:
 

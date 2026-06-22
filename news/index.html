@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ggsketch</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.6.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,6 +46,13 @@
       <small>Source: <a href="https://github.com/orijitghosh/ggsketch/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.6.0" id="ggsketch-160">ggsketch 1.6.0<a class="anchor" aria-label="anchor" href="#ggsketch-160"></a></h2>
+<ul><li>
+<strong><code>roughness</code> is now a mappable aesthetic on the per-shape geoms.</strong> Following <code><a href="../reference/geom_sketch_point.html">geom_sketch_point()</a></code>, you can map <code>roughness</code> per shape with <code>aes(roughness = )</code> (rescaled by <code><a href="../reference/scale_roughness_continuous.html">scale_roughness_continuous()</a></code>) or set a constant on: <code><a href="../reference/geom_sketch_col.html">geom_sketch_col()</a></code> / <code><a href="../reference/geom_sketch_col.html">geom_sketch_bar()</a></code>, <code><a href="../reference/geom_sketch_rect.html">geom_sketch_rect()</a></code> / <code><a href="../reference/geom_sketch_rect.html">geom_sketch_tile()</a></code>, <code><a href="../reference/geom_sketch_circle.html">geom_sketch_circle()</a></code> / <code><a href="../reference/geom_sketch_circle.html">geom_sketch_ellipse()</a></code>, <code><a href="../reference/geom_sketch_segment.html">geom_sketch_segment()</a></code> / <code><a href="../reference/geom_sketch_spoke.html">geom_sketch_spoke()</a></code>, and the point-based <code><a href="../reference/geom_sketch_jitter.html">geom_sketch_jitter()</a></code> / <code><a href="../reference/geom_sketch_count.html">geom_sketch_count()</a></code>. <code><a href="../reference/sketch_ellipse_grob.html">sketch_ellipse_grob()</a></code> now takes a per-shape roughness vector. Defaults are unchanged, so existing plots render identically. Path-like geoms (line, path, area, density, smooth, step, reference lines, …) keep <code>roughness</code> as a layer parameter, since per-row roughness is ill-defined for a single path.</li>
+<li>
+<strong>Independent fill roughness and seed.</strong> Every fill-bearing geom now accepts <code>fill_roughness</code> and <code>fill_seed</code>, so the fill texture can be controlled separately from the outline. Previously the fill roughness was hardwired to a fraction of the outline’s (<code>roughness * 0.5</code> for polygons, <code>* 0.4</code> for ellipses) and shared the outline’s seed. The defaults are unchanged (<code>NULL</code> keeps the historical coupling), so existing plots render identically; set the values for a scratchier fill under a clean edge, or to reshuffle the fill pattern without moving the outline. Exposed on <code><a href="../reference/sketch_polygon_grob.html">sketch_polygon_grob()</a></code> / <code><a href="../reference/sketch_ellipse_grob.html">sketch_ellipse_grob()</a></code> and threaded through <code><a href="../reference/geom_sketch_col.html">geom_sketch_col()</a></code>/<code>bar()</code>, <code><a href="https://rdrr.io/r/graphics/rect.html" class="external-link">rect()</a></code>/<code>tile()</code>, <code><a href="https://rdrr.io/r/graphics/polygon.html" class="external-link">polygon()</a></code>, <code>area()</code>/<code>ribbon()</code>, <code><a href="https://rdrr.io/r/stats/density.html" class="external-link">density()</a></code>, <code>violin()</code>, <code>circle()</code>/<code>ellipse()</code>, <code>crossbar()</code>, <code><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot()</a></code>, <code>hex()</code>, and <code><a href="https://rdrr.io/r/stats/smooth.html" class="external-link">smooth()</a></code>.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.5.0" id="ggsketch-150">ggsketch 1.5.0<a class="anchor" aria-label="anchor" href="#ggsketch-150"></a></h2>
 <p>Annotation toolkit (first piece), roughness-as-an-aesthetic, and a real solid fill.</p>

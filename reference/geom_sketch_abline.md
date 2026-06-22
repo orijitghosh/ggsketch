@@ -1,7 +1,7 @@
 # Sketchy reference lines
 
 Hand-drawn `abline` / `hline` / `vline` reference lines that span the
-panel — the sketch analogues of
+panel - the sketch analogues of
 [`ggplot2::geom_abline()`](https://ggplot2.tidyverse.org/reference/geom_abline.html),
 [`ggplot2::geom_hline()`](https://ggplot2.tidyverse.org/reference/geom_abline.html),
 and

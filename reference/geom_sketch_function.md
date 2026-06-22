@@ -1,6 +1,6 @@
 # Sketchy function curve
 
-Draws the curve of a function `y = fun(x)` with a hand-drawn stroke —
+Draws the curve of a function `y = fun(x)` with a hand-drawn stroke -
 the sketch analogue of
 [`ggplot2::geom_function()`](https://ggplot2.tidyverse.org/reference/geom_function.html),
 built on

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ggsketch</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.6.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,6 +67,8 @@
 <span>  hachure_angle <span class="op">=</span> <span class="fl">45</span>,</span>
 <span>  hachure_gap <span class="op">=</span> <span class="fl">0.07</span>,</span>
 <span>  fill_weight <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>  fill_roughness <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fill_seed <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  name <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  vp <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -98,6 +100,17 @@
 
 <dt id="arg-fill-style-hachure-angle-hachure-gap-fill-weight">fill_style, hachure_angle, hachure_gap, fill_weight<a class="anchor" aria-label="anchor" href="#arg-fill-style-hachure-angle-hachure-gap-fill-weight"></a></dt>
 <dd><p>Fill parameters.</p></dd>
+
+
+<dt id="arg-fill-roughness">fill_roughness<a class="anchor" aria-label="anchor" href="#arg-fill-roughness"></a></dt>
+<dd><p>Roughness of the fill strokes. <code>NULL</code> (default) ties it
+to the outline as <code>roughness * 0.5</code>; set a number to control the fill
+texture independently of the outline.</p></dd>
+
+
+<dt id="arg-fill-seed">fill_seed<a class="anchor" aria-label="anchor" href="#arg-fill-seed"></a></dt>
+<dd><p>Seed for the fill strokes. <code>NULL</code> (default) derives it from
+<code>seed</code>; set an integer to vary the fill pattern without moving the outline.</p></dd>
 
 
 <dt id="arg-name-vp">name, vp<a class="anchor" aria-label="anchor" href="#arg-name-vp"></a></dt>

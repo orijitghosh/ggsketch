@@ -1,7 +1,7 @@
-# Flatten a closed Bézier boundary to a polygon, then fill
+# Flatten a closed Bezier boundary to a polygon, then fill
 
 For area/ribbon/density geoms: converts a curved boundary (list of
-Bézier control-point sets) into a polygon approximation, then applies
+Bezier control-point sets) into a polygon approximation, then applies
 `sketch_fill`.
 
 ## Usage

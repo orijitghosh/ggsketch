@@ -18,7 +18,7 @@ geom_sketch_rect(
   stat = "identity",
   position = "identity",
   ...,
-  roughness = 1,
+  roughness = NULL,
   bowing = 1,
   n_passes = 2L,
   seed = NULL,
@@ -41,7 +41,7 @@ geom_sketch_tile(
   ...,
   width = NULL,
   height = NULL,
-  roughness = 1,
+  roughness = NULL,
   bowing = 1,
   n_passes = 2L,
   seed = NULL,
@@ -88,7 +88,10 @@ An object of class `GeomSketchTile` (inherits from `GeomSketchRect`,
 
 - roughness:
 
-  Non-negative roughness (0 = straight). Default 1.
+  Non-negative roughness (0 = straight). A mappable aesthetic (default
+  1): pass a constant, or map it per rectangle with `aes(roughness = )`
+  (rescaled by
+  [`scale_roughness_continuous()`](https://orijitghosh.github.io/ggsketch/reference/scale_roughness_continuous.md)).
 
 - bowing:
 

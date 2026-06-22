@@ -1,7 +1,7 @@
 # Sketchy spoke geom
 
 Draws line segments from `(x, y)` at a given `angle` (radians) and
-`radius` — the sketch analogue of
+`radius` - the sketch analogue of
 [`ggplot2::geom_spoke()`](https://ggplot2.tidyverse.org/reference/geom_spoke.html).
 Handy for vector / flow fields. Internally reuses
 [GeomSketchSegment](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_segment.md).
@@ -19,7 +19,7 @@ geom_sketch_spoke(
   ...,
   radius = 1,
   angle = 0,
-  roughness = 1,
+  roughness = NULL,
   bowing = 1,
   n_passes = 2L,
   seed = NULL,
@@ -64,7 +64,14 @@ An object of class `GeomSketchSpoke` (inherits from `GeomSketchSegment`,
 
 - roughness:
 
-  Non-negative roughness (0 = straight). Default 1.
+  Non-negative roughness (0 = straight). Default 1. For
+  [`geom_sketch_segment()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_segment.md)
+  this is a mappable aesthetic (map it per segment with
+  `aes(roughness = )`, rescaled by
+  [`scale_roughness_continuous()`](https://orijitghosh.github.io/ggsketch/reference/scale_roughness_continuous.md));
+  for
+  [`geom_sketch_step()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_segment.md)
+  it is a layer parameter (one path per group).
 
 - bowing:
 

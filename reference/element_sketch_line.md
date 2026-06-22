@@ -72,7 +72,7 @@ element_sketch_rect(
 - fill:
 
   Fill colour (`element_sketch_rect()` only). `NA` draws the outline
-  only — the usual choice for a panel border.
+  only - the usual choice for a panel border.
 
 ## Value
 
