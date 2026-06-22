@@ -59,6 +59,8 @@ boundary is also reused as the fill region so the hand-drawn edge is kept.
 }
 \seealso{
 Other grob-layer: 
+\code{\link{sketch_arrow_grob}()},
+\code{\link{sketch_callout_grob}()},
 \code{\link{sketch_ellipse_grob}()},
 \code{\link{sketch_path_grob}()},
 \code{\link{sketch_polygon_grob}()}

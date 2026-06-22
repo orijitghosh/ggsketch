@@ -39,6 +39,8 @@ device inches.
 }
 \seealso{
 Other grob-layer: 
+\code{\link{sketch_arrow_grob}()},
+\code{\link{sketch_callout_grob}()},
 \code{\link{sketch_ellipse_grob}()},
 \code{\link{sketch_polygon_grob}()},
 \code{\link{sketch_wedge_grob}()}

@@ -535,3 +535,279 @@ makeContent.SketchWedgeGrob <- function(x) {
   if (length(children) == 0L) children <- list(nullGrob())
   setChildren(x, do.call(gList, children))
 }
+
+# ---- sketch_arrow_grob ------------------------------------------------------
+
+#' Create a sketchy arrow grob
+#'
+#' Draws one or more hand-drawn arrows. The shaft is a quadratic Bezier (so it
+#' can curve) and the arrowhead is roughened and oriented to the curve's end
+#' tangent, both assembled in device inches so the head stays crisp and
+#' correctly angled on any panel shape. The arrowhead size can adapt to the
+#' shaft length.
+#'
+#' @param x0,y0 Shaft start in npc \[0,1\] (vectors, one per arrow).
+#' @param cx,cy Quadratic-Bezier control point in npc (vectors). For a straight
+#'   arrow pass the chord midpoint.
+#' @param x1,y1 Shaft end / arrow tip in npc (vectors).
+#' @param roughness,bowing,n_passes,seed Sketch parameters.
+#' @param arrow_length Arrowhead length in inches. `NULL` (default) adapts it to
+#'   the shaft length.
+#' @param arrow_angle Half-angle of the arrowhead in degrees. Default 25.
+#' @param arrow_type `"open"` (default) draws a two-stroke V; `"closed"` draws a
+#'   filled rough triangle.
+#' @param gp A `grid::gpar()` for the strokes (per-arrow `col` recycled).
+#' @param name,vp Passed to `grid::gTree()`.
+#' @return A `SketchArrowGrob` grob subclass.
+#' @family grob-layer
+#' @export
+sketch_arrow_grob <- function(x0, y0, cx, cy, x1, y1,
+                              roughness    = 1,
+                              bowing       = 1,
+                              n_passes     = 2L,
+                              seed         = NULL,
+                              arrow_length = NULL,
+                              arrow_angle  = 25,
+                              arrow_type   = "open",
+                              gp           = gpar(),
+                              name         = NULL,
+                              vp           = NULL) {
+  seed <- resolve_seed(seed)
+  gTree(
+    x0 = x0, y0 = y0, cx = cx, cy = cy, x1 = x1, y1 = y1,
+    roughness = roughness, bowing = bowing, n_passes = as.integer(n_passes),
+    seed = seed,
+    arrow_length = arrow_length, arrow_angle = arrow_angle,
+    arrow_type = arrow_type,
+    gp = gp, name = name, vp = vp,
+    cl = "SketchArrowGrob"
+  )
+}
+
+#' @method makeContent SketchArrowGrob
+#' @export
+makeContent.SketchArrowGrob <- function(x) {
+  n_arr <- length(x$x0)
+  if (n_arr == 0L) {
+    return(setChildren(x, gList(nullGrob())))
+  }
+
+  to_in_x <- function(v) as.numeric(convertX(unit(v, "npc"), "inches"))
+  to_in_y <- function(v) as.numeric(convertY(unit(v, "npc"), "inches"))
+  x0i <- to_in_x(x$x0); y0i <- to_in_y(x$y0)
+  cxi <- to_in_x(x$cx); cyi <- to_in_y(x$cy)
+  x1i <- to_in_x(x$x1); y1i <- to_in_y(x$y1)
+
+  spread   <- x$arrow_angle * pi / 180
+  children <- list()
+
+  for (i in seq_len(n_arr)) {
+    s_base <- seed_offset(x$seed, i * 53L)
+    gp_i   <- index_gpar(x$gp, i)
+
+    # --- shaft: sample the quadratic Bezier in inches, then roughen ---
+    t  <- seq(0, 1, length.out = 40L)
+    bx <- (1 - t)^2 * x0i[i] + 2 * (1 - t) * t * cxi[i] + t^2 * x1i[i]
+    by <- (1 - t)^2 * y0i[i] + 2 * (1 - t) * t * cyi[i] + t^2 * y1i[i]
+
+    shaft <- roughen_polyline(
+      bx, by,
+      roughness = max(x$roughness, 0), bowing = x$bowing,
+      n_passes  = x$n_passes, seed = seed_offset(s_base, 100L)
+    )
+    for (pass in shaft) {
+      children[[length(children) + 1L]] <- polylineGrob(
+        x = unit(pass[, "x"], "inches"), y = unit(pass[, "y"], "inches"),
+        gp = gp_i
+      )
+    }
+
+    # --- arrowhead: orient to the end tangent (P1 - control) ---
+    tx <- x1i[i] - cxi[i]
+    ty <- y1i[i] - cyi[i]
+    if (abs(tx) < 1e-9 && abs(ty) < 1e-9) {
+      tx <- x1i[i] - x0i[i]
+      ty <- y1i[i] - y0i[i]
+    }
+    ang <- atan2(ty, tx)
+
+    shaft_len <- sqrt((x1i[i] - x0i[i])^2 + (y1i[i] - y0i[i])^2)
+    head_len  <- x$arrow_length %||% max(0.07, min(0.2, shaft_len * 0.22))
+
+    b1x <- x1i[i] - head_len * cos(ang - spread)
+    b1y <- y1i[i] - head_len * sin(ang - spread)
+    b2x <- x1i[i] - head_len * cos(ang + spread)
+    b2y <- y1i[i] - head_len * sin(ang + spread)
+
+    if (identical(x$arrow_type, "closed")) {
+      tri <- roughen_polyline(
+        c(b1x, x1i[i], b2x, b1x), c(b1y, y1i[i], b2y, b1y),
+        roughness = max(x$roughness, 0) * 0.5, bowing = 0,
+        n_passes  = 1L, seed = seed_offset(s_base, 200L)
+      )[[1L]]
+      children[[length(children) + 1L]] <- polygonGrob(
+        x = unit(tri[, "x"], "inches"), y = unit(tri[, "y"], "inches"),
+        gp = gpar(fill = gp_i$col, col = gp_i$col, lwd = gp_i$lwd %||% 1)
+      )
+    } else {
+      head <- roughen_polyline(
+        c(b1x, x1i[i], b2x), c(b1y, y1i[i], b2y),
+        roughness = max(x$roughness, 0) * 0.6, bowing = 0,
+        n_passes  = x$n_passes, seed = seed_offset(s_base, 200L)
+      )
+      for (pass in head) {
+        children[[length(children) + 1L]] <- polylineGrob(
+          x = unit(pass[, "x"], "inches"), y = unit(pass[, "y"], "inches"),
+          gp = gp_i
+        )
+      }
+    }
+  }
+
+  if (length(children) == 0L) children <- list(nullGrob())
+  setChildren(x, do.call(gList, children))
+}
+
+# ---- sketch_callout_grob ----------------------------------------------------
+
+#' Create a sketchy callout grob (boxed label + leader arrow)
+#'
+#' Draws a handwriting label inside a roughened rounded box and a leader arrow
+#' from the box to a target point. The box auto-sizes to the label at draw time
+#' (device-space text metrics) and the leader leaves from the box edge nearest
+#' the target.
+#'
+#' @param x,y Box centre in npc \[0,1\] (scalars).
+#' @param xend,yend Target point in npc the leader points at (scalars). Pass
+#'   `NA` for both to draw a boxed label with no leader.
+#' @param label Label text.
+#' @param padding Box padding around the text, in inches. Default 0.06.
+#' @param corner_radius Box corner rounding (fraction of half-side). Default 0.3.
+#' @param roughness,bowing,n_passes,seed Sketch parameters.
+#' @param arrow_length,arrow_angle Leader arrowhead size (see
+#'   [sketch_arrow_grob()]).
+#' @param text_gp,box_gp,arrow_gp `gpar()`s for the label, the box (outline; its
+#'   `fill` paints the box), and the leader.
+#' @param name,vp Passed to `grid::gTree()`.
+#' @return A `SketchCalloutGrob` grob subclass.
+#' @family grob-layer
+#' @export
+sketch_callout_grob <- function(x, y, xend, yend, label,
+                                padding       = 0.06,
+                                corner_radius = 0.3,
+                                roughness     = 1,
+                                bowing        = 0.6,
+                                n_passes      = 2L,
+                                seed          = NULL,
+                                arrow_length  = NULL,
+                                arrow_angle   = 25,
+                                text_gp       = gpar(),
+                                box_gp        = gpar(),
+                                arrow_gp      = gpar(),
+                                name          = NULL,
+                                vp            = NULL) {
+  seed <- resolve_seed(seed)
+  gTree(
+    x = x, y = y, xend = xend, yend = yend, label = label,
+    padding = padding, corner_radius = corner_radius,
+    roughness = roughness, bowing = bowing, n_passes = as.integer(n_passes),
+    seed = seed, arrow_length = arrow_length, arrow_angle = arrow_angle,
+    text_gp = text_gp, box_gp = box_gp, arrow_gp = arrow_gp,
+    name = name, vp = vp,
+    cl = "SketchCalloutGrob"
+  )
+}
+
+#' @method makeContent SketchCalloutGrob
+#' @export
+makeContent.SketchCalloutGrob <- function(x) {
+  xi <- as.numeric(convertX(unit(x$x, "npc"), "inches"))
+  yi <- as.numeric(convertY(unit(x$y, "npc"), "inches"))
+
+  # Box sized to the label (device-space metrics).
+  tg <- grid::textGrob(as.character(x$label), gp = x$text_gp)
+  tw <- as.numeric(convertWidth(grid::grobWidth(tg), "inches"))
+  th <- as.numeric(convertHeight(grid::grobHeight(tg), "inches"))
+  hw <- tw / 2 + x$padding
+  hh <- th / 2 + x$padding
+
+  rr <- rounded_rect_xy(xi - hw, xi + hw, yi - hh, yi + hh,
+                        rx = x$corner_radius * hw, ry = x$corner_radius * hh)
+  passes <- roughen_polyline(
+    c(rr$x, rr$x[1L]), c(rr$y, rr$y[1L]),
+    roughness = max(x$roughness, 0), bowing = x$bowing,
+    n_passes  = x$n_passes, seed = seed_offset(x$seed, 2000L)
+  )
+
+  children <- list()
+
+  # --- leader arrow (drawn first, so the box sits on top of its start) ---
+  if (length(x$xend) && is.finite(x$xend) && is.finite(x$yend)) {
+    xe <- as.numeric(convertX(unit(x$xend, "npc"), "inches"))
+    ye <- as.numeric(convertY(unit(x$yend, "npc"), "inches"))
+    ang <- atan2(ye - yi, xe - xi)
+    # Exit point on the box edge toward the target.
+    sc <- min(hw / max(abs(cos(ang)), 1e-6), hh / max(abs(sin(ang)), 1e-6))
+    sx <- xi + cos(ang) * sc
+    sy <- yi + sin(ang) * sc
+
+    if (sqrt((xe - sx)^2 + (ye - sy)^2) > 1e-3) {
+      shaft <- roughen_polyline(
+        c(sx, xe), c(sy, ye),
+        roughness = max(x$roughness, 0), bowing = x$bowing,
+        n_passes  = x$n_passes, seed = seed_offset(x$seed, 100L)
+      )
+      for (pass in shaft) {
+        children[[length(children) + 1L]] <- polylineGrob(
+          x = unit(pass[, "x"], "inches"), y = unit(pass[, "y"], "inches"),
+          gp = x$arrow_gp
+        )
+      }
+      a2  <- atan2(ye - sy, xe - sx)
+      spd <- x$arrow_angle * pi / 180
+      hl  <- x$arrow_length %||%
+        max(0.07, min(0.18, sqrt((xe - sx)^2 + (ye - sy)^2) * 0.22))
+      head <- roughen_polyline(
+        c(xe - hl * cos(a2 - spd), xe, xe - hl * cos(a2 + spd)),
+        c(ye - hl * sin(a2 - spd), ye, ye - hl * sin(a2 + spd)),
+        roughness = max(x$roughness, 0) * 0.6, bowing = 0,
+        n_passes  = x$n_passes, seed = seed_offset(x$seed, 200L)
+      )
+      for (pass in head) {
+        children[[length(children) + 1L]] <- polylineGrob(
+          x = unit(pass[, "x"], "inches"), y = unit(pass[, "y"], "inches"),
+          gp = x$arrow_gp
+        )
+      }
+    }
+  }
+
+  # --- box fill ---
+  box_fill <- x$box_gp$fill
+  if (length(box_fill) && !is.na(box_fill)) {
+    fp <- passes[[1L]]
+    children[[length(children) + 1L]] <- polygonGrob(
+      x = unit(fp[, "x"], "inches"), y = unit(fp[, "y"], "inches"),
+      gp = gpar(fill = box_fill, col = NA)
+    )
+  }
+
+  # --- box outline ---
+  out_gp <- x$box_gp
+  out_gp$fill <- NA
+  for (pass in passes) {
+    children[[length(children) + 1L]] <- polylineGrob(
+      x = unit(pass[, "x"], "inches"), y = unit(pass[, "y"], "inches"),
+      gp = out_gp
+    )
+  }
+
+  # --- label ---
+  children[[length(children) + 1L]] <- grid::textGrob(
+    as.character(x$label),
+    x = unit(xi, "inches"), y = unit(yi, "inches"),
+    gp = x$text_gp
+  )
+
+  setChildren(x, do.call(gList, children))
+}

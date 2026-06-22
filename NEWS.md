@@ -1,5 +1,20 @@
 # ggsketch 1.7.0 (development)
 
+* **Content-aware arrows.** `geom_sketch_arrow()` (and the one-off
+  `annotate_sketch_arrow()`) draw a hand-drawn arrow from `(x, y)` to
+  `(xend, yend)` with an optional handwriting label. They are "content-aware":
+  the shaft curvature defaults to an automatic, pleasing bow whose side follows
+  the direction of travel; the roughened arrowhead orients itself to the curve's
+  *end tangent*, so it always points at the target however the shaft bends; and
+  the label justifies itself away from the target so it never sits under the
+  shaft. `arrow_type = "closed"` gives a filled rough arrowhead.
+* **Callouts.** `geom_sketch_callout()` (and `annotate_sketch_callout()`) draw a
+  handwriting label in a roughened rounded box, optionally with a leader arrow to
+  a target. The box auto-sizes to the label and the leader leaves from the box
+  edge nearest the target -- a sketch speech-bubble / callout.
+* **Hull marks.** `geom_sketch_mark_hull()` draws a roughened convex hull around
+  each group of points (the sketch analogue of `ggforce::geom_mark_hull()`), for
+  circling or grouping clusters; shade it with a `fill` or leave it outline-only.
 * **Hand-drawn pie and donut charts.** `geom_sketch_pie()` draws a sketchy pie
   (one slice per row, sized by the `amount` aesthetic and coloured by `fill`);
   `geom_sketch_donut()` is the same with a hole. Slices stay circular on any
