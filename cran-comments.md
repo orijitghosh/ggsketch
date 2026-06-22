@@ -20,6 +20,10 @@
 * Image-based (vdiffr) snapshot tests are skipped on CRAN and on platforms whose
   rendering toolchain differs from the reference; the primary regression gate is
   deterministic numeric geometry snapshots.
+* Two help files (`geom_sketch_text`, `register_sketch_font`) use `\dontrun{}`
+  because the examples require a handwriting font file installed on the system,
+  which is not guaranteed in the check environment. The functions themselves are
+  exercised by the test suite.
 
 ## Downstream dependencies
 
