@@ -16,6 +16,8 @@ sketch_ellipse_grob(
   hachure_angle = 45,
   hachure_gap = 0.07,
   fill_weight = 0.5,
+  fill_roughness = NULL,
+  fill_seed = NULL,
   fill_gp = gpar(),
   outline_gp = gpar(),
   name = NULL,
@@ -31,6 +33,13 @@ sketch_ellipse_grob(
 
 \item{fill_style, hachure_angle, hachure_gap, fill_weight}{Fill parameters; set
 \code{fill_style = NULL} or \code{"solid"} for outline only.}
+
+\item{fill_roughness}{Roughness of the fill strokes. \code{NULL} (default) ties it
+to the outline as \code{roughness * 0.4}; set a number to control the fill
+texture independently of the outline.}
+
+\item{fill_seed}{Seed for the fill strokes. \code{NULL} (default) derives it from
+\code{seed}; set an integer to vary the fill pattern without moving the outline.}
 
 \item{fill_gp}{\code{gpar()} for the fill lines.}
 

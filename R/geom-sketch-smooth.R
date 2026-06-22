@@ -24,7 +24,7 @@ GeomSketchSmooth <- ggplot2::ggproto(
 
   parameters = function(self, extra = FALSE) {
     c("roughness", "bowing", "n_passes", "seed",
-      "fill_style", "hachure_angle", "hachure_gap", "fill_weight",
+      "fill_style", "hachure_angle", "hachure_gap", "fill_weight", "fill_roughness", "fill_seed",
       "se", "na.rm")
   },
 
@@ -36,8 +36,10 @@ GeomSketchSmooth <- ggplot2::ggproto(
                          fill_style    = "hachure",
                          hachure_angle = 45,
                          hachure_gap   = NULL,
-                         fill_weight   = 0.5,
-                         se            = TRUE,
+                         fill_weight    = 0.5,
+                         fill_roughness = NULL,
+                         fill_seed      = NULL,
+                         se             = TRUE,
                          ...) {
     if (nrow(data) < 2L) return(nullGrob())
 
@@ -69,9 +71,11 @@ GeomSketchSmooth <- ggplot2::ggproto(
         seed          = seed_offset(sp$seed, 11L),
         fill_style    = fill_style,
         hachure_angle = hachure_angle,
-        hachure_gap   = gap,
-        fill_weight   = fill_weight,
-        fill_gp       = gpar(
+        hachure_gap    = gap,
+        fill_weight    = fill_weight,
+        fill_roughness = fill_roughness,
+        fill_seed      = fill_seed,
+        fill_gp        = gpar(
           col = scales::alpha(first$fill, first$alpha),
           lineend = "round"
         ),

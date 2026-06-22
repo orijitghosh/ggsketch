@@ -1,3 +1,17 @@
+# ggsketch 1.6.0 (development)
+
+* **Independent fill roughness and seed.** Every fill-bearing geom now accepts
+  `fill_roughness` and `fill_seed`, so the fill texture can be controlled
+  separately from the outline. Previously the fill roughness was hardwired to a
+  fraction of the outline's (`roughness * 0.5` for polygons, `* 0.4` for
+  ellipses) and shared the outline's seed. The defaults are unchanged
+  (`NULL` keeps the historical coupling), so existing plots render identically;
+  set the values for a scratchier fill under a clean edge, or to reshuffle the
+  fill pattern without moving the outline. Exposed on `sketch_polygon_grob()` /
+  `sketch_ellipse_grob()` and threaded through `geom_sketch_col()`/`bar()`,
+  `rect()`/`tile()`, `polygon()`, `area()`/`ribbon()`, `density()`, `violin()`,
+  `circle()`/`ellipse()`, `crossbar()`, `boxplot()`, `hex()`, and `smooth()`.
+
 # ggsketch 1.5.0
 
 Annotation toolkit (first piece), roughness-as-an-aesthetic, and a real solid

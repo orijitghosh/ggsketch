@@ -15,7 +15,7 @@
 
 .interval_params <- function(self, extra = FALSE) {
   c("roughness", "bowing", "n_passes", "seed", "width", "fatten",
-    "fill_style", "hachure_angle", "hachure_gap", "fill_weight", "na.rm")
+    "fill_style", "hachure_angle", "hachure_gap", "fill_weight", "fill_roughness", "fill_seed", "na.rm")
 }
 
 # ---- linerange --------------------------------------------------------------
@@ -146,7 +146,8 @@ GeomSketchCrossbar <- ggplot2::ggproto(
   draw_panel = function(data, panel_params, coord,
                          roughness = 0.7, bowing = 1, n_passes = 2L, seed = NULL,
                          fill_style = "solid", hachure_angle = 45,
-                         hachure_gap = NULL, fill_weight = 0.5, ...) {
+                         hachure_gap = NULL, fill_weight = 0.5,
+                         fill_roughness = NULL, fill_seed = NULL, ...) {
     if (nrow(data) == 0L) return(nullGrob())
     sp <- resolve_sketch_params(roughness, bowing, n_passes, seed)
     grobs <- list()
@@ -165,6 +166,7 @@ GeomSketchCrossbar <- ggplot2::ggproto(
         seed = seed_offset(sp$seed, b),
         fill_style = fill_style, hachure_angle = hachure_angle,
         hachure_gap = max(gap, 1e-3), fill_weight = fill_weight,
+        fill_roughness = fill_roughness, fill_seed = fill_seed,
         fill_gp = gpar(col = scales::alpha(row$fill, row$alpha),
                        lineend = "round"),
         outline_gp = outline_gpar(row$colour, row$linewidth, row$linetype,

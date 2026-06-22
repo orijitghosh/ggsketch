@@ -23,7 +23,7 @@ GeomSketchEllipse <- ggplot2::ggproto(
 
   parameters = function(self, extra = FALSE) {
     c("roughness", "bowing", "n_passes", "seed",
-      "fill_style", "hachure_angle", "hachure_gap", "fill_weight", "na.rm")
+      "fill_style", "hachure_angle", "hachure_gap", "fill_weight", "fill_roughness", "fill_seed", "na.rm")
   },
 
   # Expose the bounding box so position scales expand to fit whole ellipses.
@@ -43,7 +43,9 @@ GeomSketchEllipse <- ggplot2::ggproto(
                          fill_style    = "hachure",
                          hachure_angle = 45,
                          hachure_gap   = 0.07,
-                         fill_weight   = 0.5,
+                         fill_weight    = 0.5,
+                         fill_roughness = NULL,
+                         fill_seed      = NULL,
                          ...) {
     if (nrow(data) == 0L) return(nullGrob())
 
@@ -75,9 +77,11 @@ GeomSketchEllipse <- ggplot2::ggproto(
       seed          = sp$seed,
       fill_style    = fill_style,
       hachure_angle = hachure_angle,
-      hachure_gap   = hachure_gap,
-      fill_weight   = fill_weight,
-      fill_gp       = gpar(
+      hachure_gap    = hachure_gap,
+      fill_weight    = fill_weight,
+      fill_roughness = fill_roughness,
+      fill_seed      = fill_seed,
+      fill_gp        = gpar(
         col = scales::alpha(data$fill, data$alpha), lineend = "round"
       ),
       outline_gp    = gpar(

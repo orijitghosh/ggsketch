@@ -23,7 +23,7 @@ GeomSketchPolygon <- ggplot2::ggproto(
 
   parameters = function(self, extra = FALSE) {
     c("roughness", "bowing", "n_passes", "seed",
-      "fill_style", "hachure_angle", "hachure_gap", "fill_weight", "na.rm")
+      "fill_style", "hachure_angle", "hachure_gap", "fill_weight", "fill_roughness", "fill_seed", "na.rm")
   },
 
   draw_group = function(data, panel_params, coord,
@@ -33,8 +33,10 @@ GeomSketchPolygon <- ggplot2::ggproto(
                          seed          = NULL,
                          fill_style    = "hachure",
                          hachure_angle = 45,
-                         hachure_gap   = NULL,
-                         fill_weight   = 0.5,
+                         hachure_gap    = NULL,
+                         fill_weight    = 0.5,
+                         fill_roughness = NULL,
+                         fill_seed      = NULL,
                          ...) {
     n <- nrow(data)
     if (n < 3L) return(nullGrob())
@@ -60,9 +62,11 @@ GeomSketchPolygon <- ggplot2::ggproto(
       seed          = sp$seed,
       fill_style    = fill_style,
       hachure_angle = hachure_angle,
-      hachure_gap   = gap,
-      fill_weight   = fill_weight,
-      fill_gp       = gpar(col = fill_col, lineend = "round"),
+      hachure_gap    = gap,
+      fill_weight    = fill_weight,
+      fill_roughness = fill_roughness,
+      fill_seed      = fill_seed,
+      fill_gp        = gpar(col = fill_col, lineend = "round"),
       outline_gp    = gpar(
         col = out_col,
         lwd = first$linewidth * ggplot2::.pt,

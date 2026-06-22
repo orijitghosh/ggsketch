@@ -26,7 +26,7 @@ GeomSketchBoxplot <- ggplot2::ggproto(
 
   parameters = function(self, extra = FALSE) {
     c("roughness", "bowing", "n_passes", "seed",
-      "fill_style", "hachure_angle", "hachure_gap", "fill_weight",
+      "fill_style", "hachure_angle", "hachure_gap", "fill_weight", "fill_roughness", "fill_seed",
       "outliers", "na.rm")
   },
 
@@ -46,8 +46,10 @@ GeomSketchBoxplot <- ggplot2::ggproto(
                          fill_style    = "solid",
                          hachure_angle = 45,
                          hachure_gap   = NULL,
-                         fill_weight   = 0.5,
-                         outliers      = TRUE,
+                         fill_weight    = 0.5,
+                         fill_roughness = NULL,
+                         fill_seed      = NULL,
+                         outliers       = TRUE,
                          ...) {
     if (nrow(data) == 0L) return(nullGrob())
 
@@ -88,6 +90,7 @@ GeomSketchBoxplot <- ggplot2::ggproto(
       seed = seed_offset(sp$seed, 3L),
       fill_style = fill_style, hachure_angle = hachure_angle,
       hachure_gap = max(gap, 1e-3), fill_weight = fill_weight,
+      fill_roughness = fill_roughness, fill_seed = fill_seed,
       fill_gp = gpar(col = scales::alpha(row$fill, row$alpha), lineend = "round"),
       outline_gp = gpar(col = col, lwd = row$linewidth * ggplot2::.pt,
                         lty = row$linetype, lineend = "round", linejoin = "round")

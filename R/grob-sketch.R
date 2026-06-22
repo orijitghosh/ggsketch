@@ -120,24 +120,31 @@ makeContent.SketchPathGrob <- function(x) {
 #' @param fill_gp `gpar()` for fill lines (`col` sets fill-line colour).
 #' @param outline_gp `gpar()` for the rough outline stroke.
 #' @param fill_style,hachure_angle,hachure_gap,fill_weight Fill parameters.
+#' @param fill_roughness Roughness of the fill strokes. `NULL` (default) ties it
+#'   to the outline as `roughness * 0.5`; set a number to control the fill
+#'   texture independently of the outline.
+#' @param fill_seed Seed for the fill strokes. `NULL` (default) derives it from
+#'   `seed`; set an integer to vary the fill pattern without moving the outline.
 #' @param name,vp Passed to `grid::grob()`.
 #' @return A `SketchPolygonGrob` grob subclass.
 #' @family grob-layer
 #' @export
 sketch_polygon_grob <- function(x, y,
-                                 id            = NULL,
-                                 roughness     = 1,
-                                 bowing        = 1,
-                                 n_passes      = 2L,
-                                 seed          = NULL,
-                                 fill_gp       = gpar(),
-                                 outline_gp    = gpar(),
-                                 fill_style    = "hachure",
-                                 hachure_angle = 45,
-                                 hachure_gap   = 0.07,
-                                 fill_weight   = 0.5,
-                                 name          = NULL,
-                                 vp            = NULL) {
+                                 id             = NULL,
+                                 roughness      = 1,
+                                 bowing         = 1,
+                                 n_passes       = 2L,
+                                 seed           = NULL,
+                                 fill_gp        = gpar(),
+                                 outline_gp     = gpar(),
+                                 fill_style     = "hachure",
+                                 hachure_angle  = 45,
+                                 hachure_gap    = 0.07,
+                                 fill_weight    = 0.5,
+                                 fill_roughness = NULL,
+                                 fill_seed      = NULL,
+                                 name           = NULL,
+                                 vp             = NULL) {
   seed <- resolve_seed(seed)
   gTree(
     x = x, y = y, id = id,
@@ -146,6 +153,7 @@ sketch_polygon_grob <- function(x, y,
     fill_gp = fill_gp, outline_gp = outline_gp,
     fill_style = fill_style, hachure_angle = hachure_angle,
     hachure_gap = hachure_gap, fill_weight = fill_weight,
+    fill_roughness = fill_roughness, fill_seed = fill_seed,
     name = name, vp = vp,
     cl = "SketchPolygonGrob"
   )
@@ -188,6 +196,12 @@ makeContent.SketchPolygonGrob <- function(x) {
       )
     }
 
+    # Fill roughness/seed default to a function of the outline's, but can be set
+    # independently (NULL keeps the historical coupling).
+    fill_rough <- x$fill_roughness %||% (x$roughness * 0.5)
+    fill_base  <- if (is.null(x$fill_seed)) s_base
+                  else seed_offset(resolve_seed(x$fill_seed), g * 37L)
+
     # --- fill ---
     if (!is.null(x$fill_style) && x$fill_style != "solid") {
       fill_segs <- sketch_fill(
@@ -196,9 +210,9 @@ makeContent.SketchPolygonGrob <- function(x) {
         hachure_gap   = x$hachure_gap,
         hachure_angle = x$hachure_angle,
         fill_weight   = x$fill_weight,
-        roughness     = x$roughness * 0.5,
+        roughness     = fill_rough,
         bowing        = 0,
-        seed          = seed_offset(s_base, 1000L)
+        seed          = seed_offset(fill_base, 1000L)
       )
 
       fill_gp_seg     <- x$fill_gp
@@ -255,6 +269,11 @@ makeContent.SketchPolygonGrob <- function(x) {
 #' @param roughness,n_passes,seed Sketch parameters.
 #' @param fill_style,hachure_angle,hachure_gap,fill_weight Fill parameters; set
 #'   `fill_style = NULL` or `"solid"` for outline only.
+#' @param fill_roughness Roughness of the fill strokes. `NULL` (default) ties it
+#'   to the outline as `roughness * 0.4`; set a number to control the fill
+#'   texture independently of the outline.
+#' @param fill_seed Seed for the fill strokes. `NULL` (default) derives it from
+#'   `seed`; set an integer to vary the fill pattern without moving the outline.
 #' @param fill_gp `gpar()` for the fill lines.
 #' @param outline_gp `gpar()` for the rough outline stroke.
 #' @param name,vp Passed to `grid::gTree()`.
@@ -262,23 +281,26 @@ makeContent.SketchPolygonGrob <- function(x) {
 #' @family grob-layer
 #' @export
 sketch_ellipse_grob <- function(x, y, rx, ry,
-                                 roughness     = 1,
-                                 n_passes      = 2L,
-                                 seed          = NULL,
-                                 fill_style    = NULL,
-                                 hachure_angle = 45,
-                                 hachure_gap   = 0.07,
-                                 fill_weight   = 0.5,
-                                 fill_gp       = gpar(),
-                                 outline_gp    = gpar(),
-                                 name          = NULL,
-                                 vp            = NULL) {
+                                 roughness      = 1,
+                                 n_passes       = 2L,
+                                 seed           = NULL,
+                                 fill_style     = NULL,
+                                 hachure_angle  = 45,
+                                 hachure_gap    = 0.07,
+                                 fill_weight    = 0.5,
+                                 fill_roughness = NULL,
+                                 fill_seed      = NULL,
+                                 fill_gp        = gpar(),
+                                 outline_gp     = gpar(),
+                                 name           = NULL,
+                                 vp             = NULL) {
   seed <- resolve_seed(seed)
   gTree(
     x = x, y = y, rx = rx, ry = ry,
     roughness = roughness, n_passes = as.integer(n_passes), seed = seed,
     fill_style = fill_style, hachure_angle = hachure_angle,
     hachure_gap = hachure_gap, fill_weight = fill_weight,
+    fill_roughness = fill_roughness, fill_seed = fill_seed,
     fill_gp = fill_gp, outline_gp = outline_gp,
     name = name, vp = vp,
     cl = "SketchEllipseGrob"
@@ -311,6 +333,12 @@ makeContent.SketchEllipseGrob <- function(x) {
     outline_gp_i <- index_gpar(x$outline_gp, i)  # per-shape colour (maps per row)
     fill_gp_i    <- index_gpar(x$fill_gp, i)
 
+    # Fill roughness/seed default to a function of the outline's, but can be set
+    # independently (NULL keeps the historical coupling).
+    fill_rough <- x$fill_roughness %||% (x$roughness * 0.4)
+    fill_base  <- if (is.null(x$fill_seed)) s_base
+                  else seed_offset(resolve_seed(x$fill_seed), i * 71L)
+
     # Roughened outline (also the solid-fill boundary). Computed first; explicit
     # seed offsets keep the RNG stream independent of draw order.
     passes <- rough_ellipse(
@@ -331,9 +359,9 @@ makeContent.SketchEllipseGrob <- function(x) {
         hachure_gap   = max(x$hachure_gap * 2 * min(rx[i], ry[i]), 1e-3),
         hachure_angle = x$hachure_angle,
         fill_weight   = x$fill_weight,
-        roughness     = x$roughness * 0.4,
+        roughness     = fill_rough,
         bowing        = 0,
-        seed          = seed_offset(s_base, 1000L)
+        seed          = seed_offset(fill_base, 1000L)
       )
       fill_gp_seg     <- fill_gp_i
       fill_gp_seg$lwd <- x$fill_weight * ggplot2::.pt
