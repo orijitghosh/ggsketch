@@ -7,7 +7,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/orijitghosh/ggsketch/blob/v1.6.0/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/orijitghosh/ggsketch/blob/main/DESCRIPTION)
 
 Ghosh A (2026). *ggsketch: Grammar-Native Hand-Drawn Geoms for
 'ggplot2'*. R package version 1.6.0,
