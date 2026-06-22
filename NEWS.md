@@ -1,4 +1,4 @@
-# ggsketch 1.6.0 (development)
+# ggsketch 1.6.0
 
 * **`roughness` is now a mappable aesthetic on the per-shape geoms.** Following
   `geom_sketch_point()`, you can map `roughness` per shape with
