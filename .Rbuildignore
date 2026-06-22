@@ -16,3 +16,4 @@
 ^\.gitattributes$
 ^\.git$
 ^\.claude$
+^CRAN-SUBMISSION$
