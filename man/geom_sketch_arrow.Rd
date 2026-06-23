@@ -63,9 +63,11 @@ the shaft length.}
 \item{arrow_type}{\code{"open"} (default) draws a two-stroke V; \code{"closed"} draws a
 filled rough triangle.}
 
-\item{family}{Font family for the label. By default the first installed
-handwriting face is used (see \code{\link[=ggsketch_check_fonts]{ggsketch_check_fonts()}}); pass \code{""} for the
-device default.}
+\item{family}{Font family for the label. Defaults to the same family as
+\code{\link[=theme_sketch]{theme_sketch()}} (\code{getOption("ggsketch.base_family", "")}, i.e. the device
+default), so the label matches the plot's other text; set
+\code{options(ggsketch.base_family = "auto")} for a handwriting face, or pass an
+explicit family here.}
 
 \item{label_gap}{Gap between the label anchor and the source point, in npc.
 Default \code{0.012}.}

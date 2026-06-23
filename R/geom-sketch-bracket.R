@@ -35,7 +35,7 @@ GeomSketchBracket <- ggplot2::ggproto(
     if (nrow(data) == 0L) return(nullGrob())
 
     sp  <- resolve_sketch_params(roughness, bowing, n_passes, seed)
-    fam <- family %||% resolve_sketch_font()
+    fam <- resolve_label_family(family)
 
     grobs <- list()
     for (i in seq_len(nrow(data))) {
@@ -97,9 +97,11 @@ GeomSketchBracket <- ggplot2::ggproto(
 #' @param position Position adjustment. Default `"identity"`.
 #' @param tip_length Length of the downward end tips, as a fraction of panel
 #'   height. Default `0.02`. Use `0` for a plain bar.
-#' @param family Font family for the label. By default the first installed
-#'   handwriting face is used (see [ggsketch_check_fonts()]); pass `""` for the
-#'   device default.
+#' @param family Font family for the label. Defaults to the same family as
+#'   [theme_sketch()] (`getOption("ggsketch.base_family", "")`, i.e. the device
+#'   default), so the label matches the plot's other text; set
+#'   `options(ggsketch.base_family = "auto")` for a handwriting face, or pass an
+#'   explicit family here.
 #' @param label_vjust Vertical justification of the label relative to the bar
 #'   (negative nudges it above). Default `-0.35`.
 #' @param roughness Non-negative roughness (0 = straight). Default 0.8.

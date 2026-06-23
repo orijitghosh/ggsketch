@@ -40,6 +40,21 @@ resolve_sketch_font <- function(fonts = sketch_font_candidates()) {
   ""
 }
 
+#' Default font family for geom-drawn annotation labels
+#'
+#' Follows the same convention as [theme_sketch()]'s `base_family` so a label
+#' matches the rest of the plot's text and never forces a registered family onto
+#' a device that cannot render it (e.g. the postscript device R CMD check uses
+#' for examples). An explicit `family` wins; otherwise use
+#' `getOption("ggsketch.base_family", "")`, resolving the handwriting font only
+#' when that option is `"auto"`.
+#' @noRd
+resolve_label_family <- function(family = NULL) {
+  if (!is.null(family)) return(family)
+  base <- getOption("ggsketch.base_family", "")
+  if (identical(base, "auto")) resolve_sketch_font() else base
+}
+
 #' Pin an installed family to a renderable instance under `name`
 #'
 #' Works around devices not rendering some installed faces (notably variable

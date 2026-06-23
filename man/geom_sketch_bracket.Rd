@@ -44,9 +44,11 @@ geom_sketch_bracket(
 \item{tip_length}{Length of the downward end tips, as a fraction of panel
 height. Default \code{0.02}. Use \code{0} for a plain bar.}
 
-\item{family}{Font family for the label. By default the first installed
-handwriting face is used (see \code{\link[=ggsketch_check_fonts]{ggsketch_check_fonts()}}); pass \code{""} for the
-device default.}
+\item{family}{Font family for the label. Defaults to the same family as
+\code{\link[=theme_sketch]{theme_sketch()}} (\code{getOption("ggsketch.base_family", "")}, i.e. the device
+default), so the label matches the plot's other text; set
+\code{options(ggsketch.base_family = "auto")} for a handwriting face, or pass an
+explicit family here.}
 
 \item{label_vjust}{Vertical justification of the label relative to the bar
 (negative nudges it above). Default \code{-0.35}.}

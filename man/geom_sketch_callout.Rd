@@ -60,8 +60,11 @@ adapts it to the leader length.}
 
 \item{arrow_angle}{Half-angle of the leader arrowhead in degrees. Default 25.}
 
-\item{family}{Font family for the label. By default the first installed
-handwriting face is used; pass \code{""} for the device default.}
+\item{family}{Font family for the label. Defaults to the same family as
+\code{\link[=theme_sketch]{theme_sketch()}} (\code{getOption("ggsketch.base_family", "")}, i.e. the device
+default), so the label matches the plot's other text; set
+\code{options(ggsketch.base_family = "auto")} for a handwriting face, or pass an
+explicit family here.}
 
 \item{na.rm}{Remove missing values silently? Default \code{FALSE}.}
 

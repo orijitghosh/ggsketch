@@ -42,7 +42,7 @@ GeomSketchCallout <- ggplot2::ggproto(
                          ...) {
     if (nrow(data) == 0L) return(nullGrob())
     sp  <- resolve_sketch_params(roughness, bowing, n_passes, seed)
-    fam <- family %||% resolve_sketch_font()
+    fam <- resolve_label_family(family)
 
     box <- coord$transform(data.frame(x = data$x, y = data$y), panel_params)
 
@@ -111,8 +111,11 @@ GeomSketchCallout <- ggplot2::ggproto(
 #' @param arrow_length Leader arrowhead length in inches. `NULL` (default)
 #'   adapts it to the leader length.
 #' @param arrow_angle Half-angle of the leader arrowhead in degrees. Default 25.
-#' @param family Font family for the label. By default the first installed
-#'   handwriting face is used; pass `""` for the device default.
+#' @param family Font family for the label. Defaults to the same family as
+#'   [theme_sketch()] (`getOption("ggsketch.base_family", "")`, i.e. the device
+#'   default), so the label matches the plot's other text; set
+#'   `options(ggsketch.base_family = "auto")` for a handwriting face, or pass an
+#'   explicit family here.
 #' @param na.rm Remove missing values silently? Default `FALSE`.
 #' @param show.legend Logical; include in legend? Default `FALSE`.
 #' @param inherit.aes Inherit aesthetics from the plot? Default `TRUE`.

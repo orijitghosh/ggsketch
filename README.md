@@ -96,7 +96,7 @@ Every fill style works on every filled geom - here `fill_style = "hachure"` boxp
 ### Shared sketch parameters
 
 | Parameter | Meaning |
-|----|----|
+|------------------------------------|------------------------------------|
 | `roughness` | How far points are jittered (0 = ruler-straight, \~1 default, \>3 loose) |
 | `bowing` | How much segments bow outward |
 | `n_passes` | Overlaid strokes (2 = the classic "double stroke") |

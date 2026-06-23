@@ -45,7 +45,7 @@ GeomSketchArrow <- ggplot2::ggproto(
                          ...) {
     if (nrow(data) == 0L) return(nullGrob())
     sp  <- resolve_sketch_params(roughness, bowing, n_passes, seed)
-    fam <- family %||% resolve_sketch_font()
+    fam <- resolve_label_family(family)
 
     p0 <- coord$transform(data.frame(x = data$x,    y = data$y),    panel_params)
     p1 <- coord$transform(data.frame(x = data$xend, y = data$yend), panel_params)
@@ -131,9 +131,11 @@ GeomSketchArrow <- ggplot2::ggproto(
 #' @param arrow_angle Half-angle of the arrowhead in degrees. Default 25.
 #' @param arrow_type `"open"` (default) draws a two-stroke V; `"closed"` draws a
 #'   filled rough triangle.
-#' @param family Font family for the label. By default the first installed
-#'   handwriting face is used (see [ggsketch_check_fonts()]); pass `""` for the
-#'   device default.
+#' @param family Font family for the label. Defaults to the same family as
+#'   [theme_sketch()] (`getOption("ggsketch.base_family", "")`, i.e. the device
+#'   default), so the label matches the plot's other text; set
+#'   `options(ggsketch.base_family = "auto")` for a handwriting face, or pass an
+#'   explicit family here.
 #' @param label_gap Gap between the label anchor and the source point, in npc.
 #'   Default `0.012`.
 #' @param na.rm Remove missing values silently? Default `FALSE`.
