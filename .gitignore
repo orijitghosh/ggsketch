@@ -11,6 +11,9 @@
 /Meta/
 Rplots.pdf
 
+# Local scratch (not versioned)
+dev/
+
 # Scratch probes (kept locally, not versioned)
 tools/probes/_*.R
 tools/probes/_*.png
