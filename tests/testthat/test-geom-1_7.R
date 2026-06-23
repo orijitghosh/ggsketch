@@ -92,7 +92,6 @@ test_that("sketch_dotplot_grob makes circular dots that stack upward", {
 
 test_that("mark circle/ellipse/rect build and expose params", {
   expect_true("expand" %in% GeomSketchMarkCircle$parameters())
-  expect_true("radius" %in% GeomSketchMarkCircle$parameters())
   for (g in list(geom_sketch_mark_circle, geom_sketch_mark_ellipse,
                  geom_sketch_mark_rect)) {
     p <- ggplot2::ggplot(iris,
@@ -100,6 +99,15 @@ test_that("mark circle/ellipse/rect build and expose params", {
       g(seed = 1L)
     expect_no_error(ggplot2::ggplot_build(p))
   }
+})
+
+test_that("mark expands the panel to contain the shape", {
+  p <- ggplot2::ggplot(iris,
+                       ggplot2::aes(Sepal.Length, Sepal.Width, group = Species)) +
+    geom_sketch_mark_circle(seed = 1L)
+  d <- ggplot2::layer_data(p)
+  expect_lt(min(d$xmin), min(iris$Sepal.Length))
+  expect_gt(max(d$xmax), max(iris$Sepal.Length))
 })
 
 test_that("mark shape with fewer than 2 points draws nothing", {
@@ -126,4 +134,13 @@ test_that("geom_sketch_lollipop draws stems and heads", {
     geom_sketch_lollipop(seed = 1L)
   expect_no_error(ggplot2::ggplot_build(p))
   expect_true("baseline" %in% GeomSketchLollipop$parameters())
+})
+
+test_that("lollipop value axis includes the baseline", {
+  d <- ggplot2::layer_data(
+    ggplot2::ggplot(data.frame(g = c("A", "B"), v = c(20, 40)),
+                    ggplot2::aes(g, v)) +
+      geom_sketch_lollipop(seed = 1L)
+  )
+  expect_lte(min(d$ymin), 0)
 })

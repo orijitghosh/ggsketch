@@ -6,7 +6,7 @@
 \alias{geom_sketch_lollipop}
 \title{Sketchy lollipop chart}
 \format{
-An object of class \code{GeomSketchLollipop} (inherits from \code{Geom}, \code{ggproto}, \code{gg}) of length 6.
+An object of class \code{GeomSketchLollipop} (inherits from \code{Geom}, \code{ggproto}, \code{gg}) of length 7.
 }
 \usage{
 GeomSketchLollipop
@@ -19,9 +19,9 @@ geom_sketch_lollipop(
   ...,
   baseline = 0,
   horizontal = FALSE,
-  roughness = 1,
+  roughness = 0.8,
   point_roughness = 0.4,
-  bowing = 1,
+  bowing = 0.4,
   n_passes = 2L,
   seed = NULL,
   na.rm = FALSE,
@@ -46,11 +46,12 @@ and \code{y}.}
 \item{horizontal}{If \code{TRUE}, stems run horizontally from \code{baseline} on the
 x-axis (pair with a discrete \code{y}). Default \code{FALSE}.}
 
-\item{roughness}{Stem roughness (0 = straight). Default 1.}
+\item{roughness}{Stem roughness (0 = straight). Default 0.8.}
 
 \item{point_roughness}{Roughness of the head points. Default 0.4.}
 
-\item{bowing}{Non-negative bowing multiplier. Default 1.}
+\item{bowing}{Non-negative bowing multiplier. Default 0.4 (kept low so tall
+stems read straight).}
 
 \item{n_passes}{Number of stroke passes. Default 2.}
 

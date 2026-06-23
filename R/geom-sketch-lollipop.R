@@ -28,12 +28,26 @@ GeomSketchLollipop <- ggplot2::ggproto(
       "bowing", "n_passes", "seed", "na.rm")
   },
 
+  # Expand the value axis to include the baseline, so each full stem is visible
+  # (otherwise the stems run off the panel toward an off-screen baseline).
+  setup_data = function(data, params) {
+    base <- params$baseline %||% 0
+    if (isTRUE(params$horizontal)) {
+      data$xmin <- pmin(data$x, base)
+      data$xmax <- pmax(data$x, base)
+    } else {
+      data$ymin <- pmin(data$y, base)
+      data$ymax <- pmax(data$y, base)
+    }
+    data
+  },
+
   draw_panel = function(data, panel_params, coord,
                          baseline        = 0,
                          horizontal      = FALSE,
-                         roughness       = 1,
+                         roughness       = 0.8,
                          point_roughness = 0.4,
-                         bowing          = 1,
+                         bowing          = 0.4,
                          n_passes        = 2L,
                          seed            = NULL,
                          ...) {
@@ -91,9 +105,10 @@ GeomSketchLollipop <- ggplot2::ggproto(
 #' @param baseline Value the stems grow from. Default `0`.
 #' @param horizontal If `TRUE`, stems run horizontally from `baseline` on the
 #'   x-axis (pair with a discrete `y`). Default `FALSE`.
-#' @param roughness Stem roughness (0 = straight). Default 1.
+#' @param roughness Stem roughness (0 = straight). Default 0.8.
 #' @param point_roughness Roughness of the head points. Default 0.4.
-#' @param bowing Non-negative bowing multiplier. Default 1.
+#' @param bowing Non-negative bowing multiplier. Default 0.4 (kept low so tall
+#'   stems read straight).
 #' @param n_passes Number of stroke passes. Default 2.
 #' @param seed Integer seed. `NULL` uses `getOption("ggsketch.seed", 1L)`.
 #' @param na.rm Remove missing values silently? Default `FALSE`.
@@ -117,9 +132,9 @@ geom_sketch_lollipop <- function(mapping         = NULL,
                                  ...,
                                  baseline        = 0,
                                  horizontal      = FALSE,
-                                 roughness       = 1,
+                                 roughness       = 0.8,
                                  point_roughness = 0.4,
-                                 bowing          = 1,
+                                 bowing          = 0.4,
                                  n_passes        = 2L,
                                  seed            = NULL,
                                  na.rm           = FALSE,

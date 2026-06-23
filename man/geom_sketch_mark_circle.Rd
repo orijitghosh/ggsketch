@@ -10,11 +10,11 @@
 \alias{geom_sketch_mark_rect}
 \title{Sketchy bounding marks around point groups}
 \format{
-An object of class \code{GeomSketchMarkCircle} (inherits from \code{Geom}, \code{ggproto}, \code{gg}) of length 6.
+An object of class \code{GeomSketchMarkCircle} (inherits from \code{Geom}, \code{ggproto}, \code{gg}) of length 7.
 
 An object of class \code{GeomSketchMarkEllipse} (inherits from \code{GeomSketchMarkCircle}, \code{Geom}, \code{ggproto}, \code{gg}) of length 3.
 
-An object of class \code{GeomSketchMarkRect} (inherits from \code{GeomSketchMarkEllipse}, \code{GeomSketchMarkCircle}, \code{Geom}, \code{ggproto}, \code{gg}) of length 2.
+An object of class \code{GeomSketchMarkRect} (inherits from \code{GeomSketchMarkCircle}, \code{Geom}, \code{ggproto}, \code{gg}) of length 3.
 }
 \usage{
 GeomSketchMarkCircle
@@ -30,7 +30,6 @@ geom_sketch_mark_circle(
   position = "identity",
   ...,
   expand = 0.05,
-  radius = NULL,
   roughness = 1,
   bowing = 1,
   n_passes = 2L,
@@ -99,9 +98,6 @@ and \code{y}; map \code{group}/\code{colour}/\code{fill} to separate the cluster
 \item{expand}{Fractional outward inflation of the mark, so it sits around the
 points rather than through them. Default \code{0.05}.}
 
-\item{radius}{For \code{geom_sketch_mark_circle()} only: a fixed circle radius
-(npc fraction) instead of the auto enclosing radius. Default \code{NULL}.}
-
 \item{roughness}{Non-negative roughness (0 = clean). Default 1.}
 
 \item{bowing}{Non-negative bowing multiplier. Default 1.}
@@ -136,11 +132,13 @@ analogues of \code{ggforce::geom_mark_circle()} / \code{geom_mark_ellipse()} /
 \code{\link[=geom_sketch_mark_hull]{geom_sketch_mark_hull()}}. Group the points with an aesthetic such as
 \code{group}, \code{colour}, or \code{fill}; each group gets its own mark. With \code{fill}
 mapped the mark is shaded (using \code{fill_style}); otherwise it is outline-only.
+The position scales expand to contain the marks, so they are not clipped.
 }
 \details{
-Like \code{\link[=geom_sketch_circle]{geom_sketch_circle()}}, the shapes are computed in panel-relative space,
-so a "circle" may appear elliptical on a non-square panel; use
-\code{\link[ggplot2:coord_fixed]{ggplot2::coord_equal()}} for a true circle.
+The boundary is computed in data units, so a \code{geom_sketch_mark_circle()} is a
+true circle only under \code{\link[ggplot2:coord_fixed]{ggplot2::coord_equal()}} (as for
+\code{\link[=geom_sketch_circle]{geom_sketch_circle()}}); on a non-square panel prefer
+\code{geom_sketch_mark_ellipse()}.
 }
 \examples{
 library(ggplot2)
