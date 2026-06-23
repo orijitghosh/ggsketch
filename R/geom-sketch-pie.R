@@ -68,7 +68,7 @@ GeomSketchPie <- ggplot2::ggproto(
                          x0 = 0.5, y0 = 0.5, r = 0.45, r0 = 0,
                          roughness = 1, bowing = 0.4, n_passes = 2L, seed = NULL,
                          fill_style = "solid", hachure_angle = 45,
-                         hachure_gap = 0.07, fill_weight = 0.5, ...) {
+                         hachure_gap = 0.02, fill_weight = 0.5, ...) {
     if (nrow(data) == 0L) return(nullGrob())
     sp <- resolve_sketch_params(roughness, bowing, n_passes, seed)
 
@@ -121,8 +121,9 @@ GeomSketchPie <- ggplot2::ggproto(
 #'   with a rough edge; any other style (`"hachure"`, `"cross_hatch"`,
 #'   `"zigzag"`, `"scribble"`, `"dots"`, `"dashed"`) hatches it instead.
 #' @param hachure_angle Fill line angle in degrees. Default 45.
-#' @param hachure_gap Fill line gap as a fraction of the smaller panel
-#'   dimension. Default 0.07.
+#' @param hachure_gap Spacing between fill lines, as a fraction of the smaller
+#'   panel dimension -- this is the hatch *density* knob: smaller is denser.
+#'   Default 0.02.
 #' @param fill_weight Stroke weight for fill lines. Default 0.5.
 #' @param na.rm Remove missing values silently? Default `FALSE`.
 #' @param show.legend Logical; include in legend?
@@ -162,7 +163,7 @@ geom_sketch_pie <- function(mapping       = NULL,
                             seed          = NULL,
                             fill_style    = "solid",
                             hachure_angle = 45,
-                            hachure_gap   = 0.07,
+                            hachure_gap   = 0.02,
                             fill_weight   = 0.5,
                             na.rm         = FALSE,
                             show.legend   = NA,

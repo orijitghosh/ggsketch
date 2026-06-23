@@ -29,7 +29,7 @@ geom_sketch_pie(
   seed = NULL,
   fill_style = "solid",
   hachure_angle = 45,
-  hachure_gap = 0.07,
+  hachure_gap = 0.02,
   fill_weight = 0.5,
   na.rm = FALSE,
   show.legend = NA,
@@ -76,8 +76,9 @@ with a rough edge; any other style (\code{"hachure"}, \code{"cross_hatch"},
 
 \item{hachure_angle}{Fill line angle in degrees. Default 45.}
 
-\item{hachure_gap}{Fill line gap as a fraction of the smaller panel
-dimension. Default 0.07.}
+\item{hachure_gap}{Spacing between fill lines, as a fraction of the smaller
+panel dimension -- this is the hatch \emph{density} knob: smaller is denser.
+Default 0.02.}
 
 \item{fill_weight}{Stroke weight for fill lines. Default 0.5.}
 
