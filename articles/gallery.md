@@ -74,6 +74,23 @@ ggplot(sales, aes(reorder(product, units), units)) +
 
 ![](gallery_files/figure-html/col-flip-1.png)
 
+## Lollipops
+
+[`geom_sketch_lollipop()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_lollipop.md)
+is a tidy alternative to bars for ranked or sparse values: a roughened
+stem from a `baseline` capped with a sketch point. The value axis
+expands to include the baseline.
+
+``` r
+
+ggplot(sales, aes(reorder(product, units), units)) +
+  geom_sketch_lollipop(colour = "#7B241C", seed = 1L) +
+  labs(title = "Units sold", x = NULL) +
+  theme_sketch()
+```
+
+![](gallery_files/figure-html/lollipop-1.png)
+
 ## Histograms and frequency polygons
 
 [`geom_sketch_histogram()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_histogram.md)
@@ -100,6 +117,39 @@ ggplot(mpg, aes(hwy, colour = drv)) +
 ```
 
 ![](gallery_files/figure-html/freqpoly-1.png)
+
+## Dot plots
+
+[`geom_sketch_dotplot()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_dotplot.md)
+bins the data and stacks one roughened circular dot per observation. The
+dots are sized by the bin width, so the count axis is approximate — turn
+it off for a clean look.
+
+``` r
+
+ggplot(faithful, aes(eruptions)) +
+  geom_sketch_dotplot(binwidth = 0.12, fill = "#7BAFD4", seed = 1L) +
+  scale_y_continuous(NULL, breaks = NULL) +
+  labs(title = "Old Faithful eruption times") +
+  theme_sketch()
+```
+
+![](gallery_files/figure-html/dotplot-1.png)
+
+## Empirical CDF
+
+[`geom_sketch_ecdf()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_ecdf.md)
+draws the empirical cumulative distribution as a hand-drawn stairstep.
+
+``` r
+
+ggplot(mpg, aes(hwy, colour = drv)) +
+  geom_sketch_ecdf(linewidth = 0.8, seed = 1L) +
+  labs(title = "Highway mpg ECDF by drivetrain", y = "F(x)") +
+  theme_sketch()
+```
+
+![](gallery_files/figure-html/ecdf-1.png)
 
 ## Lines, paths, and points
 
@@ -700,6 +750,31 @@ ggplot(faithful, aes(eruptions, waiting)) +
 
 ![](gallery_files/figure-html/density2d-1.png)
 
+[`geom_sketch_contour_filled()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_contour_filled.md)
+fills the *bands* between levels instead of just the lines. Each band
+may contain holes (the next level up, cut out); a hole-aware filler
+keeps them empty, so `fill_style = "hachure"` works too.
+
+``` r
+
+ggplot(faithfuld, aes(waiting, eruptions, z = density)) +
+  geom_sketch_contour_filled(seed = 1L) +
+  labs(title = "geom_sketch_contour_filled()") +
+  theme_sketch()
+```
+
+![](gallery_files/figure-html/contour-filled-1.png)
+
+``` r
+
+ggplot(faithful, aes(eruptions, waiting)) +
+  geom_sketch_density_2d_filled(fill_style = "hachure", seed = 2L) +
+  labs(title = "geom_sketch_density_2d_filled() (hachure)") +
+  theme_sketch()
+```
+
+![](gallery_files/figure-html/density-2d-filled-1.png)
+
 ## Text
 
 The sketch of text is a *handwriting font*, not roughened glyphs.
@@ -931,6 +1006,40 @@ ggplot(iris, aes(Sepal.Length, Sepal.Width, colour = Species)) +
 ```
 
 ![](gallery_files/figure-html/mark-hull-1.png)
+
+### Bounding marks
+
+[`geom_sketch_mark_ellipse()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_mark_circle.md),
+[`geom_sketch_mark_circle()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_mark_circle.md),
+and
+[`geom_sketch_mark_rect()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_mark_circle.md)
+complete the family — a roughened ellipse, circle, or rectangle around
+each group. The panel expands to fit the mark, so it is never clipped.
+
+``` r
+
+ggplot(iris, aes(Sepal.Length, Sepal.Width, colour = Species)) +
+  geom_sketch_mark_ellipse(aes(fill = Species), seed = 1L) +
+  geom_sketch_point(seed = 2L) +
+  scale_colour_sketch() +
+  scale_fill_sketch() +
+  labs(title = "Bounding ellipses") +
+  theme_sketch()
+```
+
+![](gallery_files/figure-html/mark-ellipse-1.png)
+
+``` r
+
+ggplot(iris, aes(Sepal.Length, Sepal.Width, colour = Species)) +
+  geom_sketch_mark_rect(seed = 3L) +
+  geom_sketch_point(seed = 2L) +
+  scale_colour_sketch() +
+  labs(title = "Bounding rectangles") +
+  theme_sketch()
+```
+
+![](gallery_files/figure-html/mark-rect-1.png)
 
 ## Composition: facets, scales, coords
 

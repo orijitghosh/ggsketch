@@ -42,7 +42,9 @@ List of `n_passes` 2-column (x, y) matrices of stroke points.
 Other sketch-core:
 [`curve_fill()`](https://orijitghosh.github.io/ggsketch/reference/curve_fill.md),
 [`hachure_fill()`](https://orijitghosh.github.io/ggsketch/reference/hachure_fill.md),
+[`hachure_fill_multi()`](https://orijitghosh.github.io/ggsketch/reference/hachure_fill_multi.md),
 [`rough_arc()`](https://orijitghosh.github.io/ggsketch/reference/rough_arc.md),
 [`rough_bezier()`](https://orijitghosh.github.io/ggsketch/reference/rough_bezier.md),
 [`roughen_polyline()`](https://orijitghosh.github.io/ggsketch/reference/roughen_polyline.md),
-[`sketch_fill()`](https://orijitghosh.github.io/ggsketch/reference/sketch_fill.md)
+[`sketch_fill()`](https://orijitghosh.github.io/ggsketch/reference/sketch_fill.md),
+[`sketch_fill_multi()`](https://orijitghosh.github.io/ggsketch/reference/sketch_fill_multi.md)

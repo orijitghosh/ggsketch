@@ -2,6 +2,49 @@
 
 ## ggsketch 1.7.0 (development)
 
+- **Dot plots.**
+  [`geom_sketch_dotplot()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_dotplot.md)
+  draws a hand-drawn Wilkinson-style dot plot: the data are binned along
+  `x` and one roughened circular dot per observation is stacked upward
+  in each bin. Dots stay round on any panel aspect (the diameter is
+  taken from the bin width and converted to device inches at draw time).
+  The sketch analogue of
+  [`ggplot2::geom_dotplot()`](https://ggplot2.tidyverse.org/reference/geom_dotplot.html).
+- **Filled contour and 2-D density bands.**
+  [`geom_sketch_contour_filled()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_contour_filled.md)
+  and
+  [`geom_sketch_density_2d_filled()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_contour_filled.md)
+  fill the *bands* between contour levels (not just the lines). Each
+  band is a region that may contain holes (the next level up, cut out);
+  a new hole-aware scan-line filler
+  ([`hachure_fill_multi()`](https://orijitghosh.github.io/ggsketch/reference/hachure_fill_multi.md)
+  /
+  [`sketch_fill_multi()`](https://orijitghosh.github.io/ggsketch/reference/sketch_fill_multi.md),
+  exposed at Layer 1) keeps the holes empty, so `fill_style = "hachure"`
+  and `"cross_hatch"` work on multi-ring regions as well as `"solid"`.
+  This completes the filled `*_filled` family planned since 1.3.0.
+- **Bounding marks.**
+  [`geom_sketch_mark_circle()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_mark_circle.md),
+  [`geom_sketch_mark_ellipse()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_mark_circle.md),
+  and
+  [`geom_sketch_mark_rect()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_mark_circle.md)
+  draw a roughened bounding shape around each group of points – the
+  sketch analogues of `ggforce::geom_mark_circle()` /
+  `geom_mark_ellipse()` / `geom_mark_rect()`, completing the mark family
+  started by
+  [`geom_sketch_mark_hull()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_mark_hull.md).
+  Shade them with a mapped `fill` or leave them outline-only.
+- **Lollipop charts.**
+  [`geom_sketch_lollipop()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_lollipop.md)
+  draws a roughened stem from a `baseline` to each value, capped with a
+  sketch point – a tidy alternative to bars for ranked or sparse values
+  (cf. `ggalt::geom_lollipop()`). Set `horizontal = TRUE` for horizontal
+  stems.
+- **Empirical CDF.**
+  [`geom_sketch_ecdf()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_ecdf.md)
+  draws the empirical cumulative distribution as a hand-drawn stairstep
+  (the sketch analogue of
+  [`ggplot2::stat_ecdf()`](https://ggplot2.tidyverse.org/reference/stat_ecdf.html)).
 - **Content-aware arrows.**
   [`geom_sketch_arrow()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_arrow.md)
   (and the one-off
@@ -243,7 +286,8 @@ New geoms (Tier 3, first batch — 2-D density and text):
   to the default family.
 
 Still to come in Tier 3: filled contour / 2-D density bands (`*_filled`,
-which need multi-ring hole-aware hachure) and `geom_sketch_dotplot()`.
+which need multi-ring hole-aware hachure) and
+[`geom_sketch_dotplot()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_dotplot.md).
 
 ## ggsketch 1.2.0
 

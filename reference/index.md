@@ -42,6 +42,9 @@ The signature filled look — roughened outlines with hachure-style fills.
   [`GeomSketchTile`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_rect.md)
   [`geom_sketch_tile()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_rect.md)
   : Sketchy rectangle / tile geom
+- [`GeomSketchLollipop`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_lollipop.md)
+  [`geom_sketch_lollipop()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_lollipop.md)
+  : Sketchy lollipop chart
 
 ## Distributions
 
@@ -50,6 +53,11 @@ The signature filled look — roughened outlines with hachure-style fills.
   : Sketchy histogram and frequency polygon
 - [`geom_sketch_density()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_density.md)
   : Sketchy density geom
+- [`GeomSketchDotplot`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_dotplot.md)
+  [`geom_sketch_dotplot()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_dotplot.md)
+  : Sketchy dot plot
+- [`geom_sketch_ecdf()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_ecdf.md)
+  : Sketchy empirical cumulative distribution
 - [`GeomSketchViolin`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_violin.md)
   [`geom_sketch_violin()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_violin.md)
   : Sketchy violin plot
@@ -70,6 +78,11 @@ The signature filled look — roughened outlines with hachure-style fills.
 - [`geom_sketch_density2d()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_density2d.md)
   [`geom_sketch_density_2d()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_density2d.md)
   : Sketchy 2-D density contours
+- [`GeomSketchContourFilled`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_contour_filled.md)
+  [`geom_sketch_contour_filled()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_contour_filled.md)
+  [`geom_sketch_density_2d_filled()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_contour_filled.md)
+  [`geom_sketch_density2d_filled()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_contour_filled.md)
+  : Sketchy filled contour and 2-D density bands
 
 ## Models & quantiles
 
@@ -169,6 +182,13 @@ one-off annotations, theming, and font helpers.
 - [`GeomSketchMarkHull`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_mark_hull.md)
   [`geom_sketch_mark_hull()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_mark_hull.md)
   : Sketchy hull marks around point groups
+- [`GeomSketchMarkCircle`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_mark_circle.md)
+  [`GeomSketchMarkEllipse`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_mark_circle.md)
+  [`GeomSketchMarkRect`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_mark_circle.md)
+  [`geom_sketch_mark_circle()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_mark_circle.md)
+  [`geom_sketch_mark_ellipse()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_mark_circle.md)
+  [`geom_sketch_mark_rect()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_mark_circle.md)
+  : Sketchy bounding marks around point groups
 - [`theme_sketch()`](https://orijitghosh.github.io/ggsketch/reference/theme_sketch.md)
   : A hand-drawn theme for ggplot2
 - [`ggsketch_check_fonts()`](https://orijitghosh.github.io/ggsketch/reference/ggsketch_check_fonts.md)
@@ -228,6 +248,10 @@ Lower-level grobs that re-roughen in device space inside
   : Create a sketchy arrow grob
 - [`sketch_callout_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_callout_grob.md)
   : Create a sketchy callout grob (boxed label + leader arrow)
+- [`sketch_band_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_band_grob.md)
+  : Create a sketchy filled-band grob (hole-aware region)
+- [`sketch_dotplot_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_dotplot_grob.md)
+  : Create a sketchy dot-plot grob (stacked circular dots)
 
 ## Core geometry (Layer 1 — pure, no grid/ggplot2)
 
@@ -243,7 +267,11 @@ The number-to-number routines that produce the hand-drawn coordinates.
   : Roughen a cubic Bezier curve
 - [`hachure_fill()`](https://orijitghosh.github.io/ggsketch/reference/hachure_fill.md)
   : Fill a polygon with hachure lines using the AET scan-line algorithm
+- [`hachure_fill_multi()`](https://orijitghosh.github.io/ggsketch/reference/hachure_fill_multi.md)
+  : Fill a multi-ring region with hachure lines (hole-aware)
 - [`sketch_fill()`](https://orijitghosh.github.io/ggsketch/reference/sketch_fill.md)
   : Dispatch fill-style to the appropriate Layer-1 fill function
+- [`sketch_fill_multi()`](https://orijitghosh.github.io/ggsketch/reference/sketch_fill_multi.md)
+  : Dispatch fill-style for a multi-ring (hole-aware) region
 - [`curve_fill()`](https://orijitghosh.github.io/ggsketch/reference/curve_fill.md)
   : Flatten a closed Bezier boundary to a polygon, then fill
