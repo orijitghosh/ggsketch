@@ -72,11 +72,23 @@ reference:
       - geom_sketch_segment
       - geom_sketch_curve
       - geom_sketch_spoke
+  - title: Pie & donut charts
+    desc: Hand-drawn part-to-whole charts that stay round on any panel shape.
+    contents:
+      - geom_sketch_pie
   - title: Text, annotations, theme & fonts
+    desc: >
+      Handwriting text, the content-aware arrow / callout / hull-mark toolkit,
+      one-off annotations, theming, and font helpers.
     contents:
       - geom_sketch_text
       - annotate_sketch
       - geom_sketch_bracket
+      - geom_sketch_arrow
+      - annotate_sketch_arrow
+      - geom_sketch_callout
+      - annotate_sketch_callout
+      - geom_sketch_mark_hull
       - theme_sketch
       - ggsketch_check_fonts
       - register_sketch_font
@@ -99,11 +111,15 @@ reference:
       - sketch_path_grob
       - sketch_polygon_grob
       - sketch_ellipse_grob
+      - sketch_wedge_grob
+      - sketch_arrow_grob
+      - sketch_callout_grob
   - title: Core geometry (Layer 1 — pure, no grid/ggplot2)
     desc: The number-to-number routines that produce the hand-drawn coordinates.
     contents:
       - roughen_polyline
       - rough_ellipse
+      - rough_arc
       - rough_bezier
       - hachure_fill
       - sketch_fill
