@@ -84,6 +84,19 @@ ggplot(sales, aes(reorder(product, units), units)) +
   theme_sketch()
 ```
 
+## Lollipops
+
+`geom_sketch_lollipop()` is a tidy alternative to bars for ranked or sparse
+values: a roughened stem from a `baseline` capped with a sketch point. The
+value axis expands to include the baseline.
+
+```{r lollipop}
+ggplot(sales, aes(reorder(product, units), units)) +
+  geom_sketch_lollipop(colour = "#7B241C", seed = 1L) +
+  labs(title = "Units sold", x = NULL) +
+  theme_sketch()
+```
+
 ## Histograms and frequency polygons
 
 `geom_sketch_histogram()` bins a continuous variable and draws hand-drawn bars;
@@ -100,6 +113,32 @@ ggplot(faithful, aes(eruptions)) +
 ggplot(mpg, aes(hwy, colour = drv)) +
   geom_sketch_freqpoly(bins = 15, linewidth = 0.9, seed = 2L) +
   labs(title = "Highway mpg by drivetrain", x = "hwy") +
+  theme_sketch()
+```
+
+## Dot plots
+
+`geom_sketch_dotplot()` bins the data and stacks one roughened circular dot per
+observation. The dots are sized by the bin width, so the count axis is
+approximate — turn it off for a clean look.
+
+```{r dotplot}
+ggplot(faithful, aes(eruptions)) +
+  geom_sketch_dotplot(binwidth = 0.12, fill = "#7BAFD4", seed = 1L) +
+  scale_y_continuous(NULL, breaks = NULL) +
+  labs(title = "Old Faithful eruption times") +
+  theme_sketch()
+```
+
+## Empirical CDF
+
+`geom_sketch_ecdf()` draws the empirical cumulative distribution as a hand-drawn
+stairstep.
+
+```{r ecdf}
+ggplot(mpg, aes(hwy, colour = drv)) +
+  geom_sketch_ecdf(linewidth = 0.8, seed = 1L) +
+  labs(title = "Highway mpg ECDF by drivetrain", y = "F(x)") +
   theme_sketch()
 ```
 
@@ -560,6 +599,24 @@ ggplot(faithful, aes(eruptions, waiting)) +
   theme_sketch()
 ```
 
+`geom_sketch_contour_filled()` fills the *bands* between levels instead of just
+the lines. Each band may contain holes (the next level up, cut out); a
+hole-aware filler keeps them empty, so `fill_style = "hachure"` works too.
+
+```{r contour-filled}
+ggplot(faithfuld, aes(waiting, eruptions, z = density)) +
+  geom_sketch_contour_filled(seed = 1L) +
+  labs(title = "geom_sketch_contour_filled()") +
+  theme_sketch()
+```
+
+```{r density-2d-filled}
+ggplot(faithful, aes(eruptions, waiting)) +
+  geom_sketch_density_2d_filled(fill_style = "hachure", seed = 2L) +
+  labs(title = "geom_sketch_density_2d_filled() (hachure)") +
+  theme_sketch()
+```
+
 ## Text
 
 The sketch of text is a *handwriting font*, not roughened glyphs.
@@ -737,6 +794,32 @@ ggplot(iris, aes(Sepal.Length, Sepal.Width, colour = Species)) +
   scale_colour_sketch() +
   scale_fill_sketch() +
   labs(title = "Grouping clusters") +
+  theme_sketch()
+```
+
+### Bounding marks
+
+`geom_sketch_mark_ellipse()`, `geom_sketch_mark_circle()`, and
+`geom_sketch_mark_rect()` complete the family — a roughened ellipse, circle, or
+rectangle around each group. The panel expands to fit the mark, so it is never
+clipped.
+
+```{r mark-ellipse}
+ggplot(iris, aes(Sepal.Length, Sepal.Width, colour = Species)) +
+  geom_sketch_mark_ellipse(aes(fill = Species), seed = 1L) +
+  geom_sketch_point(seed = 2L) +
+  scale_colour_sketch() +
+  scale_fill_sketch() +
+  labs(title = "Bounding ellipses") +
+  theme_sketch()
+```
+
+```{r mark-rect}
+ggplot(iris, aes(Sepal.Length, Sepal.Width, colour = Species)) +
+  geom_sketch_mark_rect(seed = 3L) +
+  geom_sketch_point(seed = 2L) +
+  scale_colour_sketch() +
+  labs(title = "Bounding rectangles") +
   theme_sketch()
 ```
 
