@@ -58,27 +58,27 @@ Every randomized routine is seeded, so a given `seed` always produces the same w
 
 ## Showcase
 
-A scatter with a hand-drawn frame (`theme_sketch(rough_frame = TRUE)`), the sketch colour palette, and a roughened linear fit:
+Discrete fills map straight through `aes(fill = …)`, and any geom accepts a stat - roughened columns coloured by a Brewer palette, and an Old Faithful histogram:
 
 <p align="center">
 
-<img src="man/figures/README-showcase.png" alt="Sketchy scatter of fuel economy with hand-drawn gridlines, roughened points, and linear fits coloured by drivetrain" width="100%"/>
+<img src="man/figures/README-mapped-fill.png" alt="Hand-drawn bar chart with bars coloured by a discrete fill scale" width="48%"/> <img src="man/figures/README-histogram.png" alt="Sketchy histogram of Old Faithful eruption times" width="48%"/>
 
 </p>
 
-Overlapping densities and the new `"scribble"` fill, both on the sketch palette:
+Points, a marginal rug, and a hand-drawn linear fit compose like any other layers; `geom_sketch_bracket()` adds significance brackets for pairwise comparisons:
 
 <p align="center">
 
-<img src="man/figures/README-density.png" alt="Overlapping sketch density curves of highway mpg by drivetrain" width="48%"/> <img src="man/figures/README-bars.png" alt="Scribble-filled sketch bar chart" width="48%"/>
+<img src="man/figures/README-rug.png" alt="Sketchy scatter of weight vs mpg with a marginal rug and a roughened linear fit" width="48%"/> <img src="man/figures/README-brackets.png" alt="Sketchy boxplots by drivetrain annotated with hand-drawn significance brackets" width="48%"/>
 
 </p>
 
-A filled area and line over time, again with a roughened frame:
+Every fill style works on every filled geom - here `fill_style = "hachure"` boxplots across vehicle classes:
 
 <p align="center">
 
-<img src="man/figures/README-area.png" alt="Sketchy hachure-filled area and line chart of US unemployment over time" width="100%"/>
+<img src="man/figures/README-boxplot.png" alt="Hachure-filled sketch boxplots of highway mpg by vehicle class" width="100%"/>
 
 </p>
 
