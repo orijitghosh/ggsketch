@@ -109,7 +109,8 @@ GeomSketchPie <- ggplot2::ggproto(
 #' @param r Outer radius as a fraction of the smaller panel dimension. Default
 #'   `0.45`.
 #' @param r0 Inner radius (hole) as a fraction of the smaller panel dimension.
-#'   `0` (default) is a full pie; `geom_sketch_donut()` defaults it to `0.5`.
+#'   `0` (default) is a full pie; `geom_sketch_donut()` defaults it to `0.25`
+#'   (a ring between `r0` and `r`).
 #' @param roughness Non-negative roughness of the slice edges (0 = clean).
 #'   Default 1.
 #' @param bowing Non-negative bowing multiplier. Default 0.4 (kept low so the
@@ -180,6 +181,6 @@ geom_sketch_pie <- function(mapping       = NULL,
 
 #' @rdname geom_sketch_pie
 #' @export
-geom_sketch_donut <- function(..., r0 = 0.5) {
+geom_sketch_donut <- function(..., r0 = 0.25) {
   geom_sketch_pie(..., r0 = r0)
 }

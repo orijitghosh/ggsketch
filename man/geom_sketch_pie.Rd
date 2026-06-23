@@ -36,7 +36,7 @@ geom_sketch_pie(
   inherit.aes = TRUE
 )
 
-geom_sketch_donut(..., r0 = 0.5)
+geom_sketch_donut(..., r0 = 0.25)
 }
 \arguments{
 \item{mapping}{Aesthetic mappings created by \code{\link[ggplot2:aes]{ggplot2::aes()}}. Requires
@@ -57,7 +57,8 @@ geom_sketch_donut(..., r0 = 0.5)
 \code{0.45}.}
 
 \item{r0}{Inner radius (hole) as a fraction of the smaller panel dimension.
-\code{0} (default) is a full pie; \code{geom_sketch_donut()} defaults it to \code{0.5}.}
+\code{0} (default) is a full pie; \code{geom_sketch_donut()} defaults it to \code{0.25}
+(a ring between \code{r0} and \code{r}).}
 
 \item{roughness}{Non-negative roughness of the slice edges (0 = clean).
 Default 1.}
