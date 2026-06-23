@@ -67,24 +67,29 @@ default with `options(ggsketch.seed = 1L)`.
 
 ## Showcase
 
-A scatter with a hand-drawn frame (`theme_sketch(rough_frame = TRUE)`),
-the sketch colour palette, and a roughened linear fit:
+Discrete fills map straight through `aes(fill = …)`, and any geom
+accepts a stat - roughened columns coloured by a Brewer palette, and an
+Old Faithful histogram:
 
-![Sketchy scatter of fuel economy with hand-drawn gridlines, roughened
-points, and linear fits coloured by
-drivetrain](reference/figures/README-showcase.png)
+![Hand-drawn bar chart with bars coloured by a discrete fill
+scale](reference/figures/README-mapped-fill.png)![Sketchy histogram of
+Old Faithful eruption times](reference/figures/README-histogram.png)
 
-Overlapping densities and the new `"scribble"` fill, both on the sketch
-palette:
+Points, a marginal rug, and a hand-drawn linear fit compose like any
+other layers;
+[`geom_sketch_bracket()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_bracket.md)
+adds significance brackets for pairwise comparisons:
 
-![Overlapping sketch density curves of highway mpg by
-drivetrain](reference/figures/README-density.png)![Scribble-filled
-sketch bar chart](reference/figures/README-bars.png)
+![Sketchy scatter of weight vs mpg with a marginal rug and a roughened
+linear fit](reference/figures/README-rug.png)![Sketchy boxplots by
+drivetrain annotated with hand-drawn significance
+brackets](reference/figures/README-brackets.png)
 
-A filled area and line over time, again with a roughened frame:
+Every fill style works on every filled geom - here
+`fill_style = "hachure"` boxplots across vehicle classes:
 
-![Sketchy hachure-filled area and line chart of US unemployment over
-time](reference/figures/README-area.png)
+![Hachure-filled sketch boxplots of highway mpg by vehicle
+class](reference/figures/README-boxplot.png)
 
 ## The geoms
 

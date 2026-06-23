@@ -1,5 +1,63 @@
 # Changelog
 
+## ggsketch 1.7.0 (development)
+
+- **Content-aware arrows.**
+  [`geom_sketch_arrow()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_arrow.md)
+  (and the one-off
+  [`annotate_sketch_arrow()`](https://orijitghosh.github.io/ggsketch/reference/annotate_sketch_arrow.md))
+  draw a hand-drawn arrow from `(x, y)` to `(xend, yend)` with an
+  optional handwriting label. They are “content-aware”: the shaft
+  curvature defaults to an automatic, pleasing bow whose side follows
+  the direction of travel; the roughened arrowhead orients itself to the
+  curve’s *end tangent*, so it always points at the target however the
+  shaft bends; and the label justifies itself away from the target so it
+  never sits under the shaft. `arrow_type = "closed"` gives a filled
+  rough arrowhead.
+- **Callouts.**
+  [`geom_sketch_callout()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_callout.md)
+  (and
+  [`annotate_sketch_callout()`](https://orijitghosh.github.io/ggsketch/reference/annotate_sketch_callout.md))
+  draw a handwriting label in a roughened rounded box, optionally with a
+  leader arrow to a target. The box auto-sizes to the label and the
+  leader leaves from the box edge nearest the target – a sketch
+  speech-bubble / callout.
+- **Hull marks.**
+  [`geom_sketch_mark_hull()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_mark_hull.md)
+  draws a roughened convex hull around each group of points (the sketch
+  analogue of `ggforce::geom_mark_hull()`), for circling or grouping
+  clusters; shade it with a `fill` or leave it outline-only.
+- **Hand-drawn pie and donut charts.**
+  [`geom_sketch_pie()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_pie.md)
+  draws a sketchy pie (one slice per row, sized by the `amount`
+  aesthetic and coloured by `fill`);
+  [`geom_sketch_donut()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_pie.md)
+  is the same with a hole. Slices stay circular on any panel shape
+  (radii are taken from the smaller panel dimension and assembled in
+  device space), so they look right without
+  [`coord_fixed()`](https://ggplot2.tidyverse.org/reference/coord_fixed.html).
+  Slices are solid by default, with a rough edge; pass any `fill_style`
+  (`"hachure"`, …) to hatch them instead.
+- **Arc geometry (Layer 1).** New
+  [`rough_arc()`](https://orijitghosh.github.io/ggsketch/reference/rough_arc.md)
+  roughens an elliptical arc into open hand-drawn strokes (the open-arc
+  sibling of
+  [`rough_ellipse()`](https://orijitghosh.github.io/ggsketch/reference/rough_ellipse.md)),
+  and a new
+  [`sketch_wedge_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_wedge_grob.md)
+  draws roughened pie/donut sectors. These are the arc sampler that
+  powers the pie/donut geoms.
+- **Rounded rectangles and bars.**
+  [`geom_sketch_rect()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_rect.md),
+  [`geom_sketch_tile()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_rect.md),
+  and
+  [`geom_sketch_col()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_col.md)
+  /
+  [`geom_sketch_bar()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_col.md)
+  gain a `corner_radius` argument (a fraction `[0, 1]` of each
+  half-side) for rounded corners. Default `0` keeps sharp corners, so
+  existing plots render identically.
+
 ## ggsketch 1.6.0
 
 - **`roughness` is now a mappable aesthetic on the per-shape geoms.**
@@ -73,7 +131,7 @@ solid fill.
   [`scale_size()`](https://ggplot2.tidyverse.org/reference/scale_size.html);
   wrap values in [`I()`](https://rdrr.io/r/base/AsIs.html) to use them
   as raw roughness. Rolling the mappable treatment out to the other
-  geoms is planned (see `dev/FUTURE-TODO.md`).
+  geoms is planned.
 
 #### Bug fixes
 

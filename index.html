@@ -34,7 +34,7 @@
 
     <a class="navbar-brand me-2" href="index.html">ggsketch</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.6.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -166,20 +166,20 @@
 <div class="section level2">
 <h2 id="showcase">Showcase<a class="anchor" aria-label="anchor" href="#showcase"></a>
 </h2>
-<p>A scatter with a hand-drawn frame (<code>theme_sketch(rough_frame = TRUE)</code>), the sketch colour palette, and a roughened linear fit:</p>
+<p>Discrete fills map straight through <code>aes(fill = …)</code>, and any geom accepts a stat - roughened columns coloured by a Brewer palette, and an Old Faithful histogram:</p>
 <p align="center">
 </p>
-<p><img src="reference/figures/README-showcase.png" alt="Sketchy scatter of fuel economy with hand-drawn gridlines, roughened points, and linear fits coloured by drivetrain" width="100%"></p>
+<p><img src="reference/figures/README-mapped-fill.png" alt="Hand-drawn bar chart with bars coloured by a discrete fill scale" width="48%"><img src="reference/figures/README-histogram.png" alt="Sketchy histogram of Old Faithful eruption times" width="48%"></p>
 
-<p>Overlapping densities and the new <code>"scribble"</code> fill, both on the sketch palette:</p>
+<p>Points, a marginal rug, and a hand-drawn linear fit compose like any other layers; <code><a href="reference/geom_sketch_bracket.html">geom_sketch_bracket()</a></code> adds significance brackets for pairwise comparisons:</p>
 <p align="center">
 </p>
-<p><img src="reference/figures/README-density.png" alt="Overlapping sketch density curves of highway mpg by drivetrain" width="48%"><img src="reference/figures/README-bars.png" alt="Scribble-filled sketch bar chart" width="48%"></p>
+<p><img src="reference/figures/README-rug.png" alt="Sketchy scatter of weight vs mpg with a marginal rug and a roughened linear fit" width="48%"><img src="reference/figures/README-brackets.png" alt="Sketchy boxplots by drivetrain annotated with hand-drawn significance brackets" width="48%"></p>
 
-<p>A filled area and line over time, again with a roughened frame:</p>
+<p>Every fill style works on every filled geom - here <code>fill_style = "hachure"</code> boxplots across vehicle classes:</p>
 <p align="center">
 </p>
-<p><img src="reference/figures/README-area.png" alt="Sketchy hachure-filled area and line chart of US unemployment over time" width="100%"></p>
+<p><img src="reference/figures/README-boxplot.png" alt="Hachure-filled sketch boxplots of highway mpg by vehicle class" width="100%"></p>
 
 </div>
 <div class="section level2">

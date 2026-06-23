@@ -26,6 +26,7 @@ geom_sketch_rect(
   hachure_angle = 45,
   hachure_gap = NULL,
   fill_weight = 0.5,
+  corner_radius = 0,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -49,6 +50,7 @@ geom_sketch_tile(
   hachure_angle = 45,
   hachure_gap = NULL,
   fill_weight = 0.5,
+  corner_radius = 0,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -122,6 +124,11 @@ An object of class `GeomSketchTile` (inherits from `GeomSketchRect`,
 
   Stroke weight for fill lines. Default 0.5.
 
+- corner_radius:
+
+  Corner rounding as a fraction \[0, 1\] of each half-side. `0`
+  (default) gives sharp corners; `1` fully rounds the ends.
+
 - na.rm:
 
   Remove missing values silently? Default `FALSE`.
@@ -147,14 +154,17 @@ A `ggplot2` layer object.
 
 Other sketch-geoms:
 [`GeomSketchAbline`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_abline.md),
+[`GeomSketchArrow`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_arrow.md),
 [`GeomSketchBoxplot`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_boxplot.md),
 [`GeomSketchBracket`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_bracket.md),
+[`GeomSketchCallout`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_callout.md),
 [`GeomSketchCol`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_col.md),
 [`GeomSketchCurve`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_curve.md),
 [`GeomSketchEllipse`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_circle.md),
 [`GeomSketchHex`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_hex.md),
 [`GeomSketchLine`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_line.md),
 [`GeomSketchLinerange`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_linerange.md),
+[`GeomSketchMarkHull`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_mark_hull.md),
 [`GeomSketchPath`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_path.md),
 [`GeomSketchPoint`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_point.md),
 [`GeomSketchPolygon`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_polygon.md),
@@ -164,7 +174,10 @@ Other sketch-geoms:
 [`GeomSketchSmooth`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_smooth.md),
 [`GeomSketchSpoke`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_spoke.md),
 [`GeomSketchViolin`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_violin.md),
+[`StatSketchPie`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_pie.md),
 [`annotate_sketch()`](https://orijitghosh.github.io/ggsketch/reference/annotate_sketch.md),
+[`annotate_sketch_arrow()`](https://orijitghosh.github.io/ggsketch/reference/annotate_sketch_arrow.md),
+[`annotate_sketch_callout()`](https://orijitghosh.github.io/ggsketch/reference/annotate_sketch_callout.md),
 [`geom_sketch_bin2d()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_bin2d.md),
 [`geom_sketch_contour()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_contour.md),
 [`geom_sketch_count()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_count.md),
@@ -184,6 +197,6 @@ library(ggplot2)
 df <- data.frame(xmin = 1, xmax = 3, ymin = 1, ymax = 4)
 ggplot(df) +
   geom_sketch_rect(aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax),
-                   seed = 1L) +
+                   corner_radius = 0.3, seed = 1L) +
   theme_sketch()
 ```

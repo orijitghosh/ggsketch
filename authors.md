@@ -10,13 +10,13 @@ Source:
 [`DESCRIPTION`](https://github.com/orijitghosh/ggsketch/blob/main/DESCRIPTION)
 
 Ghosh A (2026). *ggsketch: Grammar-Native Hand-Drawn Geoms for
-'ggplot2'*. R package version 1.6.0,
+'ggplot2'*. R package version 1.7.0,
 <https://github.com/orijitghosh/ggsketch>.
 
     @Manual{,
       title = {ggsketch: Grammar-Native Hand-Drawn Geoms for 'ggplot2'},
       author = {Arijit Ghosh},
       year = {2026},
-      note = {R package version 1.6.0},
+      note = {R package version 1.7.0},
       url = {https://github.com/orijitghosh/ggsketch},
     }

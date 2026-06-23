@@ -38,6 +38,7 @@ List of fill-line segments (same structure as `sketch_fill`).
 
 Other sketch-core:
 [`hachure_fill()`](https://orijitghosh.github.io/ggsketch/reference/hachure_fill.md),
+[`rough_arc()`](https://orijitghosh.github.io/ggsketch/reference/rough_arc.md),
 [`rough_bezier()`](https://orijitghosh.github.io/ggsketch/reference/rough_bezier.md),
 [`rough_ellipse()`](https://orijitghosh.github.io/ggsketch/reference/rough_ellipse.md),
 [`roughen_polyline()`](https://orijitghosh.github.io/ggsketch/reference/roughen_polyline.md),

@@ -134,7 +134,19 @@ The signature filled look — roughened outlines with hachure-style fills.
   [`geom_sketch_spoke()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_spoke.md)
   : Sketchy spoke geom
 
+## Pie & donut charts
+
+Hand-drawn part-to-whole charts that stay round on any panel shape.
+
+- [`GeomSketchPie`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_pie.md)
+  [`geom_sketch_pie()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_pie.md)
+  [`geom_sketch_donut()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_pie.md)
+  : Sketchy pie and donut charts
+
 ## Text, annotations, theme & fonts
+
+Handwriting text, the content-aware arrow / callout / hull-mark toolkit,
+one-off annotations, theming, and font helpers.
 
 - [`geom_sketch_text()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_text.md)
   [`geom_sketch_label()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_text.md)
@@ -144,6 +156,19 @@ The signature filled look — roughened outlines with hachure-style fills.
 - [`GeomSketchBracket`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_bracket.md)
   [`geom_sketch_bracket()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_bracket.md)
   : Sketchy significance / comparison brackets
+- [`GeomSketchArrow`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_arrow.md)
+  [`geom_sketch_arrow()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_arrow.md)
+  : Sketchy content-aware arrows
+- [`annotate_sketch_arrow()`](https://orijitghosh.github.io/ggsketch/reference/annotate_sketch_arrow.md)
+  : Add a one-off sketchy arrow annotation
+- [`GeomSketchCallout`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_callout.md)
+  [`geom_sketch_callout()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_callout.md)
+  : Sketchy callouts (boxed labels with a leader arrow)
+- [`annotate_sketch_callout()`](https://orijitghosh.github.io/ggsketch/reference/annotate_sketch_callout.md)
+  : Add a one-off sketchy callout annotation
+- [`GeomSketchMarkHull`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_mark_hull.md)
+  [`geom_sketch_mark_hull()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_mark_hull.md)
+  : Sketchy hull marks around point groups
 - [`theme_sketch()`](https://orijitghosh.github.io/ggsketch/reference/theme_sketch.md)
   : A hand-drawn theme for ggplot2
 - [`ggsketch_check_fonts()`](https://orijitghosh.github.io/ggsketch/reference/ggsketch_check_fonts.md)
@@ -197,6 +222,12 @@ Lower-level grobs that re-roughen in device space inside
   : Create a sketchy polygon grob with optional hachure fill
 - [`sketch_ellipse_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_ellipse_grob.md)
   : Create a sketchy ellipse / circle grob
+- [`sketch_wedge_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_wedge_grob.md)
+  : Create a sketchy pie/donut-wedge grob
+- [`sketch_arrow_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_arrow_grob.md)
+  : Create a sketchy arrow grob
+- [`sketch_callout_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_callout_grob.md)
+  : Create a sketchy callout grob (boxed label + leader arrow)
 
 ## Core geometry (Layer 1 — pure, no grid/ggplot2)
 
@@ -206,6 +237,8 @@ The number-to-number routines that produce the hand-drawn coordinates.
   : Roughen a polyline (multiple connected segments)
 - [`rough_ellipse()`](https://orijitghosh.github.io/ggsketch/reference/rough_ellipse.md)
   : Roughen an ellipse into one or more sketch stroke paths
+- [`rough_arc()`](https://orijitghosh.github.io/ggsketch/reference/rough_arc.md)
+  : Roughen an elliptical arc into one or more sketch stroke paths
 - [`rough_bezier()`](https://orijitghosh.github.io/ggsketch/reference/rough_bezier.md)
   : Roughen a cubic Bezier curve
 - [`hachure_fill()`](https://orijitghosh.github.io/ggsketch/reference/hachure_fill.md)

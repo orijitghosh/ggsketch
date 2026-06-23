@@ -13,7 +13,7 @@ geom_sketch_bar() to count observations automatically."><meta property="og:image
 
     <a class="navbar-brand me-2" href="../index.html">ggsketch</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.6.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,6 +79,7 @@ hachure, cross-hatch, zigzag, dots, or dashed fill pattern.  Use
 <span>  hachure_gap <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  fill_weight <span class="op">=</span> <span class="fl">0.5</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  corner_radius <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -99,6 +100,7 @@ hachure, cross-hatch, zigzag, dots, or dashed fill pattern.  Use
 <span>  hachure_gap <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  fill_weight <span class="op">=</span> <span class="fl">0.5</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  corner_radius <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -173,6 +175,12 @@ aesthetic (default 1): pass a constant, or map it per bar with
 <dd><p>Bar width override. <code>NULL</code> uses 90% of resolution.</p></dd>
 
 
+<dt id="arg-corner-radius">corner_radius<a class="anchor" aria-label="anchor" href="#arg-corner-radius"></a></dt>
+<dd><p>Corner rounding as a fraction [0, 1] of each
+half-side. <code>0</code> (default) is square; a small value (e.g. <code>0.2</code>) gives
+gently rounded bars.</p></dd>
+
+
 <dt id="arg-na-rm">na.rm<a class="anchor" aria-label="anchor" href="#arg-na-rm"></a></dt>
 <dd><p>Remove missing values silently? Default <code>FALSE</code>.</p></dd>
 
@@ -193,13 +201,16 @@ aesthetic (default 1): pass a constant, or map it per bar with
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other sketch-geoms:
 <code><a href="geom_sketch_abline.html">GeomSketchAbline</a></code>,
+<code><a href="geom_sketch_arrow.html">GeomSketchArrow</a></code>,
 <code><a href="geom_sketch_boxplot.html">GeomSketchBoxplot</a></code>,
 <code><a href="geom_sketch_bracket.html">GeomSketchBracket</a></code>,
+<code><a href="geom_sketch_callout.html">GeomSketchCallout</a></code>,
 <code><a href="geom_sketch_curve.html">GeomSketchCurve</a></code>,
 <code><a href="geom_sketch_circle.html">GeomSketchEllipse</a></code>,
 <code><a href="geom_sketch_hex.html">GeomSketchHex</a></code>,
 <code><a href="geom_sketch_line.html">GeomSketchLine</a></code>,
 <code><a href="geom_sketch_linerange.html">GeomSketchLinerange</a></code>,
+<code><a href="geom_sketch_mark_hull.html">GeomSketchMarkHull</a></code>,
 <code><a href="geom_sketch_path.html">GeomSketchPath</a></code>,
 <code><a href="geom_sketch_point.html">GeomSketchPoint</a></code>,
 <code><a href="geom_sketch_polygon.html">GeomSketchPolygon</a></code>,
@@ -210,7 +221,10 @@ aesthetic (default 1): pass a constant, or map it per bar with
 <code><a href="geom_sketch_smooth.html">GeomSketchSmooth</a></code>,
 <code><a href="geom_sketch_spoke.html">GeomSketchSpoke</a></code>,
 <code><a href="geom_sketch_violin.html">GeomSketchViolin</a></code>,
+<code><a href="geom_sketch_pie.html">StatSketchPie</a></code>,
 <code><a href="annotate_sketch.html">annotate_sketch()</a></code>,
+<code><a href="annotate_sketch_arrow.html">annotate_sketch_arrow()</a></code>,
+<code><a href="annotate_sketch_callout.html">annotate_sketch_callout()</a></code>,
 <code><a href="geom_sketch_bin2d.html">geom_sketch_bin2d()</a></code>,
 <code><a href="geom_sketch_contour.html">geom_sketch_contour()</a></code>,
 <code><a href="geom_sketch_count.html">geom_sketch_count()</a></code>,

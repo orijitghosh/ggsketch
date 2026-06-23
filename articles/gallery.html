@@ -32,7 +32,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ggsketch</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.6.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -688,10 +688,122 @@ comparisons (a sketchy <code>ggsignif</code>).</p>
 <p><img src="gallery_files/figure-html/bracket-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
+<h2 id="pie-annotation-toolkit">Pie &amp; annotation toolkit<a class="anchor" aria-label="anchor" href="#pie-annotation-toolkit"></a>
+</h2>
+<div class="section level3">
+<h3 id="pie-and-donut-charts">Pie and donut charts<a class="anchor" aria-label="anchor" href="#pie-and-donut-charts"></a>
+</h3>
+<p><code><a href="../reference/geom_sketch_pie.html">geom_sketch_pie()</a></code> draws a hand-drawn pie sized by the
+<code>amount</code> aesthetic and coloured by <code>fill</code>. Slices
+stay circular on any panel shape, so they look right without
+<code><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_fixed()</a></code>; pair it with <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_void()</a></code> to
+drop the unused axes.</p>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">shares</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  group  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sketch"</span>, <span class="st">"Polish"</span>, <span class="st">"Coffee"</span>, <span class="st">"Doubt"</span><span class="op">)</span>,</span>
+<span>  amount <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">40</span>, <span class="fl">25</span>, <span class="fl">20</span>, <span class="fl">15</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">shares</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>amount <span class="op">=</span> <span class="va">amount</span>, fill <span class="op">=</span> <span class="va">group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_sketch_pie.html">geom_sketch_pie</a></span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/scale_sketch.html">scale_fill_sketch</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Where the time goes"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_fixed</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_void</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="gallery_files/figure-html/pie-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
+<p><code><a href="../reference/geom_sketch_pie.html">geom_sketch_donut()</a></code> is the same with a hole; any
+<code>fill_style</code> hatches the slices instead of filling them
+solid.</p>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">shares</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>amount <span class="op">=</span> <span class="va">amount</span>, fill <span class="op">=</span> <span class="va">group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_sketch_pie.html">geom_sketch_donut</a></span><span class="op">(</span>fill_style <span class="op">=</span> <span class="st">"hachure"</span>, seed <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/scale_sketch.html">scale_fill_sketch</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_void</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="gallery_files/figure-html/donut-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
+</div>
+<div class="section level3">
+<h3 id="rounded-bars">Rounded bars<a class="anchor" aria-label="anchor" href="#rounded-bars"></a>
+</h3>
+<p>Rectangular geoms (<code><a href="../reference/geom_sketch_rect.html">geom_sketch_rect()</a></code>,
+<code><a href="../reference/geom_sketch_rect.html">geom_sketch_tile()</a></code>,
+<code><a href="../reference/geom_sketch_col.html">geom_sketch_col()</a></code>/<code>bar()</code>) take a
+<code>corner_radius</code> for rounded corners — a fraction of each
+half-side, so <code>0</code> is square and <code>1</code> is fully
+rounded.</p>
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">shares</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">group</span>, <span class="va">amount</span>, fill <span class="op">=</span> <span class="va">group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_sketch_col.html">geom_sketch_col</a></span><span class="op">(</span>corner_radius <span class="op">=</span> <span class="fl">0.25</span>, fill_style <span class="op">=</span> <span class="st">"solid"</span>, seed <span class="op">=</span> <span class="fl">1L</span>,</span>
+<span>                  show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/scale_sketch.html">scale_fill_sketch</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Rounded columns"</span>, x <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/theme_sketch.html">theme_sketch</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="gallery_files/figure-html/rounded-col-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
+</div>
+<div class="section level3">
+<h3 id="content-aware-arrows">Content-aware arrows<a class="anchor" aria-label="anchor" href="#content-aware-arrows"></a>
+</h3>
+<p><code><a href="../reference/annotate_sketch_arrow.html">annotate_sketch_arrow()</a></code> points at a feature with a
+hand-drawn arrow. It is <em>content-aware</em>: the shaft curves
+automatically toward the target, the arrowhead orients to the curve’s
+end tangent, and the label sits clear of the shaft. A number for
+<code>curvature</code> (or <code>0</code> for straight) overrides the
+automatic bow, and <code>arrow_type = "closed"</code> gives a filled
+head.</p>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">wt</span>, <span class="va">mpg</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_sketch_point.html">geom_sketch_point</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"grey30"</span>, seed <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/annotate_sketch_arrow.html">annotate_sketch_arrow</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">4.1</span>, y <span class="op">=</span> <span class="fl">33</span>, xend <span class="op">=</span> <span class="fl">5.25</span>, yend <span class="op">=</span> <span class="fl">18</span>,</span>
+<span>                        label <span class="op">=</span> <span class="st">"heavy &amp; thirsty"</span>, colour <span class="op">=</span> <span class="st">"#C0392B"</span>,</span>
+<span>                        seed <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/annotate_sketch_arrow.html">annotate_sketch_arrow</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">2.2</span>, y <span class="op">=</span> <span class="fl">12</span>, xend <span class="op">=</span> <span class="fl">1.7</span>, yend <span class="op">=</span> <span class="fl">30</span>,</span>
+<span>                        label <span class="op">=</span> <span class="st">"light &amp; frugal"</span>, colour <span class="op">=</span> <span class="st">"#1F618D"</span>,</span>
+<span>                        arrow_type <span class="op">=</span> <span class="st">"closed"</span>, seed <span class="op">=</span> <span class="fl">3L</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Pointing things out"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/theme_sketch.html">theme_sketch</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="gallery_files/figure-html/arrow-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
+</div>
+<div class="section level3">
+<h3 id="callouts">Callouts<a class="anchor" aria-label="anchor" href="#callouts"></a>
+</h3>
+<p><code><a href="../reference/annotate_sketch_callout.html">annotate_sketch_callout()</a></code> puts a handwriting note in a
+roughened rounded box that auto-sizes to the text, with a leader arrow
+to the target. Omit <code>xend</code>/<code>yend</code> for a plain
+boxed label.</p>
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">faithful</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">eruptions</span>, <span class="va">waiting</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_sketch_point.html">geom_sketch_point</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"grey40"</span>, seed <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/annotate_sketch_callout.html">annotate_sketch_callout</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">2.1</span>, y <span class="op">=</span> <span class="fl">95</span>, label <span class="op">=</span> <span class="st">"short bursts"</span>,</span>
+<span>                          xend <span class="op">=</span> <span class="fl">1.9</span>, yend <span class="op">=</span> <span class="fl">75</span>, fill <span class="op">=</span> <span class="st">"#EAF2F8"</span>,</span>
+<span>                          colour <span class="op">=</span> <span class="st">"#1F618D"</span>, seed <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Boxed callouts"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/theme_sketch.html">theme_sketch</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="gallery_files/figure-html/callout-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
+</div>
+<div class="section level3">
+<h3 id="hull-marks">Hull marks<a class="anchor" aria-label="anchor" href="#hull-marks"></a>
+</h3>
+<p><code><a href="../reference/geom_sketch_mark_hull.html">geom_sketch_mark_hull()</a></code> circles a group of points with a
+roughened hull — the sketch take on
+<code>ggforce::geom_mark_hull()</code>. Map
+<code>group</code>/<code>colour</code>/<code>fill</code> to mark each
+cluster; with a <code>fill</code> the hull is shaded, otherwise it is
+outline-only.</p>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">Sepal.Length</span>, <span class="va">Sepal.Width</span>, colour <span class="op">=</span> <span class="va">Species</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_sketch_mark_hull.html">geom_sketch_mark_hull</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">Species</span><span class="op">)</span>, expand <span class="op">=</span> <span class="fl">0.08</span>, seed <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_sketch_point.html">geom_sketch_point</a></span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/scale_sketch.html">scale_colour_sketch</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/scale_sketch.html">scale_fill_sketch</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Grouping clusters"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/theme_sketch.html">theme_sketch</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="gallery_files/figure-html/mark-hull-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
+</div>
+</div>
+<div class="section level2">
 <h2 id="composition-facets-scales-coords">Composition: facets, scales, coords<a class="anchor" aria-label="anchor" href="#composition-facets-scales-coords"></a>
 </h2>
 <p>Sketch geoms respect the full grammar.</p>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_sketch_point.html">geom_sketch_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2.5</span>, colour <span class="op">=</span> <span class="st">"#34495E"</span>, seed <span class="op">=</span> <span class="fl">9L</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_sketch_smooth.html">geom_sketch_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="va">x</span>, seed <span class="op">=</span> <span class="fl">10L</span><span class="op">)</span> <span class="op">+</span></span>
@@ -705,7 +817,7 @@ comparisons (a sketchy <code>ggsignif</code>).</p>
 </h2>
 <p>Every example above works with
 <code>theme_sketch(dark = TRUE)</code>:</p>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">sales</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">product</span>, <span class="va">units</span>, fill <span class="op">=</span> <span class="va">product</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_sketch_col.html">geom_sketch_col</a></span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">1L</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Set2"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -719,7 +831,7 @@ comparisons (a sketchy <code>ggsignif</code>).</p>
 <p>By default <code><a href="../reference/theme_sketch.html">theme_sketch()</a></code> keeps the gridlines, panel
 border, and axis ticks crisp. Pass <code>rough_frame = TRUE</code> and
 the frame is roughened too, so it matches the marks.</p>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">sales</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">product</span>, <span class="va">units</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_sketch_col.html">geom_sketch_col</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"#7BAFD4"</span>, seed <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Everything wobbles"</span>, x <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span></span>
@@ -730,7 +842,7 @@ the frame is roughened too, so it matches the marks.</p>
 <code><a href="../reference/element_sketch_line.html">element_sketch_rect()</a></code> — so you can also drop them into any
 theme yourself and tune their <code>roughness</code>,
 <code>bowing</code>, and <code>seed</code>:</p>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">wt</span>, <span class="va">mpg</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_sketch_point.html">geom_sketch_point</a></span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/theme_sketch.html">theme_sketch</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -746,7 +858,7 @@ theme yourself and tune their <code>roughness</code>,
 <p><code><a href="../reference/scale_sketch.html">scale_colour_sketch()</a></code> / <code><a href="../reference/scale_sketch.html">scale_fill_sketch()</a></code>
 use a qualitative palette (<code><a href="../reference/sketch_palette.html">sketch_palette()</a></code>) chosen to suit
 the hand-drawn look:</p>
-<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span>, colour <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_sketch_point.html">geom_sketch_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2.5</span>, seed <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_sketch.html">scale_colour_sketch</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -755,7 +867,7 @@ the hand-drawn look:</p>
 <p><img src="gallery_files/figure-html/scale-discrete-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
 <p>For continuous data the <code>*_sketch_c()</code> variants give an
 ink-on-paper gradient:</p>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">faithful</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">eruptions</span>, <span class="va">waiting</span>, colour <span class="op">=</span> <span class="va">waiting</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_sketch_point.html">geom_sketch_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2.5</span>, seed <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_sketch.html">scale_colour_sketch_c</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -768,7 +880,7 @@ ink-on-paper gradient:</p>
 </h2>
 <p><code>"scribble"</code> is one continuous winding stroke that
 overshoots the boundary, like scribbling to fill a shape:</p>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">sales</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">product</span>, <span class="va">units</span>, fill <span class="op">=</span> <span class="va">product</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_sketch_col.html">geom_sketch_col</a></span><span class="op">(</span>fill_style <span class="op">=</span> <span class="st">"scribble"</span>, seed <span class="op">=</span> <span class="fl">3L</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_sketch.html">scale_fill_sketch</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -777,7 +889,7 @@ overshoots the boundary, like scribbling to fill a shape:</p>
 <p><img src="gallery_files/figure-html/scribble-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
 <p>It works anywhere a <code>fill_style</code> is accepted. The eight
 styles:</p>
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">styles</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hachure"</span>, <span class="st">"cross_hatch"</span>, <span class="st">"zigzag"</span>, <span class="st">"zigzag_line"</span>,</span>
 <span>            <span class="st">"scribble"</span>, <span class="st">"dots"</span>, <span class="st">"dashed"</span>, <span class="st">"solid"</span><span class="op">)</span></span>
 <span><span class="va">grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span>col <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, row <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span></span>
@@ -806,7 +918,7 @@ preinstalled on your OS, but for results that reproduce on any machine
 or CI runner, register a font file explicitly with
 <code><a href="../reference/register_sketch_font.html">register_sketch_font()</a></code> and a font-aware device (ragg,
 svglite, cairo):</p>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/register_sketch_font.html">register_sketch_font</a></span><span class="op">(</span><span class="st">"Caveat"</span>, <span class="st">"path/to/Caveat-Regular.ttf"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">lab</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, label <span class="op">=</span> <span class="va">txt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>

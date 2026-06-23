@@ -802,6 +802,136 @@ ggplot(mpg, aes(drv, hwy)) +
 
 ![](gallery_files/figure-html/bracket-1.png)
 
+## Pie & annotation toolkit
+
+### Pie and donut charts
+
+[`geom_sketch_pie()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_pie.md)
+draws a hand-drawn pie sized by the `amount` aesthetic and coloured by
+`fill`. Slices stay circular on any panel shape, so they look right
+without
+[`coord_fixed()`](https://ggplot2.tidyverse.org/reference/coord_fixed.html);
+pair it with
+[`theme_void()`](https://ggplot2.tidyverse.org/reference/ggtheme.html)
+to drop the unused axes.
+
+``` r
+
+shares <- data.frame(
+  group  = c("Sketch", "Polish", "Coffee", "Doubt"),
+  amount = c(40, 25, 20, 15)
+)
+
+ggplot(shares, aes(amount = amount, fill = group)) +
+  geom_sketch_pie(seed = 1L) +
+  scale_fill_sketch() +
+  labs(title = "Where the time goes") +
+  coord_fixed() +
+  theme_void()
+```
+
+![](gallery_files/figure-html/pie-1.png)
+
+[`geom_sketch_donut()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_pie.md)
+is the same with a hole; any `fill_style` hatches the slices instead of
+filling them solid.
+
+``` r
+
+ggplot(shares, aes(amount = amount, fill = group)) +
+  geom_sketch_donut(fill_style = "hachure", seed = 2L) +
+  scale_fill_sketch() +
+  theme_void()
+```
+
+![](gallery_files/figure-html/donut-1.png)
+
+### Rounded bars
+
+Rectangular geoms
+([`geom_sketch_rect()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_rect.md),
+[`geom_sketch_tile()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_rect.md),
+[`geom_sketch_col()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_col.md)/`bar()`)
+take a `corner_radius` for rounded corners — a fraction of each
+half-side, so `0` is square and `1` is fully rounded.
+
+``` r
+
+ggplot(shares, aes(group, amount, fill = group)) +
+  geom_sketch_col(corner_radius = 0.25, fill_style = "solid", seed = 1L,
+                  show.legend = FALSE) +
+  scale_fill_sketch() +
+  labs(title = "Rounded columns", x = NULL) +
+  theme_sketch()
+```
+
+![](gallery_files/figure-html/rounded-col-1.png)
+
+### Content-aware arrows
+
+[`annotate_sketch_arrow()`](https://orijitghosh.github.io/ggsketch/reference/annotate_sketch_arrow.md)
+points at a feature with a hand-drawn arrow. It is *content-aware*: the
+shaft curves automatically toward the target, the arrowhead orients to
+the curve’s end tangent, and the label sits clear of the shaft. A number
+for `curvature` (or `0` for straight) overrides the automatic bow, and
+`arrow_type = "closed"` gives a filled head.
+
+``` r
+
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_sketch_point(colour = "grey30", seed = 1L) +
+  annotate_sketch_arrow(x = 4.1, y = 33, xend = 5.25, yend = 18,
+                        label = "heavy & thirsty", colour = "#C0392B",
+                        seed = 2L) +
+  annotate_sketch_arrow(x = 2.2, y = 12, xend = 1.7, yend = 30,
+                        label = "light & frugal", colour = "#1F618D",
+                        arrow_type = "closed", seed = 3L) +
+  labs(title = "Pointing things out") +
+  theme_sketch()
+```
+
+![](gallery_files/figure-html/arrow-1.png)
+
+### Callouts
+
+[`annotate_sketch_callout()`](https://orijitghosh.github.io/ggsketch/reference/annotate_sketch_callout.md)
+puts a handwriting note in a roughened rounded box that auto-sizes to
+the text, with a leader arrow to the target. Omit `xend`/`yend` for a
+plain boxed label.
+
+``` r
+
+ggplot(faithful, aes(eruptions, waiting)) +
+  geom_sketch_point(colour = "grey40", seed = 1L) +
+  annotate_sketch_callout(x = 2.1, y = 95, label = "short bursts",
+                          xend = 1.9, yend = 75, fill = "#EAF2F8",
+                          colour = "#1F618D", seed = 2L) +
+  labs(title = "Boxed callouts") +
+  theme_sketch()
+```
+
+![](gallery_files/figure-html/callout-1.png)
+
+### Hull marks
+
+[`geom_sketch_mark_hull()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_mark_hull.md)
+circles a group of points with a roughened hull — the sketch take on
+`ggforce::geom_mark_hull()`. Map `group`/`colour`/`fill` to mark each
+cluster; with a `fill` the hull is shaded, otherwise it is outline-only.
+
+``` r
+
+ggplot(iris, aes(Sepal.Length, Sepal.Width, colour = Species)) +
+  geom_sketch_mark_hull(aes(fill = Species), expand = 0.08, seed = 1L) +
+  geom_sketch_point(seed = 2L) +
+  scale_colour_sketch() +
+  scale_fill_sketch() +
+  labs(title = "Grouping clusters") +
+  theme_sketch()
+```
+
+![](gallery_files/figure-html/mark-hull-1.png)
+
 ## Composition: facets, scales, coords
 
 Sketch geoms respect the full grammar.

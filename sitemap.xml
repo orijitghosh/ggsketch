@@ -1,6 +1,5 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://orijitghosh.github.io/ggsketch/404.html</loc></url>
-<url><loc>https://orijitghosh.github.io/ggsketch/DEVELOPMENT.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/LICENSE-text.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/LICENSE.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/articles/customizing.html</loc></url>
@@ -15,13 +14,17 @@
 <url><loc>https://orijitghosh.github.io/ggsketch/news/index.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/GeomSketchNull.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/annotate_sketch.html</loc></url>
+<url><loc>https://orijitghosh.github.io/ggsketch/reference/annotate_sketch_arrow.html</loc></url>
+<url><loc>https://orijitghosh.github.io/ggsketch/reference/annotate_sketch_callout.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/curve_fill.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/draw_key_sketch.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/element_sketch_line.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/geom_sketch_abline.html</loc></url>
+<url><loc>https://orijitghosh.github.io/ggsketch/reference/geom_sketch_arrow.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/geom_sketch_bin2d.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/geom_sketch_boxplot.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/geom_sketch_bracket.html</loc></url>
+<url><loc>https://orijitghosh.github.io/ggsketch/reference/geom_sketch_callout.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/geom_sketch_circle.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/geom_sketch_col.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/geom_sketch_contour.html</loc></url>
@@ -35,7 +38,9 @@
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/geom_sketch_jitter.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/geom_sketch_line.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/geom_sketch_linerange.html</loc></url>
+<url><loc>https://orijitghosh.github.io/ggsketch/reference/geom_sketch_mark_hull.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/geom_sketch_path.html</loc></url>
+<url><loc>https://orijitghosh.github.io/ggsketch/reference/geom_sketch_pie.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/geom_sketch_point.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/geom_sketch_polygon.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/geom_sketch_qq.html</loc></url>
@@ -53,16 +58,20 @@
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/hachure_fill.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/index.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/register_sketch_font.html</loc></url>
+<url><loc>https://orijitghosh.github.io/ggsketch/reference/rough_arc.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/rough_bezier.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/rough_ellipse.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/roughen_polyline.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/scale_roughness_continuous.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/scale_sketch.html</loc></url>
+<url><loc>https://orijitghosh.github.io/ggsketch/reference/sketch_arrow_grob.html</loc></url>
+<url><loc>https://orijitghosh.github.io/ggsketch/reference/sketch_callout_grob.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/sketch_ellipse_grob.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/sketch_fill.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/sketch_palette.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/sketch_path_grob.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/sketch_polygon_grob.html</loc></url>
+<url><loc>https://orijitghosh.github.io/ggsketch/reference/sketch_wedge_grob.html</loc></url>
 <url><loc>https://orijitghosh.github.io/ggsketch/reference/theme_sketch.html</loc></url>
 </urlset>
 
