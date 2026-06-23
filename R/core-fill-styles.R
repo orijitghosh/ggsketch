@@ -45,6 +45,45 @@ sketch_fill <- function(px, py,
   )
 }
 
+#' Dispatch fill-style for a multi-ring (hole-aware) region
+#'
+#' The band counterpart of [sketch_fill()]: fills a region described by several
+#' rings (outer pieces and holes) with one shared scan-line so holes are
+#' excluded. Supports the line-based styles `"hachure"` and `"cross_hatch"`;
+#' `"solid"` returns `NULL` (painted by an even-odd polygon fill in the grob).
+#' Any other style degrades to `"hachure"`, since the scribble/dots/dashed
+#' styles are defined per single ring.
+#'
+#' @param rings A list of rings (see [hachure_fill_multi()]).
+#' @inheritParams sketch_fill
+#' @return List of fill-line segments, or `NULL` for `"solid"`.
+#' @family sketch-core
+#' @export
+sketch_fill_multi <- function(rings,
+                               fill_style    = "hachure",
+                               hachure_gap   = 0.1,
+                               hachure_angle = 45,
+                               fill_weight   = 1,
+                               roughness     = 0.5,
+                               bowing        = 0,
+                               seed          = NULL) {
+  check_fill_style(fill_style)
+  seed <- resolve_seed(seed)
+
+  switch(fill_style,
+    solid = NULL,
+    cross_hatch = c(
+      hachure_fill_multi(rings, hachure_gap, hachure_angle,
+                         roughness, bowing, seed_offset(seed, 0L)),
+      hachure_fill_multi(rings, hachure_gap, hachure_angle + 90,
+                         roughness, bowing, seed_offset(seed, 500L))
+    ),
+    # hachure and every per-ring style fall back to a single shared scan-line.
+    hachure_fill_multi(rings, hachure_gap, hachure_angle,
+                       roughness, bowing, seed)
+  )
+}
+
 # ---- cross_hatch ------------------------------------------------------------
 
 #' Cross-hatch fill: hachure at angle theta and theta+90 deg

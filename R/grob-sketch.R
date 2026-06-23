@@ -811,3 +811,223 @@ makeContent.SketchCalloutGrob <- function(x) {
 
   setChildren(x, do.call(gList, children))
 }
+
+# ---- sketch_band_grob -------------------------------------------------------
+
+#' Create a sketchy filled-band grob (hole-aware region)
+#'
+#' Draws one filled region made of several rings (outer pieces and holes) - the
+#' building block for filled contour / 2-D density bands. The whole region is
+#' filled with a single hole-aware scan-line (so holes stay empty), and every
+#' ring is stroked with a roughened outline. A `"solid"` fill paints the rings
+#' with an even-odd rule.
+#'
+#' @param rings A list of rings, each a list with npc \[0,1\] `x` and `y` vertex
+#'   vectors. The even-odd arrangement of outer pieces and holes is honoured.
+#' @param roughness,bowing,n_passes,seed Sketch parameters for the outlines.
+#' @param fill_style `"solid"` (default), `"hachure"`, or `"cross_hatch"`.
+#' @param hachure_angle,hachure_gap,fill_weight Fill parameters (`hachure_gap`
+#'   is an npc fraction).
+#' @param fill_col Fill colour (`NA` leaves the region empty).
+#' @param outline_gp `gpar()` for the roughened ring outlines.
+#' @param name,vp Passed to `grid::gTree()`.
+#' @return A `SketchBandGrob` grob subclass.
+#' @family grob-layer
+#' @export
+sketch_band_grob <- function(rings,
+                             roughness     = 0.7,
+                             bowing        = 0.5,
+                             n_passes      = 2L,
+                             seed          = NULL,
+                             fill_style    = "solid",
+                             hachure_angle = 45,
+                             hachure_gap   = 0.05,
+                             fill_weight   = 0.5,
+                             fill_col      = NA,
+                             outline_gp    = gpar(),
+                             name          = NULL,
+                             vp            = NULL) {
+  seed <- resolve_seed(seed)
+  gTree(
+    rings = rings,
+    roughness = roughness, bowing = bowing, n_passes = as.integer(n_passes),
+    seed = seed,
+    fill_style = fill_style, hachure_angle = hachure_angle,
+    hachure_gap = hachure_gap, fill_weight = fill_weight,
+    fill_col = fill_col, outline_gp = outline_gp,
+    name = name, vp = vp,
+    cl = "SketchBandGrob"
+  )
+}
+
+#' @method makeContent SketchBandGrob
+#' @export
+makeContent.SketchBandGrob <- function(x) {
+  rings <- x$rings
+  if (length(rings) == 0L) {
+    return(setChildren(x, gList(nullGrob())))
+  }
+
+  # Convert every ring to inches; drop degenerate rings.
+  rings_in <- lapply(rings, function(r) {
+    list(x = as.numeric(convertX(unit(r$x, "npc"), "inches")),
+         y = as.numeric(convertY(unit(r$y, "npc"), "inches")))
+  })
+  rings_in <- rings_in[vapply(rings_in, function(r) length(r$x) >= 3L,
+                              logical(1L))]
+  if (length(rings_in) == 0L) {
+    return(setChildren(x, gList(nullGrob())))
+  }
+
+  # Roughen each ring once (closed). The first pass doubles as the fill boundary.
+  passes_by_ring <- lapply(seq_along(rings_in), function(k) {
+    r <- rings_in[[k]]
+    roughen_polyline(
+      c(r$x, r$x[1L]), c(r$y, r$y[1L]),
+      roughness = max(x$roughness, 0), bowing = x$bowing,
+      n_passes  = x$n_passes, seed = seed_offset(x$seed, k * 37L + 2000L)
+    )
+  })
+
+  children <- list()
+  do_solid <- is.null(x$fill_style) || identical(x$fill_style, "solid")
+  has_fill <- length(x$fill_col) && !is.na(x$fill_col)
+
+  # --- fill ---
+  if (has_fill && do_solid) {
+    # Even-odd polygon fill across all (roughened) rings keeps holes empty.
+    fx <- unlist(lapply(passes_by_ring, function(p) p[[1L]][, "x"]))
+    fy <- unlist(lapply(passes_by_ring, function(p) p[[1L]][, "y"]))
+    id <- rep(seq_along(passes_by_ring),
+              vapply(passes_by_ring, function(p) nrow(p[[1L]]), integer(1L)))
+    children[[length(children) + 1L]] <- pathGrob(
+      x = unit(fx, "inches"), y = unit(fy, "inches"), id = id,
+      rule = "evenodd", gp = gpar(fill = x$fill_col, col = NA)
+    )
+  } else if (has_fill) {
+    segs <- sketch_fill_multi(
+      rings_in,
+      fill_style    = x$fill_style,
+      hachure_gap   = max(x$hachure_gap, 1e-3),
+      hachure_angle = x$hachure_angle,
+      fill_weight   = x$fill_weight,
+      roughness     = max(x$roughness, 0) * 0.5,
+      bowing        = 0,
+      seed          = seed_offset(x$seed, 1000L)
+    )
+    fgp     <- gpar(col = x$fill_col, lineend = "round")
+    fgp$lwd <- x$fill_weight * ggplot2::.pt
+    for (seg in segs) {
+      children[[length(children) + 1L]] <- polylineGrob(
+        x = unit(seg[, "x"], "inches"), y = unit(seg[, "y"], "inches"),
+        gp = fgp
+      )
+    }
+  }
+
+  # --- roughened ring outlines (skipped when col is NA) ---
+  if (length(x$outline_gp$col) && !is.na(x$outline_gp$col)) {
+    for (passes in passes_by_ring) {
+      for (pass in passes) {
+        children[[length(children) + 1L]] <- polylineGrob(
+          x = unit(pass[, "x"], "inches"), y = unit(pass[, "y"], "inches"),
+          gp = x$outline_gp
+        )
+      }
+    }
+  }
+
+  if (length(children) == 0L) children <- list(nullGrob())
+  setChildren(x, do.call(gList, children))
+}
+
+# ---- sketch_dotplot_grob ----------------------------------------------------
+
+#' Create a sketchy dot-plot grob (stacked circular dots)
+#'
+#' Draws stacked roughened dots for a Wilkinson-style dot plot. The dot diameter
+#' is taken from `dia` (an npc-x fraction = the bin width) and converted to
+#' device inches at draw time, so every dot is a true circle whatever the panel
+#' aspect, and stacks are built upward from `baseline` by that diameter.
+#'
+#' @param x Npc \[0,1\] x of each dot (its bin centre), one per dot.
+#' @param stackpos Integer stack position of each dot within its bin (1 = first).
+#' @param dia Dot diameter as an npc-x fraction (scalar; the bin width).
+#' @param baseline Npc y the stacks grow from. Default 0.
+#' @param stackratio Vertical spacing between stacked dots, as a fraction of the
+#'   diameter. Default 1.
+#' @param roughness,n_passes,seed Sketch parameters.
+#' @param fill_gp `gpar()` for the solid dot fill (per-dot `col` recycled; `NA`
+#'   leaves dots unfilled).
+#' @param outline_gp `gpar()` for the roughened dot outline (per-dot `col`).
+#' @param name,vp Passed to `grid::gTree()`.
+#' @return A `SketchDotplotGrob` grob subclass.
+#' @family grob-layer
+#' @export
+sketch_dotplot_grob <- function(x, stackpos,
+                                dia,
+                                baseline   = 0,
+                                stackratio = 1,
+                                roughness  = 0.5,
+                                n_passes   = 2L,
+                                seed       = NULL,
+                                fill_gp    = gpar(),
+                                outline_gp = gpar(),
+                                name       = NULL,
+                                vp         = NULL) {
+  seed <- resolve_seed(seed)
+  gTree(
+    x = x, stackpos = stackpos, dia = dia, baseline = baseline,
+    stackratio = stackratio, roughness = roughness,
+    n_passes = as.integer(n_passes), seed = seed,
+    fill_gp = fill_gp, outline_gp = outline_gp,
+    name = name, vp = vp,
+    cl = "SketchDotplotGrob"
+  )
+}
+
+#' @method makeContent SketchDotplotGrob
+#' @export
+makeContent.SketchDotplotGrob <- function(x) {
+  if (length(x$x) == 0L) {
+    return(setChildren(x, gList(nullGrob())))
+  }
+
+  cxi    <- as.numeric(convertX(unit(x$x, "npc"), "inches"))
+  dia_in <- as.numeric(convertWidth(unit(x$dia, "npc"), "inches"))
+  base_in <- as.numeric(convertY(unit(x$baseline, "npc"), "inches"))
+  r       <- dia_in / 2
+
+  children <- list()
+  for (i in seq_along(cxi)) {
+    if (r <= 0) next
+    cy <- base_in + (x$stackpos[i] - 0.5) * dia_in * x$stackratio
+    s_i <- seed_offset(x$seed, i * 53L)
+    outline_gp_i <- index_gpar(x$outline_gp, i)
+    fill_gp_i    <- index_gpar(x$fill_gp, i)
+
+    passes <- rough_ellipse(
+      cx = cxi[i], cy = cy, rx = r, ry = r,
+      roughness = max(x$roughness, 0), n_passes = x$n_passes,
+      seed = seed_offset(s_i, 2000L)
+    )
+
+    solid_col <- fill_gp_i$col
+    if (length(solid_col) && !is.na(solid_col)) {
+      fp <- passes[[1L]]
+      children[[length(children) + 1L]] <- polygonGrob(
+        x = unit(fp[, "x"], "inches"), y = unit(fp[, "y"], "inches"),
+        gp = gpar(fill = solid_col, col = NA)
+      )
+    }
+    for (pass in passes) {
+      children[[length(children) + 1L]] <- polylineGrob(
+        x = unit(pass[, "x"], "inches"), y = unit(pass[, "y"], "inches"),
+        gp = outline_gp_i
+      )
+    }
+  }
+
+  if (length(children) == 0L) children <- list(nullGrob())
+  setChildren(x, do.call(gList, children))
+}

@@ -57,7 +57,9 @@ shaft length.
 }
 \seealso{
 Other grob-layer: 
+\code{\link{sketch_band_grob}()},
 \code{\link{sketch_callout_grob}()},
+\code{\link{sketch_dotplot_grob}()},
 \code{\link{sketch_ellipse_grob}()},
 \code{\link{sketch_path_grob}()},
 \code{\link{sketch_polygon_grob}()},

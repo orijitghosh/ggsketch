@@ -55,7 +55,9 @@ Create a sketchy polygon grob with optional hachure fill
 \seealso{
 Other grob-layer: 
 \code{\link{sketch_arrow_grob}()},
+\code{\link{sketch_band_grob}()},
 \code{\link{sketch_callout_grob}()},
+\code{\link{sketch_dotplot_grob}()},
 \code{\link{sketch_ellipse_grob}()},
 \code{\link{sketch_path_grob}()},
 \code{\link{sketch_wedge_grob}()}

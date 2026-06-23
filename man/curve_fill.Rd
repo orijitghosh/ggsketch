@@ -27,10 +27,12 @@ control-point sets) into a polygon approximation, then applies \code{sketch_fill
 \seealso{
 Other sketch-core: 
 \code{\link{hachure_fill}()},
+\code{\link{hachure_fill_multi}()},
 \code{\link{rough_arc}()},
 \code{\link{rough_bezier}()},
 \code{\link{rough_ellipse}()},
 \code{\link{roughen_polyline}()},
-\code{\link{sketch_fill}()}
+\code{\link{sketch_fill}()},
+\code{\link{sketch_fill_multi}()}
 }
 \concept{sketch-core}

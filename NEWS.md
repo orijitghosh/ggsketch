@@ -1,5 +1,31 @@
 # ggsketch 1.7.0 (development)
 
+* **Dot plots.** `geom_sketch_dotplot()` draws a hand-drawn Wilkinson-style dot
+  plot: the data are binned along `x` and one roughened circular dot per
+  observation is stacked upward in each bin. Dots stay round on any panel
+  aspect (the diameter is taken from the bin width and converted to device
+  inches at draw time). The sketch analogue of `ggplot2::geom_dotplot()`.
+* **Filled contour and 2-D density bands.** `geom_sketch_contour_filled()` and
+  `geom_sketch_density_2d_filled()` fill the *bands* between contour levels (not
+  just the lines). Each band is a region that may contain holes (the next level
+  up, cut out); a new hole-aware scan-line filler (`hachure_fill_multi()` /
+  `sketch_fill_multi()`, exposed at Layer 1) keeps the holes empty, so
+  `fill_style = "hachure"` and `"cross_hatch"` work on multi-ring regions as
+  well as `"solid"`. This completes the filled `*_filled` family planned since
+  1.3.0.
+* **Bounding marks.** `geom_sketch_mark_circle()`, `geom_sketch_mark_ellipse()`,
+  and `geom_sketch_mark_rect()` draw a roughened bounding shape around each
+  group of points -- the sketch analogues of `ggforce::geom_mark_circle()` /
+  `geom_mark_ellipse()` / `geom_mark_rect()`, completing the mark family started
+  by `geom_sketch_mark_hull()`. Shade them with a mapped `fill` or leave them
+  outline-only.
+* **Lollipop charts.** `geom_sketch_lollipop()` draws a roughened stem from a
+  `baseline` to each value, capped with a sketch point -- a tidy alternative to
+  bars for ranked or sparse values (cf. `ggalt::geom_lollipop()`). Set
+  `horizontal = TRUE` for horizontal stems.
+* **Empirical CDF.** `geom_sketch_ecdf()` draws the empirical cumulative
+  distribution as a hand-drawn stairstep (the sketch analogue of
+  `ggplot2::stat_ecdf()`).
 * **Content-aware arrows.** `geom_sketch_arrow()` (and the one-off
   `annotate_sketch_arrow()`) draw a hand-drawn arrow from `(x, y)` to
   `(xend, yend)` with an optional handwriting label. They are "content-aware":

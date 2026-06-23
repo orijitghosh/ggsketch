@@ -74,16 +74,49 @@ hachure_fill <- function(px, py,
                           roughness     = 0,
                           bowing        = 0,
                           seed          = NULL) {
+  hachure_fill_multi(list(list(x = px, y = py)),
+                     hachure_gap = hachure_gap, hachure_angle = hachure_angle,
+                     roughness = roughness, bowing = bowing, seed = seed)
+}
+
+#' Fill a multi-ring region with hachure lines (hole-aware)
+#'
+#' Like [hachure_fill()] but takes a list of rings sharing one Active Edge
+#' Table, so the even-odd scan-line parity excludes holes and skips the gaps
+#' between disjoint pieces automatically. This is what powers the filled
+#' contour / 2-D density band geoms, whose regions have holes.
+#'
+#' @param rings A list of rings, each a list with numeric `x` and `y` vertex
+#'   vectors (inch space). The first ring is typically the outer boundary and
+#'   the rest holes, but any even-odd arrangement of outer pieces and holes is
+#'   handled.
+#' @inheritParams hachure_fill
+#' @return A list of 2-column (x, y) fill-line matrices (same structure as
+#'   [hachure_fill()]).
+#' @family sketch-core
+#' @export
+hachure_fill_multi <- function(rings,
+                                hachure_gap   = 0.1,
+                                hachure_angle = 45,
+                                roughness     = 0,
+                                bowing        = 0,
+                                seed          = NULL) {
   seed <- resolve_seed(seed)
   th   <- hachure_angle * pi / 180
 
-  # Rotate polygon to make hachure horizontal
-  rot <- rotate_pts(px, py, -th)
-  rpx <- rot$x; rpy <- rot$y
+  # Rotate every ring so hachure runs horizontal, then build ONE edge table
+  # over all rings: the scan-line parity below then excludes holes and the gaps
+  # between disjoint pieces.
+  ets <- lapply(rings, function(r) {
+    rot <- rotate_pts(r$x, r$y, -th)
+    build_edge_table(rot$x, rot$y)
+  })
+  ets <- ets[!vapply(ets, is.null, logical(1L))]
+  if (length(ets) == 0L) return(list())
 
-  # Build edge table
-  et <- build_edge_table(rpx, rpy)
-  if (is.null(et)) return(list())
+  et  <- do.call(rbind, ets)
+  ord <- order(et$y_min, et$x_at_ymin)
+  et  <- et[ord, , drop = FALSE]
 
   y_global_min <- min(et$y_min)
   y_global_max <- max(et$y_max)

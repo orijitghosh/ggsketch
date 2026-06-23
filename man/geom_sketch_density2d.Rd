@@ -72,7 +72,7 @@ analogue of \code{\link[ggplot2:geom_density_2d]{ggplot2::geom_density_2d()}} / 
 \code{x} and \code{y} aesthetics. Uses \pkg{MASS} (pulled in by ggplot2).
 }
 \examples{
-\dontshow{if (requireNamespace("MASS", quietly = TRUE)) withAutoprint(\{ # examplesIf}
+\dontshow{if (requireNamespace("MASS", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(ggplot2)
 ggplot(faithful, aes(eruptions, waiting)) +
   geom_sketch_point(colour = "grey60", seed = 1L) +
@@ -88,11 +88,15 @@ Other sketch-geoms:
 \code{\link{GeomSketchBracket}},
 \code{\link{GeomSketchCallout}},
 \code{\link{GeomSketchCol}},
+\code{\link{GeomSketchContourFilled}},
 \code{\link{GeomSketchCurve}},
+\code{\link{GeomSketchDotplot}},
 \code{\link{GeomSketchEllipse}},
 \code{\link{GeomSketchHex}},
 \code{\link{GeomSketchLine}},
 \code{\link{GeomSketchLinerange}},
+\code{\link{GeomSketchLollipop}},
+\code{\link{GeomSketchMarkCircle}},
 \code{\link{GeomSketchMarkHull}},
 \code{\link{GeomSketchPath}},
 \code{\link{GeomSketchPoint}},
@@ -112,6 +116,7 @@ Other sketch-geoms:
 \code{\link{geom_sketch_contour}()},
 \code{\link{geom_sketch_count}()},
 \code{\link{geom_sketch_density}()},
+\code{\link{geom_sketch_ecdf}()},
 \code{\link{geom_sketch_function}()},
 \code{\link{geom_sketch_histogram}()},
 \code{\link{geom_sketch_jitter}()},
