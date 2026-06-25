@@ -617,6 +617,39 @@ ggplot(faithful, aes(eruptions, waiting)) +
   theme_sketch()
 ```
 
+## Engraving and tonal shading
+
+`geom_sketch_engrave()` shades a surface the way an etcher or banknote engraver
+does: continuous tone is built from the *density* of hatch lines, with
+cross-hatching deepening the shadows. It takes an `x`/`y`/`z` grid; high `z` is
+dark. Unlike the fill-pattern packages it *computes* tone from geometry rather
+than tiling a motif.
+
+```{r engrave}
+ggplot(faithfuld, aes(waiting, eruptions, z = density)) +
+  geom_sketch_engrave(seed = 1L) +
+  labs(title = "geom_sketch_engrave()") +
+  theme_sketch()
+```
+
+`geom_sketch_shade()` shades each polygon region with a *uniform* density set by
+a `tone` aesthetic in `[0, 1]`, so a mapped value reads directly as darkness.
+
+```{r shade}
+hex <- data.frame(
+  x = cos(seq(0, 2 * pi, length.out = 7))[-7],
+  y = sin(seq(0, 2 * pi, length.out = 7))[-7]
+)
+regions <- do.call(rbind, lapply(1:3, function(k) {
+  transform(hex, x = x + (k - 1) * 2.3, g = k, val = c(0.25, 0.55, 0.9)[k])
+}))
+ggplot(regions, aes(x, y, group = g)) +
+  geom_sketch_shade(aes(tone = val), seed = 2L) +
+  coord_equal() +
+  labs(title = "geom_sketch_shade(): value → density") +
+  theme_sketch()
+```
+
 ## Text
 
 The sketch of text is a *handwriting font*, not roughened glyphs.

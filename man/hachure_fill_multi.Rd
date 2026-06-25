@@ -42,6 +42,8 @@ contour / 2-D density band geoms, whose regions have holes.
 \seealso{
 Other sketch-core: 
 \code{\link{curve_fill}()},
+\code{\link{engrave_fill}()},
+\code{\link{engrave_ladder}()},
 \code{\link{hachure_fill}()},
 \code{\link{rough_arc}()},
 \code{\link{rough_bezier}()},

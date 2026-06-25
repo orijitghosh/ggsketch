@@ -1,3 +1,18 @@
+# ggsketch 1.8.0 (development)
+
+* **Engraving: tonal shading by line density.** A new module shades by the
+  *density* of hand-drawn hatch lines, the way an etcher or banknote engraver
+  builds a gradient -- light areas stay near-blank, shadows accumulate dense
+  cross-hatch. Unlike the fill-pattern packages (which tile a motif), the tone
+  is *computed* from geometry. `geom_sketch_engrave()` shades an `x`/`y`/`z`
+  surface (high `z` = dark); `geom_sketch_shade()` shades each polygon region
+  with a uniform density set by a `tone` aesthetic, so a mapped value reads as
+  darkness. Powered by a new Layer-1 engine (`engrave_fill()` /
+  `engrave_ladder()`, exposed at Layer 1) that lays down a ladder of hatch
+  layers and keeps each only where the tone reaches its threshold, reusing the
+  hole-aware scan-line. A pitch floor (`min_gap_in`) keeps the darkest tones
+  from exploding into a runaway number of strokes.
+
 # ggsketch 1.7.0 (development)
 
 * **Dot plots.** `geom_sketch_dotplot()` draws a hand-drawn Wilkinson-style dot

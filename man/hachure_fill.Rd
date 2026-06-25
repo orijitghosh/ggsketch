@@ -37,6 +37,8 @@ Fill a polygon with hachure lines using the AET scan-line algorithm
 \seealso{
 Other sketch-core: 
 \code{\link{curve_fill}()},
+\code{\link{engrave_fill}()},
+\code{\link{engrave_ladder}()},
 \code{\link{hachure_fill_multi}()},
 \code{\link{rough_arc}()},
 \code{\link{rough_bezier}()},

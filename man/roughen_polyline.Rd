@@ -30,6 +30,8 @@ Uses a seeded local RNG so the user's \code{.Random.seed} is never mutated
 \seealso{
 Other sketch-core: 
 \code{\link{curve_fill}()},
+\code{\link{engrave_fill}()},
+\code{\link{engrave_ladder}()},
 \code{\link{hachure_fill}()},
 \code{\link{hachure_fill_multi}()},
 \code{\link{rough_arc}()},

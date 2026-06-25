@@ -77,6 +77,7 @@ Other sketch-geoms:
 \code{\link{GeomSketchCurve}},
 \code{\link{GeomSketchDotplot}},
 \code{\link{GeomSketchEllipse}},
+\code{\link{GeomSketchEngrave}},
 \code{\link{GeomSketchHex}},
 \code{\link{GeomSketchLine}},
 \code{\link{GeomSketchLinerange}},

@@ -26,6 +26,8 @@ control-point sets) into a polygon approximation, then applies \code{sketch_fill
 }
 \seealso{
 Other sketch-core: 
+\code{\link{engrave_fill}()},
+\code{\link{engrave_ladder}()},
 \code{\link{hachure_fill}()},
 \code{\link{hachure_fill_multi}()},
 \code{\link{rough_arc}()},

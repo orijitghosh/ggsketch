@@ -55,6 +55,13 @@ reference:
       - geom_sketch_contour
       - geom_sketch_density2d
       - geom_sketch_contour_filled
+  - title: Engraving & tonal shading
+    desc: >
+      Continuous tone built from hatch-line density (etching / banknote style),
+      computed from geometry rather than tiled from a motif.
+    contents:
+      - geom_sketch_engrave
+      - geom_sketch_shade
   - title: Models & quantiles
     contents:
       - geom_sketch_quantile
@@ -120,6 +127,7 @@ reference:
       - sketch_arrow_grob
       - sketch_callout_grob
       - sketch_band_grob
+      - sketch_engrave_grob
       - sketch_dotplot_grob
   - title: Core geometry (Layer 1 — pure, no grid/ggplot2)
     desc: The number-to-number routines that produce the hand-drawn coordinates.
@@ -132,6 +140,8 @@ reference:
       - hachure_fill_multi
       - sketch_fill
       - sketch_fill_multi
+      - engrave_fill
+      - engrave_ladder
       - curve_fill
   - title: internal
     contents:

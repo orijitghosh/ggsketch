@@ -42,6 +42,8 @@ Dispatch fill-style to the appropriate Layer-1 fill function
 \seealso{
 Other sketch-core: 
 \code{\link{curve_fill}()},
+\code{\link{engrave_fill}()},
+\code{\link{engrave_ladder}()},
 \code{\link{hachure_fill}()},
 \code{\link{hachure_fill_multi}()},
 \code{\link{rough_arc}()},

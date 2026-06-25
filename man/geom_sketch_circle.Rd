@@ -122,6 +122,7 @@ Other sketch-geoms:
 \code{\link{GeomSketchContourFilled}},
 \code{\link{GeomSketchCurve}},
 \code{\link{GeomSketchDotplot}},
+\code{\link{GeomSketchEngrave}},
 \code{\link{GeomSketchHex}},
 \code{\link{GeomSketchLine}},
 \code{\link{GeomSketchLinerange}},

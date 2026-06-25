@@ -941,6 +941,122 @@ makeContent.SketchBandGrob <- function(x) {
   setChildren(x, do.call(gList, children))
 }
 
+# ---- sketch_engrave_grob ----------------------------------------------------
+
+#' Create a sketchy engraving grob (tonal cross-hatch by line density)
+#'
+#' Fills a region with [engrave_fill()]: a ladder of hatch layers whose
+#' accumulated density follows a tone field, so the region shades continuously
+#' from blank paper (light) to dense cross-hatch (dark) the way an etching does.
+#' The hatch geometry is computed in device inches (so angles and wobble are
+#' device-consistent); the `field` is supplied in npc \[0,1\] and sampled through
+#' an inch-to-npc affine at draw time.
+#'
+#' @param rings A list of rings, each a list with npc \[0,1\] `x` and `y` vertex
+#'   vectors bounding the region to engrave (even-odd holes honoured).
+#' @param field A vectorised tone function `function(x, y)` taking npc \[0,1\]
+#'   coordinates and returning tone in `[0, 1]` (0 = paper, 1 = darkest).
+#' @param ladder A ladder from [engrave_ladder()]; `NULL` builds a default from
+#'   the `ladder_*` parameters.
+#' @param ladder_levels,ladder_base_gap,ladder_gap_ratio,ladder_base_angle,ladder_cross_after Ladder
+#'   controls used when `ladder` is `NULL`. `ladder_base_gap` is an npc-x
+#'   fraction (converted to inches at draw time).
+#' @param roughness,bowing,seed Sketch parameters for the engraving strokes.
+#' @param min_gap_in Hard pitch floor in inches: ladder layers finer than this
+#'   are dropped, so the darkest tones cannot explode into a runaway number of
+#'   strokes. Default 0.012.
+#' @param gp `gpar()` for the engraving strokes (`col`, `lwd`).
+#' @param name,vp Passed to `grid::gTree()`.
+#' @return A `SketchEngraveGrob` grob subclass.
+#' @family grob-layer
+#' @export
+sketch_engrave_grob <- function(rings, field,
+                                ladder            = NULL,
+                                ladder_levels     = 5L,
+                                ladder_base_gap   = 0.08,
+                                ladder_gap_ratio  = 0.62,
+                                ladder_base_angle = 45,
+                                ladder_cross_after = 3L,
+                                roughness         = 0.5,
+                                bowing            = 0.3,
+                                seed              = NULL,
+                                min_gap_in        = 0.012,
+                                gp                = gpar(),
+                                name              = NULL,
+                                vp                = NULL) {
+  seed <- resolve_seed(seed)
+  gTree(
+    rings = rings, field = field, ladder = ladder,
+    ladder_levels = as.integer(ladder_levels),
+    ladder_base_gap = ladder_base_gap, ladder_gap_ratio = ladder_gap_ratio,
+    ladder_base_angle = ladder_base_angle,
+    ladder_cross_after = as.integer(ladder_cross_after),
+    roughness = roughness, bowing = bowing, seed = seed,
+    min_gap_in = min_gap_in, gp = gp,
+    name = name, vp = vp,
+    cl = "SketchEngraveGrob"
+  )
+}
+
+#' @method makeContent SketchEngraveGrob
+#' @export
+makeContent.SketchEngraveGrob <- function(x) {
+  rings <- x$rings
+  if (length(rings) == 0L || !is.function(x$field)) {
+    return(setChildren(x, gList(nullGrob())))
+  }
+
+  # Rings npc -> inches.
+  rings_in <- lapply(rings, function(r) {
+    list(x = as.numeric(convertX(unit(r$x, "npc"), "inches")),
+         y = as.numeric(convertY(unit(r$y, "npc"), "inches")))
+  })
+  rings_in <- rings_in[vapply(rings_in, function(r) length(r$x) >= 3L,
+                              logical(1L))]
+  if (length(rings_in) == 0L) {
+    return(setChildren(x, gList(nullGrob())))
+  }
+
+  # Inch -> npc affine (npc-to-inch is affine per axis), so we can evaluate the
+  # npc-domain field at inch-space sample points cheaply.
+  x0 <- as.numeric(convertX(unit(0, "npc"), "inches"))
+  x1 <- as.numeric(convertX(unit(1, "npc"), "inches"))
+  y0 <- as.numeric(convertY(unit(0, "npc"), "inches"))
+  y1 <- as.numeric(convertY(unit(1, "npc"), "inches"))
+  ax <- x1 - x0; ay <- y1 - y0
+  if (abs(ax) < 1e-9 || abs(ay) < 1e-9) {
+    return(setChildren(x, gList(nullGrob())))
+  }
+  field_npc  <- x$field
+  field_inch <- function(xi, yi) field_npc((xi - x0) / ax, (yi - y0) / ay)
+
+  # Build the ladder in inch units, then apply the pitch floor.
+  ladder <- x$ladder %||% engrave_ladder(
+    n_levels    = x$ladder_levels,
+    base_gap    = x$ladder_base_gap * abs(ax),   # npc-x fraction -> inches
+    gap_ratio   = x$ladder_gap_ratio,
+    base_angle  = x$ladder_base_angle,
+    cross_after = x$ladder_cross_after
+  )
+  ladder <- Filter(function(l) l$gap >= x$min_gap_in, ladder)
+  if (length(ladder) == 0L) {
+    return(setChildren(x, gList(nullGrob())))
+  }
+
+  segs <- engrave_fill(rings_in, field_inch, ladder = ladder,
+                       roughness = x$roughness, bowing = x$bowing,
+                       seed = x$seed)
+  if (length(segs) == 0L) {
+    return(setChildren(x, gList(nullGrob())))
+  }
+
+  children <- lapply(segs, function(seg) {
+    polylineGrob(x = unit(seg[, "x"], "inches"),
+                 y = unit(seg[, "y"], "inches"), gp = x$gp)
+  })
+  setChildren(x, do.call(gList, children))
+}
+
 # ---- sketch_dotplot_grob ----------------------------------------------------
 
 #' Create a sketchy dot-plot grob (stacked circular dots)
