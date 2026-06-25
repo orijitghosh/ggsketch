@@ -632,8 +632,20 @@ ggplot(faithfuld, aes(waiting, eruptions, z = density)) +
   theme_sketch()
 ```
 
+With no pre-computed grid, shade raw points through a density stat:
+
+```{r engrave-raw}
+ggplot(faithful, aes(eruptions, waiting)) +
+  geom_sketch_engrave(stat = "density_2d", contour = FALSE,
+                      aes(z = after_stat(density)), seed = 1L) +
+  labs(title = "geom_sketch_engrave() from raw points") +
+  theme_sketch()
+```
+
 `geom_sketch_shade()` shades each polygon region with a *uniform* density set by
 a `tone` aesthetic in `[0, 1]`, so a mapped value reads directly as darkness.
+Mapping a raw variable to `tone` rescales it with `scale_tone_continuous()`
+(alias `scale_engrave()`), just as `scale_size()` rescales size.
 
 ```{r shade}
 hex <- data.frame(

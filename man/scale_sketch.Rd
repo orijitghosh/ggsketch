@@ -50,6 +50,7 @@ Other sketch-theme:
 \code{\link{ggsketch_check_fonts}()},
 \code{\link{register_sketch_font}()},
 \code{\link{scale_roughness_continuous}()},
+\code{\link{scale_tone_continuous}()},
 \code{\link{sketch_palette}()},
 \code{\link{theme_sketch}()}
 }

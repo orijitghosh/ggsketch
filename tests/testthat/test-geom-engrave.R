@@ -125,3 +125,39 @@ test_that("geom_sketch_shade builds and shades by the tone aesthetic", {
     geom_sketch_shade(ggplot2::aes(tone = val), seed = 2L)
   expect_no_error(print(p))
 })
+
+# ---- scale_tone_continuous / scale_engrave ----------------------------------
+
+test_that("mapped tone is rescaled to the tone band automatically", {
+  df <- data.frame(x = c(0, 1, 1, 0), y = c(0, 0, 1, 1))
+  build_tone <- function(p) {
+    sort(unique(round(ggplot2::ggplot_build(p)$data[[1L]]$tone, 3)))
+  }
+  three <- do.call(rbind, lapply(1:3, function(k) {
+    d <- df; d$g <- k; d$val <- k; d
+  }))
+  p <- ggplot2::ggplot(three, ggplot2::aes(x, y, group = g)) +
+    geom_sketch_shade(ggplot2::aes(tone = val), seed = 1L)
+  # Default band c(0.1, 0.95): val 1..3 -> 0.1, 0.525, 0.95.
+  expect_equal(build_tone(p), c(0.1, 0.525, 0.95))
+
+  # A custom (and reversed) range is honoured.
+  p2 <- p + scale_engrave(range = c(0.9, 0.2))
+  expect_equal(build_tone(p2), c(0.2, 0.55, 0.9))
+})
+
+test_that("scale_engrave is the scale_tone_continuous alias", {
+  expect_identical(scale_engrave, scale_tone_continuous)
+})
+
+# ---- engrave from raw points (density_2d) -----------------------------------
+
+test_that("geom_sketch_engrave shades raw points via stat density_2d", {
+  skip_if_not_installed("MASS")
+  grDevices::pdf(NULL); on.exit(grDevices::dev.off())
+  p <- ggplot2::ggplot(faithful, ggplot2::aes(eruptions, waiting)) +
+    geom_sketch_engrave(stat = "density_2d", contour = FALSE,
+                        ggplot2::aes(z = ggplot2::after_stat(density)),
+                        seed = 1L)
+  expect_no_error(print(p))
+})

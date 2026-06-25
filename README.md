@@ -14,7 +14,7 @@
 
 </p>
 
-`ggsketch` gives you ggplot2 geoms (`geom_sketch_col()`, `geom_sketch_line()`, `geom_sketch_point()`, …) that render with a wobbly, hand-drawn look: roughened double-stroke outlines and hachure / cross-hatch / zigzag / dots / dashed fills. Because the geoms are real grid grobs wrapped in `ggproto`, they compose with `aes()`, stats, scales, facets, and coords, and draw correctly on **every** R graphics device — screen, PNG, PDF, and SVG.
+`ggsketch` gives you ggplot2 geoms (`geom_sketch_col()`, `geom_sketch_line()`, `geom_sketch_point()`, …) that render with a wobbly, hand-drawn look: roughened double-stroke outlines and hachure / cross-hatch / zigzag / dots / dashed fills. It even shades by **tonal engraving** — continuous tone built from hatch-line density, the way an etcher or banknote engraver works (`geom_sketch_engrave()`), something the fill-pattern packages can't do because they tile a motif rather than compute tone. Because the geoms are real grid grobs wrapped in `ggproto`, they compose with `aes()`, stats, scales, facets, and coords, and draw correctly on **every** R graphics device — screen, PNG, PDF, and SVG.
 
 ## Why another sketch package?
 
@@ -90,6 +90,7 @@ Every fill style works on every filled geom - here `fill_style = "hachure"` boxp
 | Bars & tiles | `geom_sketch_col()`, `geom_sketch_bar()`, `geom_sketch_rect()`, `geom_sketch_tile()` |
 | Areas & curves | `geom_sketch_polygon()`, `geom_sketch_ribbon()`, `geom_sketch_area()`, `geom_sketch_density()`, `geom_sketch_smooth()` |
 | Circular & composed | `geom_sketch_circle()`, `geom_sketch_ellipse()`, `geom_sketch_segment()`, `geom_sketch_step()`, `geom_sketch_boxplot()` |
+| Engraving & tone | `geom_sketch_engrave()` (shade an `x`/`y`/`z` surface by hatch-line density), `geom_sketch_shade()` (`aes(tone = …)` value → density), `scale_engrave()` |
 | Helpers & annotation | `annotate_sketch()`, `geom_sketch_bracket()` (significance brackets), `theme_sketch()` |
 | Frame & scales | `element_sketch_line()`, `element_sketch_rect()` (via `theme_sketch(rough_frame = TRUE)`), `scale_colour_sketch()`, `scale_fill_sketch()`, `register_sketch_font()` |
 

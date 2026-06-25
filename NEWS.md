@@ -12,6 +12,12 @@
   layers and keeps each only where the tone reaches its threshold, reusing the
   hole-aware scan-line. A pitch floor (`min_gap_in`) keeps the darkest tones
   from exploding into a runaway number of strokes.
+  * `scale_tone_continuous()` (alias `scale_engrave()`) rescales a mapped
+    variable to a legible tone band, so `aes(tone = z)` works the way
+    `scale_size()` does for size; wrap in `I()` to use raw tone.
+  * `geom_sketch_engrave()` takes an `x`/`y`/`z` grid directly, or shades raw
+    points through a density stat, e.g.
+    `geom_sketch_engrave(stat = "density_2d", contour = FALSE, aes(z = after_stat(density)))`.
 
 # ggsketch 1.7.0 (development)
 
