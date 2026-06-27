@@ -128,6 +128,23 @@ library(ggplot2)
 ggplot(faithfuld, aes(waiting, eruptions, z = density)) +
   geom_sketch_engrave(seed = 1L) +
   theme_sketch()
+
+# A real surface: an engraved relief map of Maungawhau (Mt Eden),
+# the way a 19th-century atlas shades elevation by hatch density.
+volcano_df <- expand.grid(
+  easting  = seq_len(nrow(volcano)),
+  northing = seq_len(ncol(volcano))
+)
+volcano_df$height <- as.vector(volcano)
+
+ggplot(volcano_df, aes(easting, northing, z = height)) +
+  geom_sketch_engrave(
+    levels = 8L, base_gap = 0.04, gap_ratio = 0.72,
+    roughness = 0.35, bowing = 0.2, seed = 1L
+  ) +
+  coord_equal() +
+  labs(title = "Maungawhau", subtitle = "engraved by elevation") +
+  theme_sketch()
 }
 \seealso{
 Other sketch-geoms: 
