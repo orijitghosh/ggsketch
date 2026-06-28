@@ -3,7 +3,9 @@ title: "Gallery — every geom"
 description: >
   A tour of every ggsketch geom with runnable examples, from bars and lines to
   histograms, violins, intervals, Q-Q plots, quantile fits, reference lines,
-  curves, and annotations.
+  curves, and annotations — plus the 2.0 additions: dumbbell, slope, beeswarm,
+  ridgeline, streamgraph, waffle, treemap and calendar charts, drawing media,
+  watercolour fills, textured paper, and hand-drawn coordinate frames.
 ---
 
 ```{r setup, include = FALSE}
@@ -865,6 +867,242 @@ ggplot(iris, aes(Sepal.Length, Sepal.Width, colour = Species)) +
   geom_sketch_point(seed = 2L) +
   scale_colour_sketch() +
   labs(title = "Bounding rectangles") +
+  theme_sketch()
+```
+
+# New in 2.0
+
+ggsketch 2.0 grows in two directions: new chart families (all built from the
+same roughened grobs, so they inherit every fill style for free) and a
+*drawing-medium simulator* — strokes that imitate pencil, ink, brush, charcoal,
+marker and crayon, watercolour washes, textured papers, and hand-drawn coords.
+
+## Dumbbell and slope charts
+
+`geom_sketch_dumbbell()` draws a connector between two values per row, capped
+with a sketch dot at each end — ideal for before/after comparisons.
+
+```{r dumbbell}
+dumb <- data.frame(g = c("Alpha", "Bravo", "Charlie", "Delta"),
+                   before = c(20, 35, 28, 42),
+                   after  = c(34, 51, 22, 47))
+ggplot(dumb, aes(x = before, xend = after, y = reorder(g, after))) +
+  geom_sketch_dumbbell(colour_x = "#B03A2E", colour_xend = "#1F618D",
+                       seed = 1L) +
+  labs(title = "Before vs after", x = "value", y = NULL) +
+  theme_sketch()
+```
+
+`geom_sketch_slope()` connects each group across two (or more) categories, for
+showing how a ranking changes.
+
+```{r slope}
+slope <- data.frame(
+  time  = rep(c("Before", "After"), each = 4),
+  value = c(20, 35, 28, 42, 34, 51, 22, 47),
+  who   = rep(c("Alpha", "Bravo", "Charlie", "Delta"), 2)
+)
+ggplot(slope, aes(time, value, group = who, colour = who)) +
+  geom_sketch_slope(seed = 1L) +
+  scale_colour_sketch() +
+  labs(title = "Slope chart", x = NULL) +
+  theme_sketch()
+```
+
+## Beeswarm
+
+`geom_sketch_beeswarm()` spreads points sideways so none overlap, keeping their
+exact value — a deterministic, seeded swarm.
+
+```{r beeswarm}
+ggplot(iris, aes(Species, Sepal.Length, colour = Species)) +
+  geom_sketch_beeswarm(size = 2.5, seed = 1L, show.legend = FALSE) +
+  scale_colour_sketch() +
+  labs(title = "geom_sketch_beeswarm()", x = NULL) +
+  theme_sketch()
+```
+
+## Ridgelines
+
+`geom_sketch_ridgeline()` stacks per-group densities into overlapping ridges,
+drawn back-to-front. Any `fill_style` works, including watercolour.
+
+```{r ridgeline}
+ggplot(iris, aes(Sepal.Length, Species, fill = Species)) +
+  geom_sketch_ridgeline(scale = 1.6, seed = 1L, show.legend = FALSE) +
+  scale_fill_sketch() +
+  labs(title = "geom_sketch_ridgeline()", y = NULL) +
+  theme_sketch()
+```
+
+## Streamgraphs
+
+`geom_sketch_streamgraph()` stacks group values around a flowing baseline
+(`offset = "silhouette"`, `"zero"`, or `"wiggle"`).
+
+```{r streamgraph}
+set.seed(1)
+stream <- expand.grid(t = 1:12, grp = c("a", "b", "c", "d"))
+stream$v <- abs(sin(stream$t / 3 + match(stream$grp, letters)) + 1.2) * 5
+ggplot(stream, aes(t, v, fill = grp)) +
+  geom_sketch_streamgraph(seed = 1L) +
+  scale_fill_sketch() +
+  labs(title = "geom_sketch_streamgraph()", x = "time", y = NULL) +
+  theme_sketch()
+```
+
+## Waffle and treemap
+
+`geom_sketch_waffle()` turns counts into a grid of squares (largest-remainder
+rounding to 100 cells by default).
+
+```{r waffle}
+waf <- data.frame(grp = c("Rent", "Food", "Travel", "Other"),
+                  spend = c(45, 25, 20, 10))
+ggplot(waf, aes(fill = grp, weight = spend)) +
+  geom_sketch_waffle(seed = 1L) +
+  scale_fill_sketch() +
+  coord_equal() +
+  labs(title = "geom_sketch_waffle()") +
+  theme_void()
+```
+
+`geom_sketch_treemap()` lays out nested rectangles by `area` (a squarified
+treemap) and can label each tile.
+
+```{r treemap}
+tm <- data.frame(grp = c("Alpha", "Bravo", "Charlie", "Delta", "Echo"),
+                 val = c(40, 25, 15, 12, 8))
+ggplot(tm, aes(area = val, fill = grp, label = grp)) +
+  geom_sketch_treemap(seed = 1L, show.legend = FALSE) +
+  scale_fill_sketch() +
+  coord_equal() +
+  labs(title = "geom_sketch_treemap()") +
+  theme_void()
+```
+
+## Calendar heatmaps
+
+`geom_sketch_calendar()` maps a `date` aesthetic onto a GitHub-style grid of
+weeks (columns) and weekdays (rows).
+
+```{r calendar}
+set.seed(1)
+cal <- data.frame(day = as.Date("2024-01-01") + 0:180)
+cal$value <- cumsum(rnorm(nrow(cal)))
+ggplot(cal, aes(date = day, fill = value)) +
+  geom_sketch_calendar(seed = 1L) +
+  scale_fill_viridis_c() +
+  coord_equal() +
+  labs(title = "geom_sketch_calendar()") +
+  theme_sketch() +
+  theme(axis.title = element_blank())
+```
+
+## Drawing media
+
+The `medium` controls *how* a stroke is laid down. `sketch_media()` lists the
+seven media; set one as a constant on a line/path/segment geom, or **map** it as
+an aesthetic with `scale_medium_discrete()`.
+
+```{r media-list}
+sketch_media()
+```
+
+```{r medium-aes}
+lv <- c("pencil", "ink", "brush", "charcoal", "marker")
+waves <- data.frame(x = rep(1:40, length(lv)),
+                    g = factor(rep(lv, each = 40), levels = lv))
+waves$y <- as.integer(waves$g) + sin(waves$x / 4) * 0.3
+ggplot(waves, aes(x, y, group = g, medium = g, colour = g)) +
+  geom_sketch_line(linewidth = 1.1, seed = 1L) +
+  scale_medium_discrete(media = lv) +
+  scale_colour_sketch() +
+  labs(title = "medium mapped to a variable", x = NULL, y = NULL) +
+  theme_sketch()
+```
+
+## Watercolour fills
+
+`fill_style = "watercolor"` paints stacked translucent washes with soft bleeds
+and granulation, on any polygon-, ribbon-, ellipse-, or band-filled geom.
+
+```{r watercolor-poly}
+ang  <- seq(0, 2 * pi, length.out = 11)[-11]
+r    <- rep(c(1, 0.45), length.out = 10)
+star <- data.frame(x = r * cos(ang), y = r * sin(ang))
+ggplot(star, aes(x, y)) +
+  geom_sketch_polygon(fill = "#2E86C1", fill_style = "watercolor", seed = 1L) +
+  coord_equal() +
+  labs(title = "fill_style = \"watercolor\"") +
+  theme_sketch()
+```
+
+```{r watercolor-violin}
+ggplot(mpg, aes(class, hwy, fill = class)) +
+  geom_sketch_violin(fill_style = "watercolor", seed = 1L, show.legend = FALSE) +
+  scale_fill_brewer(palette = "Set2") +
+  labs(title = "Watercolour violins", x = NULL) +
+  theme_sketch() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+```
+
+## Textured paper
+
+`theme_sketch(paper = )` draws the panel on a textured ground —
+`sketch_papers()` lists them (notebook, graph, dotted, aged, blueprint,
+chalkboard, kraft). Dark grounds flip the text light automatically.
+
+```{r paper-list}
+sketch_papers()
+```
+
+```{r paper-notebook}
+ggplot(sales, aes(product, units)) +
+  geom_sketch_col(fill = "#7BAFD4", seed = 1L) +
+  labs(title = "Notebook paper", x = NULL) +
+  theme_sketch(paper = "notebook")
+```
+
+```{r paper-blueprint}
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_sketch_point(colour = "white", seed = 1L) +
+  labs(title = "Blueprint ground") +
+  theme_sketch(paper = "blueprint")
+```
+
+You can also drop a paper onto any theme via `element_sketch_paper()`:
+
+```{r paper-element}
+ggplot(faithful, aes(eruptions, waiting)) +
+  geom_sketch_point(colour = "#1F618D", seed = 1L) +
+  theme_sketch() +
+  theme(panel.background = element_sketch_paper("graph"))
+```
+
+## Hand-drawn coordinate frames
+
+`coord_sketch()` roughens the gridlines and ticks under *any* theme — no need
+for a sketch theme at all:
+
+```{r coord-sketch}
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_sketch_point(seed = 1L) +
+  labs(title = "coord_sketch() under a plain theme") +
+  coord_sketch(seed = 1L)
+```
+
+`coord_sketch_polar()` is the polar companion — a wobbly circular grid for rose
+and pie-style charts:
+
+```{r coord-polar}
+rose <- data.frame(g = c("a", "b", "c", "d", "e", "f"),
+                   v = c(3, 5, 2, 4, 6, 3))
+ggplot(rose, aes(g, v, fill = g)) +
+  geom_sketch_col(seed = 1L, show.legend = FALSE) +
+  scale_fill_sketch() +
+  coord_sketch_polar(seed = 1L) +
+  labs(title = "coord_sketch_polar()", x = NULL, y = NULL) +
   theme_sketch()
 ```
 

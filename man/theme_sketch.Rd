@@ -69,6 +69,7 @@ p <- ggplot(mtcars, aes(wt, mpg)) + geom_sketch_point(seed = 1L)
 p + theme_sketch()
 p + theme_sketch(dark = TRUE)
 p + theme_sketch(rough_frame = TRUE)
+p + theme_sketch(paper = "notebook")
 }
 \seealso{
 Other sketch-theme: 

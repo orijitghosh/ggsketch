@@ -129,6 +129,13 @@ reference:
     contents:
       - sketch_media
       - scale_medium_discrete
+  - title: Paper & ground
+    desc: >
+      Drawing surfaces for `theme_sketch(paper = )` — ruled, gridded, aged,
+      blueprint, chalkboard and kraft grounds rendered as vector textures.
+    contents:
+      - sketch_papers
+      - element_sketch_paper
   - title: Sketch frame & colour scales
     desc: >
       Hand-drawn theme elements (gridlines, panel border, axis ticks) and a
@@ -148,6 +155,7 @@ reference:
     desc: Lower-level grobs that re-roughen in device space inside `makeContent()`.
     contents:
       - sketch_path_grob
+      - sketch_stroke_grob
       - sketch_polygon_grob
       - sketch_ellipse_grob
       - sketch_wedge_grob
@@ -170,6 +178,13 @@ reference:
       - engrave_fill
       - engrave_ladder
       - curve_fill
+      - stroke_profile
+      - stroke_ribbon
+      - watercolor_wash
+      - watercolor_wash_multi
+      - treemap_layout
+      - paper_spec
+      - paper_primitives
   - title: internal
     contents:
       - GeomSketchNull

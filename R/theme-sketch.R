@@ -143,6 +143,7 @@ sketch_font_candidates <- function() {
 #' p + theme_sketch()
 #' p + theme_sketch(dark = TRUE)
 #' p + theme_sketch(rough_frame = TRUE)
+#' p + theme_sketch(paper = "notebook")
 theme_sketch <- function(base_size      = 11,
                           base_family    = getOption("ggsketch.base_family", ""),
                           base_line_size = base_size / 22,
