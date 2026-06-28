@@ -30,6 +30,15 @@ simulator. This first piece is the engine that makes it possible.
   `element_sketch_paper()` is the underlying panel-background element (usable
   directly in `theme()`), and `sketch_papers()` lists the grounds. The default
   `"none"` leaves the theme unchanged.
+* **Watercolour fill.** A new `fill_style = "watercolor"` paints a region with
+  stacked translucent washes instead of stroked fill lines: where the jittered
+  boundary copies overlap the colour deepens toward the interior, the irregular
+  edges feather like pigment bleeding into wet paper, and a scatter of darker
+  specks reads as pigment granulation. Overlapping shapes blend wet-on-wet. It
+  works on every polygon-fill geom (`geom_sketch_polygon()`, `geom_sketch_area()`,
+  `geom_sketch_col()` / `bar()`, `geom_sketch_rect()` / `tile()`,
+  `geom_sketch_violin()`, `geom_sketch_boxplot()`, ...). Powered by a new Layer-1
+  `watercolor_wash()`. Everything is vector, so it reproduces on every device.
 
 # ggsketch 1.8.0 (development)
 

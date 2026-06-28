@@ -78,6 +78,7 @@ Other sketch-core:
 \code{\link{roughen_polyline}()},
 \code{\link{sketch_fill}()},
 \code{\link{sketch_fill_multi}()},
-\code{\link{stroke_profile}()}
+\code{\link{stroke_profile}()},
+\code{\link{watercolor_wash}()}
 }
 \concept{sketch-core}

@@ -203,7 +203,33 @@ makeContent.SketchPolygonGrob <- function(x) {
                   else seed_offset(resolve_seed(x$fill_seed), g * 37L)
 
     # --- fill ---
-    if (!is.null(x$fill_style) && x$fill_style != "solid") {
+    if (identical(x$fill_style, "watercolor")) {
+      # Translucent stacked washes instead of stroked fill lines.
+      base_col <- index_gpar(x$fill_gp, g)$col
+      if (length(base_col) && !is.na(base_col)) {
+        wash <- watercolor_wash(
+          gx, gy,
+          granulation = 0.4,
+          seed = seed_offset(fill_base, 1000L)
+        )
+        layer_alpha <- 0.13
+        for (poly in wash$washes) {
+          children[[length(children) + 1L]] <- polygonGrob(
+            x  = unit(poly[, "x"], "inches"),
+            y  = unit(poly[, "y"], "inches"),
+            gp = gpar(fill = scales::alpha(base_col, layer_alpha), col = NA)
+          )
+        }
+        if (!is.null(wash$granules)) {
+          gr <- wash$granules
+          children[[length(children) + 1L]] <- circleGrob(
+            x  = unit(gr$x, "inches"), y = unit(gr$y, "inches"),
+            r  = unit(gr$r, "inches"),
+            gp = gpar(fill = scales::alpha(base_col, 0.18), col = NA)
+          )
+        }
+      }
+    } else if (!is.null(x$fill_style) && x$fill_style != "solid") {
       fill_segs <- sketch_fill(
         gx, gy,
         fill_style    = x$fill_style,
