@@ -105,6 +105,14 @@ reference:
     desc: Hand-drawn heatmaps over the calendar.
     contents:
       - geom_sketch_calendar
+  - title: Networks
+    desc: >
+      Hand-drawn graphs - roughened nodes and edges, placed by a pure-R
+      force-directed layout (no graph dependency required).
+    contents:
+      - geom_sketch_edge
+      - sketch_graph
+      - force_layout
   - title: Text, annotations, theme & fonts
     desc: >
       Handwriting text, the content-aware arrow / callout / hull-mark toolkit,

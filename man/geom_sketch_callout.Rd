@@ -104,6 +104,7 @@ Other sketch-geoms:
 \code{\link{GeomSketchCurve}},
 \code{\link{GeomSketchDotplot}},
 \code{\link{GeomSketchDumbbell}},
+\code{\link{GeomSketchEdge}},
 \code{\link{GeomSketchEllipse}},
 \code{\link{GeomSketchEngrave}},
 \code{\link{GeomSketchHex}},
@@ -144,7 +145,8 @@ Other sketch-geoms:
 \code{\link{geom_sketch_jitter}()},
 \code{\link{geom_sketch_qq}()},
 \code{\link{geom_sketch_quantile}()},
-\code{\link{geom_sketch_text}()}
+\code{\link{geom_sketch_text}()},
+\code{\link{sketch_graph}()}
 }
 \concept{sketch-geoms}
 \keyword{datasets}

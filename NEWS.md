@@ -116,6 +116,16 @@ simulator. This first piece is the engine that makes it possible.
   chooses Sunday or Monday on top), and tiles are drawn with `geom_sketch_tile()`
   (default `fill_style = "solid"` so the gradient reads). Facet on a year column
   for multiple years. No new dependencies.
+* **Flagship: hand-drawn networks.** `geom_sketch_node()` and
+  `geom_sketch_edge()` draw a graph the sketch way -- roughened node markers with
+  optional handwriting labels, and roughened (optionally curved, via `curvature`)
+  edges. `sketch_graph()` is the bridge: give it a two-column edge data frame (or
+  an `igraph` object) and it returns ready-to-plot `nodes` and `edges` frames,
+  positioning nodes with `force_layout()`, a from-scratch pure-R
+  Fruchterman-Reingold force-directed layout -- so the whole flagship needs **no
+  graph dependency**. `igraph` is an optional, guarded convenience for ingestion
+  only; extra edge/node columns are carried through as attributes you can map.
+  The layout is seeded and reproducible and never disturbs the global RNG.
 
 # ggsketch 1.8.0 (development)
 

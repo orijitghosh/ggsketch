@@ -29,6 +29,7 @@ Imports:
     withr (>= 2.5.0)
 Suggests:
     hexbin,
+    igraph,
     knitr,
     MASS,
     quantreg,
