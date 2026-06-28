@@ -37,6 +37,8 @@ Other sketch-core:
 \code{\link{rough_bezier}()},
 \code{\link{roughen_polyline}()},
 \code{\link{sketch_fill}()},
-\code{\link{sketch_fill_multi}()}
+\code{\link{sketch_fill_multi}()},
+\code{\link{stroke_profile}()},
+\code{\link{stroke_ribbon}()}
 }
 \concept{sketch-core}

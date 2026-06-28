@@ -56,6 +56,7 @@ Other grob-layer:
 \code{\link{sketch_engrave_grob}()},
 \code{\link{sketch_path_grob}()},
 \code{\link{sketch_polygon_grob}()},
+\code{\link{sketch_stroke_grob}()},
 \code{\link{sketch_wedge_grob}()}
 }
 \concept{grob-layer}

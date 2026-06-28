@@ -1,3 +1,19 @@
+# ggsketch 2.0.0 (development)
+
+The 2.0 series turns ggsketch from a *line style* into a *drawing-medium*
+simulator. This first piece is the engine that makes it possible.
+
+* **Variable-width strokes (Layer 1 + Layer 2).** `stroke_ribbon()` builds a
+  hand-drawn stroke as a filled polygon ribbon offset around a centreline, so a
+  line can taper to a point, swell with pressure, or vary like a broad
+  calligraphic nib -- effects `grid` cannot produce with a constant-`lwd`
+  polyline. `stroke_profile()` supplies ready-made width profiles (`"taper_in"`,
+  `"taper_out"`, `"belly"`, `"flat"`), and `sketch_stroke_grob()` renders a path
+  as variable-width ribbons, re-roughening the centreline at device resolution
+  (with round or butt caps, optional width jitter for a dry edge, and a
+  `nib_angle` for calligraphy). This is the foundation the forthcoming media
+  (ink, brush, pencil, charcoal, calligraphy) are built on.
+
 # ggsketch 1.8.0 (development)
 
 * **Engraving: tonal shading by line density.** A new module shades by the
