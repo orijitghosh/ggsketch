@@ -101,6 +101,10 @@ reference:
     contents:
       - geom_sketch_waffle
       - geom_sketch_treemap
+  - title: Calendar & time
+    desc: Hand-drawn heatmaps over the calendar.
+    contents:
+      - geom_sketch_calendar
   - title: Text, annotations, theme & fonts
     desc: >
       Handwriting text, the content-aware arrow / callout / hull-mark toolkit,

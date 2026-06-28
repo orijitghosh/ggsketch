@@ -109,6 +109,13 @@ simulator. This first piece is the engine that makes it possible.
   `"zero"` for a normal stacked area, or `"wiggle"` to minimise the slope), and
   each band is drawn as a roughened ribbon (any `fill_style`, including
   `"watercolor"`). No new dependencies (cf. `ggstream::geom_stream()`).
+* **New chart family: `geom_sketch_calendar()`.** A hand-drawn calendar heatmap
+  in the GitHub-contributions style -- one roughened tile per day, laid out as
+  weeks (columns) and weekdays (rows), coloured by a value. Map `date` and
+  `fill`; a new `StatSketchCalendar` builds the week/weekday grid (`week_start`
+  chooses Sunday or Monday on top), and tiles are drawn with `geom_sketch_tile()`
+  (default `fill_style = "solid"` so the gradient reads). Facet on a year column
+  for multiple years. No new dependencies.
 
 # ggsketch 1.8.0 (development)
 

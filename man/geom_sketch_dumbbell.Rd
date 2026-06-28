@@ -112,6 +112,7 @@ Other sketch-geoms:
 \code{\link{GeomSketchSpoke}},
 \code{\link{GeomSketchViolin}},
 \code{\link{StatSketchBeeswarm}},
+\code{\link{StatSketchCalendar}},
 \code{\link{StatSketchDensityRidges}},
 \code{\link{StatSketchPie}},
 \code{\link{StatSketchStream}},

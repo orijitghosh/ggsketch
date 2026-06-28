@@ -114,6 +114,7 @@ Other sketch-geoms:
 \code{\link{GeomSketchSmooth}},
 \code{\link{GeomSketchSpoke}},
 \code{\link{StatSketchBeeswarm}},
+\code{\link{StatSketchCalendar}},
 \code{\link{StatSketchDensityRidges}},
 \code{\link{StatSketchPie}},
 \code{\link{StatSketchStream}},

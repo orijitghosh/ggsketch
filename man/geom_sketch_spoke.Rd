@@ -108,6 +108,7 @@ Other sketch-geoms:
 \code{\link{GeomSketchSmooth}},
 \code{\link{GeomSketchViolin}},
 \code{\link{StatSketchBeeswarm}},
+\code{\link{StatSketchCalendar}},
 \code{\link{StatSketchDensityRidges}},
 \code{\link{StatSketchPie}},
 \code{\link{StatSketchStream}},
