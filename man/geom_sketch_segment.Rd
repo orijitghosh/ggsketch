@@ -25,6 +25,7 @@ geom_sketch_segment(
   bowing = 1,
   n_passes = 2L,
   seed = NULL,
+  medium = "pen",
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -43,6 +44,7 @@ geom_sketch_step(
   bowing = 1,
   n_passes = 2L,
   seed = NULL,
+  medium = "pen",
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -69,6 +71,11 @@ with \code{aes(roughness = )}, rescaled by \code{\link[=scale_roughness_continuo
 \item{n_passes}{Number of stroke passes. Default 2.}
 
 \item{seed}{Integer seed. \code{NULL} uses \code{getOption("ggsketch.seed", 1L)}.}
+
+\item{medium}{Drawing medium for the stroke: one of \code{\link[=sketch_media]{sketch_media()}}. The
+default \code{"pen"} is the classic constant-width double stroke; the others
+(\code{"ink"}, \code{"brush"}, \code{"pencil"}, \code{"charcoal"}, \code{"marker"}, \code{"crayon"})
+render through the variable-width \code{\link[=stroke_ribbon]{stroke_ribbon()}} engine.}
 
 \item{na.rm}{Remove missing values silently? Default \code{FALSE}.}
 

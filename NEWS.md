@@ -13,6 +13,14 @@ simulator. This first piece is the engine that makes it possible.
   (with round or butt caps, optional width jitter for a dry edge, and a
   `nib_angle` for calligraphy). This is the foundation the forthcoming media
   (ink, brush, pencil, charcoal, calligraphy) are built on.
+* **Drawing media on the path geoms.** A new `medium` argument selects how a line
+  is laid down: `"pen"` (the default -- the classic constant-width double stroke,
+  unchanged), or `"ink"`, `"brush"`, `"pencil"`, `"charcoal"`, `"marker"`,
+  `"crayon"`, which render through the variable-width engine -- tapered ink,
+  brushy belly swells, grainy multi-pass pencil/charcoal, translucent marker,
+  waxy crayon. Available on `geom_sketch_line()`, `geom_sketch_path()`,
+  `geom_sketch_segment()`, and `geom_sketch_step()`; `sketch_media()` lists the
+  options. Existing plots are unaffected (the default stays `"pen"`).
 
 # ggsketch 1.8.0 (development)
 

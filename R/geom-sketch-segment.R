@@ -23,15 +23,16 @@ GeomSketchSegment <- ggplot2::ggproto(
 
   # roughness is a mappable aesthetic (per segment); the rest stay layer params.
   parameters = function(self, extra = FALSE) {
-    c("bowing", "n_passes", "seed", "na.rm")
+    c("bowing", "n_passes", "seed", "medium", "na.rm")
   },
 
   draw_panel = function(data, panel_params, coord,
                          roughness = 1, bowing = 1, n_passes = 2L,
-                         seed = NULL, ...) {
+                         seed = NULL, medium = "pen", ...) {
     if (nrow(data) == 0L) return(nullGrob())
 
     sp <- resolve_sketch_params(roughness, bowing, n_passes, seed)
+    check_medium(medium)
 
     grobs <- lapply(seq_len(nrow(data)), function(i) {
       row  <- data[i, , drop = FALSE]
@@ -39,15 +40,14 @@ GeomSketchSegment <- ggplot2::ggproto(
         data.frame(x = c(row$x, row$xend), y = c(row$y, row$yend)),
         panel_params
       )
-      sketch_path_grob(
+      sketch_medium_grob(
         x = pts$x, y = pts$y,
+        medium = medium,
+        colour = row$colour, linewidth = row$linewidth,
+        linetype = row$linetype, alpha = row$alpha,
         roughness = max(row$roughness, 0), bowing = sp$bowing,
         n_passes = sp$n_passes,
-        seed = seed_offset(sp$seed, i * 53L),
-        gp = outline_gpar(
-          colour = row$colour, linewidth = row$linewidth,
-          linetype = row$linetype, alpha = row$alpha
-        )
+        seed = seed_offset(sp$seed, i * 53L)
       )
     })
     do.call(gList, grobs)
@@ -74,6 +74,10 @@ GeomSketchSegment <- ggplot2::ggproto(
 #' @param bowing Non-negative bowing multiplier. Default 1.
 #' @param n_passes Number of stroke passes. Default 2.
 #' @param seed Integer seed. `NULL` uses `getOption("ggsketch.seed", 1L)`.
+#' @param medium Drawing medium for the stroke: one of [sketch_media()]. The
+#'   default `"pen"` is the classic constant-width double stroke; the others
+#'   (`"ink"`, `"brush"`, `"pencil"`, `"charcoal"`, `"marker"`, `"crayon"`)
+#'   render through the variable-width [stroke_ribbon()] engine.
 #' @param na.rm Remove missing values silently? Default `FALSE`.
 #' @param show.legend Logical; include in legend?
 #' @param inherit.aes Override default aesthetics?
@@ -97,13 +101,14 @@ geom_sketch_segment <- function(mapping     = NULL,
                                  bowing      = 1,
                                  n_passes    = 2L,
                                  seed        = NULL,
+                                 medium      = "pen",
                                  na.rm       = FALSE,
                                  show.legend = NA,
                                  inherit.aes = TRUE) {
   # roughness is a mappable aesthetic: only push a constant when supplied.
   params <- list(
     bowing = bowing, n_passes = as.integer(n_passes),
-    seed = seed, na.rm = na.rm, ...
+    seed = seed, medium = medium, na.rm = na.rm, ...
   )
   if (!is.null(roughness)) params$roughness <- roughness
   ggplot2::layer(
@@ -152,28 +157,28 @@ GeomSketchStep <- ggplot2::ggproto(
   draw_key = draw_key_sketch_path,
 
   parameters = function(self, extra = FALSE) {
-    c("roughness", "bowing", "n_passes", "seed", "direction", "na.rm")
+    c("roughness", "bowing", "n_passes", "seed", "direction", "medium", "na.rm")
   },
 
   draw_group = function(data, panel_params, coord,
                          roughness = 1, bowing = 1, n_passes = 2L,
-                         seed = NULL, direction = "hv", ...) {
+                         seed = NULL, direction = "hv", medium = "pen", ...) {
     if (nrow(data) < 2L) return(nullGrob())
 
     data <- data[order(data$x), , drop = FALSE]
     step <- stairstep(data$x, data$y, direction = direction)
     pts  <- coord$transform(step, panel_params)
     sp   <- resolve_sketch_params(roughness, bowing, n_passes, seed)
+    check_medium(medium)
     first <- data[1L, , drop = FALSE]
 
-    sketch_path_grob(
+    sketch_medium_grob(
       x = pts$x, y = pts$y,
+      medium = medium,
+      colour = first$colour, linewidth = first$linewidth,
+      linetype = first$linetype, alpha = first$alpha,
       roughness = sp$roughness, bowing = sp$bowing, n_passes = sp$n_passes,
-      seed = sp$seed,
-      gp = outline_gpar(
-        colour = first$colour, linewidth = first$linewidth,
-        linetype = first$linetype, alpha = first$alpha
-      )
+      seed = sp$seed
     )
   }
 )
@@ -192,6 +197,7 @@ geom_sketch_step <- function(mapping     = NULL,
                               bowing      = 1,
                               n_passes    = 2L,
                               seed        = NULL,
+                              medium      = "pen",
                               na.rm       = FALSE,
                               show.legend = NA,
                               inherit.aes = TRUE) {
@@ -201,7 +207,7 @@ geom_sketch_step <- function(mapping     = NULL,
     params = list(
       direction = direction,
       roughness = roughness, bowing = bowing, n_passes = as.integer(n_passes),
-      seed = seed, na.rm = na.rm, ...
+      seed = seed, medium = medium, na.rm = na.rm, ...
     )
   )
 }

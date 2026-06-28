@@ -21,6 +21,7 @@ geom_sketch_path(
   bowing = 1,
   n_passes = 2L,
   seed = NULL,
+  medium = "pen",
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -46,6 +47,12 @@ Default 2.}
 
 \item{seed}{Integer seed for reproducibility. \code{NULL} uses
 \code{getOption("ggsketch.seed", 1L)}.}
+
+\item{medium}{Drawing medium for the stroke: one of \code{\link[=sketch_media]{sketch_media()}}
+(\code{"pen"}, \code{"ink"}, \code{"brush"}, \code{"pencil"}, \code{"charcoal"}, \code{"marker"},
+\code{"crayon"}). The default \code{"pen"} is the classic constant-width double
+stroke; the others render through the variable-width \code{\link[=stroke_ribbon]{stroke_ribbon()}}
+engine (tapered ink, brushy swells, grainy pencil/charcoal, ...).}
 
 \item{na.rm}{If \code{FALSE} (default), missing values are removed with a warning.}
 

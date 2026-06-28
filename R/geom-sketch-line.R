@@ -21,25 +21,25 @@ GeomSketchPath <- ggplot2::ggproto(
 
   draw_group = function(data, panel_params, coord,
                          roughness = 1, bowing = 1, n_passes = 2L,
-                         seed = NULL, ...) {
+                         seed = NULL, medium = "pen", ...) {
     if (nrow(data) < 2L) return(nullGrob())
 
     coords <- coord$transform(data, panel_params)
     sp     <- resolve_sketch_params(roughness, bowing, n_passes, seed)
+    check_medium(medium)
 
-    sketch_path_grob(
+    sketch_medium_grob(
       x         = coords$x,
       y         = coords$y,
+      medium    = medium,
+      colour    = coords$colour[1L],
+      linewidth = coords$linewidth[1L],
+      linetype  = coords$linetype[1L],
+      alpha     = coords$alpha[1L],
       roughness = sp$roughness,
       bowing    = sp$bowing,
       n_passes  = sp$n_passes,
-      seed      = sp$seed,
-      gp        = outline_gpar(
-        colour    = coords$colour[1L],
-        linewidth = coords$linewidth[1L],
-        linetype  = coords$linetype[1L],
-        alpha     = coords$alpha[1L]
-      )
+      seed      = sp$seed
     )
   }
 )
@@ -61,6 +61,11 @@ GeomSketchPath <- ggplot2::ggproto(
 #'   Default 2.
 #' @param seed Integer seed for reproducibility. `NULL` uses
 #'   `getOption("ggsketch.seed", 1L)`.
+#' @param medium Drawing medium for the stroke: one of [sketch_media()]
+#'   (`"pen"`, `"ink"`, `"brush"`, `"pencil"`, `"charcoal"`, `"marker"`,
+#'   `"crayon"`). The default `"pen"` is the classic constant-width double
+#'   stroke; the others render through the variable-width [stroke_ribbon()]
+#'   engine (tapered ink, brushy swells, grainy pencil/charcoal, ...).
 #' @param na.rm If `FALSE` (default), missing values are removed with a warning.
 #' @param show.legend Logical. Should this layer be included in the legend?
 #' @param inherit.aes If `FALSE`, override the default aesthetics.
@@ -81,6 +86,7 @@ geom_sketch_path <- function(mapping     = NULL,
                                bowing      = 1,
                                n_passes    = 2L,
                                seed        = NULL,
+                               medium      = "pen",
                                na.rm       = FALSE,
                                show.legend = NA,
                                inherit.aes = TRUE) {
@@ -94,7 +100,7 @@ geom_sketch_path <- function(mapping     = NULL,
     inherit.aes = inherit.aes,
     params      = list(
       roughness = roughness, bowing = bowing, n_passes = as.integer(n_passes),
-      seed = seed, na.rm = na.rm, ...
+      seed = seed, medium = medium, na.rm = na.rm, ...
     )
   )
 }
@@ -108,7 +114,7 @@ GeomSketchLine <- ggplot2::ggproto(
 
   draw_panel = function(data, panel_params, coord,
                          roughness = 1, bowing = 1, n_passes = 2L,
-                         seed = NULL, ...) {
+                         seed = NULL, medium = "pen", ...) {
     # Sort by x (like geom_line) then delegate to GeomSketchPath$draw_group
     data  <- data[order(data$x), , drop = FALSE]
     # Split by group, call draw_group on each
@@ -118,7 +124,7 @@ GeomSketchLine <- ggplot2::ggproto(
       GeomSketchPath$draw_group(
         data[idx, , drop = FALSE], panel_params, coord,
         roughness = roughness, bowing = bowing,
-        n_passes  = n_passes,
+        n_passes  = n_passes, medium = medium,
         seed      = seed_offset(resolve_seed(seed), gi * 37L),
         ...
       )
@@ -148,6 +154,7 @@ geom_sketch_line <- function(mapping     = NULL,
                                bowing      = 1,
                                n_passes    = 2L,
                                seed        = NULL,
+                               medium      = "pen",
                                na.rm       = FALSE,
                                show.legend = NA,
                                inherit.aes = TRUE) {
@@ -161,7 +168,7 @@ geom_sketch_line <- function(mapping     = NULL,
     inherit.aes = inherit.aes,
     params      = list(
       roughness = roughness, bowing = bowing, n_passes = as.integer(n_passes),
-      seed = seed, na.rm = na.rm, ...
+      seed = seed, medium = medium, na.rm = na.rm, ...
     )
   )
 }
