@@ -78,3 +78,85 @@ test_that("polygon-fill geoms render with fill_style = 'watercolor'", {
   expect_no_error(print(p1))
   expect_no_error(print(p2))
 })
+
+# ---- watercolor_wash_multi (hole-aware) -------------------------------------
+
+test_that("watercolor_wash_multi returns n_layers, each a list of rings", {
+  outer <- list(x = c(0, 4, 4, 0), y = c(0, 0, 4, 4))
+  hole  <- list(x = c(1, 3, 3, 1), y = c(1, 1, 3, 3))
+  w <- watercolor_wash_multi(list(outer, hole), n_layers = 5L, seed = 1L)
+  expect_length(w$washes, 5L)
+  # each layer carries one matrix per input ring
+  expect_true(all(vapply(w$washes, length, integer(1L)) == 2L))
+  expect_equal(colnames(w$washes[[1L]][[1L]]), c("x", "y"))
+})
+
+test_that("multi granulation specks avoid holes (even-odd membership)", {
+  outer <- list(x = c(0, 6, 6, 0), y = c(0, 0, 6, 6))
+  hole  <- list(x = c(2, 4, 4, 2), y = c(2, 2, 4, 4))
+  w <- watercolor_wash_multi(list(outer, hole), granulation = 0.8, seed = 2L)
+  expect_false(is.null(w$granules))
+  in_hole <- point_in_polygon(w$granules$x, w$granules$y, hole$x, hole$y)
+  expect_false(any(in_hole))
+})
+
+test_that("watercolor_wash_multi is reproducible and seed-safe", {
+  rings <- list(list(x = c(0, 4, 4, 0), y = c(0, 0, 4, 4)))
+  set.seed(3L); before <- .Random.seed
+  a <- watercolor_wash_multi(rings, granulation = 0.5, seed = 9L)
+  b <- watercolor_wash_multi(rings, granulation = 0.5, seed = 9L)
+  expect_identical(a, b)
+  expect_identical(.Random.seed, before)
+})
+
+test_that("degenerate / empty ring set yields no wash", {
+  expect_length(watercolor_wash_multi(list(), seed = 1L)$washes, 0L)
+  thin <- list(list(x = c(0, 1), y = c(0, 1)))
+  expect_length(watercolor_wash_multi(thin, seed = 1L)$washes, 0L)
+})
+
+# ---- ellipse + band grob integration ----------------------------------------
+
+test_that("sketch_ellipse_grob paints washes for watercolor", {
+  grDevices::pdf(NULL); on.exit(grDevices::dev.off())
+  grid::pushViewport(grid::viewport(width = grid::unit(4, "in"),
+                                    height = grid::unit(4, "in")))
+  g <- sketch_ellipse_grob(
+    x = 0.5, y = 0.5, rx = 0.3, ry = 0.3,
+    fill_style = "watercolor",
+    fill_gp = grid::gpar(col = "darkorange"),
+    outline_gp = grid::gpar(col = "darkorange"), seed = 1L
+  )
+  cls <- vapply(grid::makeContent(g)$children, function(z) class(z)[1L], "")
+  expect_true(sum(grepl("polygon", cls)) >= 6L)
+  grid::popViewport()
+})
+
+test_that("sketch_band_grob paints hole-aware washes for watercolor", {
+  grDevices::pdf(NULL); on.exit(grDevices::dev.off())
+  grid::pushViewport(grid::viewport(width = grid::unit(4, "in"),
+                                    height = grid::unit(4, "in")))
+  rings <- list(list(x = c(0.1, 0.9, 0.9, 0.1), y = c(0.1, 0.1, 0.9, 0.9)),
+                list(x = c(0.4, 0.6, 0.6, 0.4), y = c(0.4, 0.4, 0.6, 0.6)))
+  g <- sketch_band_grob(rings, fill_col = "seagreen", fill_style = "watercolor",
+                        outline_gp = grid::gpar(col = "seagreen"), seed = 1L)
+  cls <- vapply(grid::makeContent(g)$children, function(z) class(z)[1L], "")
+  expect_true(sum(grepl("pathgrob|path", cls)) >= 6L)  # one even-odd path/layer
+  grid::popViewport()
+})
+
+test_that("ellipse-backed geom renders with watercolor fill", {
+  grDevices::pdf(NULL); on.exit(grDevices::dev.off())
+  df <- data.frame(x = 1, y = 1, r = 0.4)
+  p <- ggplot2::ggplot(df, ggplot2::aes(x = x, y = y, r = r)) +
+    geom_sketch_circle(fill = "tomato", fill_style = "watercolor", seed = 1L)
+  expect_no_error(print(p))
+})
+
+test_that("band-backed geom (contour_filled) renders with watercolor fill", {
+  grDevices::pdf(NULL); on.exit(grDevices::dev.off())
+  p <- ggplot2::ggplot(ggplot2::faithfuld,
+                       ggplot2::aes(waiting, eruptions, z = density)) +
+    geom_sketch_contour_filled(fill_style = "watercolor", seed = 1L)
+  expect_no_error(ggplot2::ggplot_build(p))
+})

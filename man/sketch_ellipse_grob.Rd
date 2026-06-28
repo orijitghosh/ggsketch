@@ -32,7 +32,8 @@ sketch_ellipse_grob(
 \item{roughness, n_passes, seed}{Sketch parameters.}
 
 \item{fill_style, hachure_angle, hachure_gap, fill_weight}{Fill parameters; set
-\code{fill_style = NULL} or \code{"solid"} for outline only.}
+\code{fill_style = NULL} or \code{"solid"} for outline only. \code{"watercolor"} paints
+translucent stacked washes.}
 
 \item{fill_roughness}{Roughness of the fill strokes. \code{NULL} (default) ties it
 to the outline as \code{roughness * 0.4}; set a number to control the fill

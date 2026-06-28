@@ -294,7 +294,8 @@ makeContent.SketchPolygonGrob <- function(x) {
 #' @param rx,ry Numeric npc radii (vectors, recycled to `x`).
 #' @param roughness,n_passes,seed Sketch parameters.
 #' @param fill_style,hachure_angle,hachure_gap,fill_weight Fill parameters; set
-#'   `fill_style = NULL` or `"solid"` for outline only.
+#'   `fill_style = NULL` or `"solid"` for outline only. `"watercolor"` paints
+#'   translucent stacked washes.
 #' @param fill_roughness Roughness of the fill strokes. `NULL` (default) ties it
 #'   to the outline as `roughness * 0.4`; set a number to control the fill
 #'   texture independently of the outline.
@@ -351,7 +352,9 @@ makeContent.SketchEllipseGrob <- function(x) {
   rough_ <- rep(as.numeric(x$roughness), length.out = n)  # per-shape (mappable)
 
   children <- list()
-  do_fill  <- !is.null(x$fill_style) && !identical(x$fill_style, "solid")
+  do_water <- identical(x$fill_style, "watercolor")
+  do_fill  <- !is.null(x$fill_style) && !identical(x$fill_style, "solid") &&
+              !do_water
   do_solid <- identical(x$fill_style, "solid")
 
   for (i in seq_len(n)) {
@@ -378,7 +381,33 @@ makeContent.SketchEllipseGrob <- function(x) {
     )
 
     # --- fill ---
-    if (do_fill) {
+    if (do_water) {
+      # Translucent stacked washes on a clean ellipse boundary.
+      base_col <- fill_gp_i$col
+      if (length(base_col) && !is.na(base_col)) {
+        th <- seq(0, 2 * pi, length.out = 64L)
+        bx <- cx[i] + rx[i] * cos(th)
+        by <- cy[i] + ry[i] * sin(th)
+        wash <- watercolor_wash(
+          bx, by, granulation = 0.4, seed = seed_offset(fill_base, 1000L)
+        )
+        layer_alpha <- 0.13
+        for (poly in wash$washes) {
+          children[[length(children) + 1L]] <- polygonGrob(
+            x  = unit(poly[, "x"], "inches"), y = unit(poly[, "y"], "inches"),
+            gp = gpar(fill = scales::alpha(base_col, layer_alpha), col = NA)
+          )
+        }
+        if (!is.null(wash$granules)) {
+          gr <- wash$granules
+          children[[length(children) + 1L]] <- circleGrob(
+            x  = unit(gr$x, "inches"), y = unit(gr$y, "inches"),
+            r  = unit(gr$r, "inches"),
+            gp = gpar(fill = scales::alpha(base_col, 0.18), col = NA)
+          )
+        }
+      }
+    } else if (do_fill) {
       # a clean ellipse boundary fed to the scan-line filler
       th   <- seq(0, 2 * pi, length.out = 64L)
       bx   <- cx[i] + rx[i] * cos(th)
@@ -851,7 +880,8 @@ makeContent.SketchCalloutGrob <- function(x) {
 #' @param rings A list of rings, each a list with npc \[0,1\] `x` and `y` vertex
 #'   vectors. The even-odd arrangement of outer pieces and holes is honoured.
 #' @param roughness,bowing,n_passes,seed Sketch parameters for the outlines.
-#' @param fill_style `"solid"` (default), `"hachure"`, or `"cross_hatch"`.
+#' @param fill_style `"solid"` (default), `"hachure"`, `"cross_hatch"`, or
+#'   `"watercolor"` (hole-aware translucent washes).
 #' @param hachure_angle,hachure_gap,fill_weight Fill parameters (`hachure_gap`
 #'   is an npc fraction).
 #' @param fill_col Fill colour (`NA` leaves the region empty).
@@ -916,11 +946,38 @@ makeContent.SketchBandGrob <- function(x) {
   })
 
   children <- list()
-  do_solid <- is.null(x$fill_style) || identical(x$fill_style, "solid")
+  do_water <- identical(x$fill_style, "watercolor")
+  do_solid <- !do_water && (is.null(x$fill_style) ||
+                            identical(x$fill_style, "solid"))
   has_fill <- length(x$fill_col) && !is.na(x$fill_col)
 
   # --- fill ---
-  if (has_fill && do_solid) {
+  if (has_fill && do_water) {
+    # Hole-aware translucent washes: each layer is every ring, painted as one
+    # even-odd path so holes stay empty.
+    wash <- watercolor_wash_multi(
+      rings_in, granulation = 0.4, seed = seed_offset(x$seed, 1000L)
+    )
+    layer_alpha <- 0.13
+    for (layer in wash$washes) {
+      fx <- unlist(lapply(layer, function(m) m[, "x"]))
+      fy <- unlist(lapply(layer, function(m) m[, "y"]))
+      id <- rep(seq_along(layer), vapply(layer, nrow, integer(1L)))
+      children[[length(children) + 1L]] <- pathGrob(
+        x = unit(fx, "inches"), y = unit(fy, "inches"), id = id,
+        rule = "evenodd",
+        gp = gpar(fill = scales::alpha(x$fill_col, layer_alpha), col = NA)
+      )
+    }
+    if (!is.null(wash$granules)) {
+      gr <- wash$granules
+      children[[length(children) + 1L]] <- circleGrob(
+        x  = unit(gr$x, "inches"), y = unit(gr$y, "inches"),
+        r  = unit(gr$r, "inches"),
+        gp = gpar(fill = scales::alpha(x$fill_col, 0.18), col = NA)
+      )
+    }
+  } else if (has_fill && do_solid) {
     # Even-odd polygon fill across all (roughened) rings keeps holes empty.
     fx <- unlist(lapply(passes_by_ring, function(p) p[[1L]][, "x"]))
     fy <- unlist(lapply(passes_by_ring, function(p) p[[1L]][, "y"]))

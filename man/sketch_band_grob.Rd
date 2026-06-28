@@ -26,7 +26,8 @@ vectors. The even-odd arrangement of outer pieces and holes is honoured.}
 
 \item{roughness, bowing, n_passes, seed}{Sketch parameters for the outlines.}
 
-\item{fill_style}{\code{"solid"} (default), \code{"hachure"}, or \code{"cross_hatch"}.}
+\item{fill_style}{\code{"solid"} (default), \code{"hachure"}, \code{"cross_hatch"}, or
+\code{"watercolor"} (hole-aware translucent washes).}
 
 \item{hachure_angle, hachure_gap, fill_weight}{Fill parameters (\code{hachure_gap}
 is an npc fraction).}

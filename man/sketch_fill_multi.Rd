@@ -56,6 +56,7 @@ Other sketch-core:
 \code{\link{sketch_fill}()},
 \code{\link{stroke_profile}()},
 \code{\link{stroke_ribbon}()},
-\code{\link{watercolor_wash}()}
+\code{\link{watercolor_wash}()},
+\code{\link{watercolor_wash_multi}()}
 }
 \concept{sketch-core}

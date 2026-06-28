@@ -37,8 +37,13 @@ simulator. This first piece is the engine that makes it possible.
   specks reads as pigment granulation. Overlapping shapes blend wet-on-wet. It
   works on every polygon-fill geom (`geom_sketch_polygon()`, `geom_sketch_area()`,
   `geom_sketch_col()` / `bar()`, `geom_sketch_rect()` / `tile()`,
-  `geom_sketch_violin()`, `geom_sketch_boxplot()`, ...). Powered by a new Layer-1
-  `watercolor_wash()`. Everything is vector, so it reproduces on every device.
+  `geom_sketch_violin()`, `geom_sketch_boxplot()`, `geom_sketch_ridgeline()`,
+  ...), on the ellipse/circle geoms (`geom_sketch_circle()`, the `mark_circle` /
+  `mark_ellipse` family), and on the hole-aware band geoms
+  (`geom_sketch_contour_filled()`, `geom_sketch_density_2d_filled()`) where the
+  washes respect holes via a new Layer-1 `watercolor_wash_multi()`. Powered by a
+  new Layer-1 `watercolor_wash()`. Everything is vector, so it reproduces on
+  every device.
 * **`coord_sketch()`.** A drop-in replacement for `coord_cartesian()` that draws
   the *frame* hand-drawn -- the panel gridlines and axis ticks become roughened
   sketch grobs -- under *any* theme, not only `theme_sketch()`. It reuses
