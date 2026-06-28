@@ -88,6 +88,13 @@ simulator. This first piece is the engine that makes it possible.
   back-to-front so nearer ones sit on top. Powered by a new
   `StatSketchDensityRidges`; no new dependencies (cf.
   `ggridges::geom_density_ridges()`).
+* **New chart family: `geom_sketch_waffle()`.** A hand-drawn waffle chart -- a
+  square grid (default 10x10 = 100 cells) where the number of cells of each
+  colour reads as that category's share of the whole. Map the category to `fill`
+  and (for summarised data) a count to `weight`; cells are tallied by a new
+  `StatSketchWaffle` (largest-remainder rounding) and drawn with
+  `geom_sketch_tile()`, so they take the roughened outline and any `fill_style`
+  (including `"watercolor"`). No new dependencies (cf. `waffle::geom_waffle()`).
 
 # ggsketch 1.8.0 (development)
 

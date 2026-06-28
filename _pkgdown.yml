@@ -95,6 +95,10 @@ reference:
     desc: Hand-drawn part-to-whole charts that stay round on any panel shape.
     contents:
       - geom_sketch_pie
+  - title: Part-to-whole
+    desc: Square and nested part-to-whole charts.
+    contents:
+      - geom_sketch_waffle
   - title: Text, annotations, theme & fonts
     desc: >
       Handwriting text, the content-aware arrow / callout / hull-mark toolkit,
