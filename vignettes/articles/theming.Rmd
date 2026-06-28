@@ -1,8 +1,9 @@
 ---
 title: "Theming & fonts"
 description: >
-  theme_sketch() light and dark presets, the muted colour palette, and optional
-  handwriting fonts.
+  theme_sketch() light and dark presets, textured paper grounds, the matching
+  sketch colour palette, hand-drawn frames (rough gridlines and coords), and
+  optional handwriting fonts.
 ---
 
 ```{r setup, include = FALSE}
@@ -43,6 +44,110 @@ ggplot(sales, aes(product, units, fill = product)) +
 
 On a dark background, give the geoms a light outline `colour` (e.g. `"grey85"`)
 so the rough strokes read clearly.
+
+## The sketch palette
+
+`scale_colour_sketch()` / `scale_fill_sketch()` apply a muted qualitative palette
+(`sketch_palette()`) tuned for the hand-drawn look; the `*_sketch_c()` variants
+give a continuous ink-on-paper gradient.
+
+```{r palette}
+ggplot(mpg, aes(displ, hwy, colour = drv)) +
+  geom_sketch_point(size = 2.5, seed = 1L) +
+  scale_colour_sketch() +
+  labs(title = "scale_colour_sketch()") +
+  theme_sketch()
+```
+
+```{r palette-c}
+ggplot(faithful, aes(eruptions, waiting, colour = waiting)) +
+  geom_sketch_point(size = 2.5, seed = 1L) +
+  scale_colour_sketch_c() +
+  labs(title = "scale_colour_sketch_c()") +
+  theme_sketch()
+```
+
+## Textured paper
+
+`theme_sketch(paper = )` draws the panel on a textured ground. `sketch_papers()`
+lists them; dark grounds (blueprint, chalkboard) flip the text and grid to a
+light ink automatically.
+
+```{r papers}
+sketch_papers()
+```
+
+```{r paper-notebook}
+ggplot(sales, aes(product, units, fill = product)) +
+  geom_sketch_col(seed = 1L, show.legend = FALSE) +
+  scale_fill_sketch() +
+  labs(title = "paper = \"notebook\"", x = NULL) +
+  theme_sketch(paper = "notebook")
+```
+
+```{r paper-blueprint}
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_sketch_point(colour = "white", seed = 1L) +
+  labs(title = "paper = \"blueprint\"") +
+  theme_sketch(paper = "blueprint")
+```
+
+For finer control, drop a paper onto any single theme element with
+`element_sketch_paper()`:
+
+```{r paper-element}
+ggplot(faithful, aes(eruptions, waiting)) +
+  geom_sketch_point(colour = "#1F618D", seed = 1L) +
+  theme_sketch() +
+  theme(panel.background = element_sketch_paper("graph"))
+```
+
+## A hand-drawn frame
+
+By default the gridlines, panel border, and ticks stay crisp.
+`rough_frame = TRUE` roughens them to match the marks:
+
+```{r rough-frame}
+ggplot(sales, aes(product, units)) +
+  geom_sketch_col(fill = "#7BAFD4", seed = 1L) +
+  labs(title = "rough_frame = TRUE", x = NULL) +
+  theme_sketch(rough_frame = TRUE, seed = 1L)
+```
+
+Those are real theme elements — `element_sketch_line()` and
+`element_sketch_rect()` — so you can roughen individual elements and tune their
+`roughness`, `bowing`, and `seed`:
+
+```{r element-sketch}
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_sketch_point(seed = 1L) +
+  theme_sketch() +
+  theme(
+    panel.grid.major = element_sketch_line(roughness = 0.8, seed = 7L),
+    axis.ticks       = element_sketch_line(roughness = 0.6, seed = 8L)
+  )
+```
+
+`coord_sketch()` roughens the frame under *any* theme — even a non-sketch one —
+and `coord_sketch_polar()` does the same for circular plots:
+
+```{r coord-sketch}
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_sketch_point(seed = 1L) +
+  labs(title = "coord_sketch() under theme_bw()") +
+  coord_sketch(seed = 1L) +
+  theme_bw()
+```
+
+```{r coord-polar}
+rose <- data.frame(g = c("a", "b", "c", "d", "e", "f"), v = c(3, 5, 2, 4, 6, 3))
+ggplot(rose, aes(g, v, fill = g)) +
+  geom_sketch_col(seed = 1L, show.legend = FALSE) +
+  scale_fill_sketch() +
+  coord_sketch_polar(seed = 1L) +
+  labs(title = "coord_sketch_polar()", x = NULL, y = NULL) +
+  theme_sketch()
+```
 
 ## Base size and the rest of the grammar
 

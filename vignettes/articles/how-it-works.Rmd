@@ -26,6 +26,10 @@ sketch parameters and return roughened coordinates — no grid, no ggplot2, no
 drawing. This is where the rough.js *algorithms* are reimplemented in original R:
 point roughening, cubic-Bézier sampling, ellipse generation, and an
 Active-Edge-Table scan-line filler for hachure (including concave polygons).
+ggsketch 2.0 adds more pure-geometry modules in the same spirit —
+variable-width stroke ribbons (`stroke_ribbon()`), watercolour washes
+(`watercolor_wash()`), paper textures (`paper_primitives()`), and a squarified
+treemap layout (`treemap_layout()`).
 
 You can call them directly:
 

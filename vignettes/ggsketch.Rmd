@@ -88,7 +88,8 @@ ggplot(bars, aes(x, y)) +
 ```
 
 The available styles are `"hachure"`, `"cross_hatch"`, `"zigzag"`,
-`"zigzag_line"`, `"dots"`, `"dashed"`, and `"solid"`.
+`"zigzag_line"`, `"scribble"`, `"dots"`, `"dashed"`, and `"solid"` — plus a
+painted `"watercolor"` wash.
 
 ## Composing like any ggplot2 layer
 
@@ -111,6 +112,17 @@ ggplot(mtcars, aes(wt, mpg)) +
                   fill = NA, colour = "#FFD166", seed = 2L) +
   theme_sketch(dark = TRUE)
 ```
+
+## Beyond the basics
+
+ggsketch covers far more than bars and lines: distribution geoms (violin,
+ridgeline, beeswarm, boxplot), part-to-whole charts (pie, waffle, treemap),
+streamgraphs, calendar heatmaps, an engraving / tonal-shading family, and a
+content-aware annotation toolkit (arrows, callouts, brackets, hull marks). The
+drawing look extends too — pencil / ink / brush / charcoal **media**,
+**watercolour** fills, textured **paper** grounds, and hand-drawn **coords**. The
+gallery shows every geom; the other articles cover fill styles, theming, and the
+shared sketch controls in depth.
 
 ## Where the look comes from
 

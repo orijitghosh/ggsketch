@@ -89,6 +89,28 @@ for (n in c(1, 2, 4)) {
 }
 ```
 
+## `medium` (line geoms)
+
+The line family — `geom_sketch_line()`, `geom_sketch_path()`,
+`geom_sketch_segment()`, `geom_sketch_step()` — also takes a `medium`, which sets
+*how* the stroke is laid down: a tapering pencil, a wet ink line, a broad brush,
+charcoal, marker, or crayon. `sketch_media()` lists them.
+
+```{r medium}
+for (m in c("pencil", "ink", "brush", "charcoal")) {
+  print(
+    ggplot(d, aes(x, y)) +
+      geom_sketch_line(medium = m, linewidth = 1.2, seed = 2L) +
+      labs(subtitle = paste("medium =", m)) +
+      theme_sketch(base_size = 9)
+  )
+}
+```
+
+You can also *map* `medium` to a variable with `scale_medium_discrete()` (see the
+gallery). The default, `"pen"`, reproduces the classic constant-width sketch line,
+so existing plots are unchanged.
+
 ## `seed` — reproducible wobble
 
 The sketch is random, but **seeded**. A given `seed` always produces the same
