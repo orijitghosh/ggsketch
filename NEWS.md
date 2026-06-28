@@ -95,6 +95,13 @@ simulator. This first piece is the engine that makes it possible.
   `StatSketchWaffle` (largest-remainder rounding) and drawn with
   `geom_sketch_tile()`, so they take the roughened outline and any `fill_style`
   (including `"watercolor"`). No new dependencies (cf. `waffle::geom_waffle()`).
+* **New chart family: `geom_sketch_treemap()`.** A hand-drawn treemap -- nested
+  rectangles tiling a square, each with area proportional to a value, so the
+  biggest categories take the most space. Map the value to `area`, the category
+  to `fill`, and optionally `label` to write a name in each tile. Rectangles are
+  placed by a new Layer-1 squarified algorithm (`treemap_layout()`, exported) and
+  drawn with the roughened rect look, so they take any `fill_style`. No new
+  dependencies (cf. `treemapify::geom_treemap()`).
 
 # ggsketch 1.8.0 (development)
 

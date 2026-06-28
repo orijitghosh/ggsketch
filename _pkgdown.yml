@@ -99,6 +99,7 @@ reference:
     desc: Square and nested part-to-whole charts.
     contents:
       - geom_sketch_waffle
+      - geom_sketch_treemap
   - title: Text, annotations, theme & fonts
     desc: >
       Handwriting text, the content-aware arrow / callout / hull-mark toolkit,

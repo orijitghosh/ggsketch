@@ -33,6 +33,7 @@ Other sketch-core:
 \code{\link{sketch_fill}()},
 \code{\link{sketch_fill_multi}()},
 \code{\link{stroke_ribbon}()},
+\code{\link{treemap_layout}()},
 \code{\link{watercolor_wash}()},
 \code{\link{watercolor_wash_multi}()}
 }
