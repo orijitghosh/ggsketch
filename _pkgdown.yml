@@ -53,6 +53,7 @@ reference:
       - geom_sketch_ecdf
       - geom_sketch_violin
       - geom_sketch_boxplot
+      - geom_sketch_beeswarm
       - geom_sketch_bin2d
       - geom_sketch_hex
   - title: Contours & 2-D density

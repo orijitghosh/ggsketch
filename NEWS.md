@@ -54,6 +54,13 @@ simulator. This first piece is the engine that makes it possible.
   `group` across an ordered x with a dot at each vertex -- a sketch slopegraph
   for before/after rank changes. Both reuse the existing stroke and point grobs,
   so they need no new dependencies.
+* **New chart family: `geom_sketch_beeswarm()`.** A hand-drawn beeswarm
+  (dot-strip) plot -- at each categorical `x` the points are nudged sideways so
+  they no longer overlap, so the width of the swarm reads as the local density of
+  `y`. The offset is computed deterministically in data space (no device metrics,
+  fully reproducible) and the dots are drawn with `geom_sketch_point()`, so they
+  keep the usual wobble. `width` widens the swarm; `binwidth` / `nbins` control
+  the `y` rows. No new dependencies (cf. `ggbeeswarm::geom_beeswarm()`).
 
 # ggsketch 1.8.0 (development)
 
