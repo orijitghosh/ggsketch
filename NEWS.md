@@ -46,6 +46,14 @@ simulator. This first piece is the engine that makes it possible.
   drawn, so limits, expansion, and clipping behave exactly like
   `coord_cartesian()`. `rough_grid` / `rough_ticks` toggle each element; combine
   with `theme_sketch(rough_frame = TRUE)` to roughen the panel border too.
+* **New chart families: `geom_sketch_dumbbell()` and `geom_sketch_slope()`.** Two
+  hand-drawn comparison charts. `geom_sketch_dumbbell()` draws a roughened
+  connector from `x` to `xend` on a shared `y`, capped with a sketch dot at each
+  end (separate `colour_x` / `colour_xend`), for showing the gap between two
+  paired values per category. `geom_sketch_slope()` draws one roughened line per
+  `group` across an ordered x with a dot at each vertex -- a sketch slopegraph
+  for before/after rank changes. Both reuse the existing stroke and point grobs,
+  so they need no new dependencies.
 
 # ggsketch 1.8.0 (development)
 

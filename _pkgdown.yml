@@ -40,6 +40,11 @@ reference:
       - geom_sketch_col
       - geom_sketch_rect
       - geom_sketch_lollipop
+  - title: Comparisons & change
+    desc: Paired and ranked values — gaps, before/after, and rate of change.
+    contents:
+      - geom_sketch_dumbbell
+      - geom_sketch_slope
   - title: Distributions
     contents:
       - geom_sketch_histogram
