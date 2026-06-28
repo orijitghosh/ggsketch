@@ -22,6 +22,7 @@ purely cosmetic (ADR-0005).
 }
 \seealso{
 Other sketch-theme: 
+\code{\link{CoordSketch}},
 \code{\link{element_sketch_line}()},
 \code{\link{register_sketch_font}()},
 \code{\link{scale_roughness_continuous}()},

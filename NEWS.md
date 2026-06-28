@@ -39,6 +39,13 @@ simulator. This first piece is the engine that makes it possible.
   `geom_sketch_col()` / `bar()`, `geom_sketch_rect()` / `tile()`,
   `geom_sketch_violin()`, `geom_sketch_boxplot()`, ...). Powered by a new Layer-1
   `watercolor_wash()`. Everything is vector, so it reproduces on every device.
+* **`coord_sketch()`.** A drop-in replacement for `coord_cartesian()` that draws
+  the *frame* hand-drawn -- the panel gridlines and axis ticks become roughened
+  sketch grobs -- under *any* theme, not only `theme_sketch()`. It reuses
+  ggplot2's own gridline and axis layout and only swaps how those elements are
+  drawn, so limits, expansion, and clipping behave exactly like
+  `coord_cartesian()`. `rough_grid` / `rough_ticks` toggle each element; combine
+  with `theme_sketch(rough_frame = TRUE)` to roughen the panel border too.
 
 # ggsketch 1.8.0 (development)
 

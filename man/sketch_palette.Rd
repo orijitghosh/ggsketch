@@ -21,6 +21,7 @@ sketch_palette(4)
 }
 \seealso{
 Other sketch-theme: 
+\code{\link{CoordSketch}},
 \code{\link{element_sketch_line}()},
 \code{\link{ggsketch_check_fonts}()},
 \code{\link{register_sketch_font}()},
