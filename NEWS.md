@@ -58,6 +58,12 @@ simulator. This first piece is the engine that makes it possible.
   drawn, so limits, expansion, and clipping behave exactly like
   `coord_cartesian()`. `rough_grid` / `rough_ticks` toggle each element; combine
   with `theme_sketch(rough_frame = TRUE)` to roughen the panel border too.
+* **`coord_sketch_polar()`.** The polar companion to `coord_sketch()` -- a
+  drop-in replacement for `coord_polar()` that draws the circular grid
+  hand-drawn (wobbly concentric rings and radial spokes), so rose / circular bar
+  charts get a frame that matches the marks under any theme. Like
+  `coord_sketch()` it reuses ggplot2's polar layout and only swaps how the grid
+  is drawn (`theta`, `start`, `direction` behave as in `coord_polar()`).
 * **New chart families: `geom_sketch_dumbbell()` and `geom_sketch_slope()`.** Two
   hand-drawn comparison charts. `geom_sketch_dumbbell()` draws a roughened
   connector from `x` to `xend` on a shared `y`, capped with a sketch dot at each

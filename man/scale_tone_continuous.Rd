@@ -57,6 +57,7 @@ ggplot(regions, aes(x, y, group = g)) +
 \seealso{
 Other sketch-theme: 
 \code{\link{CoordSketch}},
+\code{\link{CoordSketchPolar}},
 \code{\link{element_sketch_line}()},
 \code{\link{ggsketch_check_fonts}()},
 \code{\link{register_sketch_font}()},

@@ -50,3 +50,49 @@ test_that("coord_sketch renders under theme_sketch too", {
     theme_sketch()
   expect_no_error(print(p))
 })
+
+# ---- coord_sketch_polar -----------------------------------------------------
+
+polar_df <- function() data.frame(g = c("a", "b", "c", "d"), v = c(3, 5, 2, 4))
+
+test_that("coord_sketch_polar builds a CoordPolar-derived coord", {
+  co <- coord_sketch_polar(seed = 1L)
+  expect_s3_class(co, "CoordSketchPolar")
+  expect_s3_class(co, "CoordPolar")
+  expect_true(co$sketch$grid)
+  expect_identical(co$theta, "x")
+  expect_identical(co$r, "y")
+})
+
+test_that("coord_sketch_polar roughens the polar grid under a plain theme", {
+  grDevices::pdf(NULL); on.exit(grDevices::dev.off())
+  p <- ggplot2::ggplot(polar_df(), ggplot2::aes(g, v, fill = g)) +
+    geom_sketch_col(seed = 1L) +
+    coord_sketch_polar(seed = 1L) +
+    ggplot2::theme_grey()
+  gt <- ggplot2::ggplotGrob(p)
+  expect_true("SketchPathGrob" %in% grob_classes(gt))
+  expect_no_error(grid::grid.draw(gt))
+})
+
+test_that("rough_grid = FALSE leaves the polar grid crisp", {
+  grDevices::pdf(NULL); on.exit(grDevices::dev.off())
+  p <- ggplot2::ggplot(polar_df(), ggplot2::aes(g, v, fill = g)) +
+    geom_sketch_col(seed = 1L) +
+    coord_sketch_polar(rough_grid = FALSE, seed = 1L) +
+    ggplot2::theme_grey()
+  gt <- ggplot2::ggplotGrob(p)
+  expect_false("SketchPathGrob" %in% grob_classes(gt))
+})
+
+test_that("coord_sketch_polar honours theta = 'y' and renders under theme_sketch", {
+  grDevices::pdf(NULL); on.exit(grDevices::dev.off())
+  co <- coord_sketch_polar(theta = "y")
+  expect_identical(co$theta, "y")
+  expect_identical(co$r, "x")
+  p <- ggplot2::ggplot(polar_df(), ggplot2::aes(g, v, fill = g)) +
+    geom_sketch_col(seed = 1L) +
+    coord_sketch_polar(seed = 1L) +
+    theme_sketch()
+  expect_no_error(print(p))
+})

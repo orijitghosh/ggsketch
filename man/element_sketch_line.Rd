@@ -68,6 +68,7 @@ ggplot(mtcars, aes(wt, mpg)) +
 \seealso{
 Other sketch-theme: 
 \code{\link{CoordSketch}},
+\code{\link{CoordSketchPolar}},
 \code{\link{ggsketch_check_fonts}()},
 \code{\link{register_sketch_font}()},
 \code{\link{scale_roughness_continuous}()},

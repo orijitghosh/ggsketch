@@ -125,6 +125,8 @@ reference:
       matching paper-and-ink colour palette.
     contents:
       - element_sketch_line
+      - coord_sketch
+      - coord_sketch_polar
       - scale_sketch
       - scale_roughness_continuous
       - sketch_palette

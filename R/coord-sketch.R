@@ -129,3 +129,83 @@ coord_sketch <- function(xlim        = NULL,
     )
   )
 }
+
+# ---- coord_sketch_polar() ---------------------------------------------------
+
+#' @rdname coord_sketch_polar
+#' @format NULL
+#' @usage NULL
+#' @export
+CoordSketchPolar <- ggplot2::ggproto(
+  "CoordSketchPolar", ggplot2::CoordPolar,
+
+  render_bg = function(self, panel_params, theme) {
+    if (isTRUE(self$sketch$grid)) {
+      base  <- resolve_seed(self$sketch$seed)
+      theme <- sketchify_line_element(theme, "panel.grid.major", self$sketch,
+                                      seed_offset(base, 11L))
+      theme <- sketchify_line_element(theme, "panel.grid.minor", self$sketch,
+                                      seed_offset(base, 29L))
+    }
+    ggplot2::ggproto_parent(ggplot2::CoordPolar, self)$render_bg(
+      panel_params, theme
+    )
+  }
+)
+
+#' A hand-drawn polar coordinate system
+#'
+#' The polar companion to [coord_sketch()]: a drop-in replacement for
+#' [ggplot2::coord_polar()] that draws the circular grid hand-drawn. The radial
+#' and angular gridlines are rendered as roughened sketch grobs, so pie/rose
+#' charts and circular bar plots get a frame that matches the marks -- under any
+#' theme. It reuses all of ggplot2's polar layout and only swaps how the grid is
+#' drawn.
+#'
+#' @param theta Variable mapped to angle (`"x"` or `"y"`). Default `"x"`.
+#' @param start Offset of the starting point, in radians. Default 0.
+#' @param direction `1` clockwise, `-1` anticlockwise. Default 1.
+#' @param clip Should drawing be clipped to the panel (`"on"`, default) or not
+#'   (`"off"`)?
+#' @param roughness,bowing,n_passes Sketch parameters for the grid. Gentle
+#'   defaults suited to gridlines (`0.5`, `0.5`, `2`).
+#' @param seed Integer seed for reproducible wobble. `NULL` uses
+#'   `getOption("ggsketch.seed", 1L)`.
+#' @param rough_grid Roughen the gridlines? Default `TRUE`.
+#' @return A `ggproto` Coord object to add to a plot.
+#' @family sketch-theme
+#' @export
+#' @examples
+#' library(ggplot2)
+#' df <- data.frame(g = c("a", "b", "c", "d"), v = c(3, 5, 2, 4))
+#' # A hand-drawn circular bar (rose) chart:
+#' ggplot(df, aes(g, v, fill = g)) +
+#'   geom_sketch_col(seed = 1L) +
+#'   coord_sketch_polar(seed = 1L) +
+#'   theme_sketch()
+coord_sketch_polar <- function(theta      = "x",
+                               start      = 0,
+                               direction  = 1,
+                               clip       = "on",
+                               roughness  = 0.5,
+                               bowing     = 0.5,
+                               n_passes   = 2L,
+                               seed       = NULL,
+                               rough_grid = TRUE) {
+  theta <- match.arg(theta, c("x", "y"))
+  r     <- if (theta == "x") "y" else "x"
+  ggplot2::ggproto(NULL, CoordSketchPolar,
+    theta     = theta,
+    r         = r,
+    start     = start,
+    direction = sign(direction),
+    clip      = clip,
+    sketch    = list(
+      roughness = max(0, roughness),
+      bowing    = max(0, bowing),
+      n_passes  = as.integer(n_passes),
+      seed      = seed,
+      grid      = isTRUE(rough_grid)
+    )
+  )
+}
