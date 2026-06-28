@@ -119,6 +119,7 @@ Other sketch-geoms:
 \code{\link{StatSketchBeeswarm}},
 \code{\link{StatSketchDensityRidges}},
 \code{\link{StatSketchPie}},
+\code{\link{StatSketchStream}},
 \code{\link{StatSketchWaffle}},
 \code{\link{annotate_sketch}()},
 \code{\link{annotate_sketch_arrow}()},

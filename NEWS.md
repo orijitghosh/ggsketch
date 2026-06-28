@@ -102,6 +102,13 @@ simulator. This first piece is the engine that makes it possible.
   placed by a new Layer-1 squarified algorithm (`treemap_layout()`, exported) and
   drawn with the roughened rect look, so they take any `fill_style`. No new
   dependencies (cf. `treemapify::geom_treemap()`).
+* **New chart family: `geom_sketch_streamgraph()`.** A hand-drawn streamgraph
+  (ThemeRiver) -- a stacked area whose baseline floats so the coloured bands flow
+  around a moving centre. Map `x`, `y`, and `fill`; a new `StatSketchStream`
+  stacks the values and offsets the baseline (`offset = "silhouette"` centred,
+  `"zero"` for a normal stacked area, or `"wiggle"` to minimise the slope), and
+  each band is drawn as a roughened ribbon (any `fill_style`, including
+  `"watercolor"`). No new dependencies (cf. `ggstream::geom_stream()`).
 
 # ggsketch 1.8.0 (development)
 

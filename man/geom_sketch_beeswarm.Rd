@@ -112,6 +112,7 @@ Other sketch-geoms:
 \code{\link{GeomSketchViolin}},
 \code{\link{StatSketchDensityRidges}},
 \code{\link{StatSketchPie}},
+\code{\link{StatSketchStream}},
 \code{\link{StatSketchTreemap}},
 \code{\link{StatSketchWaffle}},
 \code{\link{annotate_sketch}()},

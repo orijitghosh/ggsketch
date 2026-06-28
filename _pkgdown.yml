@@ -78,6 +78,7 @@ reference:
     contents:
       - geom_sketch_polygon
       - geom_sketch_ribbon
+      - geom_sketch_streamgraph
       - geom_sketch_smooth
   - title: Intervals & uncertainty
     contents:
