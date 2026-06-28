@@ -12,6 +12,7 @@ theme_sketch(
   dark = FALSE,
   rough_frame = FALSE,
   roughness = 0.5,
+  paper = "none",
   seed = NULL
 )
 }
@@ -41,6 +42,13 @@ marks. Default \code{FALSE}.}
 
 \item{roughness}{Roughness for the rough frame (only used when
 \code{rough_frame = TRUE}). Default 0.5.}
+
+\item{paper}{Paper ground drawn behind the data: one of \code{\link[=sketch_papers]{sketch_papers()}}
+(\code{"none"} (default), \code{"notebook"}, \code{"graph"}, \code{"dotted"}, \code{"aged"},
+\code{"blueprint"}, \code{"chalkboard"}, \code{"kraft"}). A non-\code{"none"} paper paints a
+simulated texture as the panel background, recolours the plot ground and
+text to suit it (light text on the dark blueprint / chalkboard grounds), and
+suppresses the default gridlines where the paper supplies its own ruling.}
 
 \item{seed}{Integer seed for the rough frame, for reproducible wobble. \code{NULL}
 uses \code{getOption("ggsketch.seed", 1L)}.}

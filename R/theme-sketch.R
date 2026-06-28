@@ -126,6 +126,12 @@ sketch_font_candidates <- function() {
 #'   marks. Default `FALSE`.
 #' @param roughness Roughness for the rough frame (only used when
 #'   `rough_frame = TRUE`). Default 0.5.
+#' @param paper Paper ground drawn behind the data: one of [sketch_papers()]
+#'   (`"none"` (default), `"notebook"`, `"graph"`, `"dotted"`, `"aged"`,
+#'   `"blueprint"`, `"chalkboard"`, `"kraft"`). A non-`"none"` paper paints a
+#'   simulated texture as the panel background, recolours the plot ground and
+#'   text to suit it (light text on the dark blueprint / chalkboard grounds), and
+#'   suppresses the default gridlines where the paper supplies its own ruling.
 #' @param seed Integer seed for the rough frame, for reproducible wobble. `NULL`
 #'   uses `getOption("ggsketch.seed", 1L)`.
 #' @return A `ggplot2::theme` object.
@@ -144,8 +150,10 @@ theme_sketch <- function(base_size      = 11,
                           dark           = FALSE,
                           rough_frame    = FALSE,
                           roughness      = 0.5,
+                          paper          = "none",
                           seed           = NULL) {
   if (identical(base_family, "auto")) base_family <- resolve_sketch_font()
+  check_paper(paper)
 
   pal <- if (dark) {
     list(paper = "#1E1E24", ink = "#E8E6DF", ink_soft = "#B8B6AF",
@@ -210,6 +218,41 @@ theme_sketch <- function(base_size      = 11,
         roughness = roughness, bowing = roughness,
         seed = seed_offset(resolve_seed(seed), 4242L)
       )
+    )
+  }
+
+  if (!identical(paper, "none")) {
+    psp        <- paper_spec(paper)
+    has_ruling <- !is.null(psp$rule) || !is.null(psp$grid) || !is.null(psp$dots)
+    ink        <- if (isTRUE(psp$dark_ground)) psp$ink else pal$ink
+    ink_soft   <- if (isTRUE(psp$dark_ground)) scales::alpha(psp$ink, 0.72)
+                  else pal$ink_soft
+    border_col <- if (isTRUE(psp$dark_ground)) scales::alpha(psp$ink, 0.5)
+                  else pal$border
+
+    # Where the paper has its own ruling, drop the ggplot gridlines; otherwise
+    # keep a faint major grid tinted to the ground.
+    grid_major <- if (has_ruling) ggplot2::element_blank()
+                  else ggplot2::element_line(colour = scales::alpha(ink, 0.12),
+                                             linewidth = 0.3)
+
+    # Merge (not %+replace%) so text size/face from the base theme survive and
+    # only the colours/backgrounds change.
+    t <- t + ggplot2::theme(
+      panel.background  = element_sketch_paper(paper, seed = seed),
+      plot.background   = ggplot2::element_rect(fill = psp$ground, colour = NA),
+      legend.background = ggplot2::element_rect(fill = psp$ground, colour = NA),
+      legend.key        = ggplot2::element_rect(fill = NA, colour = NA),
+      panel.grid.major  = grid_major,
+      panel.grid.minor  = ggplot2::element_blank(),
+      axis.ticks        = ggplot2::element_line(colour = border_col),
+      axis.text         = ggplot2::element_text(colour = ink_soft),
+      axis.title        = ggplot2::element_text(colour = ink),
+      plot.title        = ggplot2::element_text(colour = ink),
+      plot.subtitle     = ggplot2::element_text(colour = ink_soft),
+      plot.caption      = ggplot2::element_text(colour = ink_soft),
+      legend.text       = ggplot2::element_text(colour = ink_soft),
+      legend.title      = ggplot2::element_text(colour = ink)
     )
   }
 

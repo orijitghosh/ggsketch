@@ -21,6 +21,15 @@ simulator. This first piece is the engine that makes it possible.
   waxy crayon. Available on `geom_sketch_line()`, `geom_sketch_path()`,
   `geom_sketch_segment()`, and `geom_sketch_step()`; `sketch_media()` lists the
   options. Existing plots are unaffected (the default stays `"pen"`).
+* **Paper / canvas grounds.** `theme_sketch(paper = )` paints a simulated paper
+  texture behind the data: `"notebook"` (blue rules + red margin), `"graph"`,
+  `"dotted"`, `"aged"` (warm ground with soft blotches), `"blueprint"` and
+  `"chalkboard"` (dark grounds that flip the text light), and `"kraft"`. The
+  ruling is spaced in physical inches so it looks right on any panel aspect, and
+  everything is drawn as vector primitives, so it reproduces on every device.
+  `element_sketch_paper()` is the underlying panel-background element (usable
+  directly in `theme()`), and `sketch_papers()` lists the grounds. The default
+  `"none"` leaves the theme unchanged.
 
 # ggsketch 1.8.0 (development)
 
