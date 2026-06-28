@@ -49,6 +49,7 @@ reference:
     contents:
       - geom_sketch_histogram
       - geom_sketch_density
+      - geom_sketch_ridgeline
       - geom_sketch_dotplot
       - geom_sketch_ecdf
       - geom_sketch_violin

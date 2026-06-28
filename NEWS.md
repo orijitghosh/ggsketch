@@ -61,6 +61,15 @@ simulator. This first piece is the engine that makes it possible.
   fully reproducible) and the dots are drawn with `geom_sketch_point()`, so they
   keep the usual wobble. `width` widens the swarm; `binwidth` / `nbins` control
   the `y` rows. No new dependencies (cf. `ggbeeswarm::geom_beeswarm()`).
+* **New chart family: `geom_sketch_ridgeline()`.** A hand-drawn ridgeline
+  (joyplot) -- a kernel density of `x` for each category on a discrete `y`,
+  raised to its own baseline so the ridges overlap and the changing shape of the
+  distribution is easy to compare. `scale` sets how far the tallest ridge rises
+  (values above 1 overlap), `rel_min_height` trims the tails, and the fill
+  honours every `fill_style` including `"watercolor"`. Ridges are drawn
+  back-to-front so nearer ones sit on top. Powered by a new
+  `StatSketchDensityRidges`; no new dependencies (cf.
+  `ggridges::geom_density_ridges()`).
 
 # ggsketch 1.8.0 (development)
 
