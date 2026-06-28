@@ -38,6 +38,29 @@ draw_key_sketch_path <- function(data, params, size) {
 
 #' @rdname draw_key_sketch
 #' @export
+draw_key_sketch_medium <- function(data, params, size) {
+  medium <- data$medium %||% params$medium %||% "pen"
+  if (!is.character(medium) || length(medium) != 1L ||
+      !medium %in% sketch_media()) {
+    medium <- "pen"
+  }
+  sketch_medium_grob(
+    x         = c(0.1, 0.4, 0.6, 0.9),
+    y         = c(0.5, 0.55, 0.45, 0.5),
+    medium    = medium,
+    colour    = data$colour %||% "black",
+    linewidth = data$linewidth %||% 0.5,
+    linetype  = data$linetype %||% 1,
+    alpha     = data$alpha,
+    roughness = params$roughness %||% 1,
+    bowing    = params$bowing %||% 1,
+    n_passes  = params$n_passes %||% 2L,
+    seed      = params$seed %||% 1L
+  )
+}
+
+#' @rdname draw_key_sketch
+#' @export
 draw_key_sketch_point <- function(data, params, size) {
   sketch_point_grob(
     x         = 0.5,

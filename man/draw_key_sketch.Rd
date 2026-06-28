@@ -3,11 +3,14 @@
 \name{draw_key_sketch}
 \alias{draw_key_sketch}
 \alias{draw_key_sketch_path}
+\alias{draw_key_sketch_medium}
 \alias{draw_key_sketch_point}
 \alias{draw_key_sketch_polygon}
 \title{Sketchy legend keys}
 \usage{
 draw_key_sketch_path(data, params, size)
+
+draw_key_sketch_medium(data, params, size)
 
 draw_key_sketch_point(data, params, size)
 

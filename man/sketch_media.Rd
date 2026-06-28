@@ -17,4 +17,8 @@ stroke; the others render through the variable-width \code{\link[=stroke_ribbon]
 \examples{
 sketch_media()
 }
+\seealso{
+Other sketch-media: 
+\code{\link{scale_medium_discrete}()}
+}
 \concept{sketch-media}

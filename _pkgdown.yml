@@ -112,6 +112,13 @@ reference:
       - theme_sketch
       - ggsketch_check_fonts
       - register_sketch_font
+  - title: Drawing media
+    desc: >
+      The `medium` system — how a stroke is laid down (pen, ink, brush, pencil,
+      charcoal, marker, crayon) — and its mappable scale.
+    contents:
+      - sketch_media
+      - scale_medium_discrete
   - title: Sketch frame & colour scales
     desc: >
       Hand-drawn theme elements (gridlines, panel border, axis ticks) and a

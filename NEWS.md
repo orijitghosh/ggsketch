@@ -44,6 +44,13 @@ simulator. This first piece is the engine that makes it possible.
   washes respect holes via a new Layer-1 `watercolor_wash_multi()`. Powered by a
   new Layer-1 `watercolor_wash()`. Everything is vector, so it reproduces on
   every device.
+* **`medium` is now a mappable aesthetic.** On the path-like geoms
+  (`geom_sketch_line()`, `geom_sketch_path()`, `geom_sketch_segment()`,
+  `geom_sketch_step()`) you can map a discrete variable with `aes(medium = )` to
+  draw each group (or each segment) in a different medium, and
+  `scale_medium_discrete()` chooses which media the levels map to. The legend
+  keys render in their own medium. Setting `medium` as a constant still works
+  exactly as before, and the default is unchanged (`"pen"`).
 * **`coord_sketch()`.** A drop-in replacement for `coord_cartesian()` that draws
   the *frame* hand-drawn -- the panel gridlines and axis ticks become roughened
   sketch grobs -- under *any* theme, not only `theme_sketch()`. It reuses

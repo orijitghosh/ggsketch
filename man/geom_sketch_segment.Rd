@@ -8,9 +8,9 @@
 \alias{geom_sketch_step}
 \title{Sketchy segment and step geoms}
 \format{
-An object of class \code{GeomSketchSegment} (inherits from \code{Geom}, \code{ggproto}, \code{gg}) of length 6.
+An object of class \code{GeomSketchSegment} (inherits from \code{Geom}, \code{ggproto}, \code{gg}) of length 7.
 
-An object of class \code{GeomSketchStep} (inherits from \code{Geom}, \code{ggproto}, \code{gg}) of length 6.
+An object of class \code{GeomSketchStep} (inherits from \code{Geom}, \code{ggproto}, \code{gg}) of length 7.
 }
 \usage{
 GeomSketchSegment
@@ -25,7 +25,7 @@ geom_sketch_segment(
   bowing = 1,
   n_passes = 2L,
   seed = NULL,
-  medium = "pen",
+  medium = NULL,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -44,7 +44,7 @@ geom_sketch_step(
   bowing = 1,
   n_passes = 2L,
   seed = NULL,
-  medium = "pen",
+  medium = NULL,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE

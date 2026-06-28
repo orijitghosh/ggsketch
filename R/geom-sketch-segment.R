@@ -11,6 +11,10 @@ GeomSketchSegment <- ggplot2::ggproto(
 
   required_aes = c("x", "y", "xend", "yend"),
 
+  # `medium` is mappable per segment (see GeomSketchPath); listing it suppresses
+  # the unknown-aesthetic warning when mapped.
+  optional_aes = "medium",
+
   default_aes = ggplot2::aes(
     colour    = "black",
     linewidth = 0.5,
@@ -19,7 +23,7 @@ GeomSketchSegment <- ggplot2::ggproto(
     roughness = 1
   ),
 
-  draw_key = draw_key_sketch_path,
+  draw_key = draw_key_sketch_medium,
 
   # roughness is a mappable aesthetic (per segment); the rest stay layer params.
   parameters = function(self, extra = FALSE) {
@@ -32,17 +36,19 @@ GeomSketchSegment <- ggplot2::ggproto(
     if (nrow(data) == 0L) return(nullGrob())
 
     sp <- resolve_sketch_params(roughness, bowing, n_passes, seed)
-    check_medium(medium)
 
     grobs <- lapply(seq_len(nrow(data)), function(i) {
       row  <- data[i, , drop = FALSE]
+      # a mapped `medium` aesthetic (per segment) overrides the layer param
+      med  <- if (!is.null(row$medium)) as.character(row$medium) else medium
+      check_medium(med)
       pts  <- coord$transform(
         data.frame(x = c(row$x, row$xend), y = c(row$y, row$yend)),
         panel_params
       )
       sketch_medium_grob(
         x = pts$x, y = pts$y,
-        medium = medium,
+        medium = med,
         colour = row$colour, linewidth = row$linewidth,
         linetype = row$linetype, alpha = row$alpha,
         roughness = max(row$roughness, 0), bowing = sp$bowing,
@@ -101,16 +107,18 @@ geom_sketch_segment <- function(mapping     = NULL,
                                  bowing      = 1,
                                  n_passes    = 2L,
                                  seed        = NULL,
-                                 medium      = "pen",
+                                 medium      = NULL,
                                  na.rm       = FALSE,
                                  show.legend = NA,
                                  inherit.aes = TRUE) {
-  # roughness is a mappable aesthetic: only push a constant when supplied.
+  # roughness and medium are mappable aesthetics: only push a constant when
+  # supplied, so they don't override an aes() mapping.
   params <- list(
     bowing = bowing, n_passes = as.integer(n_passes),
-    seed = seed, medium = medium, na.rm = na.rm, ...
+    seed = seed, na.rm = na.rm, ...
   )
   if (!is.null(roughness)) params$roughness <- roughness
+  if (!is.null(medium))    params$medium    <- medium
   ggplot2::layer(
     data = data, mapping = mapping, stat = stat, geom = GeomSketchSegment,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
@@ -147,6 +155,8 @@ GeomSketchStep <- ggplot2::ggproto(
 
   required_aes = c("x", "y"),
 
+  optional_aes = "medium",
+
   default_aes = ggplot2::aes(
     colour    = "black",
     linewidth = 0.5,
@@ -154,7 +164,7 @@ GeomSketchStep <- ggplot2::ggproto(
     alpha     = NA
   ),
 
-  draw_key = draw_key_sketch_path,
+  draw_key = draw_key_sketch_medium,
 
   parameters = function(self, extra = FALSE) {
     c("roughness", "bowing", "n_passes", "seed", "direction", "medium", "na.rm")
@@ -169,8 +179,9 @@ GeomSketchStep <- ggplot2::ggproto(
     step <- stairstep(data$x, data$y, direction = direction)
     pts  <- coord$transform(step, panel_params)
     sp   <- resolve_sketch_params(roughness, bowing, n_passes, seed)
-    check_medium(medium)
     first <- data[1L, , drop = FALSE]
+    medium <- if (!is.null(first$medium)) as.character(first$medium) else medium
+    check_medium(medium)
 
     sketch_medium_grob(
       x = pts$x, y = pts$y,
@@ -197,17 +208,19 @@ geom_sketch_step <- function(mapping     = NULL,
                               bowing      = 1,
                               n_passes    = 2L,
                               seed        = NULL,
-                              medium      = "pen",
+                              medium      = NULL,
                               na.rm       = FALSE,
                               show.legend = NA,
                               inherit.aes = TRUE) {
+  params <- list(
+    direction = direction,
+    roughness = roughness, bowing = bowing, n_passes = as.integer(n_passes),
+    seed = seed, na.rm = na.rm, ...
+  )
+  if (!is.null(medium)) params$medium <- medium
   ggplot2::layer(
     data = data, mapping = mapping, stat = stat, geom = GeomSketchStep,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(
-      direction = direction,
-      roughness = roughness, bowing = bowing, n_passes = as.integer(n_passes),
-      seed = seed, medium = medium, na.rm = na.rm, ...
-    )
+    params = params
   )
 }

@@ -10,6 +10,11 @@ GeomSketchPath <- ggplot2::ggproto(
 
   required_aes = c("x", "y"),
 
+  # `medium` is an optional, mappable aesthetic (one medium per group). Listing
+  # it here means a mapped `aes(medium = )` is recognised (no "unknown
+  # aesthetic" warning); when unmapped the `medium` layer param supplies it.
+  optional_aes = "medium",
+
   default_aes = ggplot2::aes(
     colour    = "black",
     linewidth = 0.5,
@@ -17,7 +22,7 @@ GeomSketchPath <- ggplot2::ggproto(
     alpha     = NA
   ),
 
-  draw_key = draw_key_sketch_path,
+  draw_key = draw_key_sketch_medium,
 
   draw_group = function(data, panel_params, coord,
                          roughness = 1, bowing = 1, n_passes = 2L,
@@ -26,6 +31,9 @@ GeomSketchPath <- ggplot2::ggproto(
 
     coords <- coord$transform(data, panel_params)
     sp     <- resolve_sketch_params(roughness, bowing, n_passes, seed)
+    # a mapped `medium` aesthetic (per group) overrides the layer param
+    medium <- if (!is.null(coords$medium)) as.character(coords$medium[1L])
+              else medium
     check_medium(medium)
 
     sketch_medium_grob(
@@ -63,9 +71,12 @@ GeomSketchPath <- ggplot2::ggproto(
 #'   `getOption("ggsketch.seed", 1L)`.
 #' @param medium Drawing medium for the stroke: one of [sketch_media()]
 #'   (`"pen"`, `"ink"`, `"brush"`, `"pencil"`, `"charcoal"`, `"marker"`,
-#'   `"crayon"`). The default `"pen"` is the classic constant-width double
-#'   stroke; the others render through the variable-width [stroke_ribbon()]
-#'   engine (tapered ink, brushy swells, grainy pencil/charcoal, ...).
+#'   `"crayon"`). `NULL` (default) uses `"pen"`, the classic constant-width
+#'   double stroke; the others render through the variable-width
+#'   [stroke_ribbon()] engine (tapered ink, brushy swells, grainy
+#'   pencil/charcoal, ...). `medium` is also a mappable aesthetic: map it with
+#'   `aes(medium = )` (one medium per group) and control the mapping with
+#'   [scale_medium_discrete()].
 #' @param na.rm If `FALSE` (default), missing values are removed with a warning.
 #' @param show.legend Logical. Should this layer be included in the legend?
 #' @param inherit.aes If `FALSE`, override the default aesthetics.
@@ -86,10 +97,17 @@ geom_sketch_path <- function(mapping     = NULL,
                                bowing      = 1,
                                n_passes    = 2L,
                                seed        = NULL,
-                               medium      = "pen",
+                               medium      = NULL,
                                na.rm       = FALSE,
                                show.legend = NA,
                                inherit.aes = TRUE) {
+  # `medium` is also a mappable aesthetic; only push it as a constant param when
+  # supplied, so it doesn't override an `aes(medium = )` mapping.
+  params <- list(
+    roughness = roughness, bowing = bowing, n_passes = as.integer(n_passes),
+    seed = seed, na.rm = na.rm, ...
+  )
+  if (!is.null(medium)) params$medium <- medium
   ggplot2::layer(
     data        = data,
     mapping     = mapping,
@@ -98,10 +116,7 @@ geom_sketch_path <- function(mapping     = NULL,
     position    = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params      = list(
-      roughness = roughness, bowing = bowing, n_passes = as.integer(n_passes),
-      seed = seed, medium = medium, na.rm = na.rm, ...
-    )
+    params      = params
   )
 }
 
@@ -154,10 +169,15 @@ geom_sketch_line <- function(mapping     = NULL,
                                bowing      = 1,
                                n_passes    = 2L,
                                seed        = NULL,
-                               medium      = "pen",
+                               medium      = NULL,
                                na.rm       = FALSE,
                                show.legend = NA,
                                inherit.aes = TRUE) {
+  params <- list(
+    roughness = roughness, bowing = bowing, n_passes = as.integer(n_passes),
+    seed = seed, na.rm = na.rm, ...
+  )
+  if (!is.null(medium)) params$medium <- medium
   ggplot2::layer(
     data        = data,
     mapping     = mapping,
@@ -166,9 +186,6 @@ geom_sketch_line <- function(mapping     = NULL,
     position    = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params      = list(
-      roughness = roughness, bowing = bowing, n_passes = as.integer(n_passes),
-      seed = seed, medium = medium, na.rm = na.rm, ...
-    )
+    params      = params
   )
 }

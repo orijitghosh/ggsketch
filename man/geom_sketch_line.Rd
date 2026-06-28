@@ -21,7 +21,7 @@ geom_sketch_line(
   bowing = 1,
   n_passes = 2L,
   seed = NULL,
-  medium = "pen",
+  medium = NULL,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -50,9 +50,12 @@ Default 2.}
 
 \item{medium}{Drawing medium for the stroke: one of \code{\link[=sketch_media]{sketch_media()}}
 (\code{"pen"}, \code{"ink"}, \code{"brush"}, \code{"pencil"}, \code{"charcoal"}, \code{"marker"},
-\code{"crayon"}). The default \code{"pen"} is the classic constant-width double
-stroke; the others render through the variable-width \code{\link[=stroke_ribbon]{stroke_ribbon()}}
-engine (tapered ink, brushy swells, grainy pencil/charcoal, ...).}
+\code{"crayon"}). \code{NULL} (default) uses \code{"pen"}, the classic constant-width
+double stroke; the others render through the variable-width
+\code{\link[=stroke_ribbon]{stroke_ribbon()}} engine (tapered ink, brushy swells, grainy
+pencil/charcoal, ...). \code{medium} is also a mappable aesthetic: map it with
+\code{aes(medium = )} (one medium per group) and control the mapping with
+\code{\link[=scale_medium_discrete]{scale_medium_discrete()}}.}
 
 \item{na.rm}{If \code{FALSE} (default), missing values are removed with a warning.}
 
