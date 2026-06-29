@@ -130,6 +130,7 @@ Other sketch-geoms:
 \code{\link[=geom_sketch_function]{geom_sketch_function()}},
 \code{\link[=geom_sketch_histogram]{geom_sketch_histogram()}},
 \code{\link[=geom_sketch_jitter]{geom_sketch_jitter()}},
+\code{\link[=geom_sketch_parallel]{geom_sketch_parallel()}},
 \code{\link[=geom_sketch_qq]{geom_sketch_qq()}},
 \code{\link[=geom_sketch_text]{geom_sketch_text()}},
 \code{\link[=sketch_graph]{sketch_graph()}}

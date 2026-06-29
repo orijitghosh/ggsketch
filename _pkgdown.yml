@@ -131,6 +131,10 @@ reference:
     desc: Categorical axes joined by frequency-weighted flows.
     contents:
       - geom_sketch_alluvial
+  - title: Parallel coordinates
+    desc: Numeric axes crossed by one roughened polyline per observation.
+    contents:
+      - geom_sketch_parallel
   - title: Motion
     desc: >
       Animate a sketch plot by re-seeding its wobble each frame - the

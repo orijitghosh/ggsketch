@@ -1171,6 +1171,23 @@ ggplot() +
   theme_void()
 ```
 
+## Parallel coordinates
+
+`geom_sketch_parallel()` draws several numeric columns as vertical axes and
+every observation as a roughened polyline crossing them. Axes scale
+independently; map `colour` to a grouping column.
+
+```{r parallel, fig.height = 4.6}
+ggplot() +
+  geom_sketch_parallel(iris,
+    axes = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"),
+    colour = "Species", alpha = 0.6, seed = 1L) +
+  scale_colour_sketch() +
+  labs(title = "Iris parallel coordinates") +
+  theme_void() +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
 ## Animation: boiling lines
 
 `animate_sketch()` animates a sketch plot two ways. `type = "boil"` re-renders

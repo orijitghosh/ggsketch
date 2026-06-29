@@ -167,6 +167,11 @@ simulator. This first piece is the engine that makes it possible.
   `"tb"`), as if a hand were drawing it on. Frames are stitched into a GIF when
   `gifski` or `magick` is installed (guarded Suggests, no new hard dependency);
   otherwise the frame paths are returned. Fully reproducible from `seed`.
+* **Parallel-coordinates plots.** `geom_sketch_parallel()` draws several numeric
+  columns as vertical axes and every observation as a roughened polyline
+  crossing them at its values. Give it the `axes` columns (in order); axes scale
+  independently to a common height by default, and `colour` maps a column to the
+  lines. No new dependencies (cf. `GGally::ggparcoord()`, `MASS::parcoord()`).
 
 # ggsketch 1.8.0 (development)
 
