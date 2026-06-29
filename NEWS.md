@@ -126,6 +126,15 @@ simulator. This first piece is the engine that makes it possible.
   graph dependency**. `igraph` is an optional, guarded convenience for ingestion
   only; extra edge/node columns are carried through as attributes you can map.
   The layout is seeded and reproducible and never disturbs the global RNG.
+* **Flagship: hand-drawn maps (`sf`).** `geom_sketch_sf()` is a sketch take on
+  `ggplot2::geom_sf()`: it roughens the boundaries of simple-features geometry in
+  one call -- `(MULTI)POLYGON` features get a hole-aware hachure (or any
+  `fill_style`), `(MULTI)LINESTRING` features become sketch paths, and
+  `(MULTI)POINT` features become sketch points. It extracts coordinates from the
+  `sf` object up front and draws ordinary sketch layers, so it sidesteps
+  `coord_sf()`/`stat_sf()` and plots in **planar coordinates** -- pre-project
+  lon/lat data with `sf::st_transform()` for a faithful map. `sf` is an optional,
+  guarded dependency (Suggests); it is only needed when you call this geom.
 
 # ggsketch 1.8.0 (development)
 

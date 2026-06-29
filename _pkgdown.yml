@@ -113,6 +113,12 @@ reference:
       - geom_sketch_edge
       - sketch_graph
       - force_layout
+  - title: Maps
+    desc: >
+      Hand-drawn simple-features (sf) maps - roughened polygon, line and point
+      geometry in one call (plots in planar coordinates).
+    contents:
+      - geom_sketch_sf
   - title: Text, annotations, theme & fonts
     desc: >
       Handwriting text, the content-aware arrow / callout / hull-mark toolkit,
