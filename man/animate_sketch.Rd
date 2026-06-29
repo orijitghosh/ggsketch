@@ -8,7 +8,8 @@ animate_sketch(
   plot,
   nframes = 12L,
   fps = 10,
-  type = c("boil"),
+  type = c("boil", "draw_on"),
+  direction = c("lr", "rl", "bt", "tb"),
   file = NULL,
   width = 7,
   height = 5,
@@ -28,7 +29,12 @@ animate_sketch(
 
 \item{fps}{Frames per second in the output GIF. Default 10.}
 
-\item{type}{Motion type. Currently only \code{"boil"}.}
+\item{type}{Motion type: \code{"boil"} (re-seed the wobble each frame so the whole
+drawing shimmers) or \code{"draw_on"} (progressively reveal the finished drawing
+behind a moving wipe, as if a hand were drawing it).}
+
+\item{direction}{For \code{type = "draw_on"}, the wipe direction: \code{"lr"}
+(left-to-right, default), \code{"rl"}, \code{"bt"} (bottom-to-top), or \code{"tb"}.}
 
 \item{file}{Output GIF path. If \code{NULL} (default), no GIF is written and the
 frame paths are returned invisibly.}

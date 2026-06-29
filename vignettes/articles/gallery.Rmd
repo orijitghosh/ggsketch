@@ -1173,10 +1173,12 @@ ggplot() +
 
 ## Animation: boiling lines
 
-`animate_sketch()` re-renders a plot many times, shifting every roughening seed
-per frame, so the whole drawing shimmers like a hand-animated cel. Frames are
-stitched into a GIF when **gifski** or **magick** is installed; otherwise the
-frame paths are returned. It boils any sketch plot with no change to its code.
+`animate_sketch()` animates a sketch plot two ways. `type = "boil"` re-renders
+it while shifting every roughening seed per frame, so the whole drawing shimmers
+like a hand-animated cel; `type = "draw_on"` reveals the finished drawing behind
+a moving wipe, as if a hand were drawing it on. Frames are stitched into a GIF
+when **gifski** or **magick** is installed; otherwise the frame paths are
+returned. It animates any sketch plot with no change to its code.
 
 ```{r animate, eval = requireNamespace("magick", quietly = TRUE) || requireNamespace("gifski", quietly = TRUE)}
 p <- ggplot(mpg, aes(class)) +
@@ -1189,6 +1191,15 @@ gif <- animate_sketch(p, nframes = 10, fps = 8,
                       file = knitr::fig_path(".gif"),
                       width = 6, height = 4, res = 110)
 knitr::include_graphics(gif)
+```
+
+And the same plot drawn on, left to right:
+
+```{r animate-drawon, eval = requireNamespace("magick", quietly = TRUE) || requireNamespace("gifski", quietly = TRUE)}
+drawn <- animate_sketch(p, type = "draw_on", nframes = 14, fps = 10,
+                        file = knitr::fig_path(".gif"),
+                        width = 6, height = 4, res = 110)
+knitr::include_graphics(drawn)
 ```
 
 ## Drawing media

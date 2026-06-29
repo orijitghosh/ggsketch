@@ -99,7 +99,11 @@ assemble_animation <- function(frames, file, fps, loop, renderer,
 #' @param plot A ggplot object using ggsketch geoms.
 #' @param nframes Number of frames. Default 12.
 #' @param fps Frames per second in the output GIF. Default 10.
-#' @param type Motion type. Currently only `"boil"`.
+#' @param type Motion type: `"boil"` (re-seed the wobble each frame so the whole
+#'   drawing shimmers) or `"draw_on"` (progressively reveal the finished drawing
+#'   behind a moving wipe, as if a hand were drawing it).
+#' @param direction For `type = "draw_on"`, the wipe direction: `"lr"`
+#'   (left-to-right, default), `"rl"`, `"bt"` (bottom-to-top), or `"tb"`.
 #' @param file Output GIF path. If `NULL` (default), no GIF is written and the
 #'   frame paths are returned invisibly.
 #' @param width,height,units,res Frame size and resolution, passed to the
@@ -125,7 +129,8 @@ assemble_animation <- function(frames, file, fps, loop, renderer,
 animate_sketch <- function(plot,
                            nframes    = 12L,
                            fps        = 10,
-                           type       = c("boil"),
+                           type       = c("boil", "draw_on"),
+                           direction  = c("lr", "rl", "bt", "tb"),
                            file       = NULL,
                            width      = 7,
                            height     = 5,
@@ -136,8 +141,9 @@ animate_sketch <- function(plot,
                            seed       = NULL,
                            renderer   = c("auto", "gifski", "magick", "none"),
                            loop       = TRUE) {
-  type     <- match.arg(type)
-  renderer <- match.arg(renderer)
+  type      <- match.arg(type)
+  direction <- match.arg(direction)
+  renderer  <- match.arg(renderer)
   if (!ggplot2::is.ggplot(plot)) {
     cli::cli_abort("{.arg plot} must be a {.cls ggplot} object.")
   }
@@ -152,25 +158,67 @@ animate_sketch <- function(plot,
 
   open_dev <- pick_png_device(device)
 
-  # Save and restore the jitter option (frame 1 == static render).
-  old_jit <- getOption("ggsketch.seed_jitter")
-  on.exit(options(ggsketch.seed_jitter = old_jit), add = TRUE)
-
-  for (f in seq_len(nframes)) {
-    # frame 1 -> jitter 0 (identical to the static render); later frames step
-    # every seed by a growing multiple of the stride.
-    options(ggsketch.seed_jitter = (f - 1L) * .boil_stride)
-    open_dev(frames[f], width, height, units, res, background)
-    ok <- tryCatch({ print(plot); TRUE },
-                   error = function(e) { grDevices::dev.off(); stop(e) })
-    grDevices::dev.off()
+  if (type == "boil") {
+    # Save and restore the jitter option (frame 1 == static render).
+    old_jit <- getOption("ggsketch.seed_jitter")
+    on.exit(options(ggsketch.seed_jitter = old_jit), add = TRUE)
+    for (f in seq_len(nframes)) {
+      # frame 1 -> jitter 0 (identical to the static render); later frames step
+      # every seed by a growing multiple of the stride.
+      options(ggsketch.seed_jitter = (f - 1L) * .boil_stride)
+      open_dev(frames[f], width, height, units, res, background)
+      tryCatch(print(plot), error = function(e) { grDevices::dev.off(); stop(e) })
+      grDevices::dev.off()
+    }
+    options(ggsketch.seed_jitter = old_jit)
+  } else {
+    # draw_on: the wobble is fixed (built once); each frame reveals a growing
+    # fraction of the finished drawing behind a moving clip wipe.
+    grb    <- ggplot2::ggplotGrob(plot)
+    canvas <- grob_canvas(grb, background)
+    for (f in seq_len(nframes)) {
+      reveal <- f / nframes
+      open_dev(frames[f], width, height, units, res, background)
+      tryCatch(draw_reveal(grb, reveal, direction, canvas),
+               error = function(e) { grDevices::dev.off(); stop(e) })
+      grDevices::dev.off()
+    }
   }
-  options(ggsketch.seed_jitter = old_jit)
 
   width_px  <- if (units == "px") width  else round(width  * res / dev_per_inch(units))
   height_px <- if (units == "px") height else round(height * res / dev_per_inch(units))
 
   assemble_animation(frames, file, fps, loop, renderer, width_px, height_px)
+}
+
+# Pull the plot's canvas (plot.background) colour out of a built ggplotGrob, so
+# the reveal mask matches the drawing's own ground rather than a guessed colour.
+grob_canvas <- function(grob, fallback) {
+  bg <- tryCatch(grob$grobs[[which(grob$layout$name == "background")[1L]]],
+                 error = function(e) NULL)
+  fill <- bg$gp$fill %||% NULL
+  if (is.null(fill) || length(fill) != 1L || is.na(fill)) fallback else fill
+}
+
+# Draw `grob` revealing only `reveal` (0..1) of it. ggplot panels render with
+# `clip = "off"`, so an outer clip viewport does not hold; instead the whole grob
+# is drawn and the not-yet-revealed slice is painted over with an opaque rect in
+# the plot's own canvas colour - a wipe that works regardless of panel clipping.
+draw_reveal <- function(grob, reveal, direction, canvas) {
+  reveal <- max(min(reveal, 1), 0)
+  grid::grid.newpage()
+  grid::grid.draw(grob)
+  if (reveal >= 1) return(invisible())
+  hide <- 1 - reveal
+  mask_gp <- grid::gpar(fill = canvas, col = NA)
+  rect <- switch(direction,
+    lr = grid::rectGrob(x = reveal, width = hide, just = "left",  gp = mask_gp),
+    rl = grid::rectGrob(x = 0,      width = hide, just = "left",  gp = mask_gp),
+    bt = grid::rectGrob(y = 1,      height = hide, just = "top",   gp = mask_gp),
+    tb = grid::rectGrob(y = 0,      height = hide, just = "bottom", gp = mask_gp)
+  )
+  grid::grid.draw(rect)
+  invisible()
 }
 
 # inches-per-unit so we can convert device size to pixels for the GIF encoder

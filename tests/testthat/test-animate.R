@@ -53,6 +53,32 @@ test_that("animate_sketch restores the jitter option afterwards", {
   unlink(dirname(frames[1]), recursive = TRUE)
 })
 
+test_that("draw_on returns one frame per frame, each revealing more", {
+  p <- ggplot2::ggplot(ggplot2::economics, ggplot2::aes(date, unemploy)) +
+    geom_sketch_line(seed = 1L)
+  frames <- animate_sketch(p, type = "draw_on", nframes = 4, renderer = "none",
+                           width = 3, height = 2, res = 72)
+  expect_length(frames, 4L)
+  expect_true(all(file.exists(frames)))
+  expect_equal(length(unique(tools::md5sum(frames))), 4L)  # progressive reveal
+  unlink(dirname(frames[1]), recursive = TRUE)
+})
+
+test_that("draw_on accepts every wipe direction", {
+  p <- ggplot2::ggplot(mtcars, ggplot2::aes(wt, mpg)) +
+    geom_sketch_point(seed = 1L)
+  for (d in c("lr", "rl", "bt", "tb")) {
+    frames <- animate_sketch(p, type = "draw_on", direction = d, nframes = 2,
+                             renderer = "none", width = 3, height = 2, res = 72)
+    expect_length(frames, 2L)
+    unlink(dirname(frames[1]), recursive = TRUE)
+  }
+})
+
+test_that("grob_canvas falls back when no background fill is found", {
+  expect_equal(ggsketch:::grob_canvas(list(), "white"), "white")
+})
+
 test_that("writing a GIF works when a renderer is present", {
   skip_if_not(requireNamespace("gifski", quietly = TRUE) ||
               requireNamespace("magick", quietly = TRUE))
