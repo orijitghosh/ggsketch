@@ -28,9 +28,11 @@ Imports:
     scales (>= 1.2.0),
     withr (>= 2.5.0)
 Suggests:
+    gifski,
     hexbin,
     igraph,
     knitr,
+    magick,
     MASS,
     quantreg,
     ragg,

@@ -156,6 +156,15 @@ simulator. This first piece is the engine that makes it possible.
   (default: the first axis); flows get raised-cosine edges and any `fill_style`.
   It draws in ordinary x/y space -- pair with `theme_void()`. No new
   dependencies (cf. `ggalluvial`, `ggsankey`).
+* **Motion: boiling lines.** `animate_sketch()` renders a sketch plot many times
+  while shifting every roughening seed per frame, so the whole drawing shimmers
+  and re-draws itself like a hand-animated cel (the "boiling line" effect). The
+  shift rides on a new global `ggsketch.seed_jitter` option that `resolve_seed()`
+  adds to *every* resolved seed -- explicit or inherited -- so a plot boils with
+  no change to its code, and frame 1 reproduces the static render exactly. Frames
+  are stitched into a GIF when `gifski` or `magick` is installed (guarded
+  Suggests, no new hard dependency); otherwise the frame paths are returned. The
+  animation is fully reproducible from `seed`.
 
 # ggsketch 1.8.0 (development)
 

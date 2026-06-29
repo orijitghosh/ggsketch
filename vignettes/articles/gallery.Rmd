@@ -1171,6 +1171,26 @@ ggplot() +
   theme_void()
 ```
 
+## Animation: boiling lines
+
+`animate_sketch()` re-renders a plot many times, shifting every roughening seed
+per frame, so the whole drawing shimmers like a hand-animated cel. Frames are
+stitched into a GIF when **gifski** or **magick** is installed; otherwise the
+frame paths are returned. It boils any sketch plot with no change to its code.
+
+```{r animate, eval = requireNamespace("magick", quietly = TRUE) || requireNamespace("gifski", quietly = TRUE)}
+p <- ggplot(mpg, aes(class)) +
+  geom_sketch_bar(fill = "#7BAFD4", seed = 1L) +
+  labs(title = "Boiling bars", x = NULL) +
+  theme_sketch() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+
+gif <- animate_sketch(p, nframes = 10, fps = 8,
+                      file = knitr::fig_path(".gif"),
+                      width = 6, height = 4, res = 110)
+knitr::include_graphics(gif)
+```
+
 ## Drawing media
 
 The `medium` controls *how* a stroke is laid down. `sketch_media()` lists the

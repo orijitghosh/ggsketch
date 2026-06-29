@@ -131,6 +131,12 @@ reference:
     desc: Categorical axes joined by frequency-weighted flows.
     contents:
       - geom_sketch_alluvial
+  - title: Motion
+    desc: >
+      Animate a sketch plot by re-seeding its wobble each frame - the
+      hand-drawn "boiling line" effect.
+    contents:
+      - animate_sketch
   - title: Text, annotations, theme & fonts
     desc: >
       Handwriting text, the content-aware arrow / callout / hull-mark toolkit,
