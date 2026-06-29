@@ -39,7 +39,7 @@ geom_sketch_quantile(
 \item{formula}{Model formula passed to \code{\link[quantreg:rq]{quantreg::rq()}}. Default
 \code{y ~ x}.}
 
-\item{method}{Fitting method passed to \code{\link[ggplot2:geom_quantile]{ggplot2::stat_quantile()}}.
+\item{method}{Fitting method passed to \code{\link[ggplot2:stat_quantile]{ggplot2::stat_quantile()}}.
 Default \code{"rq"}.}
 
 \item{roughness}{Non-negative roughness parameter (0 = straight). Default 1.}
@@ -63,7 +63,7 @@ A \code{ggplot2} layer object.
 }
 \description{
 Fits and draws quantile regression lines with a hand-drawn stroke - the
-sketch analogue of \code{\link[ggplot2:geom_quantile]{ggplot2::geom_quantile()}} / \code{\link[ggplot2:geom_quantile]{ggplot2::stat_quantile()}}.
+sketch analogue of \code{\link[ggplot2:geom_quantile]{ggplot2::geom_quantile()}} / \code{\link[ggplot2:stat_quantile]{ggplot2::stat_quantile()}}.
 Requires the optional \pkg{quantreg} package.
 }
 \examples{
@@ -76,7 +76,7 @@ if (requireNamespace("quantreg", quietly = TRUE)) {
 }
 }
 \seealso{
-Other sketch-geoms: 
+Other sketch-geoms:
 \code{\link{GeomSketchAbline}},
 \code{\link{GeomSketchArrow}},
 \code{\link{GeomSketchBoxplot}},
@@ -103,6 +103,7 @@ Other sketch-geoms:
 \code{\link{GeomSketchRibbon}},
 \code{\link{GeomSketchRug}},
 \code{\link{GeomSketchSegment}},
+\code{\link{GeomSketchSfPolygon}},
 \code{\link{GeomSketchSlope}},
 \code{\link{GeomSketchSmooth}},
 \code{\link{GeomSketchSpoke}},
@@ -114,20 +115,20 @@ Other sketch-geoms:
 \code{\link{StatSketchStream}},
 \code{\link{StatSketchTreemap}},
 \code{\link{StatSketchWaffle}},
-\code{\link{annotate_sketch}()},
-\code{\link{annotate_sketch_arrow}()},
-\code{\link{annotate_sketch_callout}()},
-\code{\link{geom_sketch_bin2d}()},
-\code{\link{geom_sketch_contour}()},
-\code{\link{geom_sketch_count}()},
-\code{\link{geom_sketch_density}()},
-\code{\link{geom_sketch_density2d}()},
-\code{\link{geom_sketch_ecdf}()},
-\code{\link{geom_sketch_function}()},
-\code{\link{geom_sketch_histogram}()},
-\code{\link{geom_sketch_jitter}()},
-\code{\link{geom_sketch_qq}()},
-\code{\link{geom_sketch_text}()},
-\code{\link{sketch_graph}()}
+\code{\link[=annotate_sketch]{annotate_sketch()}},
+\code{\link[=annotate_sketch_arrow]{annotate_sketch_arrow()}},
+\code{\link[=annotate_sketch_callout]{annotate_sketch_callout()}},
+\code{\link[=geom_sketch_bin2d]{geom_sketch_bin2d()}},
+\code{\link[=geom_sketch_contour]{geom_sketch_contour()}},
+\code{\link[=geom_sketch_count]{geom_sketch_count()}},
+\code{\link[=geom_sketch_density]{geom_sketch_density()}},
+\code{\link[=geom_sketch_density2d]{geom_sketch_density2d()}},
+\code{\link[=geom_sketch_ecdf]{geom_sketch_ecdf()}},
+\code{\link[=geom_sketch_function]{geom_sketch_function()}},
+\code{\link[=geom_sketch_histogram]{geom_sketch_histogram()}},
+\code{\link[=geom_sketch_jitter]{geom_sketch_jitter()}},
+\code{\link[=geom_sketch_qq]{geom_sketch_qq()}},
+\code{\link[=geom_sketch_text]{geom_sketch_text()}},
+\code{\link[=sketch_graph]{sketch_graph()}}
 }
 \concept{sketch-geoms}

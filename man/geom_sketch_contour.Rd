@@ -61,7 +61,7 @@ A \code{ggplot2} layer object.
 \description{
 \code{geom_sketch_contour()} draws contour lines of a 3-D surface with a hand-drawn
 stroke (the sketch analogue of \code{\link[ggplot2:geom_contour]{ggplot2::geom_contour()}} /
-\code{\link[ggplot2:geom_contour]{ggplot2::stat_contour()}}); it needs \code{x}, \code{y}, and \code{z} aesthetics. Each
+\code{\link[ggplot2:stat_contour]{ggplot2::stat_contour()}}); it needs \code{x}, \code{y}, and \code{z} aesthetics. Each
 contour piece becomes one roughened path.
 }
 \examples{
@@ -71,7 +71,7 @@ ggplot(faithfuld, aes(waiting, eruptions, z = density)) +
   theme_sketch()
 }
 \seealso{
-Other sketch-geoms: 
+Other sketch-geoms:
 \code{\link{GeomSketchAbline}},
 \code{\link{GeomSketchArrow}},
 \code{\link{GeomSketchBoxplot}},
@@ -98,6 +98,7 @@ Other sketch-geoms:
 \code{\link{GeomSketchRibbon}},
 \code{\link{GeomSketchRug}},
 \code{\link{GeomSketchSegment}},
+\code{\link{GeomSketchSfPolygon}},
 \code{\link{GeomSketchSlope}},
 \code{\link{GeomSketchSmooth}},
 \code{\link{GeomSketchSpoke}},
@@ -109,20 +110,20 @@ Other sketch-geoms:
 \code{\link{StatSketchStream}},
 \code{\link{StatSketchTreemap}},
 \code{\link{StatSketchWaffle}},
-\code{\link{annotate_sketch}()},
-\code{\link{annotate_sketch_arrow}()},
-\code{\link{annotate_sketch_callout}()},
-\code{\link{geom_sketch_bin2d}()},
-\code{\link{geom_sketch_count}()},
-\code{\link{geom_sketch_density}()},
-\code{\link{geom_sketch_density2d}()},
-\code{\link{geom_sketch_ecdf}()},
-\code{\link{geom_sketch_function}()},
-\code{\link{geom_sketch_histogram}()},
-\code{\link{geom_sketch_jitter}()},
-\code{\link{geom_sketch_qq}()},
-\code{\link{geom_sketch_quantile}()},
-\code{\link{geom_sketch_text}()},
-\code{\link{sketch_graph}()}
+\code{\link[=annotate_sketch]{annotate_sketch()}},
+\code{\link[=annotate_sketch_arrow]{annotate_sketch_arrow()}},
+\code{\link[=annotate_sketch_callout]{annotate_sketch_callout()}},
+\code{\link[=geom_sketch_bin2d]{geom_sketch_bin2d()}},
+\code{\link[=geom_sketch_count]{geom_sketch_count()}},
+\code{\link[=geom_sketch_density]{geom_sketch_density()}},
+\code{\link[=geom_sketch_density2d]{geom_sketch_density2d()}},
+\code{\link[=geom_sketch_ecdf]{geom_sketch_ecdf()}},
+\code{\link[=geom_sketch_function]{geom_sketch_function()}},
+\code{\link[=geom_sketch_histogram]{geom_sketch_histogram()}},
+\code{\link[=geom_sketch_jitter]{geom_sketch_jitter()}},
+\code{\link[=geom_sketch_qq]{geom_sketch_qq()}},
+\code{\link[=geom_sketch_quantile]{geom_sketch_quantile()}},
+\code{\link[=geom_sketch_text]{geom_sketch_text()}},
+\code{\link[=sketch_graph]{sketch_graph()}}
 }
 \concept{sketch-geoms}

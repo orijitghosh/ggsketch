@@ -28,7 +28,7 @@ A ggplot2 scale object.
 legible band of roughness values, just as \code{scale_size()} rescales to a size
 range. It is applied automatically whenever \code{roughness} is mapped to a
 continuous variable, so you only call it directly to change \code{range}. To use
-values as raw roughness with no rescaling, wrap them in \code{\link[base:AsIs]{base::I()}}
+values as raw roughness with no rescaling, wrap them in \code{\link[base:I]{base::I()}}
 (\code{aes(roughness = I(z))}).
 }
 \examples{
@@ -44,15 +44,15 @@ ggplot(mtcars, aes(wt, mpg, roughness = hp)) +
   scale_roughness_continuous(range = c(0, 1.2))
 }
 \seealso{
-Other sketch-theme: 
+Other sketch-theme:
 \code{\link{CoordSketch}},
 \code{\link{CoordSketchPolar}},
-\code{\link{element_sketch_line}()},
-\code{\link{ggsketch_check_fonts}()},
-\code{\link{register_sketch_font}()},
+\code{\link[=element_sketch_line]{element_sketch_line()}},
+\code{\link[=ggsketch_check_fonts]{ggsketch_check_fonts()}},
+\code{\link[=register_sketch_font]{register_sketch_font()}},
 \code{\link{scale_sketch}},
-\code{\link{scale_tone_continuous}()},
-\code{\link{sketch_palette}()},
-\code{\link{theme_sketch}()}
+\code{\link[=scale_tone_continuous]{scale_tone_continuous()}},
+\code{\link[=sketch_palette]{sketch_palette()}},
+\code{\link[=theme_sketch]{theme_sketch()}}
 }
 \concept{sketch-theme}

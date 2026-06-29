@@ -17,9 +17,9 @@ of \code{\link[=element_sketch_paper]{element_sketch_paper()}}.
 sketch_papers()
 }
 \seealso{
-Other sketch-paper: 
-\code{\link{element_sketch_paper}()},
-\code{\link{paper_primitives}()},
-\code{\link{paper_spec}()}
+Other sketch-paper:
+\code{\link[=element_sketch_paper]{element_sketch_paper()}},
+\code{\link[=paper_primitives]{paper_primitives()}},
+\code{\link[=paper_spec]{paper_spec()}}
 }
 \concept{sketch-paper}

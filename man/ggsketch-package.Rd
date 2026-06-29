@@ -22,5 +22,10 @@ Useful links:
 \author{
 \strong{Maintainer}: Arijit Ghosh \email{arijitghosh2009@gmail.com}
 
+Authors:
+\itemize{
+  \item Arijit Ghosh \email{arijitghosh2009@gmail.com}
+}
+
 }
 \keyword{internal}

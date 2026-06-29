@@ -25,9 +25,9 @@ for the given physical panel size. The grob layer (\code{element_sketch_paper()}
 renders the result; this function stays free of any \code{grid} dependency.
 }
 \seealso{
-Other sketch-paper: 
-\code{\link{element_sketch_paper}()},
-\code{\link{paper_spec}()},
-\code{\link{sketch_papers}()}
+Other sketch-paper:
+\code{\link[=element_sketch_paper]{element_sketch_paper()}},
+\code{\link[=paper_spec]{paper_spec()}},
+\code{\link[=sketch_papers]{sketch_papers()}}
 }
 \concept{sketch-paper}

@@ -26,21 +26,21 @@ close to 1. Returns rectangles in the original input order.
 treemap_layout(c(6, 3, 2, 1))
 }
 \seealso{
-Other sketch-core: 
-\code{\link{curve_fill}()},
-\code{\link{engrave_fill}()},
-\code{\link{engrave_ladder}()},
-\code{\link{hachure_fill}()},
-\code{\link{hachure_fill_multi}()},
-\code{\link{rough_arc}()},
-\code{\link{rough_bezier}()},
-\code{\link{rough_ellipse}()},
-\code{\link{roughen_polyline}()},
-\code{\link{sketch_fill}()},
-\code{\link{sketch_fill_multi}()},
-\code{\link{stroke_profile}()},
-\code{\link{stroke_ribbon}()},
-\code{\link{watercolor_wash}()},
-\code{\link{watercolor_wash_multi}()}
+Other sketch-core:
+\code{\link[=curve_fill]{curve_fill()}},
+\code{\link[=engrave_fill]{engrave_fill()}},
+\code{\link[=engrave_ladder]{engrave_ladder()}},
+\code{\link[=hachure_fill]{hachure_fill()}},
+\code{\link[=hachure_fill_multi]{hachure_fill_multi()}},
+\code{\link[=rough_arc]{rough_arc()}},
+\code{\link[=rough_bezier]{rough_bezier()}},
+\code{\link[=rough_ellipse]{rough_ellipse()}},
+\code{\link[=roughen_polyline]{roughen_polyline()}},
+\code{\link[=sketch_fill]{sketch_fill()}},
+\code{\link[=sketch_fill_multi]{sketch_fill_multi()}},
+\code{\link[=stroke_profile]{stroke_profile()}},
+\code{\link[=stroke_ribbon]{stroke_ribbon()}},
+\code{\link[=watercolor_wash]{watercolor_wash()}},
+\code{\link[=watercolor_wash_multi]{watercolor_wash_multi()}}
 }
 \concept{sketch-core}

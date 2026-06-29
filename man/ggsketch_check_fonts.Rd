@@ -21,15 +21,15 @@ The sketch \emph{look} in ggsketch comes from geometry, not fonts, so this is
 purely cosmetic (ADR-0005).
 }
 \seealso{
-Other sketch-theme: 
+Other sketch-theme:
 \code{\link{CoordSketch}},
 \code{\link{CoordSketchPolar}},
-\code{\link{element_sketch_line}()},
-\code{\link{register_sketch_font}()},
-\code{\link{scale_roughness_continuous}()},
+\code{\link[=element_sketch_line]{element_sketch_line()}},
+\code{\link[=register_sketch_font]{register_sketch_font()}},
+\code{\link[=scale_roughness_continuous]{scale_roughness_continuous()}},
 \code{\link{scale_sketch}},
-\code{\link{scale_tone_continuous}()},
-\code{\link{sketch_palette}()},
-\code{\link{theme_sketch}()}
+\code{\link[=scale_tone_continuous]{scale_tone_continuous()}},
+\code{\link[=sketch_palette]{sketch_palette()}},
+\code{\link[=theme_sketch]{theme_sketch()}}
 }
 \concept{sketch-theme}

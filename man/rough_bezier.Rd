@@ -42,21 +42,21 @@ Applies roughness to all four control points, then flattens and reduces the
 curve. Returns \code{n_passes} roughened polyline paths.
 }
 \seealso{
-Other sketch-core: 
-\code{\link{curve_fill}()},
-\code{\link{engrave_fill}()},
-\code{\link{engrave_ladder}()},
-\code{\link{hachure_fill}()},
-\code{\link{hachure_fill_multi}()},
-\code{\link{rough_arc}()},
-\code{\link{rough_ellipse}()},
-\code{\link{roughen_polyline}()},
-\code{\link{sketch_fill}()},
-\code{\link{sketch_fill_multi}()},
-\code{\link{stroke_profile}()},
-\code{\link{stroke_ribbon}()},
-\code{\link{treemap_layout}()},
-\code{\link{watercolor_wash}()},
-\code{\link{watercolor_wash_multi}()}
+Other sketch-core:
+\code{\link[=curve_fill]{curve_fill()}},
+\code{\link[=engrave_fill]{engrave_fill()}},
+\code{\link[=engrave_ladder]{engrave_ladder()}},
+\code{\link[=hachure_fill]{hachure_fill()}},
+\code{\link[=hachure_fill_multi]{hachure_fill_multi()}},
+\code{\link[=rough_arc]{rough_arc()}},
+\code{\link[=rough_ellipse]{rough_ellipse()}},
+\code{\link[=roughen_polyline]{roughen_polyline()}},
+\code{\link[=sketch_fill]{sketch_fill()}},
+\code{\link[=sketch_fill_multi]{sketch_fill_multi()}},
+\code{\link[=stroke_profile]{stroke_profile()}},
+\code{\link[=stroke_ribbon]{stroke_ribbon()}},
+\code{\link[=treemap_layout]{treemap_layout()}},
+\code{\link[=watercolor_wash]{watercolor_wash()}},
+\code{\link[=watercolor_wash_multi]{watercolor_wash_multi()}}
 }
 \concept{sketch-core}

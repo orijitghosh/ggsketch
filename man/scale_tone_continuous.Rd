@@ -30,7 +30,7 @@ scale, just as \code{scale_size()} rescales to a size range. It is applied
 automatically whenever \code{tone} is mapped to a continuous variable, so you only
 call it directly to change \code{range} (or to reverse it by giving a decreasing
 \code{range}). To use values as raw tone with no rescaling, wrap them in
-\code{\link[base:AsIs]{base::I()}} (\code{aes(tone = I(z))}).
+\code{\link[base:I]{base::I()}} (\code{aes(tone = I(z))}).
 }
 \examples{
 library(ggplot2)
@@ -55,15 +55,15 @@ ggplot(regions, aes(x, y, group = g)) +
   coord_equal()
 }
 \seealso{
-Other sketch-theme: 
+Other sketch-theme:
 \code{\link{CoordSketch}},
 \code{\link{CoordSketchPolar}},
-\code{\link{element_sketch_line}()},
-\code{\link{ggsketch_check_fonts}()},
-\code{\link{register_sketch_font}()},
-\code{\link{scale_roughness_continuous}()},
+\code{\link[=element_sketch_line]{element_sketch_line()}},
+\code{\link[=ggsketch_check_fonts]{ggsketch_check_fonts()}},
+\code{\link[=register_sketch_font]{register_sketch_font()}},
+\code{\link[=scale_roughness_continuous]{scale_roughness_continuous()}},
 \code{\link{scale_sketch}},
-\code{\link{sketch_palette}()},
-\code{\link{theme_sketch}()}
+\code{\link[=sketch_palette]{sketch_palette()}},
+\code{\link[=theme_sketch]{theme_sketch()}}
 }
 \concept{sketch-theme}

@@ -24,7 +24,7 @@ scale_fill_sketch_c(..., aesthetics = "fill")
 }
 \arguments{
 \item{...}{Passed to \code{\link[ggplot2:discrete_scale]{ggplot2::discrete_scale()}} (discrete) or
-\code{\link[ggplot2:scale_gradient]{ggplot2::scale_colour_gradientn()}} (continuous).}
+\code{\link[ggplot2:scale_colour_gradientn]{ggplot2::scale_colour_gradientn()}} (continuous).}
 
 \item{aesthetics}{Character vector of aesthetics this scale works with.}
 }
@@ -45,15 +45,15 @@ ggplot(mpg, aes(displ, hwy, colour = drv)) +
   theme_sketch()
 }
 \seealso{
-Other sketch-theme: 
+Other sketch-theme:
 \code{\link{CoordSketch}},
 \code{\link{CoordSketchPolar}},
-\code{\link{element_sketch_line}()},
-\code{\link{ggsketch_check_fonts}()},
-\code{\link{register_sketch_font}()},
-\code{\link{scale_roughness_continuous}()},
-\code{\link{scale_tone_continuous}()},
-\code{\link{sketch_palette}()},
-\code{\link{theme_sketch}()}
+\code{\link[=element_sketch_line]{element_sketch_line()}},
+\code{\link[=ggsketch_check_fonts]{ggsketch_check_fonts()}},
+\code{\link[=register_sketch_font]{register_sketch_font()}},
+\code{\link[=scale_roughness_continuous]{scale_roughness_continuous()}},
+\code{\link[=scale_tone_continuous]{scale_tone_continuous()}},
+\code{\link[=sketch_palette]{sketch_palette()}},
+\code{\link[=theme_sketch]{theme_sketch()}}
 }
 \concept{sketch-theme}

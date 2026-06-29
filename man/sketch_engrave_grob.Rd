@@ -58,15 +58,15 @@ device-consistent); the \code{field} is supplied in npc [0,1] and sampled throug
 an inch-to-npc affine at draw time.
 }
 \seealso{
-Other grob-layer: 
-\code{\link{sketch_arrow_grob}()},
-\code{\link{sketch_band_grob}()},
-\code{\link{sketch_callout_grob}()},
-\code{\link{sketch_dotplot_grob}()},
-\code{\link{sketch_ellipse_grob}()},
-\code{\link{sketch_path_grob}()},
-\code{\link{sketch_polygon_grob}()},
-\code{\link{sketch_stroke_grob}()},
-\code{\link{sketch_wedge_grob}()}
+Other grob-layer:
+\code{\link[=sketch_arrow_grob]{sketch_arrow_grob()}},
+\code{\link[=sketch_band_grob]{sketch_band_grob()}},
+\code{\link[=sketch_callout_grob]{sketch_callout_grob()}},
+\code{\link[=sketch_dotplot_grob]{sketch_dotplot_grob()}},
+\code{\link[=sketch_ellipse_grob]{sketch_ellipse_grob()}},
+\code{\link[=sketch_path_grob]{sketch_path_grob()}},
+\code{\link[=sketch_polygon_grob]{sketch_polygon_grob()}},
+\code{\link[=sketch_stroke_grob]{sketch_stroke_grob()}},
+\code{\link[=sketch_wedge_grob]{sketch_wedge_grob()}}
 }
 \concept{grob-layer}

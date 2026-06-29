@@ -40,7 +40,7 @@ semantics as \code{\link[=sketch_path_grob]{sketch_path_grob()}}). \code{NULL} t
 \item{gp}{A \code{\link[grid:gpar]{grid::gpar()}}; its \code{col} becomes the ribbon fill (the ribbon is
 painted, not stroked), \code{alpha} is honoured.}
 
-\item{name, vp}{Passed to \code{\link[grid:grid.grob]{grid::gTree()}}.}
+\item{name, vp}{Passed to \code{\link[grid:gTree]{grid::gTree()}}.}
 }
 \value{
 A \code{SketchStrokeGrob} (a grid grob subclass).
@@ -53,15 +53,15 @@ pressure, or vary like a broad calligraphic nib. Coordinates are npc [0,1];
 roughening and offsetting happen in device inches inside \code{makeContent()}.
 }
 \seealso{
-Other grob-layer: 
-\code{\link{sketch_arrow_grob}()},
-\code{\link{sketch_band_grob}()},
-\code{\link{sketch_callout_grob}()},
-\code{\link{sketch_dotplot_grob}()},
-\code{\link{sketch_ellipse_grob}()},
-\code{\link{sketch_engrave_grob}()},
-\code{\link{sketch_path_grob}()},
-\code{\link{sketch_polygon_grob}()},
-\code{\link{sketch_wedge_grob}()}
+Other grob-layer:
+\code{\link[=sketch_arrow_grob]{sketch_arrow_grob()}},
+\code{\link[=sketch_band_grob]{sketch_band_grob()}},
+\code{\link[=sketch_callout_grob]{sketch_callout_grob()}},
+\code{\link[=sketch_dotplot_grob]{sketch_dotplot_grob()}},
+\code{\link[=sketch_ellipse_grob]{sketch_ellipse_grob()}},
+\code{\link[=sketch_engrave_grob]{sketch_engrave_grob()}},
+\code{\link[=sketch_path_grob]{sketch_path_grob()}},
+\code{\link[=sketch_polygon_grob]{sketch_polygon_grob()}},
+\code{\link[=sketch_wedge_grob]{sketch_wedge_grob()}}
 }
 \concept{grob-layer}

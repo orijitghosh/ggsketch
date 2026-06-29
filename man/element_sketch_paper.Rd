@@ -13,7 +13,7 @@ element_sketch_paper(kind = "notebook", ground = NULL, seed = NULL, ...)
 
 \item{seed}{Integer seed for the aged blotches.}
 
-\item{...}{Passed to \code{\link[ggplot2:element]{ggplot2::element_rect()}}.}
+\item{...}{Passed to \code{\link[ggplot2:element_rect]{ggplot2::element_rect()}}.}
 }
 \value{
 A ggplot2 theme element carrying an \code{element_sketch_paper} subclass.
@@ -33,9 +33,9 @@ ggplot(mtcars, aes(wt, mpg)) +
   theme(panel.background = element_sketch_paper("graph"))
 }
 \seealso{
-Other sketch-paper: 
-\code{\link{paper_primitives}()},
-\code{\link{paper_spec}()},
-\code{\link{sketch_papers}()}
+Other sketch-paper:
+\code{\link[=paper_primitives]{paper_primitives()}},
+\code{\link[=paper_spec]{paper_spec()}},
+\code{\link[=sketch_papers]{sketch_papers()}}
 }
 \concept{sketch-paper}

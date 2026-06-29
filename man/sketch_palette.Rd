@@ -20,15 +20,15 @@ Eight muted ink-on-paper colours led by the package primary
 sketch_palette(4)
 }
 \seealso{
-Other sketch-theme: 
+Other sketch-theme:
 \code{\link{CoordSketch}},
 \code{\link{CoordSketchPolar}},
-\code{\link{element_sketch_line}()},
-\code{\link{ggsketch_check_fonts}()},
-\code{\link{register_sketch_font}()},
-\code{\link{scale_roughness_continuous}()},
+\code{\link[=element_sketch_line]{element_sketch_line()}},
+\code{\link[=ggsketch_check_fonts]{ggsketch_check_fonts()}},
+\code{\link[=register_sketch_font]{register_sketch_font()}},
+\code{\link[=scale_roughness_continuous]{scale_roughness_continuous()}},
 \code{\link{scale_sketch}},
-\code{\link{scale_tone_continuous}()},
-\code{\link{theme_sketch}()}
+\code{\link[=scale_tone_continuous]{scale_tone_continuous()}},
+\code{\link[=theme_sketch]{theme_sketch()}}
 }
 \concept{sketch-theme}

@@ -64,7 +64,7 @@ A \code{ggplot2} layer object.
 }
 \description{
 \code{geom_sketch_text()} and \code{geom_sketch_label()} add text in a handwriting font,
-the sketch counterparts of \code{\link[ggplot2:geom_text]{ggplot2::geom_text()}} and \code{\link[ggplot2:geom_text]{ggplot2::geom_label()}}.
+the sketch counterparts of \code{\link[ggplot2:geom_text]{ggplot2::geom_text()}} and \code{\link[ggplot2:geom_label]{ggplot2::geom_label()}}.
 Unlike the other geoms the strokes are not geometrically roughened - the
 hand-drawn feel comes from the font (see \code{\link[=ggsketch_check_fonts]{ggsketch_check_fonts()}} for which
 faces are available). If no handwriting font is installed they render with the
@@ -90,7 +90,7 @@ ggplot(df, aes(x, y, label = lab)) +
 }
 }
 \seealso{
-Other sketch-geoms: 
+Other sketch-geoms:
 \code{\link{GeomSketchAbline}},
 \code{\link{GeomSketchArrow}},
 \code{\link{GeomSketchBoxplot}},
@@ -117,6 +117,7 @@ Other sketch-geoms:
 \code{\link{GeomSketchRibbon}},
 \code{\link{GeomSketchRug}},
 \code{\link{GeomSketchSegment}},
+\code{\link{GeomSketchSfPolygon}},
 \code{\link{GeomSketchSlope}},
 \code{\link{GeomSketchSmooth}},
 \code{\link{GeomSketchSpoke}},
@@ -128,20 +129,20 @@ Other sketch-geoms:
 \code{\link{StatSketchStream}},
 \code{\link{StatSketchTreemap}},
 \code{\link{StatSketchWaffle}},
-\code{\link{annotate_sketch}()},
-\code{\link{annotate_sketch_arrow}()},
-\code{\link{annotate_sketch_callout}()},
-\code{\link{geom_sketch_bin2d}()},
-\code{\link{geom_sketch_contour}()},
-\code{\link{geom_sketch_count}()},
-\code{\link{geom_sketch_density}()},
-\code{\link{geom_sketch_density2d}()},
-\code{\link{geom_sketch_ecdf}()},
-\code{\link{geom_sketch_function}()},
-\code{\link{geom_sketch_histogram}()},
-\code{\link{geom_sketch_jitter}()},
-\code{\link{geom_sketch_qq}()},
-\code{\link{geom_sketch_quantile}()},
-\code{\link{sketch_graph}()}
+\code{\link[=annotate_sketch]{annotate_sketch()}},
+\code{\link[=annotate_sketch_arrow]{annotate_sketch_arrow()}},
+\code{\link[=annotate_sketch_callout]{annotate_sketch_callout()}},
+\code{\link[=geom_sketch_bin2d]{geom_sketch_bin2d()}},
+\code{\link[=geom_sketch_contour]{geom_sketch_contour()}},
+\code{\link[=geom_sketch_count]{geom_sketch_count()}},
+\code{\link[=geom_sketch_density]{geom_sketch_density()}},
+\code{\link[=geom_sketch_density2d]{geom_sketch_density2d()}},
+\code{\link[=geom_sketch_ecdf]{geom_sketch_ecdf()}},
+\code{\link[=geom_sketch_function]{geom_sketch_function()}},
+\code{\link[=geom_sketch_histogram]{geom_sketch_histogram()}},
+\code{\link[=geom_sketch_jitter]{geom_sketch_jitter()}},
+\code{\link[=geom_sketch_qq]{geom_sketch_qq()}},
+\code{\link[=geom_sketch_quantile]{geom_sketch_quantile()}},
+\code{\link[=sketch_graph]{sketch_graph()}}
 }
 \concept{sketch-geoms}

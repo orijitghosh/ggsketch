@@ -57,7 +57,7 @@ uses \code{getOption("ggsketch.seed", 1L)}.}
 A \code{ggplot2::theme} object.
 }
 \description{
-A sketch-style theme based on \code{\link[ggplot2:ggtheme]{ggplot2::theme_bw()}} with a muted palette to
+A sketch-style theme based on \code{\link[ggplot2:theme_bw]{ggplot2::theme_bw()}} with a muted palette to
 match the rough geoms.  Light (default) and dark presets
 are available via \code{dark}.  The sketchiness of the \emph{marks} comes from the
 geoms themselves; this theme styles the surrounding frame, typography, and
@@ -72,15 +72,15 @@ p + theme_sketch(rough_frame = TRUE)
 p + theme_sketch(paper = "notebook")
 }
 \seealso{
-Other sketch-theme: 
+Other sketch-theme:
 \code{\link{CoordSketch}},
 \code{\link{CoordSketchPolar}},
-\code{\link{element_sketch_line}()},
-\code{\link{ggsketch_check_fonts}()},
-\code{\link{register_sketch_font}()},
-\code{\link{scale_roughness_continuous}()},
+\code{\link[=element_sketch_line]{element_sketch_line()}},
+\code{\link[=ggsketch_check_fonts]{ggsketch_check_fonts()}},
+\code{\link[=register_sketch_font]{register_sketch_font()}},
+\code{\link[=scale_roughness_continuous]{scale_roughness_continuous()}},
 \code{\link{scale_sketch}},
-\code{\link{scale_tone_continuous}()},
-\code{\link{sketch_palette}()}
+\code{\link[=scale_tone_continuous]{scale_tone_continuous()}},
+\code{\link[=sketch_palette]{sketch_palette()}}
 }
 \concept{sketch-theme}

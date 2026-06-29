@@ -52,7 +52,7 @@ outline only - the usual choice for a panel border.}
 A ggplot2 theme element carrying an \verb{element_sketch_*} subclass.
 }
 \description{
-Sketch counterparts of \code{\link[ggplot2:element]{ggplot2::element_line()}} and \code{\link[ggplot2:element]{ggplot2::element_rect()}}.
+Sketch counterparts of \code{\link[ggplot2:element_line]{ggplot2::element_line()}} and \code{\link[ggplot2:element_rect]{ggplot2::element_rect()}}.
 Use them in \code{\link[ggplot2:theme]{ggplot2::theme()}} (or via \code{theme_sketch(rough_frame = TRUE)}) to
 render gridlines, panel borders, and axis ticks with the same wobbly,
 double-stroke look as the geoms. They accept the usual element arguments plus
@@ -66,15 +66,15 @@ ggplot(mtcars, aes(wt, mpg)) +
   theme(panel.grid.major = element_sketch_line(colour = "grey80", seed = 7L))
 }
 \seealso{
-Other sketch-theme: 
+Other sketch-theme:
 \code{\link{CoordSketch}},
 \code{\link{CoordSketchPolar}},
-\code{\link{ggsketch_check_fonts}()},
-\code{\link{register_sketch_font}()},
-\code{\link{scale_roughness_continuous}()},
+\code{\link[=ggsketch_check_fonts]{ggsketch_check_fonts()}},
+\code{\link[=register_sketch_font]{register_sketch_font()}},
+\code{\link[=scale_roughness_continuous]{scale_roughness_continuous()}},
 \code{\link{scale_sketch}},
-\code{\link{scale_tone_continuous}()},
-\code{\link{sketch_palette}()},
-\code{\link{theme_sketch}()}
+\code{\link[=scale_tone_continuous]{scale_tone_continuous()}},
+\code{\link[=sketch_palette]{sketch_palette()}},
+\code{\link[=theme_sketch]{theme_sketch()}}
 }
 \concept{sketch-theme}

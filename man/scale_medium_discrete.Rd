@@ -42,7 +42,7 @@ ggplot(df, aes(x, y, group = g, medium = g, colour = g)) +
   theme_sketch()
 }
 \seealso{
-Other sketch-media: 
-\code{\link{sketch_media}()}
+Other sketch-media:
+\code{\link[=sketch_media]{sketch_media()}}
 }
 \concept{sketch-media}
