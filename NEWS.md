@@ -172,6 +172,12 @@ simulator. This first piece is the engine that makes it possible.
   crossing them at its values. Give it the `axes` columns (in order); axes scale
   independently to a common height by default, and `colour` maps a column to the
   lines. No new dependencies (cf. `GGally::ggparcoord()`, `MASS::parcoord()`).
+* **Mosaic plots.** `geom_sketch_mosaic()` splits the unit square into columns by
+  the marginal counts of one categorical variable, then each column vertically by
+  the conditional counts of a second, so every roughened tile's area is the joint
+  frequency. Give it `x`, `y` and an optional `value` weight; colour by `y`
+  (default) or `x`. No new dependencies (cf. `graphics::mosaicplot()`,
+  `ggmosaic`).
 
 # ggsketch 1.8.0 (development)
 

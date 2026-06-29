@@ -1188,6 +1188,23 @@ ggplot() +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
+## Mosaic plots
+
+`geom_sketch_mosaic()` splits the square into columns by the marginal counts of
+`x`, then each column by the conditional counts of `y`, so every tile's area is
+the joint frequency.
+
+```{r mosaic, fig.height = 4.8}
+titanic <- as.data.frame(Titanic)
+ggplot() +
+  geom_sketch_mosaic(titanic, x = Class, y = Survived, value = Freq,
+                     seed = 1L) +
+  scale_fill_sketch() +
+  labs(title = "Survival by class") +
+  theme_void() +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
 ## Animation: boiling lines
 
 `animate_sketch()` animates a sketch plot two ways. `type = "boil"` re-renders
