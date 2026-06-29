@@ -4,8 +4,9 @@ description: >
   A tour of every ggsketch geom with runnable examples, from bars and lines to
   histograms, violins, intervals, Q-Q plots, quantile fits, reference lines,
   curves, and annotations — plus the 2.0 additions: dumbbell, slope, beeswarm,
-  ridgeline, streamgraph, waffle, treemap and calendar charts, drawing media,
-  watercolour fills, textured paper, and hand-drawn coordinate frames.
+  ridgeline, streamgraph, waffle, treemap and calendar charts, hand-drawn
+  networks and sf maps, drawing media, watercolour fills, textured paper, and
+  hand-drawn coordinate frames.
 ---
 
 ```{r setup, include = FALSE}
@@ -997,6 +998,102 @@ ggplot(cal, aes(date = day, fill = value)) +
   labs(title = "geom_sketch_calendar()") +
   theme_sketch() +
   theme(axis.title = element_blank())
+```
+
+## Hand-drawn networks
+
+`sketch_graph()` turns an edge list (or an **igraph** object) into ready-to-plot
+`nodes` and `edges` frames, placing the nodes with a pure-R force-directed
+layout — so the feature needs no graph dependency. Draw the result with
+`geom_sketch_edge()` (roughened, optionally curved connectors) and
+`geom_sketch_node()` (roughened markers with optional handwriting labels).
+
+```{r network-basic, fig.height = 5}
+edges <- data.frame(
+  from = c("A", "A", "A", "B", "C", "C", "D", "E", "E", "F", "B", "G"),
+  to   = c("B", "C", "D", "C", "D", "E", "E", "F", "G", "G", "E", "H")
+)
+g <- sketch_graph(edges, seed = 1L)
+
+ggplot() +
+  geom_sketch_edge(data = g$edges,
+                   aes(x = x, y = y, xend = xend, yend = yend),
+                   colour = "grey55", seed = 1L) +
+  geom_sketch_node(data = g$nodes, aes(x = x, y = y, label = name),
+                   size = 7, colour = "#1F618D", seed = 2L) +
+  coord_equal() +
+  labs(title = "A hand-drawn network") +
+  theme_void()
+```
+
+Any node or edge column carried through `sketch_graph()` maps like a normal
+aesthetic, and `curvature` bows the edges. Here node size encodes degree:
+
+```{r network-curved, fig.height = 5}
+deg <- table(c(edges$from, edges$to))
+g2  <- sketch_graph(edges, seed = 4L)
+g2$nodes$degree <- as.integer(deg[g2$nodes$name])
+
+ggplot() +
+  geom_sketch_edge(data = g2$edges,
+                   aes(x = x, y = y, xend = xend, yend = yend),
+                   curvature = 0.25, colour = "#B9770E", seed = 3L) +
+  geom_sketch_node(data = g2$nodes,
+                   aes(x = x, y = y, size = degree, label = name),
+                   colour = "#7D3C98", show.legend = FALSE, seed = 4L) +
+  scale_size_area(max_size = 13) +
+  coord_equal() +
+  labs(title = "Curved edges, nodes sized by degree") +
+  theme_void()
+```
+
+Pass an **igraph** object straight to `sketch_graph()` for richer generators and
+graph algorithms:
+
+```{r network-igraph, eval = requireNamespace("igraph", quietly = TRUE), fig.height = 5}
+set.seed(1)
+ig <- igraph::sample_pa(16, directed = FALSE)
+g3 <- sketch_graph(ig, seed = 7L)
+
+ggplot() +
+  geom_sketch_edge(data = g3$edges,
+                   aes(x = x, y = y, xend = xend, yend = yend),
+                   colour = "grey60", seed = 5L) +
+  geom_sketch_node(data = g3$nodes, aes(x = x, y = y),
+                   size = 5, colour = "#148F77", seed = 6L) +
+  coord_equal() +
+  labs(title = "A preferential-attachment graph (via igraph)") +
+  theme_void()
+```
+
+## Hand-drawn maps (sf)
+
+`geom_sketch_sf()` is a sketch take on `geom_sf()`: in one call it roughens
+whichever simple-features geometry is present — `(MULTI)POLYGON` features get a
+hole-aware hachure (or any `fill_style`), `(MULTI)LINESTRING` features become
+sketch paths, and `(MULTI)POINT` features become sketch points. It needs the
+optional **sf** package and plots in planar coordinates (pre-project lon/lat
+data with `sf::st_transform()` for a faithful map).
+
+```{r sf-choropleth, eval = requireNamespace("sf", quietly = TRUE), fig.height = 3.4}
+nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
+
+ggplot() +
+  geom_sketch_sf(data = nc, aes(fill = BIR74), seed = 1L) +
+  scale_fill_viridis_c(option = "magma") +
+  labs(title = "North Carolina births, 1974") +
+  theme_void()
+```
+
+Switch the `fill_style`, exactly like any other sketch fill:
+
+```{r sf-crosshatch, eval = requireNamespace("sf", quietly = TRUE), fig.height = 3.4}
+ggplot() +
+  geom_sketch_sf(data = nc, aes(fill = SID74), fill_style = "cross_hatch",
+                 seed = 2L) +
+  scale_fill_distiller(palette = "RdPu", direction = 1) +
+  labs(title = "Cross-hatched choropleth of SIDS cases") +
+  theme_void()
 ```
 
 ## Drawing media
