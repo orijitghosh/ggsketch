@@ -1131,6 +1131,29 @@ ggplot(subset(skills, who == "Aria"),
   theme_void()
 ```
 
+## Chord diagrams
+
+`geom_sketch_chord()` lays nodes on a circle — each given a rim arc sized by its
+total flow — and draws every weighted relation as a ribbon through the centre.
+Give it an edge table and the `from`, `to`, and `value` columns; ribbons colour
+by source node.
+
+```{r chord, fig.height = 5.4}
+trade <- data.frame(
+  from  = c("Asia", "Asia", "Europe", "Africa", "Africa", "America",
+            "America", "Asia"),
+  to    = c("Europe", "America", "America", "Asia", "Europe", "Africa",
+            "Europe", "Africa"),
+  value = c(8, 6, 5, 3, 2, 4, 7, 5)
+)
+ggplot() +
+  geom_sketch_chord(trade, from, to, value, seed = 1L) +
+  scale_fill_sketch() +
+  coord_equal() +
+  labs(title = "Trade flows") +
+  theme_void()
+```
+
 ## Drawing media
 
 The `medium` controls *how* a stroke is laid down. `sketch_media()` lists the

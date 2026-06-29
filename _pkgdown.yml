@@ -123,6 +123,10 @@ reference:
     desc: Spider / radar charts - one roughened polygon per series over a web.
     contents:
       - geom_sketch_radar
+  - title: Chord diagrams
+    desc: Circular flow diagrams - nodes on a rim, ribbons through the centre.
+    contents:
+      - geom_sketch_chord
   - title: Text, annotations, theme & fonts
     desc: >
       Handwriting text, the content-aware arrow / callout / hull-mark toolkit,

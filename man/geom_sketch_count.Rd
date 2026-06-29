@@ -106,6 +106,7 @@ Other sketch-geoms:
 \code{\link[=annotate_sketch_arrow]{annotate_sketch_arrow()}},
 \code{\link[=annotate_sketch_callout]{annotate_sketch_callout()}},
 \code{\link[=geom_sketch_bin2d]{geom_sketch_bin2d()}},
+\code{\link[=geom_sketch_chord]{geom_sketch_chord()}},
 \code{\link[=geom_sketch_contour]{geom_sketch_contour()}},
 \code{\link[=geom_sketch_density]{geom_sketch_density()}},
 \code{\link[=geom_sketch_density2d]{geom_sketch_density2d()}},

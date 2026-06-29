@@ -142,6 +142,13 @@ simulator. This first piece is the engine that makes it possible.
   (`rmax`) and each polygon takes any `fill_style`, including `"watercolor"`.
   Like the pie geoms it lives in its own square space -- pair with
   `coord_equal()`. No new dependencies (cf. `ggradar`, `fmsb::radarchart()`).
+* **Chord diagrams.** `geom_sketch_chord()` lays nodes on a circle, each given a
+  rim arc proportional to its total flow, and draws every weighted relation as a
+  ribbon whose ends are sub-arcs joined by curves through the centre. Give it an
+  edge table and the `from`, `to` and `value` columns; ribbons are coloured by
+  source node (add [scale_fill_sketch()] or any fill scale), take any
+  `fill_style`, and self-loops are dropped. Pair with `coord_equal()`. No new
+  dependencies (cf. `circlize::chordDiagram()`).
 
 # ggsketch 1.8.0 (development)
 
