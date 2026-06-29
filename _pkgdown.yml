@@ -119,6 +119,10 @@ reference:
       geometry in one call (plots in planar coordinates).
     contents:
       - geom_sketch_sf
+  - title: Radar
+    desc: Spider / radar charts - one roughened polygon per series over a web.
+    contents:
+      - geom_sketch_radar
   - title: Text, annotations, theme & fonts
     desc: >
       Handwriting text, the content-aware arrow / callout / hull-mark toolkit,

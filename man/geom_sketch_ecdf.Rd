@@ -109,6 +109,7 @@ Other sketch-geoms:
 \code{\link{StatSketchCalendar}},
 \code{\link{StatSketchDensityRidges}},
 \code{\link{StatSketchPie}},
+\code{\link{StatSketchRadar}},
 \code{\link{StatSketchStream}},
 \code{\link{StatSketchTreemap}},
 \code{\link{StatSketchWaffle}},

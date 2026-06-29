@@ -133,6 +133,7 @@ Other sketch-geoms:
 \code{\link{StatSketchBeeswarm}},
 \code{\link{StatSketchCalendar}},
 \code{\link{StatSketchPie}},
+\code{\link{StatSketchRadar}},
 \code{\link{StatSketchStream}},
 \code{\link{StatSketchTreemap}},
 \code{\link{StatSketchWaffle}},

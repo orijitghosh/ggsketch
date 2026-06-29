@@ -120,6 +120,7 @@ Other sketch-geoms:
 \code{\link{StatSketchCalendar}},
 \code{\link{StatSketchDensityRidges}},
 \code{\link{StatSketchPie}},
+\code{\link{StatSketchRadar}},
 \code{\link{StatSketchStream}},
 \code{\link{StatSketchTreemap}},
 \code{\link[=annotate_sketch]{annotate_sketch()}},

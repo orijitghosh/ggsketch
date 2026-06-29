@@ -1096,6 +1096,41 @@ ggplot() +
   theme_void()
 ```
 
+## Radar charts
+
+`geom_sketch_radar()` draws a spider chart: each series is a closed polygon over
+evenly spaced axes, with a roughened web (rings, spokes, and labels) behind. Map
+`axis`, `value`, `group`, and `colour`/`fill`; like the pie geoms it lives in
+its own square space, so pair it with `coord_equal()` and `theme_void()`.
+
+```{r radar, fig.height = 5}
+skills <- data.frame(
+  axis  = rep(c("Speed", "Power", "Range", "Control", "Stamina", "Magic"), 2),
+  value = c(8, 6, 9, 5, 7, 4, 5, 9, 4, 8, 6, 9),
+  who   = rep(c("Aria", "Bilo"), each = 6)
+)
+ggplot(skills, aes(axis = axis, value = value, group = who,
+                   colour = who, fill = who)) +
+  geom_sketch_radar(alpha = 0.3, seed = 1L) +
+  scale_colour_sketch() +
+  scale_fill_sketch() +
+  coord_equal() +
+  labs(title = "Character stats") +
+  theme_void()
+```
+
+A single series reads cleanly with a watercolour wash and more grid rings:
+
+```{r radar-one, fig.height = 5}
+ggplot(subset(skills, who == "Aria"),
+       aes(axis = axis, value = value, group = who)) +
+  geom_sketch_radar(fill = "#2E86C1", fill_style = "watercolor",
+                    n_rings = 5, seed = 3L) +
+  coord_equal() +
+  labs(title = "One series, watercolour") +
+  theme_void()
+```
+
 ## Drawing media
 
 The `medium` controls *how* a stroke is laid down. `sketch_media()` lists the

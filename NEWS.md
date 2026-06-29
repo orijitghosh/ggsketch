@@ -135,6 +135,13 @@ simulator. This first piece is the engine that makes it possible.
   `coord_sf()`/`stat_sf()` and plots in **planar coordinates** -- pre-project
   lon/lat data with `sf::st_transform()` for a faithful map. `sf` is an optional,
   guarded dependency (Suggests); it is only needed when you call this geom.
+* **Radar / spider charts.** `geom_sketch_radar()` draws each series as a closed
+  roughened polygon over evenly spaced angular axes, behind a hand-drawn web of
+  concentric rings, radial spokes and axis labels. Map `axis`, `value` and
+  `group` (plus `colour`/`fill`); values are scaled to a common outer ring
+  (`rmax`) and each polygon takes any `fill_style`, including `"watercolor"`.
+  Like the pie geoms it lives in its own square space -- pair with
+  `coord_equal()`. No new dependencies (cf. `ggradar`, `fmsb::radarchart()`).
 
 # ggsketch 1.8.0 (development)
 
