@@ -1154,6 +1154,23 @@ ggplot() +
   theme_void()
 ```
 
+## Alluvial / Sankey diagrams
+
+`geom_sketch_alluvial()` draws two or more categorical axes as stacks of strata,
+joined by flows whose thickness is the frequency of each category combination.
+Give it a wide data frame, the `axes` columns in order, and an optional `value`
+weight; flows colour by the first axis (or a named `fill` column).
+
+```{r alluvial, fig.height = 5}
+titanic <- as.data.frame(Titanic)
+ggplot() +
+  geom_sketch_alluvial(titanic, axes = c("Class", "Sex", "Age", "Survived"),
+                       value = "Freq", seed = 1L) +
+  scale_fill_sketch() +
+  labs(title = "Titanic passengers") +
+  theme_void()
+```
+
 ## Drawing media
 
 The `medium` controls *how* a stroke is laid down. `sketch_media()` lists the

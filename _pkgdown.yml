@@ -127,6 +127,10 @@ reference:
     desc: Circular flow diagrams - nodes on a rim, ribbons through the centre.
     contents:
       - geom_sketch_chord
+  - title: Alluvial & Sankey
+    desc: Categorical axes joined by frequency-weighted flows.
+    contents:
+      - geom_sketch_alluvial
   - title: Text, annotations, theme & fonts
     desc: >
       Handwriting text, the content-aware arrow / callout / hull-mark toolkit,

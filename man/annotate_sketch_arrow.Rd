@@ -90,6 +90,7 @@ Other sketch-geoms:
 \code{\link{StatSketchWaffle}},
 \code{\link[=annotate_sketch]{annotate_sketch()}},
 \code{\link[=annotate_sketch_callout]{annotate_sketch_callout()}},
+\code{\link[=geom_sketch_alluvial]{geom_sketch_alluvial()}},
 \code{\link[=geom_sketch_bin2d]{geom_sketch_bin2d()}},
 \code{\link[=geom_sketch_chord]{geom_sketch_chord()}},
 \code{\link[=geom_sketch_contour]{geom_sketch_contour()}},

@@ -149,6 +149,13 @@ simulator. This first piece is the engine that makes it possible.
   source node (add [scale_fill_sketch()] or any fill scale), take any
   `fill_style`, and self-loops are dropped. Pair with `coord_equal()`. No new
   dependencies (cf. `circlize::chordDiagram()`).
+* **Alluvial / Sankey diagrams.** `geom_sketch_alluvial()` draws two or more
+  categorical axes as stacks of strata, joined by flows whose thickness is the
+  frequency of each category combination. Give it a wide data frame, the `axes`
+  columns (in order), an optional `value` weight, and an optional `fill` column
+  (default: the first axis); flows get raised-cosine edges and any `fill_style`.
+  It draws in ordinary x/y space -- pair with `theme_void()`. No new
+  dependencies (cf. `ggalluvial`, `ggsankey`).
 
 # ggsketch 1.8.0 (development)
 
