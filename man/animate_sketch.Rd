@@ -9,7 +9,8 @@ animate_sketch(
   nframes = 12L,
   fps = 10,
   type = c("boil", "draw_on"),
-  direction = c("lr", "rl", "bt", "tb"),
+  direction = c("lr", "rl", "bt", "tb", "diag", "radial"),
+  easing = c("linear", "ease_in", "ease_out", "ease_in_out"),
   file = NULL,
   width = 7,
   height = 5,
@@ -33,8 +34,14 @@ animate_sketch(
 drawing shimmers) or \code{"draw_on"} (progressively reveal the finished drawing
 behind a moving wipe, as if a hand were drawing it).}
 
-\item{direction}{For \code{type = "draw_on"}, the wipe direction: \code{"lr"}
-(left-to-right, default), \code{"rl"}, \code{"bt"} (bottom-to-top), or \code{"tb"}.}
+\item{direction}{For \code{type = "draw_on"}, how the drawing is revealed: a
+straight wipe \code{"lr"} (left-to-right, default), \code{"rl"}, \code{"bt"}
+(bottom-to-top) or \code{"tb"}; a diagonal wipe \code{"diag"} (top-left to
+bottom-right); or \code{"radial"} (a circular iris opening from the centre).}
+
+\item{easing}{For \code{type = "draw_on"}, the pacing of the reveal across frames:
+\code{"linear"} (constant speed, default), \code{"ease_in"} (start slow), \code{"ease_out"}
+(end slow), or \code{"ease_in_out"} (slow at both ends).}
 
 \item{file}{Output GIF path. If \code{NULL} (default), no GIF is written and the
 frame paths are returned invisibly.}

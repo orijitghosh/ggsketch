@@ -64,15 +64,53 @@ test_that("draw_on returns one frame per frame, each revealing more", {
   unlink(dirname(frames[1]), recursive = TRUE)
 })
 
-test_that("draw_on accepts every wipe direction", {
+test_that("draw_on accepts every reveal direction", {
   p <- ggplot2::ggplot(mtcars, ggplot2::aes(wt, mpg)) +
     geom_sketch_point(seed = 1L)
-  for (d in c("lr", "rl", "bt", "tb")) {
-    frames <- animate_sketch(p, type = "draw_on", direction = d, nframes = 2,
+  for (d in c("lr", "rl", "bt", "tb", "diag", "radial")) {
+    frames <- animate_sketch(p, type = "draw_on", direction = d, nframes = 3,
                              renderer = "none", width = 3, height = 2, res = 72)
-    expect_length(frames, 2L)
+    expect_length(frames, 3L)
+    # The reveal progresses, so frames differ.
+    expect_equal(length(unique(tools::md5sum(frames))), 3L)
     unlink(dirname(frames[1]), recursive = TRUE)
   }
+})
+
+test_that("draw_on accepts every easing curve", {
+  p <- ggplot2::ggplot(mtcars, ggplot2::aes(wt, mpg)) +
+    geom_sketch_point(seed = 1L)
+  for (e in c("linear", "ease_in", "ease_out", "ease_in_out")) {
+    frames <- animate_sketch(p, type = "draw_on", easing = e, nframes = 3,
+                             renderer = "none", width = 3, height = 2, res = 72)
+    expect_length(frames, 3L)
+    unlink(dirname(frames[1]), recursive = TRUE)
+  }
+})
+
+test_that("ease_fraction is monotone, pinned at the ends, and ordered", {
+  for (e in c("linear", "ease_in", "ease_out", "ease_in_out")) {
+    v <- ggsketch:::ease_fraction(seq(0, 1, length.out = 11), e)
+    expect_equal(v[1], 0)
+    expect_equal(v[length(v)], 1)
+    expect_true(all(diff(v) >= -1e-9))            # non-decreasing
+    expect_true(all(v >= -1e-9 & v <= 1 + 1e-9))  # stays in [0, 1]
+  }
+  # Clamps out-of-range input.
+  expect_equal(ggsketch:::ease_fraction(c(-1, 2), "linear"), c(0, 1))
+  # ease_in starts slower than linear; ease_out faster.
+  expect_lt(ggsketch:::ease_fraction(0.25, "ease_in"), 0.25)
+  expect_gt(ggsketch:::ease_fraction(0.25, "ease_out"), 0.25)
+})
+
+test_that("clip_halfplane keeps the correct side of the line", {
+  sq <- matrix(c(0, 0, 1, 0, 1, 1, 0, 1), ncol = 2L, byrow = TRUE)
+  # Keep x <= 0.5: a vertical half of the unit square (area 0.5).
+  half <- ggsketch:::clip_halfplane(sq, a = 1, b = 0, c = 0.5)
+  expect_true(all(half[, 1L] <= 0.5 + 1e-9))
+  expect_gte(nrow(half), 3L)
+  # A line entirely outside (keep x <= -1) clips to nothing.
+  expect_equal(nrow(ggsketch:::clip_halfplane(sq, 1, 0, -1)), 0L)
 })
 
 test_that("grob_canvas falls back when no background fill is found", {

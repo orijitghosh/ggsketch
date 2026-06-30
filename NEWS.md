@@ -190,8 +190,11 @@ simulator. This first piece is the engine that makes it possible.
   option that `resolve_seed()` adds to *every* resolved seed -- explicit or
   inherited -- so a plot boils with no change to its code, and frame 1 reproduces
   the static render exactly. `type = "draw_on"` instead reveals the finished
-  drawing progressively behind a moving wipe (`direction` `"lr"`/`"rl"`/`"bt"`/
-  `"tb"`), as if a hand were drawing it on. Frames are stitched into a GIF when
+  drawing progressively, as if a hand were drawing it on. The reveal can be a
+  straight wipe (`direction` `"lr"`/`"rl"`/`"bt"`/`"tb"`), a diagonal wipe
+  (`"diag"`), or a circular iris opening from the centre (`"radial"`), and its
+  pacing across frames follows an `easing` curve (`"linear"`, `"ease_in"`,
+  `"ease_out"`, `"ease_in_out"`). Frames are stitched into a GIF when
   `gifski` or `magick` is installed (guarded Suggests, no new hard dependency);
   otherwise the frame paths are returned. Fully reproducible from `seed`.
 * **Parallel-coordinates plots.** `geom_sketch_parallel()` draws several numeric

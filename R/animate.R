@@ -102,8 +102,13 @@ assemble_animation <- function(frames, file, fps, loop, renderer,
 #' @param type Motion type: `"boil"` (re-seed the wobble each frame so the whole
 #'   drawing shimmers) or `"draw_on"` (progressively reveal the finished drawing
 #'   behind a moving wipe, as if a hand were drawing it).
-#' @param direction For `type = "draw_on"`, the wipe direction: `"lr"`
-#'   (left-to-right, default), `"rl"`, `"bt"` (bottom-to-top), or `"tb"`.
+#' @param direction For `type = "draw_on"`, how the drawing is revealed: a
+#'   straight wipe `"lr"` (left-to-right, default), `"rl"`, `"bt"`
+#'   (bottom-to-top) or `"tb"`; a diagonal wipe `"diag"` (top-left to
+#'   bottom-right); or `"radial"` (a circular iris opening from the centre).
+#' @param easing For `type = "draw_on"`, the pacing of the reveal across frames:
+#'   `"linear"` (constant speed, default), `"ease_in"` (start slow), `"ease_out"`
+#'   (end slow), or `"ease_in_out"` (slow at both ends).
 #' @param file Output GIF path. If `NULL` (default), no GIF is written and the
 #'   frame paths are returned invisibly.
 #' @param width,height,units,res Frame size and resolution, passed to the
@@ -130,7 +135,10 @@ animate_sketch <- function(plot,
                            nframes    = 12L,
                            fps        = 10,
                            type       = c("boil", "draw_on"),
-                           direction  = c("lr", "rl", "bt", "tb"),
+                           direction  = c("lr", "rl", "bt", "tb", "diag",
+                                          "radial"),
+                           easing     = c("linear", "ease_in", "ease_out",
+                                          "ease_in_out"),
                            file       = NULL,
                            width      = 7,
                            height     = 5,
@@ -143,6 +151,7 @@ animate_sketch <- function(plot,
                            loop       = TRUE) {
   type      <- match.arg(type)
   direction <- match.arg(direction)
+  easing    <- match.arg(easing)
   renderer  <- match.arg(renderer)
   if (!ggplot2::is.ggplot(plot)) {
     cli::cli_abort("{.arg plot} must be a {.cls ggplot} object.")
@@ -177,7 +186,7 @@ animate_sketch <- function(plot,
     grb    <- ggplot2::ggplotGrob(plot)
     canvas <- grob_canvas(grb, background)
     for (f in seq_len(nframes)) {
-      reveal <- f / nframes
+      reveal <- ease_fraction(f / nframes, easing)
       open_dev(frames[f], width, height, units, res, background)
       tryCatch(draw_reveal(grb, reveal, direction, canvas),
                error = function(e) { grDevices::dev.off(); stop(e) })
@@ -200,17 +209,95 @@ grob_canvas <- function(grob, fallback) {
   if (is.null(fill) || length(fill) != 1L || is.na(fill)) fallback else fill
 }
 
+# Map a linear frame fraction t in [0,1] through an easing curve, so a draw-on
+# reveal can start slow, end slow, or both, instead of sweeping at constant
+# speed. Pure; vectorised.
+#' @noRd
+ease_fraction <- function(t, easing = c("linear", "ease_in", "ease_out",
+                                        "ease_in_out")) {
+  easing <- match.arg(easing)
+  t <- pmin(1, pmax(0, t))
+  switch(easing,
+    linear      = t,
+    ease_in     = t * t,
+    ease_out    = 1 - (1 - t)^2,
+    ease_in_out = ifelse(t < 0.5, 2 * t * t, 1 - (-2 * t + 2)^2 / 2)
+  )
+}
+
+# Clip a convex polygon (matrix cols x,y, not closed) to the half-plane
+# a*x + b*y <= c (Sutherland-Hodgman against one edge). Used to build the
+# diagonal wipe mask as the un-revealed half of the canvas.
+#' @noRd
+clip_halfplane <- function(poly, a, b, c) {
+  inside <- function(p) a * p[1L] + b * p[2L] <= c + 1e-12
+  isect  <- function(p, q) {
+    dp <- a * p[1L] + b * p[2L] - c
+    dq <- a * q[1L] + b * q[2L] - c
+    tt <- dp / (dp - dq)
+    c(p[1L] + tt * (q[1L] - p[1L]), p[2L] + tt * (q[2L] - p[2L]))
+  }
+  n <- nrow(poly)
+  if (n == 0L) return(poly)
+  out <- list()
+  for (i in seq_len(n)) {
+    cur <- poly[i, ]; prv <- poly[if (i == 1L) n else i - 1L, ]
+    ci <- inside(cur); pri <- inside(prv)
+    if (ci) {
+      if (!pri) out[[length(out) + 1L]] <- isect(prv, cur)
+      out[[length(out) + 1L]] <- cur
+    } else if (pri) {
+      out[[length(out) + 1L]] <- isect(prv, cur)
+    }
+  }
+  if (!length(out)) return(matrix(numeric(0), ncol = 2L))
+  do.call(rbind, out)
+}
+
 # Draw `grob` revealing only `reveal` (0..1) of it. ggplot panels render with
 # `clip = "off"`, so an outer clip viewport does not hold; instead the whole grob
-# is drawn and the not-yet-revealed slice is painted over with an opaque rect in
+# is drawn and the not-yet-revealed region is painted over with an opaque mask in
 # the plot's own canvas colour - a wipe that works regardless of panel clipping.
+# `direction` is a straight wipe (lr/rl/bt/tb), a diagonal wipe (diag), or a
+# circular iris opening from the centre (radial).
 draw_reveal <- function(grob, reveal, direction, canvas) {
   reveal <- max(min(reveal, 1), 0)
   grid::grid.newpage()
   grid::grid.draw(grob)
   if (reveal >= 1) return(invisible())
-  hide <- 1 - reveal
+  hide    <- 1 - reveal
   mask_gp <- grid::gpar(fill = canvas, col = NA)
+
+  if (direction == "radial") {
+    # Reveal an expanding disc from the centre: mask = canvas square with a
+    # circular hole (even-odd fill), so only inside the disc shows.
+    rmax <- sqrt(0.5) * 1.02            # centre-to-corner in npc (+ epsilon)
+    rad  <- reveal * rmax
+    th   <- seq(0, 2 * pi, length.out = 65L)
+    sq_x <- c(0, 1, 1, 0); sq_y <- c(0, 0, 1, 1)
+    ci_x <- 0.5 + rad * cos(th); ci_y <- 0.5 + rad * sin(th)
+    mask <- grid::pathGrob(
+      x = c(sq_x, ci_x), y = c(sq_y, ci_y),
+      id = c(rep(1L, 4L), rep(2L, length(th))),
+      rule = "evenodd", gp = mask_gp
+    )
+    grid::grid.draw(mask)
+    return(invisible())
+  }
+
+  if (direction == "diag") {
+    # Wipe along the top-left -> bottom-right diagonal. Reveal where the diagonal
+    # progress (x + (1 - y)) / 2 <= reveal, i.e. x - y <= 2*reveal - 1. Mask the
+    # complementary half-plane.
+    k    <- 2 * reveal - 1
+    sq   <- matrix(c(0, 0, 1, 0, 1, 1, 0, 1), ncol = 2L, byrow = TRUE)
+    hidep <- clip_halfplane(sq, a = -1, b = 1, c = -k)   # keep -x + y <= -k
+    if (nrow(hidep) >= 3L) {
+      grid::grid.draw(grid::polygonGrob(hidep[, 1L], hidep[, 2L], gp = mask_gp))
+    }
+    return(invisible())
+  }
+
   rect <- switch(direction,
     lr = grid::rectGrob(x = reveal, width = hide, just = "left",  gp = mask_gp),
     rl = grid::rectGrob(x = 0,      width = hide, just = "left",  gp = mask_gp),
