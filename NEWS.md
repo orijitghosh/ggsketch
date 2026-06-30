@@ -196,6 +196,12 @@ simulator. This first piece is the engine that makes it possible.
   curves, so a crossing reads as one series overtaking another. Give it long data
   with `x` (time), `group` (series) and `value` (ranked within each time); colour
   by series and label the ends. No new dependencies (cf. `ggbump`).
+* **Dendrograms.** `geom_sketch_dendrogram()` draws a hierarchical-clustering
+  tree with the right-angle elbows roughened into a hand-drawn wobble. Pass a
+  ready `stats::hclust()` object or a numeric data frame (a tree is then computed
+  via `hclust(dist(...))`, with `method`/`distance` controls). Four orientations
+  (`up`/`down`/`left`/`right`). Pure base stats; no new dependencies
+  (cf. `ggdendro`).
 
 # ggsketch 1.8.0 (development)
 

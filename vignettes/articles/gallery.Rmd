@@ -1174,6 +1174,22 @@ ggplot() +
   theme(legend.position = "none", plot.title = element_text(hjust = 0.5))
 ```
 
+## Dendrograms
+
+`geom_sketch_dendrogram()` draws a hierarchical-clustering tree — the right-angle
+elbows roughened into a hand-drawn wobble. Pass an `hclust` object or a numeric
+data frame (it clusters for you).
+
+```{r dendrogram, fig.height = 4.6}
+cars12 <- mtcars[1:12, c("mpg", "disp", "hp", "wt", "qsec")]
+ggplot() +
+  geom_sketch_dendrogram(cars12, seed = 3L, line_width = 1) +
+  labs(title = "Clustering cars") +
+  theme_void() +
+  theme(plot.title = element_text(hjust = 0.5),
+        plot.margin = margin(8, 8, 28, 14))
+```
+
 ## Bump (ranking) charts
 
 `geom_sketch_bump()` draws each series' rank at every time point, joined across

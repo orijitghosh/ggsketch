@@ -111,6 +111,7 @@ Other sketch-geoms:
 \code{\link[=geom_sketch_bump]{geom_sketch_bump()}},
 \code{\link[=geom_sketch_chord]{geom_sketch_chord()}},
 \code{\link[=geom_sketch_contour]{geom_sketch_contour()}},
+\code{\link[=geom_sketch_dendrogram]{geom_sketch_dendrogram()}},
 \code{\link[=geom_sketch_density]{geom_sketch_density()}},
 \code{\link[=geom_sketch_density2d]{geom_sketch_density2d()}},
 \code{\link[=geom_sketch_ecdf]{geom_sketch_ecdf()}},

@@ -107,6 +107,10 @@ reference:
     desc: Hand-drawn heatmaps over the calendar.
     contents:
       - geom_sketch_calendar
+  - title: Trees & clustering
+    desc: Hierarchical-clustering trees with roughened elbow connectors.
+    contents:
+      - geom_sketch_dendrogram
   - title: Networks
     desc: >
       Hand-drawn graphs - roughened nodes and edges, placed by a pure-R
