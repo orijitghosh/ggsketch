@@ -55,6 +55,16 @@ simulator. This first piece is the engine that makes it possible.
   `scale_medium_discrete()` chooses which media the levels map to. The legend
   keys render in their own medium. Setting `medium` as a constant still works
   exactly as before, and the default is unchanged (`"pen"`).
+* **`pressure` is a mappable aesthetic.** On `geom_sketch_line()` /
+  `geom_sketch_path()`, map `aes(pressure = )` to a variable to make the stroke
+  swell and thin *along* the line, like a pen pressed harder in places. The line
+  then renders through the variable-width `stroke_ribbon()` engine even under the
+  default `medium = "pen"`, and combines with any non-`pen` medium (the width
+  profiles multiply). Values are rescaled by the new
+  `scale_pressure_continuous()` (default band `c(0.2, 1.6)`); wrap in `I()` for
+  raw multipliers. Per-vertex pressure is carried as an interpolated arc-length
+  profile, so it stays correct when the centreline is re-roughened at device
+  resolution.
 * **The sketch colour palette now interpolates.** `scale_colour_sketch()` /
   `scale_fill_sketch()` (and `sketch_palette()`) used to recycle once a factor
   had more than eight levels. They now interpolate the eight ink-on-paper

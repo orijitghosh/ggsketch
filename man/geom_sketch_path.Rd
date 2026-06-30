@@ -45,12 +45,12 @@ Default 2.}
 \code{getOption("ggsketch.seed", 1L)}.}
 
 \item{medium}{Drawing medium for the stroke: one of \code{\link[=sketch_media]{sketch_media()}}
-(\code{"pen"}, \code{"ink"}, \code{"brush"}, \code{"pencil"}, \code{"charcoal"}, \code{"marker"},
-\code{"crayon"}). \code{NULL} (default) uses \code{"pen"}, the classic constant-width
-double stroke; the others render through the variable-width
-\code{\link[=stroke_ribbon]{stroke_ribbon()}} engine (tapered ink, brushy swells, grainy
-pencil/charcoal, ...). \code{medium} is also a mappable aesthetic: map it with
-\code{aes(medium = )} (one medium per group) and control the mapping with
+(\code{"pen"}, \code{"ink"}, \code{"fountain_pen"}, \code{"ballpoint"}, \code{"brush"}, \code{"pencil"},
+\code{"charcoal"}, \code{"pastel"}, \code{"marker"}, \code{"crayon"}). \code{NULL} (default) uses
+\code{"pen"}, the classic constant-width double stroke; the others render through
+the variable-width \code{\link[=stroke_ribbon]{stroke_ribbon()}} engine (tapered ink, brushy swells,
+grainy pencil/charcoal, ...). \code{medium} is also a mappable aesthetic: map it
+with \code{aes(medium = )} (one medium per group) and control the mapping with
 \code{\link[=scale_medium_discrete]{scale_medium_discrete()}}.}
 
 \item{na.rm}{If \code{FALSE} (default), missing values are removed with a warning.}
@@ -66,10 +66,24 @@ A \code{ggplot2} layer object.
 Draws a roughened, hand-drawn path connecting observations in order.
 Equivalent to \code{geom_path()} with a sketch aesthetic.
 }
+\section{Pressure}{
+
+Map \code{aes(pressure = )} to a variable to make the stroke swell and thin
+\strong{along} the line, like a pen pressed harder in places. The line is then
+drawn through the variable-width \code{\link[=stroke_ribbon]{stroke_ribbon()}} engine even under the
+default \code{medium = "pen"}, and combines with any non-\code{pen} medium (their width
+profiles multiply). The mapped values are rescaled by
+\code{\link[=scale_pressure_continuous]{scale_pressure_continuous()}}; wrap in \code{\link[base:I]{base::I()}} for raw multipliers.
+}
+
 \examples{
 library(ggplot2)
 ggplot(economics, aes(date, unemploy)) +
   geom_sketch_path(roughness = 1.5, seed = 42L)
+
+# Stroke width tracks a variable along the line.
+ggplot(economics[1:150, ], aes(date, unemploy, pressure = unemploy)) +
+  geom_sketch_path(linewidth = 1, seed = 42L)
 }
 \seealso{
 Other sketch-geoms:

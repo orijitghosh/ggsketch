@@ -202,6 +202,7 @@ reference:
       - coord_sketch_polar
       - scale_sketch
       - scale_roughness_continuous
+      - scale_pressure_continuous
       - sketch_palette
   - title: Legend keys
     desc: The sketchy `draw_key` functions wired into every geom.

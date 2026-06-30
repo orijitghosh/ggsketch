@@ -87,6 +87,41 @@ linewidth_to_inches <- function(linewidth) {
   linewidth * ggplot2::.pt / 96
 }
 
+# Turn per-vertex pressure values (already scaled to width multipliers by
+# scale_pressure_continuous) into a vectorised profile f(t) over normalised
+# arc-length, so it survives the centreline being resampled by roughen_polyline.
+# `x`,`y` are the original vertices (any consistent space; only their relative
+# spacing matters for where each pressure sample lands along the line).
+#' @noRd
+make_pressure_fn <- function(pvals, x, y) {
+  pvals <- as.double(pvals)
+  n <- length(pvals)
+  if (n < 2L) {
+    v <- if (n == 1L && is.finite(pvals[1L])) pvals[1L] else 1
+    return(function(t) rep(v, length(t)))
+  }
+  seg <- sqrt(diff(x)^2 + diff(y)^2)
+  s   <- c(0, cumsum(seg))
+  tot <- s[n]
+  t0  <- if (tot > 0) s / tot else seq(0, 1, length.out = n)
+  fill <- mean(pvals[is.finite(pvals)])
+  if (!is.finite(fill)) fill <- 1
+  f <- stats::approxfun(t0, pvals, rule = 2, ties = mean)
+  function(t) {
+    v <- f(t)
+    v[!is.finite(v)] <- fill
+    pmax(0, v)
+  }
+}
+
+# Multiply two optional pressure profiles (NULL acts as the identity).
+#' @noRd
+compose_pressure <- function(a, b) {
+  if (is.null(a)) return(b)
+  if (is.null(b)) return(a)
+  function(t) a(t) * b(t)
+}
+
 #' Draw a path through the chosen medium
 #'
 #' Shared by the path-like sketch geoms. For `medium = "pen"` it returns the
@@ -98,6 +133,10 @@ linewidth_to_inches <- function(linewidth) {
 #' @param medium A value from [sketch_media()].
 #' @param colour,linewidth,linetype,alpha Aesthetic values (scalars).
 #' @param roughness,bowing,n_passes,seed Sketch parameters for the centreline.
+#' @param pressure_var Optional per-vertex width multipliers (a `pressure`
+#'   aesthetic, already rescaled). When supplied, the line renders through the
+#'   variable-width engine -- even for `medium = "pen"` -- with the width
+#'   modulated along the stroke. Its profile multiplies the medium's own.
 #' @return A grid grob.
 #' @noRd
 sketch_medium_grob <- function(x, y, id = NULL,
@@ -109,8 +148,13 @@ sketch_medium_grob <- function(x, y, id = NULL,
                                roughness = 1,
                                bowing    = 1,
                                n_passes  = 2L,
-                               seed      = NULL) {
-  if (identical(medium, "pen")) {
+                               seed      = NULL,
+                               pressure_var = NULL) {
+  has_press <- !is.null(pressure_var) && length(pressure_var) == length(x) &&
+    any(is.finite(pressure_var))
+
+  # Constant-width pen with no pressure mapping = the historical path grob.
+  if (identical(medium, "pen") && !has_press) {
     return(sketch_path_grob(
       x = x, y = y, id = id,
       roughness = roughness, bowing = bowing, n_passes = n_passes, seed = seed,
@@ -119,10 +163,20 @@ sketch_medium_grob <- function(x, y, id = NULL,
     ))
   }
 
-  spec     <- medium_spec(medium)
-  width_in <- linewidth_to_inches(linewidth) * spec$width_mult
-  a        <- if (is.na(alpha)) spec$alpha_mult else alpha * spec$alpha_mult
-  pressure <- if (is.null(spec$profile)) NULL else stroke_profile(spec$profile)
+  # `pen` carries no ribbon recipe; a neutral one (constant width, no taper /
+  # jitter) lets a pressure mapping vary an otherwise-plain pen line.
+  spec <- if (identical(medium, "pen")) {
+    list(width_mult = 1, taper = "none", taper_frac = 0, profile = NULL,
+         n_passes = n_passes, alpha_mult = 1, cap = "round", jitter_w = 0)
+  } else {
+    medium_spec(medium)
+  }
+
+  width_in    <- linewidth_to_inches(linewidth) * spec$width_mult
+  a           <- if (is.na(alpha)) spec$alpha_mult else alpha * spec$alpha_mult
+  prof_medium <- if (is.null(spec$profile)) NULL else stroke_profile(spec$profile)
+  prof_press  <- if (has_press) make_pressure_fn(pressure_var, x, y) else NULL
+  pressure    <- compose_pressure(prof_medium, prof_press)
 
   sketch_stroke_grob(
     x = x, y = y, id = id,

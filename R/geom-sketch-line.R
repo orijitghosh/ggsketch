@@ -10,10 +10,12 @@ GeomSketchPath <- ggplot2::ggproto(
 
   required_aes = c("x", "y"),
 
-  # `medium` is an optional, mappable aesthetic (one medium per group). Listing
-  # it here means a mapped `aes(medium = )` is recognised (no "unknown
-  # aesthetic" warning); when unmapped the `medium` layer param supplies it.
-  optional_aes = "medium",
+  # `medium` is an optional, mappable aesthetic (one medium per group); `pressure`
+  # is an optional per-vertex aesthetic that swells / thins the stroke along the
+  # line. Listing them means a mapped `aes(medium = )` / `aes(pressure = )` is
+  # recognised (no "unknown aesthetic" warning); when unmapped the `medium` layer
+  # param supplies the medium and `pressure` is simply absent.
+  optional_aes = c("medium", "pressure"),
 
   default_aes = ggplot2::aes(
     colour    = "black",
@@ -47,7 +49,8 @@ GeomSketchPath <- ggplot2::ggproto(
       roughness = sp$roughness,
       bowing    = sp$bowing,
       n_passes  = sp$n_passes,
-      seed      = sp$seed
+      seed      = sp$seed,
+      pressure_var = coords$pressure
     )
   }
 )
@@ -70,24 +73,35 @@ GeomSketchPath <- ggplot2::ggproto(
 #' @param seed Integer seed for reproducibility. `NULL` uses
 #'   `getOption("ggsketch.seed", 1L)`.
 #' @param medium Drawing medium for the stroke: one of [sketch_media()]
-#'   (`"pen"`, `"ink"`, `"brush"`, `"pencil"`, `"charcoal"`, `"marker"`,
-#'   `"crayon"`). `NULL` (default) uses `"pen"`, the classic constant-width
-#'   double stroke; the others render through the variable-width
-#'   [stroke_ribbon()] engine (tapered ink, brushy swells, grainy
-#'   pencil/charcoal, ...). `medium` is also a mappable aesthetic: map it with
-#'   `aes(medium = )` (one medium per group) and control the mapping with
+#'   (`"pen"`, `"ink"`, `"fountain_pen"`, `"ballpoint"`, `"brush"`, `"pencil"`,
+#'   `"charcoal"`, `"pastel"`, `"marker"`, `"crayon"`). `NULL` (default) uses
+#'   `"pen"`, the classic constant-width double stroke; the others render through
+#'   the variable-width [stroke_ribbon()] engine (tapered ink, brushy swells,
+#'   grainy pencil/charcoal, ...). `medium` is also a mappable aesthetic: map it
+#'   with `aes(medium = )` (one medium per group) and control the mapping with
 #'   [scale_medium_discrete()].
 #' @param na.rm If `FALSE` (default), missing values are removed with a warning.
 #' @param show.legend Logical. Should this layer be included in the legend?
 #' @param inherit.aes If `FALSE`, override the default aesthetics.
 #' @param ... Other arguments passed on to the layer.
 #' @return A `ggplot2` layer object.
+#' @section Pressure:
+#' Map `aes(pressure = )` to a variable to make the stroke swell and thin
+#' **along** the line, like a pen pressed harder in places. The line is then
+#' drawn through the variable-width [stroke_ribbon()] engine even under the
+#' default `medium = "pen"`, and combines with any non-`pen` medium (their width
+#' profiles multiply). The mapped values are rescaled by
+#' [scale_pressure_continuous()]; wrap in [base::I()] for raw multipliers.
 #' @family sketch-geoms
 #' @export
 #' @examples
 #' library(ggplot2)
 #' ggplot(economics, aes(date, unemploy)) +
 #'   geom_sketch_path(roughness = 1.5, seed = 42L)
+#'
+#' # Stroke width tracks a variable along the line.
+#' ggplot(economics[1:150, ], aes(date, unemploy, pressure = unemploy)) +
+#'   geom_sketch_path(linewidth = 1, seed = 42L)
 geom_sketch_path <- function(mapping     = NULL,
                                data        = NULL,
                                stat        = "identity",
