@@ -93,10 +93,13 @@ reference:
       - geom_sketch_segment
       - geom_sketch_curve
       - geom_sketch_spoke
-  - title: Pie & donut charts
-    desc: Hand-drawn part-to-whole charts that stay round on any panel shape.
+  - title: Pie, donut & rose charts
+    desc: >
+      Hand-drawn radial part-to-whole charts that stay round on any panel shape,
+      including the Nightingale coxcomb rose.
     contents:
       - geom_sketch_pie
+      - geom_sketch_rose
   - title: Part-to-whole
     desc: Square, nested and radial part-to-whole charts.
     contents:

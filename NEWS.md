@@ -208,6 +208,11 @@ simulator. This first piece is the engine that makes it possible.
   is the joint value. The value-weighted, segment-coloured cousin of the mosaic
   plot (and reuses its layout); shows each column's width percent on top. No new
   dependencies.
+* **Coxcomb / Nightingale rose charts.** `geom_sketch_rose()` gives each category
+  an equal angular wedge whose radius encodes `value`; with `area_true = TRUE` the
+  sector *area* (radius square-root) encodes value, as in Florence Nightingale's
+  mortality roses. An optional `fill` category stacks radially within each wedge.
+  Pair with `coord_equal()` + `theme_void()`. No new dependencies.
 
 # ggsketch 1.8.0 (development)
 

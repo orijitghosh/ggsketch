@@ -1262,6 +1262,28 @@ ggplot() +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
+## Coxcomb / Nightingale rose
+
+`geom_sketch_rose()` gives each category an equal angular wedge whose radius (or,
+with `area_true = TRUE`, whose *area*) encodes the value — Florence Nightingale's
+coxcomb. An optional `fill` stacks radially within each wedge.
+
+```{r rose, fig.height = 5.4}
+mortality <- data.frame(
+  quarter = rep(c("Q1", "Q2", "Q3", "Q4", "Q5", "Q6"), each = 3),
+  cause   = rep(c("Disease", "Wounds", "Other"), times = 6),
+  n       = c(20, 8, 4,  30, 10, 5,  18, 6, 3,  12, 9, 2,  8, 5, 2,  14, 7, 3)
+)
+ggplot() +
+  geom_sketch_rose(mortality, quarter, n, fill = cause, area_true = TRUE,
+                   seed = 8L, alpha = 0.85) +
+  scale_fill_sketch() +
+  labs(title = "Mortality by quarter (area-true)", fill = NULL) +
+  coord_equal() +
+  theme_void() +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
 ## Marimekko charts
 
 `geom_sketch_marimekko()` draws variable-width stacked bars: column width is one

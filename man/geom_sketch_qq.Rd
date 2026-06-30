@@ -150,6 +150,7 @@ Other sketch-geoms:
 \code{\link[=geom_sketch_mosaic]{geom_sketch_mosaic()}},
 \code{\link[=geom_sketch_parallel]{geom_sketch_parallel()}},
 \code{\link[=geom_sketch_quantile]{geom_sketch_quantile()}},
+\code{\link[=geom_sketch_rose]{geom_sketch_rose()}},
 \code{\link[=geom_sketch_sunburst]{geom_sketch_sunburst()}},
 \code{\link[=geom_sketch_text]{geom_sketch_text()}},
 \code{\link[=sketch_graph]{sketch_graph()}}
