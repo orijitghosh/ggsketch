@@ -90,6 +90,14 @@ The 2.0 line adds whole chart families that compose with `+` — here a hierarch
 
 </p>
 
+It also simulates the *medium*, not just the line. The `"watercolor"` fill paints translucent washes that bleed wet-on-wet where regions overlap — mingling into new colours — and feather along the paper tooth set by `theme_sketch(paper = )`:
+
+<p align="center">
+
+<img src="man/figures/README-watercolor.png" alt="Overlapping translucent watercolour petals that blend into new colours where they meet, feathered against an aged-paper ground" width="60%"/>
+
+</p>
+
 ## The geoms
 
 | Family | Geoms |
