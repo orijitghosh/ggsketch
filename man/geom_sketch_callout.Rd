@@ -21,6 +21,7 @@ geom_sketch_callout(
   corner_radius = 0.3,
   arrow_length = NULL,
   arrow_angle = 25,
+  arrow_head = NULL,
   family = NULL,
   na.rm = FALSE,
   show.legend = FALSE,
@@ -55,6 +56,9 @@ geom_sketch_callout(
 adapts it to the leader length.}
 
 \item{arrow_angle}{Half-angle of the leader arrowhead in degrees. Default 25.}
+
+\item{arrow_head}{Leader head style, one of \code{\link[=sketch_arrowheads]{sketch_arrowheads()}}. \code{NULL}
+(default) draws the open V.}
 
 \item{family}{Font family for the label. Defaults to the same family as
 \code{\link[=theme_sketch]{theme_sketch()}} (\code{getOption("ggsketch.base_family", "")}, i.e. the device

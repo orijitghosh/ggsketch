@@ -26,7 +26,7 @@ GeomSketchCallout <- ggplot2::ggproto(
 
   parameters = function(self, extra = FALSE) {
     c("roughness", "bowing", "n_passes", "seed", "padding", "corner_radius",
-      "arrow_length", "arrow_angle", "family", "na.rm")
+      "arrow_length", "arrow_angle", "arrow_head", "family", "na.rm")
   },
 
   draw_panel = function(data, panel_params, coord,
@@ -38,6 +38,7 @@ GeomSketchCallout <- ggplot2::ggproto(
                          corner_radius = 0.3,
                          arrow_length  = NULL,
                          arrow_angle   = 25,
+                         arrow_head    = NULL,
                          family        = NULL,
                          ...) {
     if (nrow(data) == 0L) return(nullGrob())
@@ -65,6 +66,7 @@ GeomSketchCallout <- ggplot2::ggproto(
         roughness = sp$roughness, bowing = sp$bowing, n_passes = sp$n_passes,
         seed = seed_offset(sp$seed, i * 53L),
         arrow_length = arrow_length, arrow_angle = arrow_angle,
+        arrow_head = arrow_head,
         text_gp = grid::gpar(
           col = scales::alpha(data$colour[i], data$alpha[i]),
           fontfamily = fam, fontsize = data$size[i] * ggplot2::.pt
@@ -111,6 +113,8 @@ GeomSketchCallout <- ggplot2::ggproto(
 #' @param arrow_length Leader arrowhead length in inches. `NULL` (default)
 #'   adapts it to the leader length.
 #' @param arrow_angle Half-angle of the leader arrowhead in degrees. Default 25.
+#' @param arrow_head Leader head style, one of [sketch_arrowheads()]. `NULL`
+#'   (default) draws the open V.
 #' @param family Font family for the label. Defaults to the same family as
 #'   [theme_sketch()] (`getOption("ggsketch.base_family", "")`, i.e. the device
 #'   default), so the label matches the plot's other text; set
@@ -143,6 +147,7 @@ geom_sketch_callout <- function(mapping       = NULL,
                                 corner_radius = 0.3,
                                 arrow_length  = NULL,
                                 arrow_angle   = 25,
+                                arrow_head    = NULL,
                                 family        = NULL,
                                 na.rm         = FALSE,
                                 show.legend   = FALSE,
@@ -153,7 +158,8 @@ geom_sketch_callout <- function(mapping       = NULL,
     params = list(
       roughness = roughness, bowing = bowing, n_passes = as.integer(n_passes),
       seed = seed, padding = padding, corner_radius = corner_radius,
-      arrow_length = arrow_length, arrow_angle = arrow_angle, family = family,
+      arrow_length = arrow_length, arrow_angle = arrow_angle,
+      arrow_head = arrow_head, family = family,
       na.rm = na.rm, ...
     )
   )

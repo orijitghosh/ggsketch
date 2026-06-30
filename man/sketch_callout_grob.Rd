@@ -18,6 +18,7 @@ sketch_callout_grob(
   seed = NULL,
   arrow_length = NULL,
   arrow_angle = 25,
+  arrow_head = NULL,
   text_gp = gpar(),
   box_gp = gpar(),
   arrow_gp = gpar(),

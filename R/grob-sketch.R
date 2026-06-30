@@ -616,6 +616,58 @@ makeContent.SketchWedgeGrob <- function(x) {
   setChildren(x, do.call(gList, children))
 }
 
+# ---- arrowhead grobs (shared by arrow + callout) ----------------------------
+
+# Turn one arrowhead() result into roughened grobs: stroke the open paths, fill
+# the closed ones, paint the dot. `col` strokes/fills (a single arrow colour);
+# `lwd` sets the stroke weight. Used by both the arrow and callout grobs so every
+# head style is available everywhere.
+arrowhead_grobs <- function(tipx, tipy, angle, head_len, half_angle, style,
+                            roughness, n_passes, seed, gp) {
+  ah  <- arrowhead(tipx, tipy, angle, head_len, half_angle = half_angle,
+                   style = style)
+  out <- list()
+  rough <- max(roughness, 0) * 0.6
+
+  for (s in ah$strokes) {
+    for (pass in roughen_polyline(s[, "x"], s[, "y"], roughness = rough,
+                                  bowing = 0, n_passes = n_passes,
+                                  seed = seed_offset(seed, 200L))) {
+      out[[length(out) + 1L]] <- polylineGrob(
+        x = unit(pass[, "x"], "inches"), y = unit(pass[, "y"], "inches"),
+        gp = gp
+      )
+    }
+  }
+  for (p in ah$polygons) {
+    rp <- roughen_polyline(c(p[, "x"], p[1L, "x"]), c(p[, "y"], p[1L, "y"]),
+                           roughness = rough, bowing = 0, n_passes = 1L,
+                           seed = seed_offset(seed, 200L))[[1L]]
+    out[[length(out) + 1L]] <- polygonGrob(
+      x = unit(rp[, "x"], "inches"), y = unit(rp[, "y"], "inches"),
+      gp = gpar(fill = gp$col, col = gp$col, lwd = gp$lwd %||% 1)
+    )
+  }
+  if (!is.null(ah$dots)) {
+    out[[length(out) + 1L]] <- circleGrob(
+      x = unit(ah$dots$x, "inches"), y = unit(ah$dots$y, "inches"),
+      r = unit(ah$dots$r, "inches"),
+      gp = gpar(fill = gp$col, col = NA)
+    )
+  }
+  out
+}
+
+# Resolve the head style: an explicit `arrow_head` wins; otherwise map the
+# historical `arrow_type` ("open"/"closed") onto the new vocabulary.
+resolve_arrow_head <- function(arrow_head, arrow_type) {
+  if (!is.null(arrow_head)) return(arrow_head)
+  switch(arrow_type %||% "open",
+    closed = "triangle_filled",
+    "triangle_open"
+  )
+}
+
 # ---- sketch_arrow_grob ------------------------------------------------------
 
 #' Create a sketchy arrow grob
@@ -635,7 +687,12 @@ makeContent.SketchWedgeGrob <- function(x) {
 #'   the shaft length.
 #' @param arrow_angle Half-angle of the arrowhead in degrees. Default 25.
 #' @param arrow_type `"open"` (default) draws a two-stroke V; `"closed"` draws a
-#'   filled rough triangle.
+#'   filled rough triangle. Superseded by `arrow_head`; kept for back-compat.
+#' @param arrow_head Head style, one of [sketch_arrowheads()]
+#'   (`"triangle_open"`, `"triangle_filled"`, `"barb"`, `"fishtail"`, `"dot"`,
+#'   `"bar"`). `NULL` (default) derives it from `arrow_type`.
+#' @param ends Which end(s) carry a head: `"last"` (default), `"first"`, or
+#'   `"both"`.
 #' @param gp A `grid::gpar()` for the strokes (per-arrow `col` recycled).
 #' @param name,vp Passed to `grid::gTree()`.
 #' @return A `SketchArrowGrob` grob subclass.
@@ -649,6 +706,8 @@ sketch_arrow_grob <- function(x0, y0, cx, cy, x1, y1,
                               arrow_length = NULL,
                               arrow_angle  = 25,
                               arrow_type   = "open",
+                              arrow_head   = NULL,
+                              ends         = "last",
                               gp           = gpar(),
                               name         = NULL,
                               vp           = NULL) {
@@ -658,7 +717,7 @@ sketch_arrow_grob <- function(x0, y0, cx, cy, x1, y1,
     roughness = roughness, bowing = bowing, n_passes = as.integer(n_passes),
     seed = seed,
     arrow_length = arrow_length, arrow_angle = arrow_angle,
-    arrow_type = arrow_type,
+    arrow_type = arrow_type, arrow_head = arrow_head, ends = ends,
     gp = gp, name = name, vp = vp,
     cl = "SketchArrowGrob"
   )
@@ -678,7 +737,9 @@ makeContent.SketchArrowGrob <- function(x) {
   cxi <- to_in_x(x$cx); cyi <- to_in_y(x$cy)
   x1i <- to_in_x(x$x1); y1i <- to_in_y(x$y1)
 
-  spread   <- x$arrow_angle * pi / 180
+  half     <- x$arrow_angle * pi / 180
+  style    <- resolve_arrow_head(x$arrow_head, x$arrow_type)
+  ends     <- x$ends %||% "last"
   children <- list()
 
   for (i in seq_len(n_arr)) {
@@ -702,45 +763,29 @@ makeContent.SketchArrowGrob <- function(x) {
       )
     }
 
-    # --- arrowhead: orient to the end tangent (P1 - control) ---
-    tx <- x1i[i] - cxi[i]
-    ty <- y1i[i] - cyi[i]
-    if (abs(tx) < 1e-9 && abs(ty) < 1e-9) {
-      tx <- x1i[i] - x0i[i]
-      ty <- y1i[i] - y0i[i]
-    }
-    ang <- atan2(ty, tx)
-
     shaft_len <- sqrt((x1i[i] - x0i[i])^2 + (y1i[i] - y0i[i])^2)
     head_len  <- x$arrow_length %||% max(0.07, min(0.2, shaft_len * 0.22))
 
-    b1x <- x1i[i] - head_len * cos(ang - spread)
-    b1y <- y1i[i] - head_len * sin(ang - spread)
-    b2x <- x1i[i] - head_len * cos(ang + spread)
-    b2y <- y1i[i] - head_len * sin(ang + spread)
-
-    if (identical(x$arrow_type, "closed")) {
-      tri <- roughen_polyline(
-        c(b1x, x1i[i], b2x, b1x), c(b1y, y1i[i], b2y, b1y),
-        roughness = max(x$roughness, 0) * 0.5, bowing = 0,
-        n_passes  = 1L, seed = seed_offset(s_base, 200L)
-      )[[1L]]
-      children[[length(children) + 1L]] <- polygonGrob(
-        x = unit(tri[, "x"], "inches"), y = unit(tri[, "y"], "inches"),
-        gp = gpar(fill = gp_i$col, col = gp_i$col, lwd = gp_i$lwd %||% 1)
-      )
-    } else {
-      head <- roughen_polyline(
-        c(b1x, x1i[i], b2x), c(b1y, y1i[i], b2y),
-        roughness = max(x$roughness, 0) * 0.6, bowing = 0,
-        n_passes  = x$n_passes, seed = seed_offset(s_base, 200L)
-      )
-      for (pass in head) {
-        children[[length(children) + 1L]] <- polylineGrob(
-          x = unit(pass[, "x"], "inches"), y = unit(pass[, "y"], "inches"),
-          gp = gp_i
-        )
+    # --- arrowhead(s): orient to the end tangent (P1 - control) ---
+    add_head <- function(tipx, tipy, ang, soff) {
+      hg <- arrowhead_grobs(tipx, tipy, ang, head_len, half, style,
+                            x$roughness, x$n_passes, seed_offset(s_base, soff),
+                            gp_i)
+      children <<- c(children, hg)
+    }
+    if (ends %in% c("last", "both")) {
+      tx <- x1i[i] - cxi[i]; ty <- y1i[i] - cyi[i]
+      if (abs(tx) < 1e-9 && abs(ty) < 1e-9) {
+        tx <- x1i[i] - x0i[i]; ty <- y1i[i] - y0i[i]
       }
+      add_head(x1i[i], y1i[i], atan2(ty, tx), 200L)
+    }
+    if (ends %in% c("first", "both")) {
+      tx <- x0i[i] - cxi[i]; ty <- y0i[i] - cyi[i]
+      if (abs(tx) < 1e-9 && abs(ty) < 1e-9) {
+        tx <- x0i[i] - x1i[i]; ty <- y0i[i] - y1i[i]
+      }
+      add_head(x0i[i], y0i[i], atan2(ty, tx), 300L)
     }
   }
 
@@ -781,6 +826,7 @@ sketch_callout_grob <- function(x, y, xend, yend, label,
                                 seed          = NULL,
                                 arrow_length  = NULL,
                                 arrow_angle   = 25,
+                                arrow_head    = NULL,
                                 text_gp       = gpar(),
                                 box_gp        = gpar(),
                                 arrow_gp      = gpar(),
@@ -792,6 +838,7 @@ sketch_callout_grob <- function(x, y, xend, yend, label,
     padding = padding, corner_radius = corner_radius,
     roughness = roughness, bowing = bowing, n_passes = as.integer(n_passes),
     seed = seed, arrow_length = arrow_length, arrow_angle = arrow_angle,
+    arrow_head = arrow_head,
     text_gp = text_gp, box_gp = box_gp, arrow_gp = arrow_gp,
     name = name, vp = vp,
     cl = "SketchCalloutGrob"
@@ -843,22 +890,15 @@ makeContent.SketchCalloutGrob <- function(x) {
           gp = x$arrow_gp
         )
       }
-      a2  <- atan2(ye - sy, xe - sx)
-      spd <- x$arrow_angle * pi / 180
-      hl  <- x$arrow_length %||%
+      a2    <- atan2(ye - sy, xe - sx)
+      spd   <- x$arrow_angle * pi / 180
+      hl    <- x$arrow_length %||%
         max(0.07, min(0.18, sqrt((xe - sx)^2 + (ye - sy)^2) * 0.22))
-      head <- roughen_polyline(
-        c(xe - hl * cos(a2 - spd), xe, xe - hl * cos(a2 + spd)),
-        c(ye - hl * sin(a2 - spd), ye, ye - hl * sin(a2 + spd)),
-        roughness = max(x$roughness, 0) * 0.6, bowing = 0,
-        n_passes  = x$n_passes, seed = seed_offset(x$seed, 200L)
-      )
-      for (pass in head) {
-        children[[length(children) + 1L]] <- polylineGrob(
-          x = unit(pass[, "x"], "inches"), y = unit(pass[, "y"], "inches"),
-          gp = x$arrow_gp
-        )
-      }
+      style <- resolve_arrow_head(x$arrow_head, "open")
+      children <- c(children, arrowhead_grobs(
+        xe, ye, a2, hl, spd, style, x$roughness, x$n_passes,
+        seed_offset(x$seed, 200L), x$arrow_gp
+      ))
     }
   }
 

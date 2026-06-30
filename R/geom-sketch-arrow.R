@@ -27,8 +27,8 @@ GeomSketchArrow <- ggplot2::ggproto(
 
   parameters = function(self, extra = FALSE) {
     c("roughness", "bowing", "n_passes", "seed", "curvature",
-      "arrow_length", "arrow_angle", "arrow_type", "family", "label_gap",
-      "na.rm")
+      "arrow_length", "arrow_angle", "arrow_type", "arrow_head", "ends",
+      "family", "label_gap", "na.rm")
   },
 
   draw_panel = function(data, panel_params, coord,
@@ -40,6 +40,8 @@ GeomSketchArrow <- ggplot2::ggproto(
                          arrow_length = NULL,
                          arrow_angle  = 25,
                          arrow_type   = "open",
+                         arrow_head   = NULL,
+                         ends         = "last",
                          family       = NULL,
                          label_gap    = 0.012,
                          ...) {
@@ -69,7 +71,7 @@ GeomSketchArrow <- ggplot2::ggproto(
       roughness = sp$roughness, bowing = sp$bowing, n_passes = sp$n_passes,
       seed = sp$seed,
       arrow_length = arrow_length, arrow_angle = arrow_angle,
-      arrow_type = arrow_type,
+      arrow_type = arrow_type, arrow_head = arrow_head, ends = ends,
       gp = gpar(col = scales::alpha(data$colour, data$alpha),
                 lwd = data$linewidth * ggplot2::.pt,
                 lineend = "round", linejoin = "round")
@@ -130,7 +132,13 @@ GeomSketchArrow <- ggplot2::ggproto(
 #'   the shaft length.
 #' @param arrow_angle Half-angle of the arrowhead in degrees. Default 25.
 #' @param arrow_type `"open"` (default) draws a two-stroke V; `"closed"` draws a
-#'   filled rough triangle.
+#'   filled rough triangle. Superseded by `arrow_head`; kept for back-compat.
+#' @param arrow_head Arrowhead style, one of [sketch_arrowheads()]:
+#'   `"triangle_open"`, `"triangle_filled"`, `"barb"` (swept harpoon barbs),
+#'   `"fishtail"` (forked swallowtail), `"dot"` (a blob) or `"bar"` (a
+#'   perpendicular tick). `NULL` (default) derives it from `arrow_type`.
+#' @param ends Which end(s) carry a head: `"last"` (default), `"first"` or
+#'   `"both"` (a double-headed arrow).
 #' @param family Font family for the label. Defaults to the same family as
 #'   [theme_sketch()] (`getOption("ggsketch.base_family", "")`, i.e. the device
 #'   default), so the label matches the plot's other text; set
@@ -165,6 +173,8 @@ geom_sketch_arrow <- function(mapping      = NULL,
                               arrow_length = NULL,
                               arrow_angle  = 25,
                               arrow_type   = "open",
+                              arrow_head   = NULL,
+                              ends         = "last",
                               family       = NULL,
                               label_gap    = 0.012,
                               na.rm        = FALSE,
@@ -177,7 +187,8 @@ geom_sketch_arrow <- function(mapping      = NULL,
       curvature = curvature, roughness = roughness, bowing = bowing,
       n_passes = as.integer(n_passes), seed = seed,
       arrow_length = arrow_length, arrow_angle = arrow_angle,
-      arrow_type = arrow_type, family = family, label_gap = label_gap,
+      arrow_type = arrow_type, arrow_head = arrow_head, ends = ends,
+      family = family, label_gap = label_gap,
       na.rm = na.rm, ...
     )
   )

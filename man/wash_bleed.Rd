@@ -43,6 +43,7 @@ mingled pigment. Pure geometry + colour math; reproduces on every device.
 }
 \seealso{
 Other sketch-core:
+\code{\link[=arrowhead]{arrowhead()}},
 \code{\link[=curve_fill]{curve_fill()}},
 \code{\link[=engrave_fill]{engrave_fill()}},
 \code{\link[=engrave_ladder]{engrave_ladder()}},
@@ -52,6 +53,7 @@ Other sketch-core:
 \code{\link[=rough_bezier]{rough_bezier()}},
 \code{\link[=rough_ellipse]{rough_ellipse()}},
 \code{\link[=roughen_polyline]{roughen_polyline()}},
+\code{\link[=sketch_arrowheads]{sketch_arrowheads()}},
 \code{\link[=sketch_fill]{sketch_fill()}},
 \code{\link[=sketch_fill_multi]{sketch_fill_multi()}},
 \code{\link[=spray_scatter]{spray_scatter()}},

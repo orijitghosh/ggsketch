@@ -21,6 +21,8 @@ geom_sketch_arrow(
   arrow_length = NULL,
   arrow_angle = 25,
   arrow_type = "open",
+  arrow_head = NULL,
+  ends = "last",
   family = NULL,
   label_gap = 0.012,
   na.rm = FALSE,
@@ -57,7 +59,15 @@ the shaft length.}
 \item{arrow_angle}{Half-angle of the arrowhead in degrees. Default 25.}
 
 \item{arrow_type}{\code{"open"} (default) draws a two-stroke V; \code{"closed"} draws a
-filled rough triangle.}
+filled rough triangle. Superseded by \code{arrow_head}; kept for back-compat.}
+
+\item{arrow_head}{Arrowhead style, one of \code{\link[=sketch_arrowheads]{sketch_arrowheads()}}:
+\code{"triangle_open"}, \code{"triangle_filled"}, \code{"barb"} (swept harpoon barbs),
+\code{"fishtail"} (forked swallowtail), \code{"dot"} (a blob) or \code{"bar"} (a
+perpendicular tick). \code{NULL} (default) derives it from \code{arrow_type}.}
+
+\item{ends}{Which end(s) carry a head: \code{"last"} (default), \code{"first"} or
+\code{"both"} (a double-headed arrow).}
 
 \item{family}{Font family for the label. Defaults to the same family as
 \code{\link[=theme_sketch]{theme_sketch()}} (\code{getOption("ggsketch.base_family", "")}, i.e. the device

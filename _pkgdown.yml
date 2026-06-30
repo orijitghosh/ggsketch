@@ -241,6 +241,8 @@ reference:
       - curve_fill
       - stroke_profile
       - stroke_ribbon
+      - sketch_arrowheads
+      - arrowhead
       - spray_scatter
       - watercolor_wash
       - watercolor_wash_multi

@@ -208,6 +208,15 @@ simulator. This first piece is the engine that makes it possible.
   `"ease_out"`, `"ease_in_out"`). Frames are stitched into a GIF when
   `gifski` or `magick` is installed (guarded Suggests, no new hard dependency);
   otherwise the frame paths are returned. Fully reproducible from `seed`.
+* **Arrowhead vocabulary.** Arrows and callout leaders now take a `head =`
+  argument choosing the head style: `"triangle_open"` (the classic two-stroke V),
+  `"triangle_filled"`, `"barb"` (swept-back harpoon barbs), `"fishtail"` (a
+  forked swallowtail), `"dot"` (a blob) or `"bar"` (a perpendicular tick), and
+  `geom_sketch_arrow()` gains `ends =` (`"last"` / `"first"` / `"both"`) for
+  double-headed arrows. One Layer-1 generator `arrowhead()` (listed by
+  `sketch_arrowheads()`) drives `geom_sketch_arrow()`, `annotate_sketch_arrow()`
+  and `geom_sketch_callout()` alike. The old `arrow_type` (`"open"`/`"closed"`)
+  still works and maps onto the new styles.
 * **gganimate bridge.** `boil_gganimate()` renders a gganimate animation --
   any ggsketch plot plus a `transition_*()` -- so that, on top of gganimate's
   data tweening (bars growing, points flying between states, a line drawing

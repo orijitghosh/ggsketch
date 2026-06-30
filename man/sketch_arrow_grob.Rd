@@ -18,6 +18,8 @@ sketch_arrow_grob(
   arrow_length = NULL,
   arrow_angle = 25,
   arrow_type = "open",
+  arrow_head = NULL,
+  ends = "last",
   gp = gpar(),
   name = NULL,
   vp = NULL
@@ -39,7 +41,14 @@ the shaft length.}
 \item{arrow_angle}{Half-angle of the arrowhead in degrees. Default 25.}
 
 \item{arrow_type}{\code{"open"} (default) draws a two-stroke V; \code{"closed"} draws a
-filled rough triangle.}
+filled rough triangle. Superseded by \code{arrow_head}; kept for back-compat.}
+
+\item{arrow_head}{Head style, one of \code{\link[=sketch_arrowheads]{sketch_arrowheads()}}
+(\code{"triangle_open"}, \code{"triangle_filled"}, \code{"barb"}, \code{"fishtail"}, \code{"dot"},
+\code{"bar"}). \code{NULL} (default) derives it from \code{arrow_type}.}
+
+\item{ends}{Which end(s) carry a head: \code{"last"} (default), \code{"first"}, or
+\code{"both"}.}
 
 \item{gp}{A \code{grid::gpar()} for the strokes (per-arrow \code{col} recycled).}
 
