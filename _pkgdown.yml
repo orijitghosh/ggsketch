@@ -144,10 +144,13 @@ reference:
     desc: Numeric axes crossed by one roughened polyline per observation.
     contents:
       - geom_sketch_parallel
-  - title: Mosaic
-    desc: Two categorical variables as area-proportional tiles.
+  - title: Mosaic & Marimekko
+    desc: >
+      Area-proportional tiles - two categoricals as a mosaic, or variable-width
+      stacked bars as a Marimekko.
     contents:
       - geom_sketch_mosaic
+      - geom_sketch_marimekko
   - title: Motion
     desc: >
       Animate a sketch plot - re-seed its wobble each frame for the hand-drawn

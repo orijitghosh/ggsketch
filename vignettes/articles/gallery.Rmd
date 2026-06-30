@@ -1262,6 +1262,27 @@ ggplot() +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
+## Marimekko charts
+
+`geom_sketch_marimekko()` draws variable-width stacked bars: column width is one
+category's share of the total, the stacked segments are a second category's
+shares, and each tile's area is the joint value. Width percentages sit on top.
+
+```{r marimekko, fig.height = 4.6}
+sales <- data.frame(
+  region  = rep(c("North America", "Europe", "Asia", "Other"), each = 3),
+  product = rep(c("Phones", "Laptops", "Tablets"), times = 4),
+  revenue = c(50, 35, 15,  30, 40, 20,  45, 25, 30,  10, 12, 6)
+)
+ggplot() +
+  geom_sketch_marimekko(sales, region, product, revenue, seed = 6L) +
+  scale_fill_sketch() +
+  labs(title = "Revenue share by region and product", fill = NULL) +
+  theme_void() +
+  theme(plot.title = element_text(hjust = 0.5),
+        plot.margin = margin(10, 10, 18, 10))
+```
+
 ## Sunburst charts
 
 `geom_sketch_sunburst()` draws a hierarchy as nested rings of annular sectors:

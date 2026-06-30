@@ -202,6 +202,12 @@ simulator. This first piece is the engine that makes it possible.
   via `hclust(dist(...))`, with `method`/`distance` controls). Four orientations
   (`up`/`down`/`left`/`right`). Pure base stats; no new dependencies
   (cf. `ggdendro`).
+* **Marimekko charts.** `geom_sketch_marimekko()` draws variable-width stacked
+  bars: each column's width is one category's (`x`) share of the total and the
+  stacked segments are a second category's (`fill`) shares, so every tile's area
+  is the joint value. The value-weighted, segment-coloured cousin of the mosaic
+  plot (and reuses its layout); shows each column's width percent on top. No new
+  dependencies.
 
 # ggsketch 1.8.0 (development)
 

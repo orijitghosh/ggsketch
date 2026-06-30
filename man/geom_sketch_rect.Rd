@@ -169,6 +169,7 @@ Other sketch-geoms:
 \code{\link[=geom_sketch_function]{geom_sketch_function()}},
 \code{\link[=geom_sketch_histogram]{geom_sketch_histogram()}},
 \code{\link[=geom_sketch_jitter]{geom_sketch_jitter()}},
+\code{\link[=geom_sketch_marimekko]{geom_sketch_marimekko()}},
 \code{\link[=geom_sketch_mosaic]{geom_sketch_mosaic()}},
 \code{\link[=geom_sketch_parallel]{geom_sketch_parallel()}},
 \code{\link[=geom_sketch_qq]{geom_sketch_qq()}},
