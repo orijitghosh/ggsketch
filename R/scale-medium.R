@@ -54,11 +54,7 @@ scale_medium_discrete <- function(..., media = NULL) {
     media[((seq_len(n) - 1L) %% length(media)) + 1L]
   }
 
-  # discrete_scale() dropped the `scale_name` argument in ggplot2 4.0; pass it
-  # only when the installed version still expects it (3.5 compatibility).
-  args <- list(aesthetics = "medium", palette = pal, ...)
-  if ("scale_name" %in% names(formals(ggplot2::discrete_scale))) {
-    args$scale_name <- "medium"
-  }
-  do.call(ggplot2::discrete_scale, args)
+  # `scale_name` was deprecated in ggplot2 3.5.0 and removed in 4.0; we require
+  # >= 3.5.0, so omit it (matches scale_colour_sketch() / scale_fill_sketch()).
+  ggplot2::discrete_scale(aesthetics = "medium", palette = pal, ...)
 }

@@ -34,6 +34,7 @@ Suggests:
     knitr,
     magick,
     MASS,
+    patchwork,
     quantreg,
     ragg,
     rmarkdown,
