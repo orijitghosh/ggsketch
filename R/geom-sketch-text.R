@@ -42,15 +42,10 @@
 #'   geom_sketch_text(size = 6, family = "") +
 #'   theme_sketch()
 #'
-#' # With no `family`, the first installed handwriting font is used. This needs a
-#' # font-capable device (ragg, svglite, cairo); the base pdf() / postscript()
-#' # devices cannot render registered system fonts, so it is wrapped in
-#' # \donttest{} rather than run during checks.
-#' \donttest{
-#' ggplot(df, aes(x, y, label = lab)) +
-#'   geom_sketch_text(size = 6) +
-#'   theme_sketch()
-#' }
+#' # With no `family`, the first installed handwriting font is used instead (see
+#' # `ggsketch_check_fonts()`). That requires a font-capable device (ragg,
+#' # svglite, cairo); pass `family = ""` (above) for fully portable output on any
+#' # device, including the base pdf() / postscript().
 geom_sketch_text <- function(mapping     = NULL,
                              data        = NULL,
                              stat        = "identity",

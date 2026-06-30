@@ -198,7 +198,7 @@ geom_sketch_alluvial <- function(data,
       mapping = ggplot2::aes(x = .data$xmax, y = .data$ycen,
                              label = .data$stratum),
       hjust = -0.1, size = label_size, colour = label_colour,
-      inherit.aes = FALSE
+      family = resolve_label_family(), inherit.aes = FALSE
     )))
   }
 

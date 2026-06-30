@@ -153,7 +153,7 @@ GeomSketchRadar <- ggplot2::ggproto(
     )
 
     # --- axis labels -----------------------------------------------------------
-    fam <- label_family %||% resolve_sketch_font()
+    fam <- resolve_label_family(label_family)
     lp  <- tx(sin(angles), cos(angles))
     # grow text outward: hjust from the x-component, vjust from the y-component
     hj  <- 0.5 - 0.5 * sin(angles)

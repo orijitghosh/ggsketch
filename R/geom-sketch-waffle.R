@@ -77,6 +77,7 @@ StatSketchWaffle <- ggplot2::ggproto(
 #' @param flip Fill columns top-down instead of bottom-up? Default `FALSE`.
 #' @param width,height Cell size in grid units (gaps appear below 1). Default
 #'   0.9.
+#' @param colour Outline colour for each cell. Default `"grey35"`.
 #' @param fill_style Cell fill style; see [geom_sketch_rect()]. Default
 #'   `"hachure"`.
 #' @param roughness,bowing,n_passes,seed Sketch parameters.

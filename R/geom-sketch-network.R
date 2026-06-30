@@ -190,7 +190,7 @@ GeomSketchNode <- ggplot2::ggproto(
 
     keep <- !is.na(coords$label)
     if (!any(keep)) return(pts)
-    fam <- label_family %||% resolve_sketch_font()
+    fam <- resolve_label_family(label_family)
     labels <- grid::textGrob(
       label = as.character(coords$label[keep]),
       x     = grid::unit(coords$x[keep], "npc"),

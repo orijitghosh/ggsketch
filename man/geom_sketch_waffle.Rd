@@ -51,6 +51,8 @@ percentage waffle.}
 \item{width, height}{Cell size in grid units (gaps appear below 1). Default
 0.9.}
 
+\item{colour}{Outline colour for each cell. Default \code{"grey35"}.}
+
 \item{fill_style}{Cell fill style; see \code{\link[=geom_sketch_rect]{geom_sketch_rect()}}. Default
 \code{"hachure"}.}
 

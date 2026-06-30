@@ -226,7 +226,8 @@ geom_sketch_chord <- function(data,
     layers <- c(layers, list(geom_sketch_text(
       data = lay$labels,
       mapping = ggplot2::aes(x = .data$x, y = .data$y, label = .data$node),
-      size = label_size, colour = label_colour, inherit.aes = FALSE
+      size = label_size, colour = label_colour,
+      family = resolve_label_family(), inherit.aes = FALSE
     )))
   }
 

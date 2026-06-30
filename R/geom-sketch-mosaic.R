@@ -143,7 +143,8 @@ geom_sketch_mosaic <- function(data,
     layers <- c(layers, list(geom_sketch_text(
       data = lay$labels,
       mapping = ggplot2::aes(x = .data$x, y = .data$y, label = .data$xcat),
-      size = label_size, colour = label_colour, vjust = 1, inherit.aes = FALSE
+      size = label_size, colour = label_colour, vjust = 1,
+      family = resolve_label_family(), inherit.aes = FALSE
     )))
   }
 
