@@ -191,6 +191,7 @@ reference:
       blueprint, chalkboard and kraft grounds rendered as vector textures.
     contents:
       - sketch_papers
+      - paper_grain
       - element_sketch_paper
   - title: Sketch frame & colour scales
     desc: >
@@ -241,6 +242,7 @@ reference:
       - spray_scatter
       - watercolor_wash
       - watercolor_wash_multi
+      - wash_bleed
       - treemap_layout
       - paper_spec
       - paper_primitives

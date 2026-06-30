@@ -38,6 +38,90 @@ test_that("watercolor_wash is reproducible and leaves .Random.seed alone", {
   expect_identical(.Random.seed, before)
 })
 
+# ---- grain (C3: ink-into-paper) ---------------------------------------------
+
+test_that("grain = 0 is a no-op that leaves the RNG stream untouched", {
+  sq <- square()
+  expect_identical(
+    watercolor_wash(sq$x, sq$y, grain = 0, seed = 1L),
+    watercolor_wash(sq$x, sq$y, seed = 1L)
+  )
+})
+
+test_that("grain > 0 perturbs the wash edges but keeps the vertex count", {
+  sq <- square()
+  flat <- watercolor_wash(sq$x, sq$y, grain = 0, seed = 1L)
+  toot <- watercolor_wash(sq$x, sq$y, grain = 1, seed = 1L)
+  expect_false(identical(flat$washes[[1L]], toot$washes[[1L]]))
+  expect_equal(nrow(toot$washes[[1L]]), length(sq$x))
+})
+
+test_that("watercolor_wash_multi honours grain and stays seed-safe", {
+  rings <- list(list(x = c(0, 4, 4, 0), y = c(0, 0, 4, 4)))
+  set.seed(3L); before <- .Random.seed
+  flat <- watercolor_wash_multi(rings, grain = 0, seed = 9L)
+  toot <- watercolor_wash_multi(rings, grain = 1, seed = 9L)
+  expect_false(identical(flat$washes[[1L]][[1L]], toot$washes[[1L]][[1L]]))
+  expect_identical(.Random.seed, before)
+})
+
+test_that("paper_grain rises from smooth to toothy grounds", {
+  expect_identical(paper_grain("none"), 0)
+  expect_lt(paper_grain("notebook"), paper_grain("kraft"))
+  expect_true(all(vapply(sketch_papers(), function(k)
+    paper_grain(k) >= 0 && paper_grain(k) <= 1, logical(1L))))
+  expect_error(paper_grain("nope"))
+})
+
+# ---- wash_bleed (C2: wet-on-wet) --------------------------------------------
+
+test_that("wash_bleed mixes colour where two washes overlap", {
+  a <- square(2)
+  b <- list(x = c(1, 3, 3, 1), y = c(1, 1, 3, 3))   # overlaps a in [1,2]^2
+  bl <- wash_bleed(a$x, a$y, b$x, b$y, "red", "blue", seed = 1L)
+  expect_false(is.null(bl))
+  expect_true(length(bl$x) > 0L)
+  # every speck lies inside both polygons
+  expect_true(all(point_in_polygon(bl$x, bl$y, a$x, a$y)))
+  expect_true(all(point_in_polygon(bl$x, bl$y, b$x, b$y)))
+  # red + blue mid-mix is a purple
+  expect_identical(bl$fill, "#7F007F")
+})
+
+test_that("wash_bleed returns NULL for disjoint or degenerate regions", {
+  a <- square(1)
+  far <- list(x = c(5, 6, 6, 5), y = c(5, 5, 6, 6))
+  expect_null(wash_bleed(a$x, a$y, far$x, far$y, "red", "blue", seed = 1L))
+  expect_null(wash_bleed(c(0, 1), c(0, 1), a$x, a$y, "red", "blue", seed = 1L))
+})
+
+test_that("wash_bleed is reproducible and leaves .Random.seed alone", {
+  a <- square(2); b <- list(x = c(1, 3, 3, 1), y = c(1, 1, 3, 3))
+  set.seed(7L); before <- .Random.seed
+  x1 <- wash_bleed(a$x, a$y, b$x, b$y, "red", "blue", seed = 4L)
+  x2 <- wash_bleed(a$x, a$y, b$x, b$y, "red", "blue", seed = 4L)
+  expect_identical(x1, x2)
+  expect_identical(.Random.seed, before)
+})
+
+test_that("overlapping watercolor groups emit a bleed layer", {
+  grDevices::pdf(NULL); on.exit(grDevices::dev.off())
+  withr::local_options(ggsketch.wash_bleed = TRUE)
+  grid::pushViewport(grid::viewport(width = grid::unit(4, "in"),
+                                    height = grid::unit(4, "in")))
+  g <- sketch_polygon_grob(
+    x  = c(0.2, 0.6, 0.6, 0.2,  0.4, 0.8, 0.8, 0.4),
+    y  = c(0.2, 0.2, 0.6, 0.6,  0.4, 0.4, 0.8, 0.8),
+    id = rep(1:2, each = 4L),
+    fill_style = "watercolor",
+    fill_gp = grid::gpar(col = c("red", "blue")),
+    outline_gp = grid::gpar(col = c("red", "blue")), seed = 1L
+  )
+  cls <- vapply(grid::makeContent(g)$children, function(z) class(z)[1L], "")
+  expect_true(any(grepl("circle", cls)))   # bleed specks are circleGrobs
+  grid::popViewport()
+})
+
 # ---- fill_style registration ------------------------------------------------
 
 test_that("'watercolor' is an accepted fill style", {

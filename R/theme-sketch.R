@@ -155,6 +155,10 @@ theme_sketch <- function(base_size      = 11,
                           seed           = NULL) {
   if (identical(base_family, "auto")) base_family <- resolve_sketch_font()
   check_paper(paper)
+  # Baseline the wash-grain coupling (C3) to this theme's paper, so the common
+  # `p + theme_sketch(paper = )` then print() flow feathers washes correctly even
+  # before the panel-background element re-affirms it at draw time.
+  options(ggsketch.wash_grain = paper_grain(paper))
 
   pal <- if (dark) {
     list(paper = "#1E1E24", ink = "#E8E6DF", ink_soft = "#B8B6AF",

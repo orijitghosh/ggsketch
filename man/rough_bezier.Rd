@@ -57,6 +57,7 @@ Other sketch-core:
 \code{\link[=stroke_profile]{stroke_profile()}},
 \code{\link[=stroke_ribbon]{stroke_ribbon()}},
 \code{\link[=treemap_layout]{treemap_layout()}},
+\code{\link[=wash_bleed]{wash_bleed()}},
 \code{\link[=watercolor_wash]{watercolor_wash()}},
 \code{\link[=watercolor_wash_multi]{watercolor_wash_multi()}}
 }

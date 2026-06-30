@@ -80,6 +80,36 @@ paper_spec <- function(kind) {
   )
 }
 
+#' Wash-feathering grain factor for a paper ground
+#'
+#' How toothy a [sketch_papers()] ground is, as a number a watercolour wash uses
+#' to feather its edges (the `grain` argument of [watercolor_wash()]). Smooth
+#' grounds wick little; rough grounds (aged, kraft) wick a lot. Smooth, machine
+#' papers (notebook / graph / dotted) sit low; the textured grounds climb toward
+#' 1. `theme_sketch(paper = )` reads this so washes drawn on a paper pick up its
+#' tooth automatically.
+#'
+#' @param kind A value from [sketch_papers()].
+#' @return A numeric grain factor in `[0, 1]` (0 for `"none"`).
+#' @family sketch-paper
+#' @export
+#' @examples
+#' paper_grain("kraft")
+#' paper_grain("graph")
+paper_grain <- function(kind) {
+  check_paper(kind)
+  switch(kind,
+    none       = 0,
+    notebook   = 0.15,
+    graph      = 0.15,
+    dotted     = 0.15,
+    blueprint  = 0.2,
+    chalkboard = 0.5,
+    aged       = 0.8,
+    kraft      = 1
+  )
+}
+
 # Evenly spaced positions in [0, 1] at `spacing_in` physical inches over a span
 # of `span_in` inches, excluding the two edges.
 #' @noRd

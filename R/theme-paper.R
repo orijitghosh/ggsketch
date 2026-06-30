@@ -46,6 +46,10 @@ element_grob.element_sketch_paper <- function(element, x = 0.5, y = 0.5,
   kind <- sk_get(element, "sk_paper_kind", "notebook")
   if (identical(kind, "none")) return(ggplot2::zeroGrob())
 
+  # Couple watercolour wash feathering to this paper's tooth (C3). The panel
+  # background draws before the data, so washes in the same panel read it.
+  options(ggsketch.wash_grain = paper_grain(kind))
+
   # Physical panel size sets the ruling pitch.
   w_in <- tryCatch(as.numeric(convertWidth(unit(1, "npc"), "inches")),
                    error = function(e) 6)

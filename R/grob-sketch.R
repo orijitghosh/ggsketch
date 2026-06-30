@@ -172,7 +172,9 @@ makeContent.SketchPolygonGrob <- function(x) {
   id     <- x$id %||% rep(1L, length(xi))
   groups <- split(seq_along(xi), id)
 
-  children <- list()
+  children   <- list()
+  wash_grain <- getOption("ggsketch.wash_grain", 0)   # paper-tooth coupling (C3)
+  wash_polys <- list()                                # for wet-on-wet bleed (C2)
 
   for (g in seq_along(groups)) {
     idx  <- groups[[g]]
@@ -210,6 +212,7 @@ makeContent.SketchPolygonGrob <- function(x) {
         wash <- watercolor_wash(
           gx, gy,
           granulation = 0.4,
+          grain = wash_grain,
           seed = seed_offset(fill_base, 1000L)
         )
         layer_alpha <- 0.13
@@ -228,6 +231,9 @@ makeContent.SketchPolygonGrob <- function(x) {
             gp = gpar(fill = scales::alpha(base_col, 0.18), col = NA)
           )
         }
+        # Record this region so overlapping washes can bleed into each other.
+        wash_polys[[length(wash_polys) + 1L]] <-
+          list(x = gx, y = gy, col = base_col, seed = fill_base)
       }
     } else if (!is.null(x$fill_style) && x$fill_style != "solid") {
       fill_segs <- sketch_fill(
@@ -272,6 +278,23 @@ makeContent.SketchPolygonGrob <- function(x) {
           x  = unit(pass[, "x"], "inches"),
           y  = unit(pass[, "y"], "inches"),
           gp = x$outline_gp
+        )
+      }
+    }
+  }
+
+  # --- wet-on-wet bleed (C2): mingle pigment where two washes overlap ---
+  if (isTRUE(getOption("ggsketch.wash_bleed", TRUE)) && length(wash_polys) >= 2L) {
+    for (i in seq_len(length(wash_polys) - 1L)) {
+      for (j in seq(i + 1L, length(wash_polys))) {
+        a <- wash_polys[[i]]; b <- wash_polys[[j]]
+        bl <- wash_bleed(a$x, a$y, b$x, b$y, a$col, b$col,
+                         seed = seed_offset(a$seed, j * 131L))
+        if (is.null(bl)) next
+        children[[length(children) + 1L]] <- circleGrob(
+          x  = unit(bl$x, "inches"), y = unit(bl$y, "inches"),
+          r  = unit(bl$r, "inches"),
+          gp = gpar(fill = scales::alpha(bl$fill, 0.12), col = NA)
         )
       }
     }
@@ -351,7 +374,8 @@ makeContent.SketchEllipseGrob <- function(x) {
   ry     <- rep(ry, length.out = n)
   rough_ <- rep(as.numeric(x$roughness), length.out = n)  # per-shape (mappable)
 
-  children <- list()
+  children   <- list()
+  wash_grain <- getOption("ggsketch.wash_grain", 0)   # paper-tooth coupling (C3)
   do_water <- identical(x$fill_style, "watercolor")
   do_fill  <- !is.null(x$fill_style) && !identical(x$fill_style, "solid") &&
               !do_water
@@ -389,7 +413,8 @@ makeContent.SketchEllipseGrob <- function(x) {
         bx <- cx[i] + rx[i] * cos(th)
         by <- cy[i] + ry[i] * sin(th)
         wash <- watercolor_wash(
-          bx, by, granulation = 0.4, seed = seed_offset(fill_base, 1000L)
+          bx, by, granulation = 0.4, grain = wash_grain,
+          seed = seed_offset(fill_base, 1000L)
         )
         layer_alpha <- 0.13
         for (poly in wash$washes) {
@@ -956,7 +981,8 @@ makeContent.SketchBandGrob <- function(x) {
     # Hole-aware translucent washes: each layer is every ring, painted as one
     # even-odd path so holes stay empty.
     wash <- watercolor_wash_multi(
-      rings_in, granulation = 0.4, seed = seed_offset(x$seed, 1000L)
+      rings_in, granulation = 0.4, grain = getOption("ggsketch.wash_grain", 0),
+      seed = seed_offset(x$seed, 1000L)
     )
     layer_alpha <- 0.13
     for (layer in wash$washes) {

@@ -9,6 +9,7 @@ watercolor_wash_multi(
   n_layers = 6L,
   bleed = NULL,
   granulation = 0,
+  grain = 0,
   seed = NULL
 )
 }
@@ -23,6 +24,10 @@ the combined bounding diagonal.}
 
 \item{granulation}{Fraction in \verb{[0, 1]}: density of pigment specks (0 = none).
 Default 0. Specks land inside the even-odd region (never in holes).}
+
+\item{grain}{Paper-grain coupling in \verb{[0, ~1]}: how strongly each ring's edge
+feathers along the paper tooth. 0 (default) is the historical pure-uniform
+jitter and draws no extra randomness. See \code{\link[=paper_grain]{paper_grain()}}.}
 
 \item{seed}{Integer seed.}
 }
@@ -54,6 +59,7 @@ Other sketch-core:
 \code{\link[=stroke_profile]{stroke_profile()}},
 \code{\link[=stroke_ribbon]{stroke_ribbon()}},
 \code{\link[=treemap_layout]{treemap_layout()}},
+\code{\link[=wash_bleed]{wash_bleed()}},
 \code{\link[=watercolor_wash]{watercolor_wash()}}
 }
 \concept{sketch-core}

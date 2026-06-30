@@ -19,6 +19,7 @@ dark (so text should flip light), and the ruling/grid/dot layout.
 \seealso{
 Other sketch-paper:
 \code{\link[=element_sketch_paper]{element_sketch_paper()}},
+\code{\link[=paper_grain]{paper_grain()}},
 \code{\link[=paper_primitives]{paper_primitives()}},
 \code{\link[=sketch_papers]{sketch_papers()}}
 }

@@ -34,6 +34,7 @@ ggplot(mtcars, aes(wt, mpg)) +
 }
 \seealso{
 Other sketch-paper:
+\code{\link[=paper_grain]{paper_grain()}},
 \code{\link[=paper_primitives]{paper_primitives()}},
 \code{\link[=paper_spec]{paper_spec()}},
 \code{\link[=sketch_papers]{sketch_papers()}}

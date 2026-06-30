@@ -54,6 +54,17 @@ simulator. This first piece is the engine that makes it possible.
   washes respect holes via a new Layer-1 `watercolor_wash_multi()`. Powered by a
   new Layer-1 `watercolor_wash()`. Everything is vector, so it reproduces on
   every device.
+* **Watercolour media physics: wet-on-wet bleed and ink-into-paper grain.** Two
+  couplings make the washes behave more like real pigment. Where two watercolour
+  regions overlap, the pigments now mingle: a new Layer-1 `wash_bleed()` samples
+  the shared area and lays down soft specks tinted with the *blended* colour, so
+  the overlap reads as mixed paint (toggle with `options(ggsketch.wash_bleed =)`).
+  And the wash edge now feathers along the paper tooth: `watercolor_wash()` gains
+  a `grain` argument that wicks the boundary in coherent capillary channels, and
+  `theme_sketch(paper = )` couples it automatically through a new `paper_grain()`
+  (smooth notebook/graph grounds wick little; aged and kraft wick a lot). `grain
+  = 0` is the historical look and draws no extra randomness, so existing seeds
+  reproduce exactly.
 * **`medium` is now a mappable aesthetic.** On the path-like geoms
   (`geom_sketch_line()`, `geom_sketch_path()`, `geom_sketch_segment()`,
   `geom_sketch_step()`) you can map a discrete variable with `aes(medium = )` to

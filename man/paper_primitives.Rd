@@ -27,6 +27,7 @@ renders the result; this function stays free of any \code{grid} dependency.
 \seealso{
 Other sketch-paper:
 \code{\link[=element_sketch_paper]{element_sketch_paper()}},
+\code{\link[=paper_grain]{paper_grain()}},
 \code{\link[=paper_spec]{paper_spec()}},
 \code{\link[=sketch_papers]{sketch_papers()}}
 }

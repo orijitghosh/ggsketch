@@ -10,6 +10,7 @@ watercolor_wash(
   n_layers = 6L,
   bleed = NULL,
   granulation = 0,
+  grain = 0,
   seed = NULL
 )
 }
@@ -24,6 +25,11 @@ the shape's bounding diagonal.}
 
 \item{granulation}{Fraction in \verb{[0, 1]}: density of pigment specks (0 = none).
 Default 0.}
+
+\item{grain}{Paper-grain coupling in \verb{[0, ~1]}: how strongly the edge feathers
+along the paper tooth. 0 (default) is the historical pure-uniform jitter;
+higher values wick the edge in coherent capillary channels (see
+\code{\link[=paper_grain]{paper_grain()}}). 0 draws no extra randomness, so existing seeds reproduce.}
 
 \item{seed}{Integer seed.}
 }
@@ -55,6 +61,7 @@ Other sketch-core:
 \code{\link[=stroke_profile]{stroke_profile()}},
 \code{\link[=stroke_ribbon]{stroke_ribbon()}},
 \code{\link[=treemap_layout]{treemap_layout()}},
+\code{\link[=wash_bleed]{wash_bleed()}},
 \code{\link[=watercolor_wash_multi]{watercolor_wash_multi()}}
 }
 \concept{sketch-core}
