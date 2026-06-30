@@ -44,3 +44,38 @@ test_that("ggsketch_check_fonts() is silent-safe and returns logical (T-DEV-03)"
   expect_type(res, "logical")
   expect_named(res)
 })
+
+# ---- rough_frame roughens facet strips --------------------------------------
+
+test_that("rough_frame gives facet strips a sketch background", {
+  t <- theme_sketch(rough_frame = TRUE, seed = 1L)
+  expect_s3_class(t$strip.background, "element_sketch_rect")
+  # plain theme keeps the ordinary strip background
+  expect_false(inherits(theme_sketch()$strip.background, "element_sketch_rect"))
+})
+
+test_that("a faceted plot renders with rough_frame strips", {
+  grDevices::pdf(NULL); on.exit(grDevices::dev.off())
+  p <- ggplot2::ggplot(ggplot2::mpg, ggplot2::aes(displ, hwy)) +
+    geom_sketch_point(seed = 1L) +
+    ggplot2::facet_wrap(~drv) +
+    theme_sketch(rough_frame = TRUE, seed = 2L)
+  expect_no_error(print(p))
+})
+
+# ---- rough_frame roughens the colourbar -------------------------------------
+
+test_that("rough_frame roughens the colourbar frame and ticks", {
+  t <- theme_sketch(rough_frame = TRUE, seed = 1L)
+  expect_s3_class(t$legend.frame, "element_sketch_rect")
+  expect_s3_class(t$legend.ticks, "element_sketch_line")
+})
+
+test_that("a continuous-fill plot renders with rough_frame colourbar", {
+  grDevices::pdf(NULL); on.exit(grDevices::dev.off())
+  p <- ggplot2::ggplot(ggplot2::faithfuld,
+                       ggplot2::aes(waiting, eruptions, fill = density)) +
+    ggplot2::geom_raster() +
+    theme_sketch(rough_frame = TRUE, seed = 1L)
+  expect_no_error(print(p))
+})

@@ -208,6 +208,14 @@ simulator. This first piece is the engine that makes it possible.
   `"ease_out"`, `"ease_in_out"`). Frames are stitched into a GIF when
   `gifski` or `magick` is installed (guarded Suggests, no new hard dependency);
   otherwise the frame paths are returned. Fully reproducible from `seed`.
+* **`rough_frame` now reaches facet strips and the colourbar.**
+  `theme_sketch(rough_frame = TRUE)` already drew the gridlines, panel border and
+  axis ticks hand-drawn; it now also roughens facet **strip backgrounds** and the
+  continuous-scale **colourbar frame and ticks**, so a faceted or colour-mapped
+  plot's whole frame matches the marks. These reuse the existing
+  `element_sketch_rect()` / `element_sketch_line()` elements (which work directly
+  as `strip.background`, `legend.frame` and `legend.ticks` in any theme), so no
+  new function or fragile facet/guide subclass is involved.
 * **Two new tonal fills: `"stipple"` and `"pencil_shade"`.** `fill_style =
   "stipple"` scatters fine rough dots at random interior points (a pointillist
   tone with no visible lattice, unlike the grid-aligned `"dots"`); `fill_style =

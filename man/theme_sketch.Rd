@@ -36,9 +36,10 @@ name.}
 (light "paper" preset).}
 
 \item{rough_frame}{If \code{TRUE}, draw the \emph{frame} itself hand-drawn: the major
-gridlines, panel border, and axis ticks become roughened sketch grobs (via
-\code{\link[=element_sketch_line]{element_sketch_line()}} / \code{\link[=element_sketch_rect]{element_sketch_rect()}}) so the frame matches the
-marks. Default \code{FALSE}.}
+gridlines, panel border, axis ticks, facet strip backgrounds, and the
+continuous-scale colourbar frame and ticks become roughened sketch grobs
+(via \code{\link[=element_sketch_line]{element_sketch_line()}} / \code{\link[=element_sketch_rect]{element_sketch_rect()}}) so the whole frame
+matches the marks. Default \code{FALSE}.}
 
 \item{roughness}{Roughness for the rough frame (only used when
 \code{rough_frame = TRUE}). Default 0.5.}

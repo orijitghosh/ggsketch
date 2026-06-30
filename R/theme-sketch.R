@@ -121,9 +121,10 @@ sketch_font_candidates <- function() {
 #' @param dark If `TRUE`, use the dark "chalkboard" preset. Default `FALSE`
 #'   (light "paper" preset).
 #' @param rough_frame If `TRUE`, draw the *frame* itself hand-drawn: the major
-#'   gridlines, panel border, and axis ticks become roughened sketch grobs (via
-#'   [element_sketch_line()] / [element_sketch_rect()]) so the frame matches the
-#'   marks. Default `FALSE`.
+#'   gridlines, panel border, axis ticks, facet strip backgrounds, and the
+#'   continuous-scale colourbar frame and ticks become roughened sketch grobs
+#'   (via [element_sketch_line()] / [element_sketch_rect()]) so the whole frame
+#'   matches the marks. Default `FALSE`.
 #' @param roughness Roughness for the rough frame (only used when
 #'   `rough_frame = TRUE`). Default 0.5.
 #' @param paper Paper ground drawn behind the data: one of [sketch_papers()]
@@ -208,6 +209,7 @@ theme_sketch <- function(base_size      = 11,
     )
 
   if (isTRUE(rough_frame)) {
+    strip_fill <- if (dark) "#2C2C34" else "grey90"
     t <- t %+replace% ggplot2::theme(
       panel.grid.major = element_sketch_line(
         colour = pal$grid_major, linewidth = 0.3,
@@ -222,6 +224,25 @@ theme_sketch <- function(base_size      = 11,
         colour = pal$border, linewidth = 0.4,
         roughness = roughness, bowing = roughness,
         seed = seed_offset(resolve_seed(seed), 4242L)
+      ),
+      # Facet strips get a hand-drawn box too, so a faceted plot's frame matches
+      # the marks (element_sketch_rect doubles as a strip.background element).
+      strip.background = element_sketch_rect(
+        colour = pal$border, fill = strip_fill, linewidth = 0.6,
+        roughness = roughness, bowing = roughness * 0.6,
+        seed = seed_offset(resolve_seed(seed), 1357L)
+      ),
+      # Continuous-scale colourbars: roughen the frame and ticks so the legend
+      # matches the marks (these are theme elements in ggplot2 >= 3.5).
+      legend.frame = element_sketch_rect(
+        colour = pal$border, fill = NA, linewidth = 0.6,
+        roughness = roughness, bowing = roughness * 0.6,
+        seed = seed_offset(resolve_seed(seed), 2468L)
+      ),
+      legend.ticks = element_sketch_line(
+        colour = pal$paper, linewidth = 0.5,
+        roughness = roughness, bowing = roughness,
+        seed = seed_offset(resolve_seed(seed), 8642L)
       )
     )
   }
