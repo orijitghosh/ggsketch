@@ -21,6 +21,10 @@ simulator. This first piece is the engine that makes it possible.
   waxy crayon. Available on `geom_sketch_line()`, `geom_sketch_path()`,
   `geom_sketch_segment()`, and `geom_sketch_step()`; `sketch_media()` lists the
   options. Existing plots are unaffected (the default stays `"pen"`).
+* **Three more drawing media.** `"fountain_pen"` (a crisp, wet line that pools
+  slightly at the ends), `"ballpoint"` (a thin, even, faintly skipping stroke),
+  and `"pastel"` (a broad, soft, grainy and translucent mark, lighter than
+  charcoal) join the `medium` family and the `scale_medium_discrete()` palette.
 * **Paper / canvas grounds.** `theme_sketch(paper = )` paints a simulated paper
   texture behind the data: `"notebook"` (blue rules + red margin), `"graph"`,
   `"dotted"`, `"aged"` (warm ground with soft blotches), `"blueprint"` and

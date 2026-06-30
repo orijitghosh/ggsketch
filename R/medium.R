@@ -18,7 +18,8 @@
 #' @examples
 #' sketch_media()
 sketch_media <- function() {
-  c("pen", "ink", "brush", "pencil", "charcoal", "marker", "crayon")
+  c("pen", "ink", "fountain_pen", "ballpoint", "brush", "pencil",
+    "charcoal", "pastel", "marker", "crayon")
 }
 
 #' Validate a `medium` choice
@@ -47,6 +48,15 @@ medium_spec <- function(medium) {
     ink      = list(width_mult = 1.6, taper = "both", taper_frac = 0.5,
                     profile = NULL,    n_passes = 1L, alpha_mult = 1,
                     cap = "round", jitter_w = 0.08),
+    # Wet, crisp fountain line with mild ink pooling: thin even body that swells
+    # at the ends (belly profile reversed via taper) and a touch of width jitter.
+    fountain_pen = list(width_mult = 1.25, taper = "both", taper_frac = 0.55,
+                    profile = NULL,    n_passes = 1L, alpha_mult = 1,
+                    cap = "round", jitter_w = 0.12),
+    # Thin, even, slightly skipping line: hard narrow stroke, faint single pass.
+    ballpoint = list(width_mult = 0.65, taper = "none", taper_frac = 0,
+                    profile = NULL,    n_passes = 1L, alpha_mult = 0.9,
+                    cap = "round", jitter_w = 0.06),
     brush    = list(width_mult = 3.2, taper = "both", taper_frac = 0.15,
                     profile = "belly", n_passes = 1L, alpha_mult = 1,
                     cap = "round", jitter_w = 0.22),
@@ -56,6 +66,11 @@ medium_spec <- function(medium) {
     charcoal = list(width_mult = 3.4, taper = "both", taper_frac = 0.4,
                     profile = NULL,    n_passes = 2L, alpha_mult = 0.5,
                     cap = "round", jitter_w = 0.40),
+    # Broad, soft, grainy and translucent - like charcoal but lighter-pressure:
+    # wide stroke, heavy width jitter, low alpha built over several passes.
+    pastel   = list(width_mult = 3.0, taper = "both", taper_frac = 0.5,
+                    profile = NULL,    n_passes = 3L, alpha_mult = 0.4,
+                    cap = "round", jitter_w = 0.48),
     marker   = list(width_mult = 2.6, taper = "none", taper_frac = 0,
                     profile = NULL,    n_passes = 2L, alpha_mult = 0.5,
                     cap = "butt",  jitter_w = 0.05),

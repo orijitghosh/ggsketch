@@ -179,8 +179,9 @@ reference:
       - register_sketch_font
   - title: Drawing media
     desc: >
-      The `medium` system — how a stroke is laid down (pen, ink, brush, pencil,
-      charcoal, marker, crayon) — and its mappable scale.
+      The `medium` system — how a stroke is laid down (pen, ink, fountain pen,
+      ballpoint, brush, pencil, charcoal, pastel, marker, crayon) — and its
+      mappable scale.
     contents:
       - sketch_media
       - scale_medium_discrete

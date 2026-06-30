@@ -93,8 +93,9 @@ for (n in c(1, 2, 4)) {
 
 The line family — `geom_sketch_line()`, `geom_sketch_path()`,
 `geom_sketch_segment()`, `geom_sketch_step()` — also takes a `medium`, which sets
-*how* the stroke is laid down: a tapering pencil, a wet ink line, a broad brush,
-charcoal, marker, or crayon. `sketch_media()` lists them.
+*how* the stroke is laid down: a tapering pencil, a wet ink line, a crisp
+fountain pen, a thin ballpoint, a broad brush, charcoal, soft pastel, marker, or
+crayon. `sketch_media()` lists them.
 
 ```{r medium}
 for (m in c("pencil", "ink", "brush", "charcoal")) {

@@ -6,8 +6,8 @@ test_that("sketch_media lists the media with pen first (the default)", {
   m <- sketch_media()
   expect_true(is.character(m))
   expect_identical(m[1L], "pen")
-  expect_true(all(c("ink", "brush", "pencil", "charcoal", "marker", "crayon")
-                  %in% m))
+  expect_true(all(c("ink", "fountain_pen", "ballpoint", "brush", "pencil",
+                    "charcoal", "pastel", "marker", "crayon") %in% m))
 })
 
 test_that("check_medium rejects unknown media", {
