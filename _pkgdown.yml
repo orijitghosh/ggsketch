@@ -223,6 +223,7 @@ reference:
       - sketch_wedge_grob
       - sketch_arrow_grob
       - sketch_callout_grob
+      - sketch_repel_grob
       - sketch_band_grob
       - sketch_engrave_grob
       - sketch_dotplot_grob
