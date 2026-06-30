@@ -61,6 +61,10 @@ ignored (the rough outline always traces the full band).}
 
 \item{inherit.aes}{Override default aesthetics?}
 }
+\value{
+A \code{ggplot2} layer (a \code{LayerInstance} object) that can be added to a
+plot with \code{+}.
+}
 \description{
 Draws a kernel density estimate as a hand-drawn filled area - the sketch
 analogue of \code{\link[ggplot2:geom_density]{ggplot2::geom_density()}}.  Drawing is delegated to

@@ -59,6 +59,10 @@ pencil/charcoal, ...). \code{medium} is also a mappable aesthetic: map it with
 
 \item{inherit.aes}{If \code{FALSE}, override the default aesthetics.}
 }
+\value{
+A \code{ggplot2} layer (a \code{LayerInstance} object) that can be added to a
+plot with \code{+}.
+}
 \description{
 Draws a roughened line connecting points in order of \code{x}. Equivalent to
 \code{geom_line()} with a sketch aesthetic.

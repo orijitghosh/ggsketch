@@ -154,6 +154,8 @@ GeomSketchLine <- ggplot2::ggproto(
 #' `geom_line()` with a sketch aesthetic.
 #'
 #' @inheritParams geom_sketch_path
+#' @return A `ggplot2` layer (a `LayerInstance` object) that can be added to a
+#'   plot with `+`.
 #' @family sketch-geoms
 #' @export
 #' @examples

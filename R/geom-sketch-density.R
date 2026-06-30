@@ -11,6 +11,8 @@
 #' @inheritParams geom_sketch_ribbon
 #' @param outline.type Kept for signature parity with [ggplot2::geom_density()];
 #'   ignored (the rough outline always traces the full band).
+#' @return A `ggplot2` layer (a `LayerInstance` object) that can be added to a
+#'   plot with `+`.
 #' @family sketch-geoms
 #' @export
 #' @examples

@@ -119,6 +119,8 @@ GeomSketchSmooth <- ggplot2::ggproto(
 #' @param method,formula,se Passed to [ggplot2::stat_smooth()]. `se = TRUE`
 #'   draws the roughened confidence band.
 #' @param fill_style Fill style for the confidence band. Default `"hachure"`.
+#' @return A `ggplot2` layer (a `LayerInstance` object) that can be added to a
+#'   plot with `+`.
 #' @family sketch-geoms
 #' @export
 #' @examples

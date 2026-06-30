@@ -65,6 +65,10 @@ draws the roughened confidence band.}
 
 \item{inherit.aes}{Override default aesthetics?}
 }
+\value{
+A \code{ggplot2} layer (a \code{LayerInstance} object) that can be added to a
+plot with \code{+}.
+}
 \description{
 Draws a hand-drawn fitted line with an optional roughened confidence band -
 the sketch analogue of \code{\link[ggplot2:geom_smooth]{ggplot2::geom_smooth()}}.  The fit is computed by

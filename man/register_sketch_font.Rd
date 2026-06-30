@@ -36,14 +36,13 @@ script or \code{.Rprofile}); ship the \code{.ttf}/\code{.otf} alongside your pro
 fully reproducible output.
 }
 \examples{
-\dontrun{
-# Download Caveat from Google Fonts, then:
-register_sketch_font("Caveat", "fonts/Caveat-Regular.ttf")
-library(ggplot2)
-ggplot(mtcars, aes(wt, mpg)) +
-  geom_sketch_point(seed = 1L) +
-  theme_sketch(base_family = "Caveat")
-}
+\dontshow{if (requireNamespace("systemfonts", quietly = TRUE)) withAutoprint(\{ # examplesIf}
+# Register any font file under a family name you choose. Here we reuse a font
+# already on the system; in practice point `plain` at a handwriting .ttf/.otf
+# (e.g. Caveat from Google Fonts).
+f <- systemfonts::system_fonts()$path[1]
+register_sketch_font("MySketchFont", f)
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other sketch-theme:

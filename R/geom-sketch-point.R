@@ -141,6 +141,8 @@ GeomSketchPoint <- ggplot2::ggproto(
 #' @inheritParams geom_sketch_path
 #' @param mapping Set of aesthetic mappings. Supports `x`, `y`, `colour`,
 #'   `size`, `alpha`, and `roughness`.
+#' @return A `ggplot2` layer (a `LayerInstance` object) that can be added to a
+#'   plot with `+`.
 #' @family sketch-geoms
 #' @seealso [scale_roughness_continuous()] to control how a mapped variable is
 #'   turned into roughness.

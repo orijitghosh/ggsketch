@@ -50,6 +50,10 @@ Default 2.}
 
 \item{inherit.aes}{If \code{FALSE}, override the default aesthetics.}
 }
+\value{
+A \code{ggplot2} layer (a \code{LayerInstance} object) that can be added to a
+plot with \code{+}.
+}
 \description{
 Draws points as small roughened ellipses, giving each a hand-drawn feel.
 Equivalent to \code{geom_point()} with a sketch aesthetic.
