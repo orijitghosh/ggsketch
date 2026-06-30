@@ -23,6 +23,7 @@ Depends:
 Imports:
     cli (>= 3.4.0),
     ggplot2 (>= 3.5.0),
+    grDevices,
     grid,
     rlang (>= 1.0.0),
     scales (>= 1.2.0),

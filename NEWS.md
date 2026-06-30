@@ -55,6 +55,13 @@ simulator. This first piece is the engine that makes it possible.
   `scale_medium_discrete()` chooses which media the levels map to. The legend
   keys render in their own medium. Setting `medium` as a constant still works
   exactly as before, and the default is unchanged (`"pen"`).
+* **The sketch colour palette now interpolates.** `scale_colour_sketch()` /
+  `scale_fill_sketch()` (and `sketch_palette()`) used to recycle once a factor
+  had more than eight levels. They now interpolate the eight ink-on-paper
+  anchors into one distinct colour per level via a `colorRampPalette()` ramp, so
+  the discrete scales keep working for large factors and quasi-continuous use.
+  The first eight colours are unchanged, so small plots look identical; pass
+  `interpolate = FALSE` for the old recycling behaviour.
 * **`coord_sketch()`.** A drop-in replacement for `coord_cartesian()` that draws
   the *frame* hand-drawn -- the panel gridlines and axis ticks become roughened
   sketch grobs -- under *any* theme, not only `theme_sketch()`. It reuses

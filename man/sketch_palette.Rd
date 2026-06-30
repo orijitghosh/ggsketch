@@ -4,10 +4,15 @@
 \alias{sketch_palette}
 \title{The ggsketch qualitative colour palette}
 \usage{
-sketch_palette(n = NULL)
+sketch_palette(n = NULL, interpolate = TRUE)
 }
 \arguments{
-\item{n}{Number of colours to return (max 8). If \code{NULL}, all are returned.}
+\item{n}{Number of colours to return. If \code{NULL}, the eight anchor colours are
+returned. Up to eight are taken verbatim; beyond that they are interpolated
+(or recycled, if \code{interpolate = FALSE}).}
+
+\item{interpolate}{When \code{n > 8}, interpolate the eight anchors into \code{n}
+colours (the default). \code{FALSE} recycles the anchors with a warning.}
 }
 \value{
 A character vector of hex colours.
@@ -16,8 +21,17 @@ A character vector of hex colours.
 Eight muted ink-on-paper colours led by the package primary
 (Carolina blue, \verb{#7BAFD4}), ordered for maximal separation.
 }
+\details{
+The first eight colours are returned exactly, so small categorical plots keep
+their recognisable hues. Ask for \strong{more than eight} and the palette is
+\emph{interpolated}: a smooth \code{colorRampPalette()} ramp through all eight anchors
+yields \code{n} distinct ink tones, so the discrete sketch scales keep working for
+large factors and for quasi-continuous use. Set \code{interpolate = FALSE} to fall
+back to the old recycling behaviour instead.
+}
 \examples{
 sketch_palette(4)
+sketch_palette(20)             # interpolated ramp through all eight anchors
 }
 \seealso{
 Other sketch-theme:

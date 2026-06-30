@@ -17,7 +17,35 @@ test_that("sketch_palette() returns the requested colours", {
   expect_length(sketch_palette(3), 3)
   expect_length(sketch_palette(), 8)
   expect_identical(sketch_palette(1), "#7BAFD4")
-  expect_warning(sketch_palette(99), "recycled|palette")
+  # First eight are the anchors, verbatim.
+  expect_identical(sketch_palette(8), sketch_palette())
+})
+
+test_that("sketch_palette() interpolates beyond eight colours by default", {
+  p20 <- sketch_palette(20)
+  expect_length(p20, 20)
+  expect_silent(sketch_palette(20))            # no recycling warning
+  expect_false(any(duplicated(p20)))           # distinct, not recycled
+  expect_true(all(grepl("^#[0-9A-Fa-f]{6}$", p20)))
+  # The ramp starts at (near) the primary anchor.
+  start_rgb <- grDevices::col2rgb(p20[1])
+  expect_lt(max(abs(start_rgb - grDevices::col2rgb("#7BAFD4"))), 4)
+})
+
+test_that("sketch_palette(interpolate = FALSE) recycles with a warning", {
+  expect_warning(rc <- sketch_palette(12, interpolate = FALSE), "recycled|palette")
+  expect_identical(rc[1:8], sketch_palette(8))
+  expect_identical(rc[9], rc[1])
+})
+
+test_that("discrete scales interpolate for many-level factors", {
+  df <- data.frame(x = 1:15, y = 1:15, g = factor(letters[1:15]))
+  p <- ggplot2::ggplot(df, ggplot2::aes(x, y, colour = g)) +
+    geom_sketch_point(seed = 1L) +
+    scale_colour_sketch()
+  b <- ggplot2::ggplot_build(p)
+  cols <- unique(b$data[[1]]$colour)
+  expect_length(cols, 15)                      # 15 distinct, not 8 recycled
 })
 
 test_that("discrete scales build and render", {

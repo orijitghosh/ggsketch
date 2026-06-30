@@ -10,11 +10,11 @@
 \alias{scale_fill_sketch_c}
 \title{Sketch colour and fill scales}
 \usage{
-scale_colour_sketch(..., aesthetics = "colour")
+scale_colour_sketch(..., aesthetics = "colour", interpolate = TRUE)
 
-scale_color_sketch(..., aesthetics = "colour")
+scale_color_sketch(..., aesthetics = "colour", interpolate = TRUE)
 
-scale_fill_sketch(..., aesthetics = "fill")
+scale_fill_sketch(..., aesthetics = "fill", interpolate = TRUE)
 
 scale_colour_sketch_c(..., aesthetics = "colour")
 
@@ -27,6 +27,10 @@ scale_fill_sketch_c(..., aesthetics = "fill")
 \code{\link[ggplot2:scale_colour_gradientn]{ggplot2::scale_colour_gradientn()}} (continuous).}
 
 \item{aesthetics}{Character vector of aesthetics this scale works with.}
+
+\item{interpolate}{Discrete scales only. When there are more than eight
+levels, interpolate the eight-colour \code{\link[=sketch_palette]{sketch_palette()}} into one colour per
+level (the default) instead of recycling.}
 }
 \value{
 A ggplot2 scale object.
