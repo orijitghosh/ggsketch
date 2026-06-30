@@ -811,6 +811,11 @@ makeContent.SketchArrowGrob <- function(x) {
 #' @param roughness,bowing,n_passes,seed Sketch parameters.
 #' @param arrow_length,arrow_angle Leader arrowhead size (see
 #'   [sketch_arrow_grob()]).
+#' @param arrow_head Leader head style (see [sketch_arrowheads()]); `NULL` = the
+#'   open V.
+#' @param leader Leader routing: `"straight"` (default), `"elbow"` (horizontal
+#'   then vertical) or `"curved"` (a bowed Bezier).
+#' @param curvature Bow size when `leader = "curved"`. Default 0.3.
 #' @param text_gp,box_gp,arrow_gp `gpar()`s for the label, the box (outline; its
 #'   `fill` paints the box), and the leader.
 #' @param name,vp Passed to `grid::gTree()`.
@@ -827,6 +832,8 @@ sketch_callout_grob <- function(x, y, xend, yend, label,
                                 arrow_length  = NULL,
                                 arrow_angle   = 25,
                                 arrow_head    = NULL,
+                                leader        = "straight",
+                                curvature     = 0.3,
                                 text_gp       = gpar(),
                                 box_gp        = gpar(),
                                 arrow_gp      = gpar(),
@@ -838,7 +845,7 @@ sketch_callout_grob <- function(x, y, xend, yend, label,
     padding = padding, corner_radius = corner_radius,
     roughness = roughness, bowing = bowing, n_passes = as.integer(n_passes),
     seed = seed, arrow_length = arrow_length, arrow_angle = arrow_angle,
-    arrow_head = arrow_head,
+    arrow_head = arrow_head, leader = leader, curvature = curvature,
     text_gp = text_gp, box_gp = box_gp, arrow_gp = arrow_gp,
     name = name, vp = vp,
     cl = "SketchCalloutGrob"
@@ -879,8 +886,10 @@ makeContent.SketchCalloutGrob <- function(x) {
     sy <- yi + sin(ang) * sc
 
     if (sqrt((xe - sx)^2 + (ye - sy)^2) > 1e-3) {
+      lp <- leader_path(sx, sy, xe, ye, style = x$leader %||% "straight",
+                        curvature = x$curvature %||% 0.3)
       shaft <- roughen_polyline(
-        c(sx, xe), c(sy, ye),
+        lp$x, lp$y,
         roughness = max(x$roughness, 0), bowing = x$bowing,
         n_passes  = x$n_passes, seed = seed_offset(x$seed, 100L)
       )
@@ -890,13 +899,12 @@ makeContent.SketchCalloutGrob <- function(x) {
           gp = x$arrow_gp
         )
       }
-      a2    <- atan2(ye - sy, xe - sx)
       spd   <- x$arrow_angle * pi / 180
       hl    <- x$arrow_length %||%
         max(0.07, min(0.18, sqrt((xe - sx)^2 + (ye - sy)^2) * 0.22))
       style <- resolve_arrow_head(x$arrow_head, "open")
       children <- c(children, arrowhead_grobs(
-        xe, ye, a2, hl, spd, style, x$roughness, x$n_passes,
+        xe, ye, lp$angle, hl, spd, style, x$roughness, x$n_passes,
         seed_offset(x$seed, 200L), x$arrow_gp
       ))
     }

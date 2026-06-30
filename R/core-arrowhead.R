@@ -33,6 +33,43 @@ check_arrowhead <- function(x, arg = rlang::caller_arg(x),
   invisible(x)
 }
 
+#' Route a leader line from a box edge to a target
+#'
+#' The un-roughened path a callout / annotation leader takes from its start
+#' `(sx, sy)` (a box edge) to the target `(xe, ye)`: a `"straight"` line, an
+#' `"elbow"` (horizontal then vertical, flowchart style) or a `"curved"`
+#' quadratic-Bezier bow. Also reports the end tangent so the arrowhead can orient
+#' to it. Pure geometry; the grob roughens the result.
+#'
+#' @param sx,sy Leader start (inch space).
+#' @param xe,ye Target point (inch space).
+#' @param style One of `"straight"`, `"elbow"`, `"curved"`.
+#' @param curvature Bow size for `"curved"` (signed). Default 0.3.
+#' @return A list with `x`, `y` (the path vertices) and `angle` (end tangent, in
+#'   radians).
+#' @family sketch-core
+#' @export
+#' @examples
+#' leader_path(0, 0, 1, 1, style = "elbow")
+leader_path <- function(sx, sy, xe, ye, style = "straight", curvature = 0.3) {
+  style <- match.arg(style, c("straight", "elbow", "curved"))
+  if (style == "elbow") {
+    px <- c(sx, xe, xe); py <- c(sy, sy, ye)          # horizontal then vertical
+  } else if (style == "curved") {
+    mx <- (sx + xe) / 2; my <- (sy + ye) / 2
+    dx <- xe - sx; dy <- ye - sy
+    ctrlx <- mx - dy * curvature * 0.5
+    ctrly <- my + dx * curvature * 0.5
+    t  <- seq(0, 1, length.out = 24L)
+    px <- (1 - t)^2 * sx + 2 * (1 - t) * t * ctrlx + t^2 * xe
+    py <- (1 - t)^2 * sy + 2 * (1 - t) * t * ctrly + t^2 * ye
+  } else {
+    px <- c(sx, xe); py <- c(sy, ye)
+  }
+  n <- length(px)
+  list(x = px, y = py, angle = atan2(ye - py[n - 1L], xe - px[n - 1L]))
+}
+
 #' Build the ideal paths for one arrowhead
 #'
 #' Returns the un-roughened geometry of an arrowhead whose tip is at

@@ -78,6 +78,32 @@ test_that("arrow_type still maps to a head for back-compat", {
   expect_identical(resolve_arrow_head("dot", "closed"), "dot")  # explicit wins
 })
 
+test_that("leader_path routes straight / elbow / curved with end tangents", {
+  st <- leader_path(0, 0, 1, 1, style = "straight")
+  expect_equal(cbind(st$x, st$y), matrix(c(0, 1, 0, 1), ncol = 2L))
+  expect_equal(st$angle, atan2(1, 1))
+
+  el <- leader_path(0, 0, 2, 1, style = "elbow")
+  expect_length(el$x, 3L)
+  expect_equal(el$x, c(0, 2, 2))                  # horizontal then vertical
+  expect_equal(el$y, c(0, 0, 1))
+  expect_equal(el$angle, atan2(1, 0))             # last segment is vertical
+
+  cu <- leader_path(0, 0, 1, 0, style = "curved", curvature = 0.5)
+  expect_gt(length(cu$x), 3L)                     # sampled Bezier
+  expect_equal(cu$x[length(cu$x)], 1)             # ends on target
+})
+
+test_that("callout leader styles all render", {
+  grDevices::pdf(NULL); on.exit(grDevices::dev.off())
+  for (ld in c("straight", "elbow", "curved")) {
+    p <- ggplot2::ggplot() +
+      annotate_sketch_callout(x = 0.3, y = 0.8, xend = 0.7, yend = 0.3,
+                              label = ld, leader = ld, seed = 1L)
+    expect_no_error(print(p))
+  }
+})
+
 test_that("geom_sketch_arrow accepts head + ends end to end", {
   grDevices::pdf(NULL); on.exit(grDevices::dev.off())
   p <- ggplot2::ggplot() +

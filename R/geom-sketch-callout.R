@@ -26,7 +26,8 @@ GeomSketchCallout <- ggplot2::ggproto(
 
   parameters = function(self, extra = FALSE) {
     c("roughness", "bowing", "n_passes", "seed", "padding", "corner_radius",
-      "arrow_length", "arrow_angle", "arrow_head", "family", "na.rm")
+      "arrow_length", "arrow_angle", "arrow_head", "leader", "curvature",
+      "family", "na.rm")
   },
 
   draw_panel = function(data, panel_params, coord,
@@ -39,6 +40,8 @@ GeomSketchCallout <- ggplot2::ggproto(
                          arrow_length  = NULL,
                          arrow_angle   = 25,
                          arrow_head    = NULL,
+                         leader        = "straight",
+                         curvature     = 0.3,
                          family        = NULL,
                          ...) {
     if (nrow(data) == 0L) return(nullGrob())
@@ -66,7 +69,7 @@ GeomSketchCallout <- ggplot2::ggproto(
         roughness = sp$roughness, bowing = sp$bowing, n_passes = sp$n_passes,
         seed = seed_offset(sp$seed, i * 53L),
         arrow_length = arrow_length, arrow_angle = arrow_angle,
-        arrow_head = arrow_head,
+        arrow_head = arrow_head, leader = leader, curvature = curvature,
         text_gp = grid::gpar(
           col = scales::alpha(data$colour[i], data$alpha[i]),
           fontfamily = fam, fontsize = data$size[i] * ggplot2::.pt
@@ -115,6 +118,9 @@ GeomSketchCallout <- ggplot2::ggproto(
 #' @param arrow_angle Half-angle of the leader arrowhead in degrees. Default 25.
 #' @param arrow_head Leader head style, one of [sketch_arrowheads()]. `NULL`
 #'   (default) draws the open V.
+#' @param leader Leader routing: `"straight"` (default), `"elbow"` (horizontal
+#'   then vertical, flowchart style) or `"curved"` (a bowed Bezier).
+#' @param curvature Bow size when `leader = "curved"`. Default 0.3.
 #' @param family Font family for the label. Defaults to the same family as
 #'   [theme_sketch()] (`getOption("ggsketch.base_family", "")`, i.e. the device
 #'   default), so the label matches the plot's other text; set
@@ -148,6 +154,8 @@ geom_sketch_callout <- function(mapping       = NULL,
                                 arrow_length  = NULL,
                                 arrow_angle   = 25,
                                 arrow_head    = NULL,
+                                leader        = "straight",
+                                curvature     = 0.3,
                                 family        = NULL,
                                 na.rm         = FALSE,
                                 show.legend   = FALSE,
@@ -159,8 +167,8 @@ geom_sketch_callout <- function(mapping       = NULL,
       roughness = roughness, bowing = bowing, n_passes = as.integer(n_passes),
       seed = seed, padding = padding, corner_radius = corner_radius,
       arrow_length = arrow_length, arrow_angle = arrow_angle,
-      arrow_head = arrow_head, family = family,
-      na.rm = na.rm, ...
+      arrow_head = arrow_head, leader = leader, curvature = curvature,
+      family = family, na.rm = na.rm, ...
     )
   )
 }

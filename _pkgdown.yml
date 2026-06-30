@@ -244,6 +244,7 @@ reference:
       - stroke_ribbon
       - sketch_arrowheads
       - arrowhead
+      - leader_path
       - repel_layout
       - spray_scatter
       - watercolor_wash

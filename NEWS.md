@@ -218,6 +218,11 @@ simulator. This first piece is the engine that makes it possible.
   each label near what it names. The boxes and leaders are roughened like the
   rest of ggsketch; the glyphs stay a handwriting font (ADR-0007). No new
   dependency (cf. `ggrepel`).
+* **Callout leader routing.** `geom_sketch_callout()` (and
+  `annotate_sketch_callout()`) gain `leader =`: `"straight"` (default),
+  `"elbow"` (horizontal then vertical, flowchart style) or `"curved"` (a bowed
+  Bezier, sized by `curvature`). The arrowhead re-orients to the leader's end
+  tangent for every route. Backed by a new Layer-1 `leader_path()`.
 * **Arrowhead vocabulary.** Arrows and callout leaders now take a `head =`
   argument choosing the head style: `"triangle_open"` (the classic two-stroke V),
   `"triangle_filled"`, `"barb"` (swept-back harpoon barbs), `"fishtail"` (a

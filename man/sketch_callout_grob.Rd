@@ -19,6 +19,8 @@ sketch_callout_grob(
   arrow_length = NULL,
   arrow_angle = 25,
   arrow_head = NULL,
+  leader = "straight",
+  curvature = 0.3,
   text_gp = gpar(),
   box_gp = gpar(),
   arrow_gp = gpar(),
@@ -42,6 +44,14 @@ sketch_callout_grob(
 
 \item{arrow_length, arrow_angle}{Leader arrowhead size (see
 \code{\link[=sketch_arrow_grob]{sketch_arrow_grob()}}).}
+
+\item{arrow_head}{Leader head style (see \code{\link[=sketch_arrowheads]{sketch_arrowheads()}}); \code{NULL} = the
+open V.}
+
+\item{leader}{Leader routing: \code{"straight"} (default), \code{"elbow"} (horizontal
+then vertical) or \code{"curved"} (a bowed Bezier).}
+
+\item{curvature}{Bow size when \code{leader = "curved"}. Default 0.3.}
 
 \item{text_gp, box_gp, arrow_gp}{\code{gpar()}s for the label, the box (outline; its
 \code{fill} paints the box), and the leader.}

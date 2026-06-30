@@ -22,6 +22,8 @@ geom_sketch_callout(
   arrow_length = NULL,
   arrow_angle = 25,
   arrow_head = NULL,
+  leader = "straight",
+  curvature = 0.3,
   family = NULL,
   na.rm = FALSE,
   show.legend = FALSE,
@@ -59,6 +61,11 @@ adapts it to the leader length.}
 
 \item{arrow_head}{Leader head style, one of \code{\link[=sketch_arrowheads]{sketch_arrowheads()}}. \code{NULL}
 (default) draws the open V.}
+
+\item{leader}{Leader routing: \code{"straight"} (default), \code{"elbow"} (horizontal
+then vertical, flowchart style) or \code{"curved"} (a bowed Bezier).}
+
+\item{curvature}{Bow size when \code{leader = "curved"}. Default 0.3.}
 
 \item{family}{Font family for the label. Defaults to the same family as
 \code{\link[=theme_sketch]{theme_sketch()}} (\code{getOption("ggsketch.base_family", "")}, i.e. the device

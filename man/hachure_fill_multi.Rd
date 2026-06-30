@@ -46,6 +46,7 @@ Other sketch-core:
 \code{\link[=engrave_fill]{engrave_fill()}},
 \code{\link[=engrave_ladder]{engrave_ladder()}},
 \code{\link[=hachure_fill]{hachure_fill()}},
+\code{\link[=leader_path]{leader_path()}},
 \code{\link[=repel_layout]{repel_layout()}},
 \code{\link[=rough_arc]{rough_arc()}},
 \code{\link[=rough_bezier]{rough_bezier()}},
