@@ -55,6 +55,7 @@ Other sketch-core:
 \code{\link[=engrave_fill]{engrave_fill()}},
 \code{\link[=hachure_fill]{hachure_fill()}},
 \code{\link[=hachure_fill_multi]{hachure_fill_multi()}},
+\code{\link[=repel_layout]{repel_layout()}},
 \code{\link[=rough_arc]{rough_arc()}},
 \code{\link[=rough_bezier]{rough_bezier()}},
 \code{\link[=rough_ellipse]{rough_ellipse()}},

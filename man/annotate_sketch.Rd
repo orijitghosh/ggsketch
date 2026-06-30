@@ -90,6 +90,7 @@ Other sketch-geoms:
 \code{\link{GeomSketchSlope}},
 \code{\link{GeomSketchSmooth}},
 \code{\link{GeomSketchSpoke}},
+\code{\link{GeomSketchTextRepel}},
 \code{\link{GeomSketchViolin}},
 \code{\link{StatSketchBeeswarm}},
 \code{\link{StatSketchCalendar}},

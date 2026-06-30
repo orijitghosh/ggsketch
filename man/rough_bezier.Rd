@@ -49,6 +49,7 @@ Other sketch-core:
 \code{\link[=engrave_ladder]{engrave_ladder()}},
 \code{\link[=hachure_fill]{hachure_fill()}},
 \code{\link[=hachure_fill_multi]{hachure_fill_multi()}},
+\code{\link[=repel_layout]{repel_layout()}},
 \code{\link[=rough_arc]{rough_arc()}},
 \code{\link[=rough_ellipse]{rough_ellipse()}},
 \code{\link[=roughen_polyline]{roughen_polyline()}},

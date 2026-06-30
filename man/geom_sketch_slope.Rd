@@ -102,6 +102,7 @@ Other sketch-geoms:
 \code{\link{GeomSketchSfPolygon}},
 \code{\link{GeomSketchSmooth}},
 \code{\link{GeomSketchSpoke}},
+\code{\link{GeomSketchTextRepel}},
 \code{\link{GeomSketchViolin}},
 \code{\link{StatSketchBeeswarm}},
 \code{\link{StatSketchCalendar}},

@@ -168,6 +168,7 @@ reference:
       one-off annotations, theming, and font helpers.
     contents:
       - geom_sketch_text
+      - geom_sketch_text_repel
       - annotate_sketch
       - geom_sketch_bracket
       - geom_sketch_arrow
@@ -243,6 +244,7 @@ reference:
       - stroke_ribbon
       - sketch_arrowheads
       - arrowhead
+      - repel_layout
       - spray_scatter
       - watercolor_wash
       - watercolor_wash_multi

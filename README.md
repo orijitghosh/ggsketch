@@ -98,6 +98,14 @@ It also simulates the *medium*, not just the line. The `"watercolor"` fill paint
 
 </p>
 
+Labels know how to get out of each other's way — the hand-drawn answer to ggrepel. `geom_sketch_text_repel()` / `geom_sketch_label_repel()` nudge labels apart so they never overlap or cover a point, joining each back to its anchor with a roughened leader:
+
+<p align="center">
+
+<img src="man/figures/README-repel.png" alt="A scatter of cars with ten labels repelled apart into roughened boxes, each joined to its point by a hand-drawn leader line" width="70%"/>
+
+</p>
+
 ## The geoms
 
 | Family | Geoms |

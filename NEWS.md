@@ -208,6 +208,16 @@ simulator. This first piece is the engine that makes it possible.
   `"ease_out"`, `"ease_in_out"`). Frames are stitched into a GIF when
   `gifski` or `magick` is installed (guarded Suggests, no new hard dependency);
   otherwise the frame paths are returned. Fully reproducible from `seed`.
+* **Repelled labels (the sketch answer to ggrepel).**
+  `geom_sketch_text_repel()` and `geom_sketch_label_repel()` place text / boxed
+  labels near their points but nudged apart so they no longer overlap each other
+  or cover the data, each tied back to its anchor by a hand-drawn leader. A new
+  Layer-1 force solver `repel_layout()` does the placement (run in device inches
+  at draw time, so the repulsion is even on any panel aspect): overlapping boxes
+  shove apart, boxes slide off the points they cover, and a weak spring keeps
+  each label near what it names. The boxes and leaders are roughened like the
+  rest of ggsketch; the glyphs stay a handwriting font (ADR-0007). No new
+  dependency (cf. `ggrepel`).
 * **Arrowhead vocabulary.** Arrows and callout leaders now take a `head =`
   argument choosing the head style: `"triangle_open"` (the classic two-stroke V),
   `"triangle_filled"`, `"barb"` (swept-back harpoon barbs), `"fishtail"` (a

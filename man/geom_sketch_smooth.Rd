@@ -112,6 +112,7 @@ Other sketch-geoms:
 \code{\link{GeomSketchSfPolygon}},
 \code{\link{GeomSketchSlope}},
 \code{\link{GeomSketchSpoke}},
+\code{\link{GeomSketchTextRepel}},
 \code{\link{GeomSketchViolin}},
 \code{\link{StatSketchBeeswarm}},
 \code{\link{StatSketchCalendar}},
