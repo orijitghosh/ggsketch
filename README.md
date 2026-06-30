@@ -82,6 +82,14 @@ Every fill style works on every filled geom - here `fill_style = "hachure"` boxp
 
 </p>
 
+The 2.0 line adds whole chart families that compose with `+` — here a hierarchy as a hand-drawn sunburst, and weighted flows as a chord diagram:
+
+<p align="center">
+
+<img src="man/figures/README-sunburst.png" alt="Hand-drawn sunburst chart of headcount nested by region, department and team" width="48%"/> <img src="man/figures/README-chord.png" alt="Hand-drawn chord diagram of trade flows between continents" width="48%"/>
+
+</p>
+
 ## The geoms
 
 | Family | Geoms |
@@ -91,6 +99,9 @@ Every fill style works on every filled geom - here `fill_style = "hachure"` boxp
 | Areas & curves | `geom_sketch_polygon()`, `geom_sketch_ribbon()`, `geom_sketch_area()`, `geom_sketch_density()`, `geom_sketch_smooth()` |
 | Circular & composed | `geom_sketch_circle()`, `geom_sketch_ellipse()`, `geom_sketch_segment()`, `geom_sketch_step()`, `geom_sketch_boxplot()` |
 | Engraving & tone | `geom_sketch_engrave()` (shade an `x`/`y`/`z` surface by hatch-line density), `geom_sketch_shade()` (`aes(tone = …)` value → density), `scale_engrave()` |
+| Charts & diagrams | `geom_sketch_pie()`, `geom_sketch_waffle()`, `geom_sketch_treemap()`, `geom_sketch_sunburst()`, `geom_sketch_radar()`, `geom_sketch_chord()`, `geom_sketch_alluvial()`, `geom_sketch_parallel()`, `geom_sketch_mosaic()`, `geom_sketch_calendar()` |
+| Networks & maps | `geom_sketch_edge()` / `sketch_graph()` (force-directed layout, no graph dep), `geom_sketch_sf()` (hand-drawn simple-features maps) |
+| Motion | `animate_sketch()` (boiling-line shimmer or draw-on reveal → GIF) |
 | Helpers & annotation | `annotate_sketch()`, `geom_sketch_bracket()` (significance brackets), `theme_sketch()` |
 | Frame & scales | `element_sketch_line()`, `element_sketch_rect()` (via `theme_sketch(rough_frame = TRUE)`), `scale_colour_sketch()`, `scale_fill_sketch()`, `register_sketch_font()` |
 

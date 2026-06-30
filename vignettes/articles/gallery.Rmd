@@ -1205,6 +1205,31 @@ ggplot() +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
+## Sunburst charts
+
+`geom_sketch_sunburst()` draws a hierarchy as nested rings of annular sectors:
+the columns in `levels` go from the inner root ring outward, and each deeper ring
+splits its parent's angle by the children's summed `value`, so a child always
+nests inside its parent. Fill by the top-level ancestor for the classic look.
+
+```{r sunburst, fig.height = 5.6}
+gss <- data.frame(
+  region = rep(c("West", "East", "North"), each = 4),
+  dept   = rep(c("Sales", "Sales", "Eng", "Eng"), 3),
+  team   = paste0("T", 1:12),
+  n      = c(6, 3, 8, 2, 5, 4, 3, 7, 2, 6, 4, 5)
+)
+ggplot() +
+  geom_sketch_sunburst(gss, levels = c("region", "dept", "team"), value = "n",
+                       fill_by = "root", label = TRUE, label_size = 2.6,
+                       seed = 7L) +
+  scale_fill_sketch() +
+  coord_equal() +
+  labs(title = "Headcount by region › dept › team") +
+  theme_void() +
+  theme(legend.position = "none", plot.title = element_text(hjust = 0.5))
+```
+
 ## Animation: boiling lines
 
 `animate_sketch()` animates a sketch plot two ways. `type = "boil"` re-renders
