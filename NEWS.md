@@ -208,6 +208,15 @@ simulator. This first piece is the engine that makes it possible.
   `"ease_out"`, `"ease_in_out"`). Frames are stitched into a GIF when
   `gifski` or `magick` is installed (guarded Suggests, no new hard dependency);
   otherwise the frame paths are returned. Fully reproducible from `seed`.
+* **gganimate bridge.** `boil_gganimate()` renders a gganimate animation --
+  any ggsketch plot plus a `transition_*()` -- so that, on top of gganimate's
+  data tweening (bars growing, points flying between states, a line drawing
+  itself along `x`), the hand-drawn lines *boil*: the roughening seed steps once
+  per frame as gganimate draws it, so the marks shimmer while the data moves. It
+  is the moving-data companion to `animate_sketch()` (which boils a static plot),
+  keyed to a per-frame counter so frame 1 is un-boiled and the run reproduces.
+  gganimate is an optional Suggests; frames are stitched with the same
+  `gifski` / `magick` backend, or returned as paths.
 * **Parallel-coordinates plots.** `geom_sketch_parallel()` draws several numeric
   columns as vertical axes and every observation as a roughened polyline
   crossing them at its values. Give it the `axes` columns (in order); axes scale

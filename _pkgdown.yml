@@ -158,8 +158,10 @@ reference:
     desc: >
       Animate a sketch plot - re-seed its wobble each frame for the hand-drawn
       "boiling line" effect, or progressively reveal it with a draw-on wipe.
+      `boil_gganimate()` adds the boil on top of a gganimate data transition.
     contents:
       - animate_sketch
+      - boil_gganimate
   - title: Text, annotations, theme & fonts
     desc: >
       Handwriting text, the content-aware arrow / callout / hull-mark toolkit,
