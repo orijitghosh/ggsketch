@@ -253,6 +253,12 @@ simulator. This first piece is the engine that makes it possible.
   `sketch_arrowheads()`) drives `geom_sketch_arrow()`, `annotate_sketch_arrow()`
   and `geom_sketch_callout()` alike. The old `arrow_type` (`"open"`/`"closed"`)
   still works and maps onto the new styles.
+* **Faster boil animations (frame caching).** `animate_sketch(type = "boil")`
+  now computes the plot's build (statistics, scales, layout) once and only
+  re-tables / re-draws it per frame, instead of rebuilding the whole plot every
+  frame -- the boil only ever varied at draw time. Output is unchanged (frame 1
+  still equals the static render); heavier plots (stats, large data, contours)
+  see the biggest speed-up.
 * **gganimate bridge.** `boil_gganimate()` renders a gganimate animation --
   any ggsketch plot plus a `transition_*()` -- so that, on top of gganimate's
   data tweening (bars growing, points flying between states, a line drawing

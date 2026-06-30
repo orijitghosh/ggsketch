@@ -171,12 +171,20 @@ animate_sketch <- function(plot,
     # Save and restore the jitter option (frame 1 == static render).
     old_jit <- getOption("ggsketch.seed_jitter")
     on.exit(options(ggsketch.seed_jitter = old_jit), add = TRUE)
+    # Frame cache: the build (stats, scales, layout) is seed-independent - only
+    # the *draw* reads the jitter - so compute it once and re-table per frame
+    # instead of rebuilding the whole plot each time. Frame 1 is still identical
+    # to the static render.
+    built <- ggplot2::ggplot_build(plot)
     for (f in seq_len(nframes)) {
       # frame 1 -> jitter 0 (identical to the static render); later frames step
       # every seed by a growing multiple of the stride.
       options(ggsketch.seed_jitter = (f - 1L) * .boil_stride)
       open_dev(frames[f], width, height, units, res, background)
-      tryCatch(print(plot), error = function(e) { grDevices::dev.off(); stop(e) })
+      tryCatch({
+        grid::grid.newpage()
+        grid::grid.draw(ggplot2::ggplot_gtable(built))
+      }, error = function(e) { grDevices::dev.off(); stop(e) })
       grDevices::dev.off()
     }
     options(ggsketch.seed_jitter = old_jit)
