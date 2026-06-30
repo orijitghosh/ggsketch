@@ -178,6 +178,13 @@ simulator. This first piece is the engine that makes it possible.
   frequency. Give it `x`, `y` and an optional `value` weight; colour by `y`
   (default) or `x`. No new dependencies (cf. `graphics::mosaicplot()`,
   `ggmosaic`).
+* **Sunburst charts.** `geom_sketch_sunburst()` draws a hierarchy as nested rings
+  of roughened annular sectors: the columns in `levels` define the hierarchy from
+  the inner root ring outward, and each deeper ring splits its parent's angular
+  span by the children's summed `value`, so a child always nests inside its
+  parent. Colour by the top-level ancestor (`fill_by = "root"`, the classic look),
+  by each node, or by ring. Pair with `coord_equal()` + `theme_void()`. No new
+  dependencies (cf. `sunburstR`, `plotly`).
 
 # ggsketch 1.8.0 (development)
 

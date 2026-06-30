@@ -97,10 +97,11 @@ reference:
     contents:
       - geom_sketch_pie
   - title: Part-to-whole
-    desc: Square and nested part-to-whole charts.
+    desc: Square, nested and radial part-to-whole charts.
     contents:
       - geom_sketch_waffle
       - geom_sketch_treemap
+      - geom_sketch_sunburst
   - title: Calendar & time
     desc: Hand-drawn heatmaps over the calendar.
     contents:
@@ -141,8 +142,8 @@ reference:
       - geom_sketch_mosaic
   - title: Motion
     desc: >
-      Animate a sketch plot by re-seeding its wobble each frame - the
-      hand-drawn "boiling line" effect.
+      Animate a sketch plot - re-seed its wobble each frame for the hand-drawn
+      "boiling line" effect, or progressively reveal it with a draw-on wipe.
     contents:
       - animate_sketch
   - title: Text, annotations, theme & fonts
