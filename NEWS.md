@@ -185,6 +185,12 @@ simulator. This first piece is the engine that makes it possible.
   parent. Colour by the top-level ancestor (`fill_by = "root"`, the classic look),
   by each node, or by ring. Pair with `coord_equal()` + `theme_void()`. No new
   dependencies (cf. `sunburstR`, `plotly`).
+* **Arc diagrams.** `geom_sketch_arc_diagram()` lays nodes along a horizontal
+  line and draws every weighted relation as a roughened semicircle arching over
+  (or under, `side = "bottom"`) the axis between its endpoints - a linear cousin
+  of the chord diagram. Edges are coloured by source and their width scales with
+  `value`; node points scale with incident weight. No new dependencies
+  (cf. `arcdiagram`, `ggraph`).
 
 # ggsketch 1.8.0 (development)
 

@@ -124,10 +124,13 @@ reference:
     desc: Spider / radar charts - one roughened polygon per series over a web.
     contents:
       - geom_sketch_radar
-  - title: Chord diagrams
-    desc: Circular flow diagrams - nodes on a rim, ribbons through the centre.
+  - title: Chord & arc diagrams
+    desc: >
+      Relational diagrams - nodes on a circular rim with ribbons through the
+      centre, or nodes on a line joined by semicircular arcs.
     contents:
       - geom_sketch_chord
+      - geom_sketch_arc_diagram
   - title: Alluvial & Sankey
     desc: Categorical axes joined by frequency-weighted flows.
     contents:
