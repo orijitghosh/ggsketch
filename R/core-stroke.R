@@ -227,3 +227,77 @@ stroke_ribbon <- function(x, y,
   colnames(ring) <- c("x", "y")
   ring
 }
+
+# ---- spray_scatter ----------------------------------------------------------
+
+#' Scatter a cloud of dots along a path (airbrush / spray)
+#'
+#' Samples points along a centreline and offsets each one perpendicular to the
+#' path by a Gaussian random amount, producing a soft-edged spray of dots with no
+#' hard outline -- the airbrush / spray-can look. The dot density falls off from
+#' the centreline (the Gaussian offset), and dots near the edge are drawn smaller
+#' so the cloud feathers out. Pure number-to-number (no `grid`/`ggplot2`);
+#' deterministic apart from the seeded RNG (ADR-0004).
+#'
+#' @param x,y Numeric vectors of centreline vertices (same length, any units --
+#'   `spread`, `dot_r` and `density` are interpreted in those units).
+#' @param spread Standard deviation of the perpendicular offset (cloud half-width).
+#' @param density Mean number of dots per unit of path arc-length.
+#' @param dot_r Base dot radius. Edge dots shrink toward `0.4 * dot_r`.
+#' @param seed Integer seed for the scatter (ADR-0004).
+#' @return A 4-column matrix with columns `x`, `y` (dot centres), `r` (dot radii)
+#'   and `a` (a 0-1 weight that fades with distance from the centreline, for the
+#'   caller to fold into per-dot alpha if desired). Zero rows for a degenerate
+#'   path.
+#' @family sketch-core
+#' @export
+spray_scatter <- function(x, y, spread = 0.04, density = 140, dot_r = 0.004,
+                          seed = NULL) {
+  x <- as.double(x); y <- as.double(y)
+  stopifnot(length(x) == length(y))
+  empty <- matrix(numeric(0), ncol = 4L,
+                  dimnames = list(NULL, c("x", "y", "r", "a")))
+  n <- length(x)
+  if (n == 0L) return(empty)
+  seed <- resolve_seed(seed)
+
+  # A lone vertex: a round puff centred on the point.
+  if (n == 1L) {
+    ndots <- max(1L, as.integer(round(density * spread * 6)))
+    return(within_seed(seed_offset(seed, 11L), {
+      ang <- stats::runif(ndots, 0, 2 * pi)
+      rad <- abs(stats::rnorm(ndots, 0, spread))
+      a   <- exp(-0.5 * (rad / max(spread, 1e-9))^2)
+      rr  <- dot_r * (0.4 + 0.6 * a)
+      cbind(x = x + rad * cos(ang), y = y + rad * sin(ang),
+            r = pmax(rr, 0), a = a)
+    }))
+  }
+
+  seg   <- sqrt(diff(x)^2 + diff(y)^2)
+  s     <- c(0, cumsum(seg))
+  total <- s[n]
+  if (total <= 0) return(empty)
+  ndots <- max(1L, as.integer(round(density * total)))
+
+  within_seed(seed_offset(seed, 11L), {
+    sp <- stats::runif(ndots, 0, total)
+    px <- stats::approx(s, x, sp, rule = 2)$y
+    py <- stats::approx(s, y, sp, rule = 2)$y
+    # Unit tangent via a small central difference in arc-length.
+    e  <- total * 1e-3
+    x1 <- stats::approx(s, x, pmin(total, sp + e), rule = 2)$y
+    x0 <- stats::approx(s, x, pmax(0,     sp - e), rule = 2)$y
+    y1 <- stats::approx(s, y, pmin(total, sp + e), rule = 2)$y
+    y0 <- stats::approx(s, y, pmax(0,     sp - e), rule = 2)$y
+    tx <- x1 - x0; ty <- y1 - y0
+    tl <- sqrt(tx^2 + ty^2); tl[tl < 1e-12] <- 1
+    ux <- tx / tl; uy <- ty / tl          # unit tangent
+    nx <- -uy;     ny <- ux               # unit normal
+    off <- stats::rnorm(ndots, 0, spread)
+    a   <- exp(-0.5 * (off / max(spread, 1e-9))^2)
+    rr  <- dot_r * (0.4 + 0.6 * a) *
+      (1 + 0.5 * (stats::runif(ndots) - 0.5) * 2)   # +/-25% size jitter
+    cbind(x = px + nx * off, y = py + ny * off, r = pmax(rr, 0), a = a)
+  })
+}

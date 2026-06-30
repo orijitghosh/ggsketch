@@ -74,12 +74,13 @@ GeomSketchPath <- ggplot2::ggproto(
 #'   `getOption("ggsketch.seed", 1L)`.
 #' @param medium Drawing medium for the stroke: one of [sketch_media()]
 #'   (`"pen"`, `"ink"`, `"fountain_pen"`, `"ballpoint"`, `"brush"`, `"pencil"`,
-#'   `"charcoal"`, `"pastel"`, `"marker"`, `"crayon"`). `NULL` (default) uses
-#'   `"pen"`, the classic constant-width double stroke; the others render through
-#'   the variable-width [stroke_ribbon()] engine (tapered ink, brushy swells,
-#'   grainy pencil/charcoal, ...). `medium` is also a mappable aesthetic: map it
-#'   with `aes(medium = )` (one medium per group) and control the mapping with
-#'   [scale_medium_discrete()].
+#'   `"charcoal"`, `"pastel"`, `"marker"`, `"crayon"`, `"spray"`). `NULL`
+#'   (default) uses `"pen"`, the classic constant-width double stroke; most others
+#'   render through the variable-width [stroke_ribbon()] engine (tapered ink,
+#'   brushy swells, grainy pencil/charcoal, ...), and `"spray"` renders as a soft
+#'   airbrush dot cloud ([sketch_spray_grob()]). `medium` is also a mappable
+#'   aesthetic: map it with `aes(medium = )` (one medium per group) and control
+#'   the mapping with [scale_medium_discrete()].
 #' @param na.rm If `FALSE` (default), missing values are removed with a warning.
 #' @param show.legend Logical. Should this layer be included in the legend?
 #' @param inherit.aes If `FALSE`, override the default aesthetics.

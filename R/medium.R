@@ -19,7 +19,7 @@
 #' sketch_media()
 sketch_media <- function() {
   c("pen", "ink", "fountain_pen", "ballpoint", "brush", "pencil",
-    "charcoal", "pastel", "marker", "crayon")
+    "charcoal", "pastel", "marker", "crayon", "spray")
 }
 
 #' Validate a `medium` choice
@@ -76,7 +76,15 @@ medium_spec <- function(medium) {
                     cap = "butt",  jitter_w = 0.05),
     crayon   = list(width_mult = 2.0, taper = "both", taper_frac = 0.5,
                     profile = NULL,    n_passes = 2L, alpha_mult = 0.6,
-                    cap = "round", jitter_w = 0.35)
+                    cap = "round", jitter_w = 0.35),
+    # Airbrush: not a ribbon at all - a soft cloud of dots scattered around the
+    # centreline (see sketch_spray_grob / spray_scatter). The standard ribbon
+    # keys are kept (so the spec stays uniform) but unused; the spray_* keys
+    # drive the scatter. width_mult sets the base dot/cloud scale off linewidth.
+    spray    = list(width_mult = 1.0, taper = "none", taper_frac = 0,
+                    profile = NULL,    n_passes = 1L, alpha_mult = 0.45,
+                    cap = "round", jitter_w = 0,
+                    spread_mult = 1.8, density = 220, dot_r_mult = 0.55)
   )
 }
 
@@ -150,6 +158,21 @@ sketch_medium_grob <- function(x, y, id = NULL,
                                n_passes  = 2L,
                                seed      = NULL,
                                pressure_var = NULL) {
+  # Airbrush / spray: a dot cloud, not a stroked line (ignores pressure).
+  if (identical(medium, "spray")) {
+    spec     <- medium_spec("spray")
+    width_in <- linewidth_to_inches(linewidth) * spec$width_mult
+    a        <- if (is.na(alpha)) spec$alpha_mult else alpha * spec$alpha_mult
+    return(sketch_spray_grob(
+      x = x, y = y, id = id,
+      spread = width_in * spec$spread_mult,
+      density = spec$density,
+      dot_r = width_in * spec$dot_r_mult,
+      roughness = roughness, bowing = bowing, n_passes = n_passes, seed = seed,
+      gp = gpar(col = colour, alpha = a)
+    ))
+  }
+
   has_press <- !is.null(pressure_var) && length(pressure_var) == length(x) &&
     any(is.finite(pressure_var))
 

@@ -180,8 +180,8 @@ reference:
   - title: Drawing media
     desc: >
       The `medium` system — how a stroke is laid down (pen, ink, fountain pen,
-      ballpoint, brush, pencil, charcoal, pastel, marker, crayon) — and its
-      mappable scale.
+      ballpoint, brush, pencil, charcoal, pastel, marker, crayon, spray) — and
+      its mappable scale.
     contents:
       - sketch_media
       - scale_medium_discrete
@@ -213,6 +213,7 @@ reference:
     contents:
       - sketch_path_grob
       - sketch_stroke_grob
+      - sketch_spray_grob
       - sketch_polygon_grob
       - sketch_ellipse_grob
       - sketch_wedge_grob
@@ -237,6 +238,7 @@ reference:
       - curve_fill
       - stroke_profile
       - stroke_ribbon
+      - spray_scatter
       - watercolor_wash
       - watercolor_wash_multi
       - treemap_layout

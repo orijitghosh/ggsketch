@@ -38,6 +38,7 @@ Other sketch-core:
 \code{\link[=roughen_polyline]{roughen_polyline()}},
 \code{\link[=sketch_fill]{sketch_fill()}},
 \code{\link[=sketch_fill_multi]{sketch_fill_multi()}},
+\code{\link[=spray_scatter]{spray_scatter()}},
 \code{\link[=stroke_profile]{stroke_profile()}},
 \code{\link[=stroke_ribbon]{stroke_ribbon()}},
 \code{\link[=treemap_layout]{treemap_layout()}},

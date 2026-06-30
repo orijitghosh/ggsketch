@@ -7,7 +7,7 @@ test_that("sketch_media lists the media with pen first (the default)", {
   expect_true(is.character(m))
   expect_identical(m[1L], "pen")
   expect_true(all(c("ink", "fountain_pen", "ballpoint", "brush", "pencil",
-                    "charcoal", "pastel", "marker", "crayon") %in% m))
+                    "charcoal", "pastel", "marker", "crayon", "spray") %in% m))
 })
 
 test_that("check_medium rejects unknown media", {
@@ -34,11 +34,18 @@ test_that("medium='pen' returns the historical constant-width path grob", {
 })
 
 test_that("a non-pen medium returns a variable-width stroke grob", {
-  for (m in setdiff(sketch_media(), "pen")) {
+  # spray is the exception: it returns a dot-cloud grob, not a ribbon.
+  for (m in setdiff(sketch_media(), c("pen", "spray"))) {
     g <- sketch_medium_grob(c(0.1, 0.5, 0.9), c(0.2, 0.8, 0.3), medium = m,
                             colour = "navy", linewidth = 0.6, seed = 1L)
     expect_s3_class(g, "SketchStrokeGrob")
   }
+})
+
+test_that("medium='spray' returns an airbrush dot-cloud grob", {
+  g <- sketch_medium_grob(c(0.1, 0.5, 0.9), c(0.2, 0.8, 0.3), medium = "spray",
+                          colour = "navy", linewidth = 0.6, seed = 1L)
+  expect_s3_class(g, "SketchSprayGrob")
 })
 
 test_that("non-pen media fold alpha into the medium's translucency", {

@@ -25,6 +25,12 @@ simulator. This first piece is the engine that makes it possible.
   slightly at the ends), `"ballpoint"` (a thin, even, faintly skipping stroke),
   and `"pastel"` (a broad, soft, grainy and translucent mark, lighter than
   charcoal) join the `medium` family and the `scale_medium_discrete()` palette.
+* **Airbrush / spray medium.** A new `medium = "spray"` renders a line as a soft
+  cloud of dots scattered around the centreline with no hard outline -- the
+  spray-can / airbrush look. Powered by a new Layer-1 sampler `spray_scatter()`
+  (Gaussian perpendicular offset, density falloff and feathered edges) and a
+  Layer-2 `sketch_spray_grob()` that re-roughens and scatters at device
+  resolution. Selectable per group via `aes(medium = )` like the other media.
 * **Paper / canvas grounds.** `theme_sketch(paper = )` paints a simulated paper
   texture behind the data: `"notebook"` (blue rules + red margin), `"graph"`,
   `"dotted"`, `"aged"` (warm ground with soft blotches), `"blueprint"` and

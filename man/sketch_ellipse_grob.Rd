@@ -66,6 +66,7 @@ Other grob-layer:
 \code{\link[=sketch_engrave_grob]{sketch_engrave_grob()}},
 \code{\link[=sketch_path_grob]{sketch_path_grob()}},
 \code{\link[=sketch_polygon_grob]{sketch_polygon_grob()}},
+\code{\link[=sketch_spray_grob]{sketch_spray_grob()}},
 \code{\link[=sketch_stroke_grob]{sketch_stroke_grob()}},
 \code{\link[=sketch_wedge_grob]{sketch_wedge_grob()}}
 }
