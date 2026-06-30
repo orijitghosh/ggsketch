@@ -215,6 +215,12 @@ simulator. This first piece is the engine that makes it possible.
   small angle for soft directional shading. Both work on every polygon-fill geom
   and respect holes on the band geoms (via new multi-ring variants). Density /
   texture follow `hachure_gap` and `roughness` as usual.
+* **Ink-into-paper grain now reaches the line media too.** The paper-tooth
+  coupling that feathers watercolour washes (`theme_sketch(paper = )`) now also
+  roughens the variable-width stroke media (ink, brush, pencil, charcoal, ...):
+  on a toothy ground (`"aged"`, `"kraft"`) their centreline and wet edge pick up
+  extra grain, so a drawing reads consistently across line and fill. A no-op on
+  plain ground, so existing plots are unchanged.
 * **Repelled labels (the sketch answer to ggrepel).**
   `geom_sketch_text_repel()` and `geom_sketch_label_repel()` place text / boxed
   labels near their points but nudged apart so they no longer overlap each other

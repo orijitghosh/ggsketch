@@ -71,6 +71,13 @@ makeContent.SketchStrokeGrob <- function(x) {
   id     <- x$id %||% rep(1L, length(xi))
   groups <- split(seq_along(xi), id)
 
+  # Ink-into-paper grain: when a textured paper is active (theme_sketch(paper =))
+  # its tooth roughens the mark, so feather the centreline and the wet edge a
+  # little more. A no-op on plain ground (grain 0).
+  pg        <- max(0, getOption("ggsketch.wash_grain", 0))
+  rough_eff <- x$roughness * (1 + pg * 0.6)
+  jit_eff   <- x$jitter_w + pg * 0.12
+
   children <- vector("list", length(groups) * max(1L, x$n_passes))
   ci <- 0L
 
@@ -96,7 +103,7 @@ makeContent.SketchStrokeGrob <- function(x) {
 
     passes <- roughen_polyline(
       gx, gy,
-      roughness = x$roughness, bowing = x$bowing,
+      roughness = rough_eff, bowing = x$bowing,
       n_passes = x$n_passes, seed = seed_offset(x$seed, g * 37L)
     )
 
@@ -106,7 +113,7 @@ makeContent.SketchStrokeGrob <- function(x) {
         pass[, "x"], pass[, "y"],
         width = x$width, taper = x$taper, taper_frac = x$taper_frac,
         pressure = x$pressure, nib_angle = x$nib_angle,
-        jitter_w = x$jitter_w, cap = x$cap,
+        jitter_w = jit_eff, cap = x$cap,
         seed = seed_offset(x$seed, g * 37L + p * 5L)
       )
       if (nrow(rib) == 0L) next

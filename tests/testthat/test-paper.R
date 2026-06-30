@@ -100,3 +100,23 @@ test_that("a dark-ground paper flips text colour light", {
   th <- theme_sketch(paper = "blueprint")
   expect_identical(th$axis.title$colour, paper_spec("blueprint")$ink)
 })
+
+# ---- ink-into-paper grain on stroke media -----------------------------------
+
+test_that("paper grain feathers medium strokes but is a no-op on plain ground", {
+  grDevices::pdf(NULL); on.exit(grDevices::dev.off())
+  grid::pushViewport(grid::viewport(width = grid::unit(4, "in"),
+                                    height = grid::unit(4, "in")))
+  mk <- function() sketch_stroke_grob(c(0.1, 0.9), c(0.5, 0.5), width = 0.05,
+                                      n_passes = 2L, jitter_w = 0.1, seed = 1L,
+                                      gp = grid::gpar(col = "black"))
+  withr::local_options(ggsketch.wash_grain = 0)
+  flat <- as.numeric(grid::makeContent(mk())$children[[1L]]$y)
+  base <- as.numeric(grid::makeContent(mk())$children[[1L]]$y)
+  expect_identical(flat, base)                      # grain 0 reproduces exactly
+
+  withr::local_options(ggsketch.wash_grain = 1)
+  toothy <- as.numeric(grid::makeContent(mk())$children[[1L]]$y)
+  expect_false(isTRUE(all.equal(flat, toothy)))     # tooth perturbs the stroke
+  grid::popViewport()
+})
