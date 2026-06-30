@@ -41,10 +41,11 @@ reference:
       - geom_sketch_rect
       - geom_sketch_lollipop
   - title: Comparisons & change
-    desc: Paired and ranked values — gaps, before/after, and rate of change.
+    desc: Paired and ranked values — gaps, before/after, rate of change, and rank over time.
     contents:
       - geom_sketch_dumbbell
       - geom_sketch_slope
+      - geom_sketch_bump
   - title: Distributions
     contents:
       - geom_sketch_histogram

@@ -191,6 +191,11 @@ simulator. This first piece is the engine that makes it possible.
   of the chord diagram. Edges are coloured by source and their width scales with
   `value`; node points scale with incident weight. No new dependencies
   (cf. `arcdiagram`, `ggraph`).
+* **Bump / ranking charts.** `geom_sketch_bump()` draws each series' rank at
+  every time point and joins it across adjacent times with smooth roughened
+  curves, so a crossing reads as one series overtaking another. Give it long data
+  with `x` (time), `group` (series) and `value` (ranked within each time); colour
+  by series and label the ends. No new dependencies (cf. `ggbump`).
 
 # ggsketch 1.8.0 (development)
 

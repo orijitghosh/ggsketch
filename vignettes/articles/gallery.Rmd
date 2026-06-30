@@ -1174,6 +1174,27 @@ ggplot() +
   theme(legend.position = "none", plot.title = element_text(hjust = 0.5))
 ```
 
+## Bump (ranking) charts
+
+`geom_sketch_bump()` draws each series' rank at every time point, joined across
+adjacent times by smooth roughened curves so a crossing reads as an overtake.
+Give it long data with the time, series, and value columns.
+
+```{r bump, fig.height = 4.4}
+standings <- data.frame(
+  year = rep(2018:2023, each = 5),
+  team = rep(c("Falcons", "Bears", "Wolves", "Hawks", "Lions"), times = 6),
+  pts  = c(20, 18, 15, 12, 10,  15, 20, 18, 10, 12,  18, 12, 20, 15, 8,
+           12, 18, 15, 20, 14,  10, 15, 12, 18, 22,  22, 14, 10, 16, 18)
+)
+ggplot() +
+  geom_sketch_bump(standings, year, team, pts, seed = 4L, point_size = 4) +
+  scale_colour_sketch() +
+  labs(title = "Season standings") +
+  theme_void() +
+  theme(legend.position = "none", plot.title = element_text(hjust = 0.5))
+```
+
 ## Alluvial / Sankey diagrams
 
 `geom_sketch_alluvial()` draws two or more categorical axes as stacks of strata,
