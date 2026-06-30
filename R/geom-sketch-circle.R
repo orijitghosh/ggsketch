@@ -139,7 +139,7 @@ GeomSketchCircle <- ggplot2::ggproto(
 #' @param n_passes Number of stroke passes. Default 2.
 #' @param seed Integer seed. `NULL` uses `getOption("ggsketch.seed", 1L)`.
 #' @param fill_style Fill style when `fill` is mapped: `"hachure"`,
-#'   `"cross_hatch"`, `"zigzag"`, `"scribble"`, `"dots"`, `"dashed"`. Default
+#'   `"cross_hatch"`, `"zigzag"`, `"scribble"`, `"dots"`, `"dashed"`, `"stipple"`, `"pencil_shade"`. Default
 #'   `"hachure"`.
 #' @param hachure_angle Fill line angle in degrees. Default 45.
 #' @param hachure_gap Fill line gap (npc fraction, scaled by radius). Default 0.07.

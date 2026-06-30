@@ -31,6 +31,50 @@ test_that("cross_hatch fill produces output with two angle sets", {
   expect_gt(length(cross), length(hach))
 })
 
+test_that("stipple scatters interior dots, all inside the polygon", {
+  px <- c(0, 1, 1, 0); py <- c(0, 0, 1, 1)
+  res <- sketch_fill(px, py, fill_style = "stipple", hachure_gap = 0.08,
+                     seed = 1L)
+  expect_gt(length(res), 20L)
+  # each dot is a small closed ring; its centroid lies inside the square
+  # (allow a few edge dots whose roughened ring drifts a hair past the border)
+  cents <- t(vapply(res, function(m) colMeans(m[, c("x", "y")]), numeric(2L)))
+  expect_gt(mean(point_in_polygon(cents[, 1L], cents[, 2L], px, py)), 0.95)
+  # denser gap => more dots
+  dense <- sketch_fill(px, py, fill_style = "stipple", hachure_gap = 0.04,
+                       seed = 1L)
+  expect_gt(length(dense), length(res))
+})
+
+test_that("pencil_shade lays trimmed strokes plus a cross set", {
+  px <- c(0, 1, 1, 0); py <- c(0, 0, 1, 1)
+  base <- sketch_fill(px, py, fill_style = "hachure", hachure_gap = 0.1,
+                      hachure_angle = 45, seed = 1L)
+  pen  <- sketch_fill(px, py, fill_style = "pencil_shade", hachure_gap = 0.1,
+                      hachure_angle = 45, seed = 1L)
+  expect_true(is.list(pen))
+  expect_gt(length(pen), length(base))           # base + cross strokes
+  for (seg in pen) expect_true(all(is.finite(seg)))
+})
+
+test_that("stipple and pencil_shade work on multi-ring regions", {
+  outer <- list(x = c(0, 6, 6, 0), y = c(0, 0, 6, 6))
+  hole  <- list(x = c(2, 4, 4, 2), y = c(2, 2, 4, 4))
+  st <- sketch_fill_multi(list(outer, hole), fill_style = "stipple",
+                          hachure_gap = 0.3, seed = 1L)
+  cents <- t(vapply(st, function(m) colMeans(m[, c("x", "y")]), numeric(2L)))
+  in_hole <- point_in_polygon(cents[, 1L], cents[, 2L], hole$x, hole$y)
+  expect_lt(mean(in_hole), 0.02)                 # dots (centres) avoid the hole
+  pen <- sketch_fill_multi(list(outer, hole), fill_style = "pencil_shade",
+                           hachure_gap = 0.5, seed = 1L)
+  expect_gt(length(pen), 0L)
+})
+
+test_that("the new styles are accepted by check_fill_style", {
+  expect_silent(check_fill_style("stipple"))
+  expect_silent(check_fill_style("pencil_shade"))
+})
+
 test_that("zigzag fill produces output with connectors", {
   px <- c(0, 1, 1, 0)
   py <- c(0, 0, 1, 1)

@@ -101,7 +101,7 @@ GeomSketchRidgeline <- ggplot2::ggproto(
 #' @param n_passes Number of stroke passes. Default 2.
 #' @param seed Integer seed. `NULL` uses `getOption("ggsketch.seed", 1L)`.
 #' @param fill_style One of `"hachure"`, `"cross_hatch"`, `"zigzag"`,
-#'   `"zigzag_line"`, `"scribble"`, `"dots"`, `"dashed"`, `"solid"`, or
+#'   `"zigzag_line"`, `"scribble"`, `"dots"`, `"dashed"`, `"stipple"`, `"pencil_shade"`, `"solid"`, or
 #'   `"watercolor"`. Default `"hachure"`.
 #' @param hachure_angle Fill line angle in degrees. Default 45.
 #' @param hachure_gap Fill line gap in npc units (`NULL` = 6% of diagonal).

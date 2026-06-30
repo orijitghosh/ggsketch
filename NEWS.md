@@ -208,6 +208,13 @@ simulator. This first piece is the engine that makes it possible.
   `"ease_out"`, `"ease_in_out"`). Frames are stitched into a GIF when
   `gifski` or `magick` is installed (guarded Suggests, no new hard dependency);
   otherwise the frame paths are returned. Fully reproducible from `seed`.
+* **Two new tonal fills: `"stipple"` and `"pencil_shade"`.** `fill_style =
+  "stipple"` scatters fine rough dots at random interior points (a pointillist
+  tone with no visible lattice, unlike the grid-aligned `"dots"`); `fill_style =
+  "pencil_shade"` lays trimmed graphite strokes plus a sparser cross set at a
+  small angle for soft directional shading. Both work on every polygon-fill geom
+  and respect holes on the band geoms (via new multi-ring variants). Density /
+  texture follow `hachure_gap` and `roughness` as usual.
 * **Repelled labels (the sketch answer to ggrepel).**
   `geom_sketch_text_repel()` and `geom_sketch_label_repel()` place text / boxed
   labels near their points but nudged apart so they no longer overlap each other

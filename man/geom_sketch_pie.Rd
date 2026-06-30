@@ -68,7 +68,7 @@ radial edges stay straight-ish).}
 
 \item{fill_style}{\code{"solid"} (default) paints each slice in its \code{fill} colour
 with a rough edge; any other style (\code{"hachure"}, \code{"cross_hatch"},
-\code{"zigzag"}, \code{"scribble"}, \code{"dots"}, \code{"dashed"}) hatches it instead.}
+\code{"zigzag"}, \code{"scribble"}, \code{"dots"}, \code{"dashed"}, \code{"stipple"}, \code{"pencil_shade"}) hatches it instead.}
 
 \item{hachure_angle}{Fill line angle in degrees. Default 45.}
 

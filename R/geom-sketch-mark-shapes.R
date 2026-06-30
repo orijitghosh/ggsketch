@@ -180,7 +180,7 @@ mark_shape_layer <- function(geom, mapping, data, stat, position,
 #' @param n_passes Number of stroke passes. Default 2.
 #' @param seed Integer seed. `NULL` uses `getOption("ggsketch.seed", 1L)`.
 #' @param fill_style Fill style when `fill` is mapped: `"hachure"`,
-#'   `"cross_hatch"`, `"zigzag"`, `"scribble"`, `"dots"`, `"dashed"`, or
+#'   `"cross_hatch"`, `"zigzag"`, `"scribble"`, `"dots"`, `"dashed"`, `"stipple"`, `"pencil_shade"`, or
 #'   `"solid"`. Default `"hachure"`.
 #' @param hachure_angle Fill line angle in degrees. Default 45.
 #' @param hachure_gap Fill line gap (npc fraction). Default 0.07.

@@ -41,6 +41,9 @@ sketch_fill <- function(px, py,
                             roughness, seed),
     dashed     = dashed_fill(px, py, hachure_gap, hachure_angle,
                               roughness, bowing, seed),
+    stipple    = stipple_fill(px, py, hachure_gap, roughness, seed),
+    pencil_shade = pencil_shade_fill(px, py, hachure_gap, hachure_angle,
+                                     roughness, bowing, seed),
     solid      = NULL
   )
 }
@@ -78,6 +81,9 @@ sketch_fill_multi <- function(rings,
       hachure_fill_multi(rings, hachure_gap, hachure_angle + 90,
                          roughness, bowing, seed_offset(seed, 500L))
     ),
+    stipple = stipple_fill_multi(rings, hachure_gap, roughness, seed),
+    pencil_shade = pencil_shade_fill_multi(rings, hachure_gap, hachure_angle,
+                                           roughness, bowing, seed),
     # hachure and every per-ring style fall back to a single shared scan-line.
     hachure_fill_multi(rings, hachure_gap, hachure_angle,
                        roughness, bowing, seed)
@@ -269,6 +275,115 @@ dashed_fill <- function(px, py, gap, angle, roughness, bowing, seed) {
     }
   }
   result[seq_len(ri)]
+}
+
+# ---- stipple ----------------------------------------------------------------
+
+#' Stipple fill: random interior dots (pointillist tone)
+#'
+#' Unlike `dots` (circles on a hachure grid), stipple scatters tiny rough dots
+#' at random points inside the region, so the texture reads as an even tone with
+#' no visible lattice. Density scales with `1 / gap^2`.
+#' @noRd
+stipple_fill <- function(px, py, gap, roughness, seed) {
+  if (length(px) < 3L) return(list())
+  minx <- min(px); maxx <- max(px); miny <- min(py); maxy <- max(py)
+  area <- abs(sum(px * c(py[-1L], py[1L]) - c(px[-1L], px[1L]) * py)) / 2
+  n    <- min(3000L, max(1L, as.integer(area / (gap * gap) * 1.1)))
+  dot_r <- gap * 0.12
+
+  within_seed(seed_offset(seed, 6100L), {
+    gx <- stats::runif(n, minx, maxx)
+    gy <- stats::runif(n, miny, maxy)
+    keep <- point_in_polygon(gx, gy, px, py)
+    gx <- gx[keep]; gy <- gy[keep]
+    if (!length(gx)) return(list())
+    lapply(seq_along(gx), function(i) {
+      s <- seed_offset(seed, 6100L + i * 7L)
+      within_seed(s, rough_ellipse(gx[i], gy[i], dot_r, dot_r,
+                                   roughness = roughness * 0.5,
+                                   n_passes = 1L, seed = s)[[1L]])
+    })
+  })
+}
+
+# ---- pencil_shade -----------------------------------------------------------
+
+# Randomly trim each hachure stroke at both ends and roughen it twice, so a
+# block of them reads as separate grainy pencil strokes rather than a ruled fill.
+#' @noRd
+trim_pencil <- function(lines, roughness, bowing, seed, soff) {
+  if (length(lines) == 0L) return(list())
+  within_seed(seed_offset(seed, soff), {
+    out <- list()
+    for (i in seq_along(lines)) {
+      seg <- lines[[i]]
+      a <- seg[1L, ]; b <- seg[nrow(seg), ]
+      d <- c(b[["x"]] - a[["x"]], b[["y"]] - a[["y"]])
+      len <- sqrt(sum(d^2))
+      if (len < 1e-9) next
+      u  <- d / len
+      ax <- a[["x"]] + u[1L] * len * stats::runif(1L, 0, 0.18)
+      ay <- a[["y"]] + u[2L] * len * stats::runif(1L, 0, 0.18)
+      bx <- b[["x"]] - u[1L] * len * stats::runif(1L, 0, 0.18)
+      by <- b[["y"]] - u[2L] * len * stats::runif(1L, 0, 0.18)
+      out <- c(out, roughen_polyline(c(ax, bx), c(ay, by),
+                                     roughness = max(roughness, 0.4),
+                                     bowing = bowing, n_passes = 2L,
+                                     seed = seed_offset(seed, soff + i * 13L)))
+    }
+    out
+  })
+}
+
+#' Stipple over a multi-ring (even-odd) region
+#' @noRd
+stipple_fill_multi <- function(rings, gap, roughness, seed) {
+  rings <- Filter(function(r) length(r$x) >= 3L, rings)
+  if (!length(rings)) return(list())
+  allx <- unlist(lapply(rings, `[[`, "x")); ally <- unlist(lapply(rings, `[[`, "y"))
+  minx <- min(allx); maxx <- max(allx); miny <- min(ally); maxy <- max(ally)
+  n     <- min(3000L, max(1L, as.integer((maxx - minx) * (maxy - miny) /
+                                         (gap * gap) * 1.1)))
+  dot_r <- gap * 0.12
+  within_seed(seed_offset(seed, 6100L), {
+    gx <- stats::runif(n, minx, maxx); gy <- stats::runif(n, miny, maxy)
+    keep <- rep(FALSE, n)
+    for (r in rings) keep <- xor(keep, point_in_polygon(gx, gy, r$x, r$y))
+    gx <- gx[keep]; gy <- gy[keep]
+    if (!length(gx)) return(list())
+    lapply(seq_along(gx), function(i) {
+      s <- seed_offset(seed, 6100L + i * 7L)
+      within_seed(s, rough_ellipse(gx[i], gy[i], dot_r, dot_r,
+                                   roughness = roughness * 0.5,
+                                   n_passes = 1L, seed = s)[[1L]])
+    })
+  })
+}
+
+#' Pencil shade over a multi-ring (even-odd) region
+#' @noRd
+pencil_shade_fill_multi <- function(rings, gap, angle, roughness, bowing, seed) {
+  base  <- hachure_fill_multi(rings, gap, angle, 0, 0, seed_offset(seed, 0L))
+  cross <- hachure_fill_multi(rings, gap * 1.7, angle + 18, 0, 0,
+                              seed_offset(seed, 500L))
+  c(trim_pencil(base, roughness, bowing, seed, 7000L),
+    trim_pencil(cross, roughness, bowing, seed, 8000L))
+}
+
+#' Pencil-shade fill: fine graphite strokes, trimmed and cross-shaded
+#'
+#' Soft directional shading: the primary hachure strokes are randomly trimmed at
+#' both ends (so they read as separate pencil strokes, not a ruled fill) and a
+#' sparser cross set is laid at a small angle for depth. Multi-pass roughening
+#' gives the grainy graphite edge.
+#' @noRd
+pencil_shade_fill <- function(px, py, gap, angle, roughness, bowing, seed) {
+  base  <- hachure_fill(px, py, gap, angle, 0, 0, seed_offset(seed, 0L))
+  cross <- hachure_fill(px, py, gap * 1.7, angle + 18, 0, 0,
+                        seed_offset(seed, 500L))
+  c(trim_pencil(base, roughness, bowing, seed, 7000L),
+    trim_pencil(cross, roughness, bowing, seed, 8000L))
 }
 
 # ---- curve-fill bridge (P1-T9) ----------------------------------------------

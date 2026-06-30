@@ -65,7 +65,7 @@ peak, trimming long thin feet. Default 0 (keep all).}
 \item{seed}{Integer seed. \code{NULL} uses \code{getOption("ggsketch.seed", 1L)}.}
 
 \item{fill_style}{One of \code{"hachure"}, \code{"cross_hatch"}, \code{"zigzag"},
-\code{"zigzag_line"}, \code{"scribble"}, \code{"dots"}, \code{"dashed"}, \code{"solid"}, or
+\code{"zigzag_line"}, \code{"scribble"}, \code{"dots"}, \code{"dashed"}, \code{"stipple"}, \code{"pencil_shade"}, \code{"solid"}, or
 \code{"watercolor"}. Default \code{"hachure"}.}
 
 \item{hachure_angle}{Fill line angle in degrees. Default 45.}

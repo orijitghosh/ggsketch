@@ -119,7 +119,7 @@ GeomSketchPie <- ggplot2::ggproto(
 #' @param seed Integer seed. `NULL` uses `getOption("ggsketch.seed", 1L)`.
 #' @param fill_style `"solid"` (default) paints each slice in its `fill` colour
 #'   with a rough edge; any other style (`"hachure"`, `"cross_hatch"`,
-#'   `"zigzag"`, `"scribble"`, `"dots"`, `"dashed"`) hatches it instead.
+#'   `"zigzag"`, `"scribble"`, `"dots"`, `"dashed"`, `"stipple"`, `"pencil_shade"`) hatches it instead.
 #' @param hachure_angle Fill line angle in degrees. Default 45.
 #' @param hachure_gap Spacing between fill lines, as a fraction of the smaller
 #'   panel dimension -- this is the hatch *density* knob: smaller is denser.

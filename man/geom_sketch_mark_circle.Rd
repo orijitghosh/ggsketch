@@ -99,7 +99,7 @@ points rather than through them. Default \code{0.05}.}
 \item{seed}{Integer seed. \code{NULL} uses \code{getOption("ggsketch.seed", 1L)}.}
 
 \item{fill_style}{Fill style when \code{fill} is mapped: \code{"hachure"},
-\code{"cross_hatch"}, \code{"zigzag"}, \code{"scribble"}, \code{"dots"}, \code{"dashed"}, or
+\code{"cross_hatch"}, \code{"zigzag"}, \code{"scribble"}, \code{"dots"}, \code{"dashed"}, \code{"stipple"}, \code{"pencil_shade"}, or
 \code{"solid"}. Default \code{"hachure"}.}
 
 \item{hachure_angle}{Fill line angle in degrees. Default 45.}
