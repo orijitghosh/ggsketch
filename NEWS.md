@@ -43,6 +43,12 @@ simulator. This first piece is the engine that makes it possible.
   stage into the next. `geom_sketch_pyramid()` draws back-to-back bars mirrored
   about zero by a two-level `side` aesthetic -- the population pyramid. Both
   take every `fill_style`.
+* **Font-aware export helper.** `ggsketch_save()` is a drop-in
+  `ggplot2::ggsave()` wrapper that picks a device able to see fonts registered
+  with `register_sketch_font()`: ragg for raster formats, svglite for SVG,
+  `cairo_pdf` for PDF (the base `pdf` device misses registered fonts), and it
+  warns PostScript users towards PDF -- ending the "my handwriting font
+  disappeared in the saved file" footgun.
 * **One-call style presets.** `sketch_style()` bundles a paper ground, a
   qualitative colour/fill palette tuned to it and (on ggplot2 >= 4.0) matching
   default geom ink into a single `+`-able object: `p +

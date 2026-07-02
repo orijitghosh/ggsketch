@@ -185,6 +185,7 @@ reference:
       - theme_sketch
       - ggsketch_check_fonts
       - register_sketch_font
+      - ggsketch_save
   - title: Drawing media
     desc: >
       The `medium` system — how a stroke is laid down (pen, ink, fountain pen,

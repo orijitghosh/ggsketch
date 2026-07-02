@@ -70,6 +70,7 @@ Other sketch-theme:
 \code{\link{CoordSketch}},
 \code{\link{CoordSketchPolar}},
 \code{\link[=ggsketch_check_fonts]{ggsketch_check_fonts()}},
+\code{\link[=ggsketch_save]{ggsketch_save()}},
 \code{\link[=register_sketch_font]{register_sketch_font()}},
 \code{\link[=scale_pressure_continuous]{scale_pressure_continuous()}},
 \code{\link[=scale_roughness_continuous]{scale_roughness_continuous()}},
