@@ -196,6 +196,13 @@ reference:
       - sketch_papers
       - paper_grain
       - element_sketch_paper
+  - title: Style presets
+    desc: >
+      One-call looks — paper, palette and default ink bundled per style
+      (notebook, chalkboard, blueprint, field notes, graphite).
+    contents:
+      - sketch_style
+      - sketch_styles
   - title: Sketch frame & colour scales
     desc: >
       Hand-drawn theme elements (gridlines, panel border, axis ticks) and a

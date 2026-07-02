@@ -25,6 +25,12 @@ simulator. This first piece is the engine that makes it possible.
   slightly at the ends), `"ballpoint"` (a thin, even, faintly skipping stroke),
   and `"pastel"` (a broad, soft, grainy and translucent mark, lighter than
   charcoal) join the `medium` family and the `scale_medium_discrete()` palette.
+* **One-call style presets.** `sketch_style()` bundles a paper ground, a
+  qualitative colour/fill palette tuned to it and (on ggplot2 >= 4.0) matching
+  default geom ink into a single `+`-able object: `p +
+  sketch_style("chalkboard")`. Presets: `"notebook"`, `"chalkboard"`,
+  `"blueprint"`, `"field_notes"` and `"graphite"`; `sketch_styles()` lists
+  them, and `palette = FALSE` keeps your own scales.
 * **Chalk and highlighter media.** `medium = "chalk"` draws a broad, dry,
   flat-ended stroke with a faint halo of settled dust either side of the line --
   made for `theme_sketch(paper = "chalkboard")` with a light stroke colour.
