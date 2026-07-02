@@ -22,7 +22,7 @@ alluvial_scurve <- function(x0, x1, y0, y1, n = 40L) {
 # columns in order, `value` an optional weight column (NULL = one per row), and
 # `fill_var` the column whose category colours each flow (NULL = first axis).
 alluvial_layout <- function(data, axes, value = NULL, fill_var = NULL,
-                            box_width = 0.18) {
+                            box_width = 0.18, stratum_gap = 0.02) {
   if (length(axes) < 2L) {
     cli::cli_abort("{.fn geom_sketch_alluvial} needs at least 2 axes.")
   }
@@ -65,7 +65,11 @@ alluvial_layout <- function(data, axes, value = NULL, fill_var = NULL,
   for (k in seq_len(K)) {
     levs <- cats[[k]]$levs
     hgt  <- vapply(levs, function(L) sum(agg_w[amat[, k] == L]), numeric(1))
-    ystart <- c(0, cumsum(hgt)[-length(hgt)])
+    # A small vertical gap between strata: adjacent boxes drawn with a wobble
+    # would otherwise sometimes overlap at their shared edge. The flows follow
+    # automatically because the sub-band positions derive from these starts.
+    gap    <- stratum_gap * sum(hgt)
+    ystart <- c(0, cumsum(hgt)[-length(hgt)]) + gap * (seq_along(hgt) - 1L)
     names(ystart) <- levs
     for (si in seq_along(levs)) {
       L  <- levs[si]
@@ -129,6 +133,8 @@ alluvial_layout <- function(data, axes, value = NULL, fill_var = NULL,
 #' @param fill Optional column name whose category colours each flow (`NULL` =
 #'   the first axis). Add [scale_fill_sketch()] or any fill scale to style it.
 #' @param box_width Width of the stratum boxes in x units. Default 0.18.
+#' @param stratum_gap Vertical gap between adjacent strata, as a fraction of
+#'   the axis total. Default 0.02; `0` stacks them flush.
 #' @param fill_style Flow fill style; see [geom_sketch_polygon()]. Default
 #'   `"solid"`.
 #' @param alpha Flow opacity. Default 0.7.
@@ -154,6 +160,7 @@ geom_sketch_alluvial <- function(data,
                                  fill         = NULL,
                                  ...,
                                  box_width    = 0.18,
+                                 stratum_gap  = 0.02,
                                  fill_style   = "solid",
                                  alpha        = 0.7,
                                  strata_fill  = "grey85",
@@ -168,7 +175,7 @@ geom_sketch_alluvial <- function(data,
     cli::cli_abort("{.arg data} must be a data frame.")
   }
   lay <- alluvial_layout(data, axes = axes, value = value, fill_var = fill,
-                         box_width = box_width)
+                         box_width = box_width, stratum_gap = stratum_gap)
 
   layers <- list(
     # flows first, so the strata boxes sit on top of the ribbon ends

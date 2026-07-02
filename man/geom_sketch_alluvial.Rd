@@ -11,6 +11,7 @@ geom_sketch_alluvial(
   fill = NULL,
   ...,
   box_width = 0.18,
+  stratum_gap = 0.02,
   fill_style = "solid",
   alpha = 0.7,
   strata_fill = "grey85",
@@ -38,6 +39,9 @@ the first axis). Add \code{\link[=scale_fill_sketch]{scale_fill_sketch()}} or an
 \item{...}{Other arguments passed on to the flow layer.}
 
 \item{box_width}{Width of the stratum boxes in x units. Default 0.18.}
+
+\item{stratum_gap}{Vertical gap between adjacent strata, as a fraction of
+the axis total. Default 0.02; \code{0} stacks them flush.}
 
 \item{fill_style}{Flow fill style; see \code{\link[=geom_sketch_polygon]{geom_sketch_polygon()}}. Default
 \code{"solid"}.}

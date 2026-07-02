@@ -22,9 +22,25 @@ test_that("stratum totals equal the data totals", {
   h   <- cls$ymax - cls$ymin
   tot <- tapply(df$Freq, df$Class, sum)
   expect_equal(sort(h), sort(as.numeric(tot)))
-  # the axis spans the same total height on both axes
-  surv <- lay$strata[lay$strata$axis == "Survived", ]
-  expect_equal(max(cls$ymax), max(surv$ymax))
+  # each axis spans the data total plus one stratum_gap per internal boundary
+  total <- sum(df$Freq)
+  surv  <- lay$strata[lay$strata$axis == "Survived", ]
+  expect_equal(max(cls$ymax),  total + 0.02 * total * (nrow(cls) - 1L))
+  expect_equal(max(surv$ymax), total + 0.02 * total * (nrow(surv) - 1L))
+})
+
+test_that("stratum_gap separates adjacent strata (and 0 stacks them flush)", {
+  lay <- ggsketch:::alluvial_layout(df, axes = c("Class", "Survived"),
+                                    value = "Freq")
+  cls <- lay$strata[lay$strata$axis == "Class", ]
+  cls <- cls[order(cls$ymin), ]
+  expect_true(all(cls$ymin[-1L] > cls$ymax[-nrow(cls)]))
+
+  lay0 <- ggsketch:::alluvial_layout(df, axes = c("Class", "Survived"),
+                                     value = "Freq", stratum_gap = 0)
+  cls0 <- lay0$strata[lay0$strata$axis == "Class", ]
+  cls0 <- cls0[order(cls0$ymin), ]
+  expect_equal(cls0$ymin[-1L], cls0$ymax[-nrow(cls0)])
 })
 
 test_that("fewer than 2 axes errors", {
