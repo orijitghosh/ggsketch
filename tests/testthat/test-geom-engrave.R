@@ -138,8 +138,11 @@ test_that("mapped tone is rescaled to the tone band automatically", {
   }))
   p <- ggplot2::ggplot(three, ggplot2::aes(x, y, group = g)) +
     geom_sketch_shade(ggplot2::aes(tone = val), seed = 1L)
-  # Default band c(0.1, 0.95): val 1..3 -> 0.1, 0.525, 0.95.
-  expect_equal(build_tone(p), c(0.1, 0.525, 0.95))
+  # Default band c(0.15, 0.95): val 1..3 -> 0.15, 0.55, 0.95. The floor sits
+  # above the engraving ladder's tone_floor (0.12) so the lightest mapped
+  # region still draws at least the sparse base hatch.
+  expect_equal(build_tone(p), c(0.15, 0.55, 0.95))
+  expect_true(min(build_tone(p)) > 0.12)
 
   # A custom (and reversed) range is honoured.
   p2 <- p + scale_engrave(range = c(0.9, 0.2))

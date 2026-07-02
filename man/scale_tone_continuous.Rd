@@ -5,16 +5,18 @@
 \alias{scale_engrave}
 \title{Continuous scale for the engraving \code{tone} aesthetic}
 \usage{
-scale_tone_continuous(..., range = c(0.1, 0.95), guide = "none")
+scale_tone_continuous(..., range = c(0.15, 0.95), guide = "none")
 
-scale_engrave(..., range = c(0.1, 0.95), guide = "none")
+scale_engrave(..., range = c(0.15, 0.95), guide = "none")
 }
 \arguments{
 \item{...}{Other arguments passed to \code{\link[ggplot2:continuous_scale]{ggplot2::continuous_scale()}}.}
 
-\item{range}{Output tone range, within \verb{[0, 1]}. Default \code{c(0.1, 0.95)}:
-\code{0.1} is the faintest hatch that still reads and \code{0.95} is near-solid
-black. Give a decreasing range (e.g. \code{c(0.95, 0.1)}) to invert the mapping.}
+\item{range}{Output tone range, within \verb{[0, 1]}. Default \code{c(0.15, 0.95)}:
+\code{0.15} is the faintest hatch that still draws (the engraving ladder leaves
+tone below \code{0.12} as blank paper, so a lower floor would erase the
+lightest region entirely) and \code{0.95} is near-solid black. Give a
+decreasing range (e.g. \code{c(0.95, 0.15)}) to invert the mapping.}
 
 \item{guide}{Legend guide. Defaults to \code{"none"} because the legend keys do
 not reflect tone; set to \code{"legend"} to show one anyway.}
@@ -43,7 +45,7 @@ regions <- do.call(rbind, lapply(1:3, function(k) {
   transform(hex, x = x + (k - 1) * 2.3, g = k, val = k)
 }))
 
-# `val` is rescaled to the default tone band c(0.1, 0.95) automatically.
+# `val` is rescaled to the default tone band c(0.15, 0.95) automatically.
 ggplot(regions, aes(x, y, group = g)) +
   geom_sketch_shade(aes(tone = val), seed = 1L) +
   coord_equal()

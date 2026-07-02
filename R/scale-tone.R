@@ -17,9 +17,11 @@
 #' [base::I()] (`aes(tone = I(z))`).
 #'
 #' @param ... Other arguments passed to [ggplot2::continuous_scale()].
-#' @param range Output tone range, within `[0, 1]`. Default `c(0.1, 0.95)`:
-#'   `0.1` is the faintest hatch that still reads and `0.95` is near-solid
-#'   black. Give a decreasing range (e.g. `c(0.95, 0.1)`) to invert the mapping.
+#' @param range Output tone range, within `[0, 1]`. Default `c(0.15, 0.95)`:
+#'   `0.15` is the faintest hatch that still draws (the engraving ladder leaves
+#'   tone below `0.12` as blank paper, so a lower floor would erase the
+#'   lightest region entirely) and `0.95` is near-solid black. Give a
+#'   decreasing range (e.g. `c(0.95, 0.15)`) to invert the mapping.
 #' @param guide Legend guide. Defaults to `"none"` because the legend keys do
 #'   not reflect tone; set to `"legend"` to show one anyway.
 #' @return A ggplot2 scale object.
@@ -36,7 +38,7 @@
 #'   transform(hex, x = x + (k - 1) * 2.3, g = k, val = k)
 #' }))
 #'
-#' # `val` is rescaled to the default tone band c(0.1, 0.95) automatically.
+#' # `val` is rescaled to the default tone band c(0.15, 0.95) automatically.
 #' ggplot(regions, aes(x, y, group = g)) +
 #'   geom_sketch_shade(aes(tone = val), seed = 1L) +
 #'   coord_equal()
@@ -46,7 +48,7 @@
 #'   geom_sketch_shade(aes(tone = val), seed = 1L) +
 #'   scale_tone_continuous(range = c(0.15, 1)) +
 #'   coord_equal()
-scale_tone_continuous <- function(..., range = c(0.1, 0.95),
+scale_tone_continuous <- function(..., range = c(0.15, 0.95),
                                   guide = "none") {
   ggplot2::continuous_scale(
     aesthetics = "tone",
