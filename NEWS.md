@@ -3,6 +3,28 @@
 The 2.0 series turns ggsketch from a *line style* into a *drawing-medium*
 simulator. This first piece is the engine that makes it possible.
 
+* **Rect geoms bend under nonlinear coords.** `geom_sketch_rect()`,
+  `geom_sketch_tile()`, and `geom_sketch_col()`/`bar()` now densify their
+  boundaries before the coordinate transform, so bars under `coord_polar()` /
+  `coord_sketch_polar()` curve into proper wedges and rings instead of
+  straight-edged quads.
+* **Radar legend fix.** `geom_sketch_radar()` no longer leaks an `NA` key into
+  a mapped discrete `fill` scale, so its colour and fill legends merge into one
+  (previously two legends, one with a spurious `NA` entry).
+* **Edge labels are never clipped.** `geom_sketch_bump()`,
+  `geom_sketch_arc_diagram()`, `geom_sketch_parallel()`, and
+  `geom_sketch_dendrogram()` now reserve panel room for their end/leaf/axis
+  labels (and the dendrogram's rotated labels hang cleanly away from the
+  tree), so nothing is cut off at the plot edge under `theme_void()`.
+* **The lightest engraved region always draws.** `scale_tone_continuous()`'s
+  default band is now `c(0.15, 0.95)` (was `c(0.1, 0.95)`), keeping the
+  faintest mapped tone above the engraving ladder's blank-paper threshold --
+  previously the lightest `geom_sketch_shade()` region could disappear
+  entirely.
+* **Alluvial strata gaps.** `geom_sketch_alluvial()` gains `stratum_gap`
+  (default 0.02): a small vertical gap between adjacent strata so roughened
+  boxes never overlap at their shared edge; `0` restores flush stacking.
+
 * **Variable-width strokes (Layer 1 + Layer 2).** `stroke_ribbon()` builds a
   hand-drawn stroke as a filled polygon ribbon offset around a centreline, so a
   line can taper to a point, swell with pressure, or vary like a broad

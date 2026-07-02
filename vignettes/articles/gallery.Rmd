@@ -677,6 +677,8 @@ lab <- data.frame(x = c(2, 4, 3), y = c(3, 4, 1.5),
 ggplot(lab, aes(x, y, label = txt)) +
   geom_sketch_point(size = 3, colour = "#C0392B") +
   geom_sketch_text(size = 7, nudge_y = 0.4) +
+  scale_x_continuous(expand = expansion(mult = 0.15)) +
+  scale_y_continuous(expand = expansion(mult = 0.12)) +
   labs(title = "geom_sketch_text()") +
   theme_sketch()
 ```
@@ -899,7 +901,8 @@ showing how a ranking changes.
 
 ```{r slope}
 slope <- data.frame(
-  time  = rep(c("Before", "After"), each = 4),
+  time  = factor(rep(c("Before", "After"), each = 4),
+                 levels = c("Before", "After")),
   value = c(20, 35, 28, 42, 34, 51, 22, 47),
   who   = rep(c("Alpha", "Bravo", "Charlie", "Delta"), 2)
 )
@@ -1299,7 +1302,7 @@ ggplot() +
   geom_sketch_alluvial(titanic, axes = c("Class", "Sex", "Age", "Survived"),
                        value = "Freq", seed = 1L) +
   scale_fill_sketch() +
-  labs(title = "Titanic passengers") +
+  labs(title = "Titanic passengers", fill = "Class") +
   theme_void()
 ```
 
@@ -1332,7 +1335,7 @@ ggplot() +
   geom_sketch_mosaic(titanic, x = Class, y = Survived, value = Freq,
                      seed = 1L) +
   scale_fill_sketch() +
-  labs(title = "Survival by class") +
+  labs(title = "Survival by class", fill = "Survived") +
   theme_void() +
   theme(plot.title = element_text(hjust = 0.5))
 ```
@@ -1438,9 +1441,10 @@ knitr::include_graphics(drawn)
 
 ## Drawing media
 
-The `medium` controls *how* a stroke is laid down. `sketch_media()` lists the
-seven media; set one as a constant on a line/path/segment geom, or **map** it as
-an aesthetic with `scale_medium_discrete()`.
+The `medium` controls *how* a stroke is laid down. `sketch_media()` lists all
+of them — from pen and pencil through brush, charcoal, chalk, marker,
+highlighter, and spray; set one as a constant on a line/path/segment geom, or
+**map** it as an aesthetic with `scale_medium_discrete()`.
 
 ```{r media-list}
 sketch_media()
@@ -1631,25 +1635,26 @@ ggplot(sales, aes(product, units, fill = product)) +
   theme_sketch()
 ```
 
-It works anywhere a `fill_style` is accepted. The eight styles:
+It works anywhere a `fill_style` is accepted. The ten stroked styles (the
+eleventh, `"watercolor"`, is painted rather than stroked — see below):
 
 ```{r fill-styles}
-styles <- c("hachure", "cross_hatch", "zigzag", "zigzag_line",
-            "scribble", "dots", "dashed", "solid")
-grid <- expand.grid(col = 1:4, row = 1:2)
+styles <- c("hachure", "cross_hatch", "zigzag", "zigzag_line", "scribble",
+            "dots", "dashed", "stipple", "pencil_shade", "solid")
+grid <- expand.grid(col = 1:5, row = c(2.2, 1))
 grid$style <- styles
 ggplot(grid) +
   lapply(seq_len(nrow(grid)), function(i) {
     geom_sketch_rect(
       data = grid[i, ],
       aes(xmin = col - 0.45, xmax = col + 0.45,
-          ymin = row - 0.4,  ymax = row + 0.4),
+          ymin = row - 0.35, ymax = row + 0.35),
       fill = "#7BAFD4", fill_style = grid$style[i], seed = i
     )
   }) +
-  geom_sketch_text(aes(col, row - 0.55, label = style), size = 4) +
+  geom_sketch_text(aes(col, row - 0.52, label = style), size = 3.4) +
   coord_equal() +
-  labs(title = "The eight fill styles", x = NULL, y = NULL) +
+  labs(title = "The stroked fill styles", x = NULL, y = NULL) +
   theme_sketch() +
   theme(axis.text = element_blank())
 ```

@@ -111,15 +111,17 @@ Labels know how to get out of each other's way — the hand-drawn answer to ggre
 | Family | Geoms |
 |----|----|
 | Lines & points | `geom_sketch_line()`, `geom_sketch_path()`, `geom_sketch_point()` |
-| Bars & tiles | `geom_sketch_col()`, `geom_sketch_bar()`, `geom_sketch_rect()`, `geom_sketch_tile()` |
+| Bars & tiles | `geom_sketch_col()`, `geom_sketch_bar()`, `geom_sketch_rect()`, `geom_sketch_tile()`, `geom_sketch_lollipop()` |
 | Areas & curves | `geom_sketch_polygon()`, `geom_sketch_ribbon()`, `geom_sketch_area()`, `geom_sketch_density()`, `geom_sketch_smooth()` |
-| Circular & composed | `geom_sketch_circle()`, `geom_sketch_ellipse()`, `geom_sketch_segment()`, `geom_sketch_step()`, `geom_sketch_boxplot()` |
+| Distributions | `geom_sketch_histogram()`, `geom_sketch_violin()`, `geom_sketch_boxplot()`, `geom_sketch_beeswarm()`, `geom_sketch_ridgeline()`, `geom_sketch_dotplot()`, `geom_sketch_ecdf()` |
+| Comparisons & change | `geom_sketch_dumbbell()`, `geom_sketch_slope()`, `geom_sketch_bump()`, `geom_sketch_waterfall()`, `geom_sketch_funnel()`, `geom_sketch_pyramid()` |
+| Circular & composed | `geom_sketch_circle()`, `geom_sketch_ellipse()`, `geom_sketch_segment()`, `geom_sketch_step()` |
 | Engraving & tone | `geom_sketch_engrave()` (shade an `x`/`y`/`z` surface by hatch-line density), `geom_sketch_shade()` (`aes(tone = …)` value → density), `scale_engrave()` |
-| Charts & diagrams | `geom_sketch_pie()`, `geom_sketch_waffle()`, `geom_sketch_treemap()`, `geom_sketch_sunburst()`, `geom_sketch_radar()`, `geom_sketch_chord()`, `geom_sketch_alluvial()`, `geom_sketch_parallel()`, `geom_sketch_mosaic()`, `geom_sketch_calendar()` |
+| Charts & diagrams | `geom_sketch_pie()`, `geom_sketch_waffle()`, `geom_sketch_treemap()`, `geom_sketch_sunburst()`, `geom_sketch_radar()`, `geom_sketch_chord()`, `geom_sketch_arc_diagram()`, `geom_sketch_alluvial()`, `geom_sketch_parallel()`, `geom_sketch_mosaic()`, `geom_sketch_marimekko()`, `geom_sketch_rose()`, `geom_sketch_calendar()`, `geom_sketch_gantt()`, `geom_sketch_dendrogram()` |
 | Networks & maps | `geom_sketch_edge()` / `sketch_graph()` (force-directed layout, no graph dep), `geom_sketch_sf()` (hand-drawn simple-features maps) |
 | Motion | `animate_sketch()` (boiling-line shimmer or draw-on reveal → GIF) |
-| Helpers & annotation | `annotate_sketch()`, `geom_sketch_bracket()` (significance brackets), `theme_sketch()` |
-| Frame & scales | `element_sketch_line()`, `element_sketch_rect()` (via `theme_sketch(rough_frame = TRUE)`), `scale_colour_sketch()`, `scale_fill_sketch()`, `register_sketch_font()` |
+| Helpers & annotation | `annotate_sketch()`, `geom_sketch_bracket()` (significance brackets), `annotate_sketch_arrow()` / `annotate_sketch_callout()` (content-aware pointers), `annotate_sketch_highlight()` / `annotate_sketch_underline()` (marker emphasis), `geom_sketch_text_repel()` (non-overlapping labels), `theme_sketch()`, `sketch_style()` (one-call style presets), `ggsketch_save()` |
+| Frame & scales | `element_sketch_line()`, `element_sketch_rect()` (via `theme_sketch(rough_frame = TRUE)`), `coord_sketch()` / `coord_sketch_polar()`, `scale_colour_sketch()`, `scale_fill_sketch()`, `scale_medium_discrete()` (mappable drawing media), `register_sketch_font()` |
 
 ### Shared sketch parameters
 
@@ -129,7 +131,7 @@ Labels know how to get out of each other's way — the hand-drawn answer to ggre
 | `bowing` | How much segments bow outward |
 | `n_passes` | Overlaid strokes (2 = the classic "double stroke") |
 | `seed` | Integer for reproducible wobble |
-| `fill_style` | `"hachure"`, `"cross_hatch"`, `"zigzag"`, `"zigzag_line"`, `"scribble"`, `"dots"`, `"dashed"`, `"solid"` |
+| `fill_style` | `"hachure"`, `"cross_hatch"`, `"zigzag"`, `"zigzag_line"`, `"scribble"`, `"dots"`, `"dashed"`, `"stipple"`, `"pencil_shade"`, `"solid"`, `"watercolor"` |
 | `hachure_angle`, `hachure_gap`, `fill_weight` | Fill line angle, spacing, and weight |
 
 ## How it works
