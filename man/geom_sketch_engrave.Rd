@@ -154,6 +154,7 @@ Other sketch-geoms:
 \code{\link{GeomSketchDumbbell}},
 \code{\link{GeomSketchEdge}},
 \code{\link{GeomSketchEllipse}},
+\code{\link{GeomSketchGantt}},
 \code{\link{GeomSketchHex}},
 \code{\link{GeomSketchLine}},
 \code{\link{GeomSketchLinerange}},

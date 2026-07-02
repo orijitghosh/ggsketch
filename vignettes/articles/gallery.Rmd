@@ -1020,6 +1020,27 @@ ggplot(cal, aes(date = day, fill = value)) +
   theme(axis.title = element_blank())
 ```
 
+## Gantt charts
+
+`geom_sketch_gantt()` draws one bar per task from `x` (start) to `xend` (end)
+on a discrete `y` — the whiteboard project plan. Map `progress` (0–1) to
+overlay the completed fraction as a darker solid bar.
+
+```{r gantt}
+plan <- data.frame(
+  task  = factor(c("Design", "Build", "Test", "Ship"),
+                 levels = rev(c("Design", "Build", "Test", "Ship"))),
+  start = as.Date(c("2026-01-05", "2026-01-19", "2026-02-09", "2026-02-23")),
+  end   = as.Date(c("2026-01-23", "2026-02-13", "2026-02-27", "2026-03-06")),
+  done  = c(1, 0.7, 0.25, 0)
+)
+ggplot(plan, aes(start, xend = end, y = task, fill = task, progress = done)) +
+  geom_sketch_gantt(seed = 1L, show.legend = FALSE) +
+  scale_fill_sketch() +
+  labs(title = "geom_sketch_gantt()", x = NULL, y = NULL) +
+  theme_sketch()
+```
+
 ## Hand-drawn networks
 
 `sketch_graph()` turns an edge list (or an **igraph** object) into ready-to-plot

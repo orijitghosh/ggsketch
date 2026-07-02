@@ -108,9 +108,10 @@ reference:
       - geom_sketch_treemap
       - geom_sketch_sunburst
   - title: Calendar & time
-    desc: Hand-drawn heatmaps over the calendar.
+    desc: Hand-drawn heatmaps over the calendar and whiteboard project plans.
     contents:
       - geom_sketch_calendar
+      - geom_sketch_gantt
   - title: Trees & clustering
     desc: Hierarchical-clustering trees with roughened elbow connectors.
     contents:

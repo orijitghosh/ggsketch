@@ -32,6 +32,11 @@ simulator. This first piece is the engine that makes it possible.
   `fill_total`, or map `fill` to `after_stat(change)` yourself), an optional
   `measure = "total"` aesthetic draws closing-total bars from zero, and any
   `fill_style` works (including `"watercolor"`).
+* **Gantt / timeline charts.** `geom_sketch_gantt()` draws one roughened bar
+  per task from `x` (start) to `xend` (end) on a discrete `y` -- the whiteboard
+  project-planning look. An optional `progress` aesthetic (0-1) overlays a
+  slimmer, darker solid bar over the completed fraction; bars take rounded
+  corners (`corner_radius`), dates on x and any `fill_style`.
 * **One-call style presets.** `sketch_style()` bundles a paper ground, a
   qualitative colour/fill palette tuned to it and (on ggplot2 >= 4.0) matching
   default geom ink into a single `+`-able object: `p +

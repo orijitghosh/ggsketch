@@ -118,6 +118,7 @@ Other sketch-geoms:
 \code{\link{GeomSketchEdge}},
 \code{\link{GeomSketchEllipse}},
 \code{\link{GeomSketchEngrave}},
+\code{\link{GeomSketchGantt}},
 \code{\link{GeomSketchHex}},
 \code{\link{GeomSketchLine}},
 \code{\link{GeomSketchLinerange}},

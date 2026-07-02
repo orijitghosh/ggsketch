@@ -101,6 +101,7 @@ Other sketch-geoms:
 \code{\link{GeomSketchEdge}},
 \code{\link{GeomSketchEllipse}},
 \code{\link{GeomSketchEngrave}},
+\code{\link{GeomSketchGantt}},
 \code{\link{GeomSketchLine}},
 \code{\link{GeomSketchLinerange}},
 \code{\link{GeomSketchLollipop}},
