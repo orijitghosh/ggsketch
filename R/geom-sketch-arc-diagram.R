@@ -156,13 +156,20 @@ geom_sketch_arc_diagram <- function(data,
   )
 
   if (isTRUE(label)) {
-    layers <- c(layers, list(geom_sketch_text(
-      data = lay$labels,
-      mapping = ggplot2::aes(x = .data$x, y = .data$y, label = .data$node),
-      size = label_size, colour = label_colour,
-      vjust = if (side == "top") 1 else 0,
-      family = resolve_label_family(), inherit.aes = FALSE
-    )))
+    # The labels hang below (or above) the node line; widen the y range so the
+    # text is not clipped at the panel edge under theme_void().
+    span  <- max((lay$k - 1L) / 2, 1)
+    pad_y <- (if (side == "top") -1 else 1) * 0.16 * span
+    layers <- c(layers, list(
+      geom_sketch_text(
+        data = lay$labels,
+        mapping = ggplot2::aes(x = .data$x, y = .data$y, label = .data$node),
+        size = label_size, colour = label_colour,
+        vjust = if (side == "top") 1 else 0,
+        family = resolve_label_family(), inherit.aes = FALSE
+      ),
+      ggplot2::expand_limits(y = pad_y)
+    ))
   }
 
   layers

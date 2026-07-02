@@ -55,8 +55,9 @@ test_that("an unknown colour column errors", {
                "not found")
 })
 
-test_that("label = FALSE drops the label layer", {
+test_that("label = FALSE drops the label layer and the y padding", {
   a <- geom_sketch_parallel(iris, axes = ax, label = TRUE)
   b <- geom_sketch_parallel(iris, axes = ax, label = FALSE)
-  expect_equal(length(a) - length(b), 1L)
+  # one text layer + one expand_limits() blank layer reserving label room
+  expect_equal(length(a) - length(b), 2L)
 })

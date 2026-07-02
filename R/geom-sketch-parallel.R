@@ -136,12 +136,23 @@ geom_sketch_parallel <- function(data,
   )
 
   if (isTRUE(label)) {
-    layers <- c(layers, list(geom_sketch_text(
-      data = lay$labels,
-      mapping = ggplot2::aes(x = .data$x, y = .data$y, label = .data$axis),
-      size = label_size, colour = label_colour, vjust = 1,
-      family = resolve_label_family(), inherit.aes = FALSE
-    )))
+    # Justify the outermost labels inward so they do not spill past the first/
+    # last axis (and get clipped at the device edge under theme_void()), and
+    # widen the y range to make room for the text row below the axes.
+    hj <- rep(0.5, nrow(lay$labels))
+    hj[1L]                 <- 0
+    hj[nrow(lay$labels)]   <- 1
+    lay$labels$hjust <- hj
+    layers <- c(layers, list(
+      geom_sketch_text(
+        data = lay$labels,
+        mapping = ggplot2::aes(x = .data$x, y = .data$y, label = .data$axis,
+                               hjust = .data$hjust),
+        size = label_size, colour = label_colour, vjust = 1,
+        family = resolve_label_family(), inherit.aes = FALSE
+      ),
+      ggplot2::expand_limits(y = -0.12)
+    ))
   }
 
   layers

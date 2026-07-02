@@ -58,8 +58,9 @@ test_that("non-clusterable input errors", {
                "hclust|numeric data frame")
 })
 
-test_that("label = FALSE drops the label layer", {
+test_that("label = FALSE drops the label layer and the leaf padding", {
   a <- geom_sketch_dendrogram(hc, label = TRUE)
   b <- geom_sketch_dendrogram(hc, label = FALSE)
-  expect_equal(length(a) - length(b), 1L)
+  # one text layer + one expand_limits() blank layer reserving label room
+  expect_equal(length(a) - length(b), 2L)
 })

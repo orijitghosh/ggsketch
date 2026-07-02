@@ -154,6 +154,11 @@ geom_sketch_bump <- function(data,
   )
 
   if (isTRUE(label)) {
+    # The end labels hang outside the first/last time point; widen the x range
+    # so they are not clipped at the panel edge (scaled to the longest name).
+    xr  <- range(lay$segments$x, na.rm = TRUE)
+    pad <- diff(xr) *
+      min(0.04 + 0.016 * max(nchar(as.character(lay$left$group))), 0.25)
     layers <- c(layers, list(
       geom_sketch_text(
         data = lay$left,
@@ -166,7 +171,8 @@ geom_sketch_bump <- function(data,
         mapping = ggplot2::aes(x = .data$x, y = .data$y, label = .data$group),
         size = label_size, colour = label_colour, hjust = 0,
         family = resolve_label_family(), inherit.aes = FALSE
-      )
+      ),
+      ggplot2::expand_limits(x = c(xr[1] - pad, xr[2] + pad))
     ))
   }
 

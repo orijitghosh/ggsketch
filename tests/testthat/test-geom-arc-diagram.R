@@ -62,8 +62,9 @@ test_that("missing value defaults every edge to weight 1", {
                                         scale_colour_sketch()))
 })
 
-test_that("label = FALSE drops the label layer", {
+test_that("label = FALSE drops the label layer and the y padding", {
   a <- geom_sketch_arc_diagram(rel, from, to, value, label = TRUE)
   b <- geom_sketch_arc_diagram(rel, from, to, value, label = FALSE)
-  expect_equal(length(a) - length(b), 1L)
+  # one text layer + one expand_limits() blank layer reserving label room
+  expect_equal(length(a) - length(b), 2L)
 })

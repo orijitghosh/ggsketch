@@ -132,9 +132,11 @@ geom_sketch_dendrogram <- function(data,
   lay <- dendro_layout(hc, orientation = orientation)
 
   off <- 0.03 * lay$hmax
+  # Rotated labels anchor at the string end nearest the leaf (hjust 1/0), so
+  # the text always hangs away from the tree instead of straddling the leaf.
   lab_nudge <- switch(orientation,
-    up    = list(x = 0,    y = -off, hjust = 0.5, vjust = 1,   angle = 90),
-    down  = list(x = 0,    y =  off, hjust = 0.5, vjust = 0,   angle = 90),
+    up    = list(x = 0,    y = -off, hjust = 1,   vjust = 0.5, angle = 90),
+    down  = list(x = 0,    y =  off, hjust = 0,   vjust = 0.5, angle = 90),
     right = list(x = -off, y = 0,    hjust = 1,   vjust = 0.5, angle = 0),
     left  = list(x =  off, y = 0,    hjust = 0,   vjust = 0.5, angle = 0)
   )
@@ -153,13 +155,25 @@ geom_sketch_dendrogram <- function(data,
     labs <- lay$leaves
     labs$x <- labs$x + lab_nudge$x
     labs$y <- labs$y + lab_nudge$y
-    layers <- c(layers, list(geom_sketch_text(
-      data = labs,
-      mapping = ggplot2::aes(x = .data$x, y = .data$y, label = .data$label),
-      size = label_size, colour = label_colour,
-      hjust = lab_nudge$hjust, vjust = lab_nudge$vjust, angle = lab_nudge$angle,
-      family = resolve_label_family(), inherit.aes = FALSE
-    )))
+    # Reserve room for the hanging labels (scaled to the longest one) so they
+    # are not clipped at the panel edge under theme_void().
+    pad <- min(0.05 + 0.02 * max(nchar(labs$label)), 0.5) * lay$hmax
+    pad_lim <- switch(orientation,
+      up    = ggplot2::expand_limits(y = min(labs$y) - pad),
+      down  = ggplot2::expand_limits(y = max(labs$y) + pad),
+      right = ggplot2::expand_limits(x = min(labs$x) - pad),
+      left  = ggplot2::expand_limits(x = max(labs$x) + pad)
+    )
+    layers <- c(layers, list(
+      geom_sketch_text(
+        data = labs,
+        mapping = ggplot2::aes(x = .data$x, y = .data$y, label = .data$label),
+        size = label_size, colour = label_colour,
+        hjust = lab_nudge$hjust, vjust = lab_nudge$vjust, angle = lab_nudge$angle,
+        family = resolve_label_family(), inherit.aes = FALSE
+      ),
+      pad_lim
+    ))
   }
 
   layers

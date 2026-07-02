@@ -48,8 +48,9 @@ test_that("geom_sketch_bump returns layers and builds", {
   expect_silent(ggplot2::ggplot_build(p))
 })
 
-test_that("label = FALSE drops both end-label layers", {
+test_that("label = FALSE drops the end-label layers and the x padding", {
   a <- geom_sketch_bump(df, year, team, pts, label = TRUE)
   b <- geom_sketch_bump(df, year, team, pts, label = FALSE)
-  expect_equal(length(a) - length(b), 2L)
+  # two text layers + one expand_limits() blank layer reserving label room
+  expect_equal(length(a) - length(b), 3L)
 })
