@@ -61,7 +61,9 @@ StatSketchRadar <- ggplot2::ggproto(
     anchors$.role       <- "axis"
     anchors$.angle      <- as.numeric(ang)
     anchors$.axis_label <- levs
-    if ("fill" %in% names(anchors)) anchors$fill <- NA
+    # Keep the copied fill/colour values: the anchors are never drawn, and an
+    # NA here would train the discrete fill scale with an extra "NA" legend
+    # key (and stop the colour and fill legends merging into one).
 
     out <- rbind(series, anchors)
     out$.vmax <- vmax

@@ -37,6 +37,19 @@ test_that("StatSketchRadar emits series + anchor rows in unit space", {
   expect_equal(unique(comp$.vmax), 9)
 })
 
+test_that("anchor rows do not leak NA into the fill scale / legend", {
+  p <- ggplot2::ggplot(skills, ggplot2::aes(axis = axis, value = value,
+                                            group = who, colour = who,
+                                            fill = who)) +
+    geom_sketch_radar(alpha = 0.3, seed = 1L)
+  b <- ggplot2::ggplot_build(p)
+  # no NA fill in the trained layer data (would add an "NA" legend key and
+  # stop the colour and fill legends merging)
+  expect_false(anyNA(b$data[[1]]$fill))
+  fill_scale <- b$plot$scales$get_scales("fill")
+  expect_false(anyNA(fill_scale$get_breaks()))
+})
+
 test_that("rmax rescales the radius", {
   base <- StatSketchRadar$compute_panel(
     data = data.frame(axis = factor(c("a", "b", "c")), value = c(1, 2, 3),
