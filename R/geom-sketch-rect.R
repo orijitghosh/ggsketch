@@ -50,6 +50,9 @@ GeomSketchRect <- ggplot2::ggproto(
       gap <- hachure_gap %||% (abs(row$xmax - row$xmin) * 0.15)
 
       bnd <- rect_boundary(row$xmin, row$xmax, row$ymin, row$ymax, corner_radius)
+      # Under a nonlinear coord (e.g. coord_polar) straight edges must bend:
+      # add intermediate vertices so the transform can curve them into arcs.
+      if (!coord$is_linear()) bnd <- densify_closed(bnd$x, bnd$y)
       pts <- coord$transform(
         data.frame(x = bnd$x, y = bnd$y, stringsAsFactors = FALSE),
         panel_params

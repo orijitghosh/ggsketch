@@ -102,6 +102,29 @@ rect_boundary <- function(xmin, xmax, ymin, ymax, corner_radius = 0) {
   )
 }
 
+#' Densify a closed polygon boundary
+#'
+#' Inserts `n` evenly spaced points along every edge (including the closing
+#' edge) so a straight-sided boundary survives a nonlinear coordinate
+#' transform: under `coord_polar()` a rectangle's edges must bend into arcs,
+#' which only works if there are intermediate vertices to bend.
+#'
+#' @return `list(x, y)` of the densified boundary vertices.
+#' @noRd
+densify_closed <- function(x, y, n = 16L) {
+  m <- length(x)
+  if (m < 2L || n <= 1L) return(list(x = x, y = y))
+  xs <- vector("list", m)
+  ys <- vector("list", m)
+  t  <- seq(0, 1, length.out = n + 1L)[-(n + 1L)]
+  for (i in seq_len(m)) {
+    j <- if (i == m) 1L else i + 1L
+    xs[[i]] <- x[i] + t * (x[j] - x[i])
+    ys[[i]] <- y[i] + t * (y[j] - y[i])
+  }
+  list(x = unlist(xs, use.names = FALSE), y = unlist(ys, use.names = FALSE))
+}
+
 # ---- rough_arc --------------------------------------------------------------
 
 #' Roughen an elliptical arc into one or more sketch stroke paths
