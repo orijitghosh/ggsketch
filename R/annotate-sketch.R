@@ -95,3 +95,92 @@ annotate_sketch <- function(geom,
     ...
   )
 }
+
+# ---- annotate_sketch_highlight / annotate_sketch_underline -------------------
+
+#' Highlighter swipes and hand-drawn underlines
+#'
+#' Two one-off emphasis annotations (constant positions,
+#' `inherit.aes = FALSE`):
+#'
+#' * `annotate_sketch_highlight()` lays a wide, translucent chisel-tip band
+#'   (the `"highlighter"` medium) from `(x, y)` to `(xend, yend)` -- swipe it
+#'   over a line, a label or a region of interest like a fluorescent marker.
+#' * `annotate_sketch_underline()` draws a quick wobbly stroke from `(x, y)` to
+#'   `(xend, y)` -- an underline for a data point or a piece of text.
+#'   `strokes > 1` re-draws it with fresh wobble for an emphatic scrawl.
+#'
+#' @param x,y,xend,yend Endpoint positions in data units (vectors recycle).
+#'   `annotate_sketch_underline()` is horizontal: `yend` defaults to `y`.
+#' @param colour Ink colour. Highlight defaults to fluorescent yellow.
+#' @param linewidth Stroke width. The highlighter medium multiplies it into a
+#'   wide band; the underline stays a line.
+#' @param strokes Number of overlapped underline strokes. Default 1.
+#' @param roughness Wobble amount. Underlines default a little shakier.
+#' @param bowing Bow of the underline stroke (kept low so repeated strokes
+#'   stay together). Default 0.4.
+#' @param seed Integer seed for reproducible wobble.
+#' @param ... Other arguments passed to [geom_sketch_segment()].
+#' @return A `ggplot2` layer object.
+#' @family sketch-geoms
+#' @export
+#' @examples
+#' library(ggplot2)
+#' ggplot(economics[1:60, ], aes(date, unemploy)) +
+#'   geom_sketch_line(seed = 1L) +
+#'   annotate_sketch_highlight(
+#'     x = as.Date("1969-01-01"), y = 2800,
+#'     xend = as.Date("1970-06-01"), yend = 2800
+#'   ) +
+#'   theme_sketch()
+annotate_sketch_highlight <- function(x, y, xend, yend,
+                                      colour    = "#f7e017",
+                                      linewidth = 8,
+                                      seed      = NULL,
+                                      ...) {
+  pos  <- list(x = x, y = y, xend = xend, yend = yend)
+  lens <- lengths(pos)
+  n    <- max(lens)
+  if (!all(lens %in% c(1L, n))) {
+    cli::cli_abort("Each of {.arg x}, {.arg y}, {.arg xend}, {.arg yend} must
+                    be length 1 or {n}.")
+  }
+  data <- as.data.frame(lapply(pos, rep_len, length.out = n))
+  geom_sketch_segment(
+    mapping = ggplot2::aes(x = x, y = y, xend = xend, yend = yend),
+    data = data, medium = "highlighter", colour = colour,
+    linewidth = linewidth, seed = seed,
+    show.legend = FALSE, inherit.aes = FALSE, ...
+  )
+}
+
+#' @rdname annotate_sketch_highlight
+#' @export
+annotate_sketch_underline <- function(x, y, xend,
+                                      colour    = "grey15",
+                                      linewidth = 0.7,
+                                      strokes   = 1L,
+                                      roughness = 1.6,
+                                      bowing    = 0.4,
+                                      seed      = NULL,
+                                      ...) {
+  pos  <- list(x = x, y = y, xend = xend)
+  lens <- lengths(pos)
+  n    <- max(lens)
+  if (!all(lens %in% c(1L, n))) {
+    cli::cli_abort("Each of {.arg x}, {.arg y}, {.arg xend} must be length 1
+                    or {n}.")
+  }
+  base <- as.data.frame(lapply(pos, rep_len, length.out = n))
+  strokes <- max(1L, as.integer(strokes))
+  layers  <- lapply(seq_len(strokes), function(s) {
+    geom_sketch_segment(
+      mapping = ggplot2::aes(x = x, y = y, xend = xend, yend = y),
+      data = base, colour = colour, linewidth = linewidth,
+      roughness = roughness, bowing = bowing, n_passes = 1L,
+      seed = seed_offset(resolve_seed(seed), s * 17L),
+      show.legend = FALSE, inherit.aes = FALSE, ...
+    )
+  })
+  if (strokes == 1L) layers[[1L]] else layers
+}

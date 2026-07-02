@@ -179,6 +179,7 @@ reference:
       - annotate_sketch_arrow
       - geom_sketch_callout
       - annotate_sketch_callout
+      - annotate_sketch_highlight
       - geom_sketch_mark_hull
       - geom_sketch_mark_circle
       - theme_sketch

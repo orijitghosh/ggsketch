@@ -152,6 +152,7 @@ Other sketch-geoms:
 \code{\link[=annotate_sketch]{annotate_sketch()}},
 \code{\link[=annotate_sketch_arrow]{annotate_sketch_arrow()}},
 \code{\link[=annotate_sketch_callout]{annotate_sketch_callout()}},
+\code{\link[=annotate_sketch_highlight]{annotate_sketch_highlight()}},
 \code{\link[=geom_sketch_alluvial]{geom_sketch_alluvial()}},
 \code{\link[=geom_sketch_arc_diagram]{geom_sketch_arc_diagram()}},
 \code{\link[=geom_sketch_bin2d]{geom_sketch_bin2d()}},

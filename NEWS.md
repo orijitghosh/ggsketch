@@ -49,6 +49,11 @@ simulator. This first piece is the engine that makes it possible.
   sketch_style("chalkboard")`. Presets: `"notebook"`, `"chalkboard"`,
   `"blueprint"`, `"field_notes"` and `"graphite"`; `sketch_styles()` lists
   them, and `palette = FALSE` keeps your own scales.
+* **Highlighter swipes and hand-drawn underlines.**
+  `annotate_sketch_highlight()` lays a wide translucent chisel-tip band (the
+  new highlighter medium) over a region of interest in one call, and
+  `annotate_sketch_underline()` draws a quick wobbly underline
+  (`strokes > 1` re-draws it for an emphatic scrawl).
 * **Chalk and highlighter media.** `medium = "chalk"` draws a broad, dry,
   flat-ended stroke with a faint halo of settled dust either side of the line --
   made for `theme_sketch(paper = "chalkboard")` with a light stroke colour.
