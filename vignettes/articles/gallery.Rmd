@@ -930,6 +930,40 @@ ggplot(ledger, aes(step, delta, measure = kind)) +
   theme_sketch()
 ```
 
+## Funnel and pyramid
+
+`geom_sketch_funnel()` centres one bar per stage on zero, its width the
+stage's value, with translucent trapezoids carrying each stage into the next.
+`geom_sketch_pyramid()` mirrors bars about zero by a two-level `side`
+aesthetic — the population pyramid.
+
+```{r funnel-pyramid}
+funnel <- data.frame(
+  stage = factor(c("Visited", "Signed up", "Activated", "Paid"),
+                 levels = rev(c("Visited", "Signed up", "Activated", "Paid"))),
+  n     = c(1200, 460, 210, 80)
+)
+ggplot(funnel, aes(n, stage, fill = stage)) +
+  geom_sketch_funnel(seed = 1L, show.legend = FALSE) +
+  scale_fill_sketch() +
+  scale_x_continuous(labels = abs) +
+  labs(title = "geom_sketch_funnel()", x = "users", y = NULL) +
+  theme_sketch()
+
+pop <- data.frame(
+  age = factor(rep(c("0-19", "20-39", "40-59", "60+"), 2),
+               levels = c("0-19", "20-39", "40-59", "60+")),
+  sex = rep(c("Female", "Male"), each = 4),
+  n   = c(340, 420, 380, 240, 360, 440, 370, 200)
+)
+ggplot(pop, aes(n, age, side = sex, fill = sex)) +
+  geom_sketch_pyramid(seed = 1L) +
+  scale_fill_manual(values = c(Female = "#b56b6f", Male = "#5b7290")) +
+  scale_x_continuous(labels = abs) +
+  labs(title = "geom_sketch_pyramid()", x = "count", y = NULL) +
+  theme_sketch()
+```
+
 ## Beeswarm
 
 `geom_sketch_beeswarm()` spreads points sideways so none overlap, keeping their

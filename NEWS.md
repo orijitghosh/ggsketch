@@ -37,6 +37,12 @@ simulator. This first piece is the engine that makes it possible.
   project-planning look. An optional `progress` aesthetic (0-1) overlays a
   slimmer, darker solid bar over the completed fraction; bars take rounded
   corners (`corner_radius`), dates on x and any `fill_style`.
+* **Funnel and population-pyramid charts.** `geom_sketch_funnel()` centres one
+  bar per stage on zero with width equal to the stage's value, so the shrinking
+  bars read as drop-off, with translucent trapezoid connectors carrying each
+  stage into the next. `geom_sketch_pyramid()` draws back-to-back bars mirrored
+  about zero by a two-level `side` aesthetic -- the population pyramid. Both
+  take every `fill_style`.
 * **One-call style presets.** `sketch_style()` bundles a paper ground, a
   qualitative colour/fill palette tuned to it and (on ggplot2 >= 4.0) matching
   default geom ink into a single `+`-able object: `p +

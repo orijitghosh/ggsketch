@@ -47,6 +47,8 @@ reference:
       - geom_sketch_slope
       - geom_sketch_bump
       - geom_sketch_waterfall
+      - geom_sketch_funnel
+      - geom_sketch_pyramid
   - title: Distributions
     contents:
       - geom_sketch_histogram

@@ -150,6 +150,8 @@ Other sketch-geoms:
 \code{\link{StatSketchBeeswarm}},
 \code{\link{StatSketchCalendar}},
 \code{\link{StatSketchDensityRidges}},
+\code{\link{StatSketchFunnel}},
+\code{\link{StatSketchPyramid}},
 \code{\link{StatSketchRadar}},
 \code{\link{StatSketchStream}},
 \code{\link{StatSketchTreemap}},
