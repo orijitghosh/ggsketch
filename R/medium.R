@@ -19,7 +19,7 @@
 #' sketch_media()
 sketch_media <- function() {
   c("pen", "ink", "fountain_pen", "ballpoint", "brush", "pencil",
-    "charcoal", "pastel", "marker", "crayon", "spray")
+    "charcoal", "pastel", "chalk", "marker", "highlighter", "crayon", "spray")
 }
 
 #' Validate a `medium` choice
@@ -71,9 +71,22 @@ medium_spec <- function(medium) {
     pastel   = list(width_mult = 3.0, taper = "both", taper_frac = 0.5,
                     profile = NULL,    n_passes = 3L, alpha_mult = 0.4,
                     cap = "round", jitter_w = 0.48),
+    # Dry stick dragged flat on a rough board: broad, streaky and dusty. Flat
+    # ends (butt cap, no taper) and a ragged edge, plus a faint wide dust halo
+    # (dust_* keys, composed in sketch_medium_grob) that pastel doesn't have.
+    chalk    = list(width_mult = 2.2, taper = "none", taper_frac = 0,
+                    profile = NULL,    n_passes = 2L, alpha_mult = 0.55,
+                    cap = "butt",  jitter_w = 0.55,
+                    dust_width_mult = 5.0, dust_alpha = 0.16,
+                    dust_jitter = 0.9),
     marker   = list(width_mult = 2.6, taper = "none", taper_frac = 0,
                     profile = NULL,    n_passes = 2L, alpha_mult = 0.5,
                     cap = "butt",  jitter_w = 0.05),
+    # Wide chisel-tip fluorescent band: one very translucent flat pass with
+    # crisp edges, so it reads as a swipe OVER the mark rather than a line.
+    highlighter = list(width_mult = 4.2, taper = "none", taper_frac = 0,
+                    profile = NULL,    n_passes = 1L, alpha_mult = 0.35,
+                    cap = "butt",  jitter_w = 0.03),
     crayon   = list(width_mult = 2.0, taper = "both", taper_frac = 0.5,
                     profile = NULL,    n_passes = 2L, alpha_mult = 0.6,
                     cap = "round", jitter_w = 0.35),
@@ -201,7 +214,7 @@ sketch_medium_grob <- function(x, y, id = NULL,
   prof_press  <- if (has_press) make_pressure_fn(pressure_var, x, y) else NULL
   pressure    <- compose_pressure(prof_medium, prof_press)
 
-  sketch_stroke_grob(
+  core <- sketch_stroke_grob(
     x = x, y = y, id = id,
     width = width_in,
     roughness = roughness, bowing = bowing,
@@ -210,4 +223,19 @@ sketch_medium_grob <- function(x, y, id = NULL,
     pressure = pressure, jitter_w = spec$jitter_w, cap = spec$cap,
     gp = gpar(col = colour, alpha = a)
   )
+  if (is.null(spec$dust_width_mult)) return(core)
+
+  # Dust halo (chalk): one faint, much wider and more ragged pass under the
+  # core stroke, like powder settling either side of the drawn line.
+  a_dust <- if (is.na(alpha)) spec$dust_alpha else alpha * spec$dust_alpha
+  dust <- sketch_stroke_grob(
+    x = x, y = y, id = id,
+    width = linewidth_to_inches(linewidth) * spec$dust_width_mult,
+    roughness = roughness, bowing = bowing,
+    n_passes = 1L, seed = seed_offset(seed %||% getOption("ggsketch.seed", 1L), 91L),
+    taper = spec$taper, taper_frac = spec$taper_frac,
+    pressure = pressure, jitter_w = spec$dust_jitter, cap = spec$cap,
+    gp = gpar(col = colour, alpha = a_dust)
+  )
+  grid::grobTree(dust, core)
 }

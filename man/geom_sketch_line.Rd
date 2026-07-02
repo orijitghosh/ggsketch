@@ -46,10 +46,12 @@ Default 2.}
 
 \item{medium}{Drawing medium for the stroke: one of \code{\link[=sketch_media]{sketch_media()}}
 (\code{"pen"}, \code{"ink"}, \code{"fountain_pen"}, \code{"ballpoint"}, \code{"brush"}, \code{"pencil"},
-\code{"charcoal"}, \code{"pastel"}, \code{"marker"}, \code{"crayon"}, \code{"spray"}). \code{NULL}
+\code{"charcoal"}, \code{"pastel"}, \code{"chalk"}, \code{"marker"}, \code{"highlighter"},
+\code{"crayon"}, \code{"spray"}). \code{NULL}
 (default) uses \code{"pen"}, the classic constant-width double stroke; most others
 render through the variable-width \code{\link[=stroke_ribbon]{stroke_ribbon()}} engine (tapered ink,
-brushy swells, grainy pencil/charcoal, ...), and \code{"spray"} renders as a soft
+brushy swells, grainy pencil/charcoal, dusty chalk, a translucent
+highlighter band, ...), and \code{"spray"} renders as a soft
 airbrush dot cloud (\code{\link[=sketch_spray_grob]{sketch_spray_grob()}}). \code{medium} is also a mappable
 aesthetic: map it with \code{aes(medium = )} (one medium per group) and control
 the mapping with \code{\link[=scale_medium_discrete]{scale_medium_discrete()}}.}

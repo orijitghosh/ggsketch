@@ -25,6 +25,12 @@ simulator. This first piece is the engine that makes it possible.
   slightly at the ends), `"ballpoint"` (a thin, even, faintly skipping stroke),
   and `"pastel"` (a broad, soft, grainy and translucent mark, lighter than
   charcoal) join the `medium` family and the `scale_medium_discrete()` palette.
+* **Chalk and highlighter media.** `medium = "chalk"` draws a broad, dry,
+  flat-ended stroke with a faint halo of settled dust either side of the line --
+  made for `theme_sketch(paper = "chalkboard")` with a light stroke colour.
+  `medium = "highlighter"` lays a single very translucent chisel-tip band with
+  crisp edges, so a swipe drawn under (or over) a pen line reads as a
+  fluorescent emphasis rather than a line of its own.
 * **Airbrush / spray medium.** A new `medium = "spray"` renders a line as a soft
   cloud of dots scattered around the centreline with no hard outline -- the
   spray-can / airbrush look. Powered by a new Layer-1 sampler `spray_scatter()`

@@ -82,7 +82,8 @@ GeomSketchSegment <- ggplot2::ggproto(
 #' @param seed Integer seed. `NULL` uses `getOption("ggsketch.seed", 1L)`.
 #' @param medium Drawing medium for the stroke: one of [sketch_media()]. The
 #'   default `"pen"` is the classic constant-width double stroke; the others
-#'   (`"ink"`, `"brush"`, `"pencil"`, `"charcoal"`, `"marker"`, `"crayon"`)
+#'   (`"ink"`, `"brush"`, `"pencil"`, `"chalk"`, `"marker"`, `"highlighter"`,
+#'   `"crayon"`)
 #'   render through the variable-width [stroke_ribbon()] engine.
 #' @param na.rm Remove missing values silently? Default `FALSE`.
 #' @param show.legend Logical; include in legend?

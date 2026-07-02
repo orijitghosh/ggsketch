@@ -74,10 +74,12 @@ GeomSketchPath <- ggplot2::ggproto(
 #'   `getOption("ggsketch.seed", 1L)`.
 #' @param medium Drawing medium for the stroke: one of [sketch_media()]
 #'   (`"pen"`, `"ink"`, `"fountain_pen"`, `"ballpoint"`, `"brush"`, `"pencil"`,
-#'   `"charcoal"`, `"pastel"`, `"marker"`, `"crayon"`, `"spray"`). `NULL`
+#'   `"charcoal"`, `"pastel"`, `"chalk"`, `"marker"`, `"highlighter"`,
+#'   `"crayon"`, `"spray"`). `NULL`
 #'   (default) uses `"pen"`, the classic constant-width double stroke; most others
 #'   render through the variable-width [stroke_ribbon()] engine (tapered ink,
-#'   brushy swells, grainy pencil/charcoal, ...), and `"spray"` renders as a soft
+#'   brushy swells, grainy pencil/charcoal, dusty chalk, a translucent
+#'   highlighter band, ...), and `"spray"` renders as a soft
 #'   airbrush dot cloud ([sketch_spray_grob()]). `medium` is also a mappable
 #'   aesthetic: map it with `aes(medium = )` (one medium per group) and control
 #'   the mapping with [scale_medium_discrete()].

@@ -7,7 +7,8 @@ test_that("sketch_media lists the media with pen first (the default)", {
   expect_true(is.character(m))
   expect_identical(m[1L], "pen")
   expect_true(all(c("ink", "fountain_pen", "ballpoint", "brush", "pencil",
-                    "charcoal", "pastel", "marker", "crayon", "spray") %in% m))
+                    "charcoal", "pastel", "chalk", "marker", "highlighter",
+                    "crayon", "spray") %in% m))
 })
 
 test_that("check_medium rejects unknown media", {
@@ -34,12 +35,26 @@ test_that("medium='pen' returns the historical constant-width path grob", {
 })
 
 test_that("a non-pen medium returns a variable-width stroke grob", {
-  # spray is the exception: it returns a dot-cloud grob, not a ribbon.
-  for (m in setdiff(sketch_media(), c("pen", "spray"))) {
+  # Exceptions: spray is a dot-cloud grob; chalk composes core + dust halo.
+  for (m in setdiff(sketch_media(), c("pen", "spray", "chalk"))) {
     g <- sketch_medium_grob(c(0.1, 0.5, 0.9), c(0.2, 0.8, 0.3), medium = m,
                             colour = "navy", linewidth = 0.6, seed = 1L)
     expect_s3_class(g, "SketchStrokeGrob")
   }
+})
+
+test_that("medium='chalk' composes a dust halo under the core stroke", {
+  g <- sketch_medium_grob(c(0.1, 0.5, 0.9), c(0.2, 0.8, 0.3), medium = "chalk",
+                          colour = "white", linewidth = 1, seed = 1L)
+  expect_s3_class(g, "gTree")
+  kids <- grid::childNames(g)
+  expect_length(kids, 2L)
+  # Both children are stroke ribbons; the first (dust) is wider + fainter.
+  dust <- g$children[[1L]]; core <- g$children[[2L]]
+  expect_s3_class(dust, "SketchStrokeGrob")
+  expect_s3_class(core, "SketchStrokeGrob")
+  expect_gt(dust$width, core$width)
+  expect_lt(dust$gp$alpha, core$gp$alpha)
 })
 
 test_that("medium='spray' returns an airbrush dot-cloud grob", {
@@ -52,6 +67,19 @@ test_that("non-pen media fold alpha into the medium's translucency", {
   # Dry media (pencil) carry alpha_mult < 1; an explicit alpha multiplies it.
   spec <- medium_spec("pencil")
   expect_lt(spec$alpha_mult, 1)
+})
+
+test_that("chalk reads dry and flat; highlighter reads wide and translucent", {
+  chalk <- medium_spec("chalk")
+  expect_identical(chalk$cap, "butt")
+  expect_identical(chalk$taper, "none")
+  expect_gt(chalk$jitter_w, medium_spec("pastel")$jitter_w)
+
+  hl <- medium_spec("highlighter")
+  expect_identical(hl$cap, "butt")
+  expect_identical(hl$n_passes, 1L)
+  expect_lt(hl$alpha_mult, 0.5)
+  expect_gt(hl$width_mult, medium_spec("marker")$width_mult)
 })
 
 # ---- geom integration -------------------------------------------------------
