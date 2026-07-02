@@ -46,6 +46,7 @@ reference:
       - geom_sketch_dumbbell
       - geom_sketch_slope
       - geom_sketch_bump
+      - geom_sketch_waterfall
   - title: Distributions
     contents:
       - geom_sketch_histogram

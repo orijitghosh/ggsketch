@@ -89,6 +89,7 @@ Other sketch-geoms:
 \code{\link{StatSketchStream}},
 \code{\link{StatSketchTreemap}},
 \code{\link{StatSketchWaffle}},
+\code{\link{StatSketchWaterfall}},
 \code{\link[=annotate_sketch]{annotate_sketch()}},
 \code{\link[=annotate_sketch_callout]{annotate_sketch_callout()}},
 \code{\link[=geom_sketch_alluvial]{geom_sketch_alluvial()}},

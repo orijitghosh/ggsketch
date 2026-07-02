@@ -910,6 +910,26 @@ ggplot(slope, aes(time, value, group = who, colour = who)) +
   theme_sketch()
 ```
 
+## Waterfall
+
+`geom_sketch_waterfall()` floats each step's delta from the running total
+before it to the running total after it, with dotted hand-drawn connectors
+carrying the level across the gaps. Rows flagged `measure = "total"` draw the
+running total from zero.
+
+```{r waterfall}
+ledger <- data.frame(
+  step  = factor(c("Start", "Sales", "Refunds", "Costs", "Tax", "Net"),
+                 levels = c("Start", "Sales", "Refunds", "Costs", "Tax", "Net")),
+  delta = c(120, 80, -25, -60, -18, 0),
+  kind  = c("relative", "relative", "relative", "relative", "relative", "total")
+)
+ggplot(ledger, aes(step, delta, measure = kind)) +
+  geom_sketch_waterfall(seed = 1L) +
+  labs(title = "geom_sketch_waterfall()", x = NULL, y = "amount") +
+  theme_sketch()
+```
+
 ## Beeswarm
 
 `geom_sketch_beeswarm()` spreads points sideways so none overlap, keeping their

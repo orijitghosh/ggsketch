@@ -25,6 +25,13 @@ simulator. This first piece is the engine that makes it possible.
   slightly at the ends), `"ballpoint"` (a thin, even, faintly skipping stroke),
   and `"pastel"` (a broad, soft, grainy and translucent mark, lighter than
   charcoal) join the `medium` family and the `scale_medium_discrete()` palette.
+* **Waterfall charts.** `geom_sketch_waterfall()` floats each step's delta
+  (`y`) from the running total before it to the running total after it across
+  the categories (`x`), with dotted hand-drawn connectors carrying the level
+  over the gaps. Bars colour by direction (`fill_increase` / `fill_decrease` /
+  `fill_total`, or map `fill` to `after_stat(change)` yourself), an optional
+  `measure = "total"` aesthetic draws closing-total bars from zero, and any
+  `fill_style` works (including `"watercolor"`).
 * **One-call style presets.** `sketch_style()` bundles a paper ground, a
   qualitative colour/fill palette tuned to it and (on ggplot2 >= 4.0) matching
   default geom ink into a single `+`-able object: `p +
