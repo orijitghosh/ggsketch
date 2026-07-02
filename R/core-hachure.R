@@ -108,6 +108,11 @@ hachure_fill_multi <- function(rings,
   # over all rings: the scan-line parity below then excludes holes and the gaps
   # between disjoint pieces.
   ets <- lapply(rings, function(r) {
+    # Drop non-finite vertices up front: an Inf/NaN vertex would otherwise turn
+    # an edge slope into NA and blow up the scan-line comparisons below.
+    fin <- is.finite(r$x) & is.finite(r$y)
+    if (!all(fin)) { r$x <- r$x[fin]; r$y <- r$y[fin] }
+    if (length(r$x) < 2L) return(NULL)
     rot <- rotate_pts(r$x, r$y, -th)
     build_edge_table(rot$x, rot$y)
   })

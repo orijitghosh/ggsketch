@@ -180,6 +180,12 @@ makeContent.SketchPolygonGrob <- function(x) {
     idx  <- groups[[g]]
     gx   <- xi[idx]
     gy   <- yi[idx]
+    # Drop non-finite vertices (Inf/NaN from unbounded data or bad transforms)
+    # so no downstream fill/stroke comparison hits an NA. A group left with no
+    # finite vertices is simply skipped.
+    fin  <- is.finite(gx) & is.finite(gy)
+    if (!all(fin)) { gx <- gx[fin]; gy <- gy[fin] }
+    if (length(gx) == 0L) next
     s_base <- seed_offset(x$seed, g * 37L)
 
     # Roughened, closed outline. Computed first so the "solid" fill can reuse it
