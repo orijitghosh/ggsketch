@@ -79,7 +79,8 @@ geom_sketch_tile(
 
 \item{hachure_angle}{Fill line angle in degrees. Default 45.}
 
-\item{hachure_gap}{Fill line gap in data units (\code{NULL} = 15\% of width).}
+\item{hachure_gap}{Fill line gap in device inches (\code{NULL} = 15\% of the
+rectangle's smaller drawn side, clamped to [0.04, 0.4] inches).}
 
 \item{fill_weight}{Stroke weight for fill lines. Default 0.5.}
 

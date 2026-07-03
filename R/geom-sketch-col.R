@@ -61,7 +61,6 @@ GeomSketchCol <- ggplot2::ggproto(
 
     grobs <- lapply(seq_len(nrow(data)), function(i) {
       row  <- data[i, , drop = FALSE]
-      gap  <- hachure_gap %||% (abs(row$xmax - row$xmin) * 0.15)
 
       bnd <- rect_boundary(row$xmin, row$xmax, row$ymin, row$ymax, corner_radius)
       # Under a nonlinear coord (e.g. coord_polar) straight edges must bend:
@@ -84,7 +83,7 @@ GeomSketchCol <- ggplot2::ggproto(
         seed          = seed_offset(sp$seed, i * 97L),
         fill_style    = fill_style,
         hachure_angle = hachure_angle,
-        hachure_gap    = gap,
+        hachure_gap    = hachure_gap,
         fill_weight    = fill_weight,
         fill_roughness = fill_roughness,
         fill_seed      = fill_seed,
@@ -126,7 +125,8 @@ GeomSketchCol <- ggplot2::ggproto(
 #' @param fill_style One of `"hachure"`, `"cross_hatch"`, `"zigzag"`,
 #'   `"zigzag_line"`, `"scribble"`, `"dots"`, `"dashed"`, `"stipple"`, `"pencil_shade"`, or `"solid"`. Default `"hachure"`.
 #' @param hachure_angle Fill line angle in degrees. Default 45.
-#' @param hachure_gap Fill line gap in data units (`NULL` = 15% of bar width).
+#' @param hachure_gap Fill line gap in device inches (`NULL` = 15% of the
+#'   bar's smaller drawn side, clamped to \[0.04, 0.4\] inches).
 #' @param fill_weight Stroke weight for fill lines. Default 0.5.
 #' @param corner_radius Corner rounding as a fraction \[0, 1\] of each
 #'   half-side. `0` (default) is square; a small value (e.g. `0.2`) gives

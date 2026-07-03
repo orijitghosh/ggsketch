@@ -38,10 +38,6 @@ GeomSketchGantt <- ggplot2::ggproto(
                          ...) {
     if (nrow(data) == 0L) return(nullGrob())
 
-    # Task bars are wide and flat; the parent's width-based default gap would
-    # give a few huge overshooting strokes, so default to a fixed fine pitch.
-    hachure_gap <- hachure_gap %||% 0.12
-
     parent <- ggplot2::ggproto_parent(GeomSketchRect, self)
     bars   <- parent$draw_panel(data, panel_params, coord,
                                 fill_style = fill_style,

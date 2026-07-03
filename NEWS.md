@@ -3,6 +3,23 @@
 The 2.0 series turns ggsketch from a *line style* into a *drawing-medium*
 simulator. This first piece is the engine that makes it possible.
 
+* **Repelled labels escape panel corners.** The `repel_layout()` solver now
+  picks its separation axis by the room left inside the panel bounds, so
+  labels pressed into a corner fan out along the edge instead of being
+  clamped back on top of each other (previously e.g. three overlapping boxes
+  in a scatter's corner).
+* **Calendar axes read as calendars.** `geom_sketch_calendar()` now labels
+  the y axis with weekday names (honouring `week_start`) and the x axis with
+  month names instead of raw grid numbers; set `labels = FALSE` to supply
+  your own scales.
+* **Saner default hachure pitch.** When `hachure_gap` is `NULL`,
+  `sketch_polygon_grob()` now picks the gap at draw time in device inches --
+  15% of the shape's smaller drawn extent, clamped to \[0.04, 0.4\] -- instead
+  of geoms guessing in data units. Wide flat rectangles (Gantt/funnel/pyramid
+  bars, long tiles) no longer degenerate into a few huge strokes escaping the
+  outline, and `geom_sketch_gantt()`/`funnel()`/`pyramid()` drop their fixed
+  0.12 workaround pitch. An explicit `hachure_gap` is honoured unchanged, but
+  default-gap output shifts slightly (visual snapshots need regenerating).
 * **Rect geoms bend under nonlinear coords.** `geom_sketch_rect()`,
   `geom_sketch_tile()`, and `geom_sketch_col()`/`bar()` now densify their
   boundaries before the coordinate transform, so bars under `coord_polar()` /

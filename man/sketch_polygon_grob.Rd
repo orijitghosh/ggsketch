@@ -16,7 +16,7 @@ sketch_polygon_grob(
   outline_gp = gpar(),
   fill_style = "hachure",
   hachure_angle = 45,
-  hachure_gap = 0.07,
+  hachure_gap = NULL,
   fill_weight = 0.5,
   fill_roughness = NULL,
   fill_seed = NULL,
@@ -35,7 +35,9 @@ sketch_polygon_grob(
 
 \item{outline_gp}{\code{gpar()} for the rough outline stroke.}
 
-\item{fill_style, hachure_angle, hachure_gap, fill_weight}{Fill parameters.}
+\item{fill_style, hachure_angle, hachure_gap, fill_weight}{Fill parameters
+(\code{hachure_gap} in device inches; \code{NULL} picks 15\% of the shape's smaller
+drawn extent, clamped to [0.04, 0.4] inches).}
 
 \item{fill_roughness}{Roughness of the fill strokes. \code{NULL} (default) ties it
 to the outline as \code{roughness * 0.5}; set a number to control the fill

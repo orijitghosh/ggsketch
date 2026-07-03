@@ -52,9 +52,6 @@ GeomSketchFunnel <- ggplot2::ggproto(
                          ...) {
     if (nrow(data) == 0L) return(nullGrob())
 
-    # Funnel bars are wide and flat; fix the pitch (see geom_sketch_gantt).
-    hachure_gap <- hachure_gap %||% 0.12
-
     parent <- ggplot2::ggproto_parent(GeomSketchRect, self)
     bars   <- parent$draw_panel(data, panel_params, coord,
                                 hachure_gap = hachure_gap, seed = seed, ...)
@@ -200,8 +197,6 @@ GeomSketchPyramid <- ggplot2::ggproto(
                          hachure_gap = NULL,
                          seed        = NULL,
                          ...) {
-    # Bars are long and flat; fix the pitch (see geom_sketch_gantt).
-    hachure_gap <- hachure_gap %||% 0.12
     ggplot2::ggproto_parent(GeomSketchRect, self)$draw_panel(
       data, panel_params, coord, hachure_gap = hachure_gap, seed = seed, ...
     )

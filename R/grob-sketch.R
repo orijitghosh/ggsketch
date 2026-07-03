@@ -119,7 +119,9 @@ makeContent.SketchPathGrob <- function(x) {
 #' @param roughness,bowing,n_passes,seed Sketch parameters for the outline.
 #' @param fill_gp `gpar()` for fill lines (`col` sets fill-line colour).
 #' @param outline_gp `gpar()` for the rough outline stroke.
-#' @param fill_style,hachure_angle,hachure_gap,fill_weight Fill parameters.
+#' @param fill_style,hachure_angle,hachure_gap,fill_weight Fill parameters
+#'   (`hachure_gap` in device inches; `NULL` picks 15% of the shape's smaller
+#'   drawn extent, clamped to \[0.04, 0.4\] inches).
 #' @param fill_roughness Roughness of the fill strokes. `NULL` (default) ties it
 #'   to the outline as `roughness * 0.5`; set a number to control the fill
 #'   texture independently of the outline.
@@ -139,7 +141,7 @@ sketch_polygon_grob <- function(x, y,
                                  outline_gp     = gpar(),
                                  fill_style     = "hachure",
                                  hachure_angle  = 45,
-                                 hachure_gap    = 0.07,
+                                 hachure_gap    = NULL,
                                  fill_weight    = 0.5,
                                  fill_roughness = NULL,
                                  fill_seed      = NULL,
@@ -242,10 +244,16 @@ makeContent.SketchPolygonGrob <- function(x) {
           list(x = gx, y = gy, col = base_col, seed = fill_base)
       }
     } else if (!is.null(x$fill_style) && x$fill_style != "solid") {
+      # Auto gap when none was given: a fraction of the shape's smaller
+      # device-space extent, clamped so both huge and sliver shapes keep a
+      # readable stroke texture. (Geometry-unit defaults degenerate: 15% of a
+      # wide flat rectangle's width is a handful of strokes escaping it.)
+      gap <- x$hachure_gap %||%
+        min(max(0.15 * min(diff(range(gx)), diff(range(gy))), 0.04), 0.4)
       fill_segs <- sketch_fill(
         gx, gy,
         fill_style    = x$fill_style,
-        hachure_gap   = x$hachure_gap,
+        hachure_gap   = gap,
         hachure_angle = x$hachure_angle,
         fill_weight   = x$fill_weight,
         roughness     = fill_rough,
