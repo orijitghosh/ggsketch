@@ -1,6 +1,5 @@
 ^.*\.Rproj$
-^\.Rproj\.user$
-^\.github$
+^\..*
 ^tools$
 ^dev$
 ^LICENSE\.md$
@@ -12,8 +11,4 @@
 ^docs$
 ^vignettes/articles$
 ^pkgdown$
-^\.gitignore$
-^\.gitattributes$
-^\.git$
-^\.claude$
 ^CRAN-SUBMISSION$
