@@ -1,4 +1,4 @@
-# ggsketch 2.0.0 (development)
+# ggsketch 2.0.0
 
 The 2.0 series turns ggsketch from a *line style* into a *drawing-medium*
 simulator. This first piece is the engine that makes it possible.
@@ -19,7 +19,7 @@ simulator. This first piece is the engine that makes it possible.
   bars, long tiles) no longer degenerate into a few huge strokes escaping the
   outline, and `geom_sketch_gantt()`/`funnel()`/`pyramid()` drop their fixed
   0.12 workaround pitch. An explicit `hachure_gap` is honoured unchanged, but
-  default-gap output shifts slightly (visual snapshots need regenerating).
+  default-gap output shifts slightly.
 * **Rect geoms bend under nonlinear coords.** `geom_sketch_rect()`,
   `geom_sketch_tile()`, and `geom_sketch_col()`/`bar()` now densify their
   boundaries before the coordinate transform, so bars under `coord_polar()` /
@@ -395,8 +395,6 @@ simulator. This first piece is the engine that makes it possible.
   mortality roses. An optional `fill` category stacks radially within each wedge.
   Pair with `coord_equal()` + `theme_void()`. No new dependencies.
 
-# ggsketch 1.8.0 (development)
-
 * **Engraving: tonal shading by line density.** A new module shades by the
   *density* of hand-drawn hatch lines, the way an etcher or banknote engraver
   builds a gradient -- light areas stay near-blank, shadows accumulate dense
@@ -415,8 +413,6 @@ simulator. This first piece is the engine that makes it possible.
   * `geom_sketch_engrave()` takes an `x`/`y`/`z` grid directly, or shades raw
     points through a density stat, e.g.
     `geom_sketch_engrave(stat = "density_2d", contour = FALSE, aes(z = after_stat(density)))`.
-
-# ggsketch 1.7.0 (development)
 
 * **Dot plots.** `geom_sketch_dotplot()` draws a hand-drawn Wilkinson-style dot
   plot: the data are binned along `x` and one roughened circular dot per

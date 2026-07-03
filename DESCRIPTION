@@ -1,6 +1,6 @@
 Package: ggsketch
 Title: Grammar-Native Hand-Drawn Geoms for 'ggplot2'
-Version: 1.7.0
+Version: 2.0.0
 Authors@R:
     person("Arijit", "Ghosh", email = "arijitghosh2009@gmail.com",
            role = c("aut", "cre"))
