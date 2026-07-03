@@ -14,6 +14,7 @@ geom_sketch_calendar(
   position = "identity",
   ...,
   week_start = "sunday",
+  labels = TRUE,
   width = 0.9,
   height = 0.9,
   colour = "grey75",
@@ -42,6 +43,12 @@ geom_sketch_calendar(
 \item{week_start}{\code{"sunday"} (default) or \code{"monday"}: which weekday is the top
 row.}
 
+\item{labels}{Label the axes with weekday and month names instead of the raw
+grid numbers? Default \code{TRUE}; it returns the layer together with x/y
+scales, so set \code{FALSE} if you want to supply your own scales. Month
+positions are exact to within one week (they are computed without seeing
+the year).}
+
 \item{width, height}{Tile size in grid units (gaps appear below 1). Default
 0.9.}
 
@@ -59,12 +66,14 @@ row.}
 \item{inherit.aes}{Override default aesthetics?}
 }
 \value{
-A \code{ggplot2} layer object.
+A \code{ggplot2} layer object (with \code{labels = TRUE}, a list of the layer
+plus weekday/month axis scales).
 }
 \description{
 Draws a hand-drawn calendar heatmap in the GitHub-contributions style: one
 roughened tile per day, arranged as weeks (columns) and weekdays (rows), with
-the tile colour given by a value. Map \code{date} (a \code{Date}) and \code{fill} (the value).
+the tile colour given by a value, and the axes labelled with weekday and
+month names. Map \code{date} (a \code{Date}) and \code{fill} (the value).
 Tiles are drawn with \code{\link[=geom_sketch_tile]{geom_sketch_tile()}}; the default \code{fill_style = "solid"}
 lets the colour gradient read as a heatmap. For more than one year, add a year
 column to your data and facet on it (each panel covers one year). No new

@@ -62,6 +62,33 @@ test_that("calendar draws sketch tiles", {
   expect_no_error(grid::grid.draw(gt))
 })
 
+test_that("labels = TRUE returns the layer plus weekday/month axis scales", {
+  out <- geom_sketch_calendar(seed = 1L)
+  expect_type(out, "list")
+  expect_length(out, 3L)
+  expect_true(inherits(out[[1L]], "Layer"))
+  expect_true(inherits(out[[2L]], "Scale"))
+  expect_true(inherits(out[[3L]], "Scale"))
+  lyr <- geom_sketch_calendar(seed = 1L, labels = FALSE)
+  expect_true(inherits(lyr, "Layer"))
+})
+
+test_that("axes read weekdays and months, honouring week_start", {
+  p <- ggplot2::ggplot(cal_df(), ggplot2::aes(date = day, fill = value)) +
+    geom_sketch_calendar(seed = 1L)
+  b <- ggplot2::ggplot_build(p)
+  ylab <- b$layout$panel_scales_y[[1L]]$get_labels()
+  xlab <- b$layout$panel_scales_x[[1L]]$get_labels()
+  expect_equal(ylab[length(ylab)], "Sun")        # top row (y = 7) = week start
+  expect_true(all(c("Jan", "Feb", "Mar", "Apr") %in% xlab))
+
+  pm <- ggplot2::ggplot(cal_df(), ggplot2::aes(date = day, fill = value)) +
+    geom_sketch_calendar(seed = 1L, week_start = "monday")
+  bm <- ggplot2::ggplot_build(pm)
+  ylabm <- bm$layout$panel_scales_y[[1L]]$get_labels()
+  expect_equal(ylabm[length(ylabm)], "Mon")
+})
+
 test_that("empty data builds without error", {
   df <- data.frame(day = as.Date(character(0)), value = numeric(0))
   p <- ggplot2::ggplot(df, ggplot2::aes(date = day, fill = value)) +
