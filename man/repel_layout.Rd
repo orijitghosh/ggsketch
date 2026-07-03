@@ -41,7 +41,9 @@ actually run).
 A small physical solver behind \code{\link[=geom_sketch_text_repel]{geom_sketch_text_repel()}} /
 \code{\link[=geom_sketch_label_repel]{geom_sketch_label_repel()}}. Each label starts near its anchor and is pushed
 by three forces, iterated to rest: boxes that overlap shove each other apart
-along their axis of least penetration; a box covering any anchor point slides
+along their axis of least penetration (preferring an axis with room left
+inside the bounds, so pairs pressed into a panel corner escape along the
+edge instead of staying stuck); a box covering any anchor point slides
 off it; and a weak spring pulls each box back toward its own anchor so labels
 stay close to what they name. Positions are clamped to \code{xlim} / \code{ylim}.
 }

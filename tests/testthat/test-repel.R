@@ -29,6 +29,27 @@ test_that("coincident boxes are pushed apart until they no longer overlap", {
   expect_true(ok)
 })
 
+test_that("boxes jammed into a bounds corner escape along the edge", {
+  # anchors piled in the bottom-right corner: separating along x is blocked by
+  # the limit, so the solver must fan the boxes out along the edge instead of
+  # clamping them back on top of each other.
+  ax <- c(4.8, 4.9, 5.0, 4.95, 4.85)
+  ay <- c(0.2, 0.1, 0.15, 0.05, 0.25)
+  w <- 1.2; h <- 0.4; bp <- 0.05
+  out <- repel_layout(ax, ay, w = w, h = h,
+                      xlim = c(0, 5), ylim = c(0, 5),
+                      box_padding = bp, point_padding = 0.05, seed = 1L)
+  hw <- w / 2 + bp; hh <- h / 2 + bp
+  n  <- length(out$x)
+  for (i in seq_len(n - 1L)) for (j in seq(i + 1L, n)) {
+    ox <- 2 * hw - abs(out$x[j] - out$x[i])
+    oy <- 2 * hh - abs(out$y[j] - out$y[i])
+    expect_true(ox <= 1e-6 || oy <= 1e-6)
+  }
+  expect_true(all(out$x >= hw - 1e-9 & out$x <= 5 - hw + 1e-9))
+  expect_true(all(out$y >= hh - 1e-9 & out$y <= 5 - hh + 1e-9))
+})
+
 test_that("centres stay within the supplied limits", {
   out <- repel_layout(c(0.5, 0.5), c(0.5, 0.5), w = 0.2, h = 0.2,
                       xlim = c(0, 1), ylim = c(0, 1), box_padding = 0.05,

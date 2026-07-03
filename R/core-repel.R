@@ -11,7 +11,9 @@
 #' A small physical solver behind [geom_sketch_text_repel()] /
 #' [geom_sketch_label_repel()]. Each label starts near its anchor and is pushed
 #' by three forces, iterated to rest: boxes that overlap shove each other apart
-#' along their axis of least penetration; a box covering any anchor point slides
+#' along their axis of least penetration (preferring an axis with room left
+#' inside the bounds, so pairs pressed into a panel corner escape along the
+#' edge instead of staying stuck); a box covering any anchor point slides
 #' off it; and a weak spring pulls each box back toward its own anchor so labels
 #' stay close to what they name. Positions are clamped to `xlim` / `ylim`.
 #'
@@ -88,12 +90,34 @@ repel_layout <- function(ax, ay, w, h,
             ox <- (hw[i] + hw[j] + slack) - abs(dx)
             oy <- (hh[i] + hh[j] + slack) - abs(dy)
             if (ox > 0 && oy > 0) {
-              if (ox < oy) {
-                s <- if (dx >= 0) 1 else -1
-                px[i] <- px[i] - s * ox * 0.5; px[j] <- px[j] + s * ox * 0.5
+              # Separate along the axis that has room inside the bounds, not
+              # blindly along the least penetration: a pair clamped into a
+              # panel corner would otherwise keep pushing along the blocked
+              # axis, get clamped straight back, and stay overlapped.
+              sx <- if (dx >= 0) 1 else -1     # j sits to the +x side of i
+              sy <- if (dy >= 0) 1 else -1
+              room_ix <- max(if (sx > 0) px[i] - (xlim[1L] + hw[i])
+                             else (xlim[2L] - hw[i]) - px[i], 0)
+              room_jx <- max(if (sx > 0) (xlim[2L] - hw[j]) - px[j]
+                             else px[j] - (xlim[1L] + hw[j]), 0)
+              room_iy <- max(if (sy > 0) py[i] - (ylim[1L] + hh[i])
+                             else (ylim[2L] - hh[i]) - py[i], 0)
+              room_jy <- max(if (sy > 0) (ylim[2L] - hh[j]) - py[j]
+                             else py[j] - (ylim[1L] + hh[j]), 0)
+              avail_x <- room_ix + room_jx
+              avail_y <- room_iy + room_jy
+              use_x <- if (avail_x >= ox && avail_y >= oy) ox < oy
+                       else if (avail_x >= ox) TRUE
+                       else if (avail_y >= oy) FALSE
+                       else (avail_x / max(ox, 1e-9)) >= (avail_y / max(oy, 1e-9))
+              if (use_x) {
+                mi <- min(ox * 0.5, room_ix)
+                mj <- min(ox - mi, room_jx)
+                px[i] <- px[i] - sx * mi; px[j] <- px[j] + sx * mj
               } else {
-                s <- if (dy >= 0) 1 else -1
-                py[i] <- py[i] - s * oy * 0.5; py[j] <- py[j] + s * oy * 0.5
+                mi <- min(oy * 0.5, room_iy)
+                mj <- min(oy - mi, room_jy)
+                py[i] <- py[i] - sy * mi; py[j] <- py[j] + sy * mj
               }
               any_ov <- TRUE; sep_moved <- TRUE
             }
