@@ -74,6 +74,35 @@ ggplot(sales, aes(reorder(product, units), units)) +
 
 ![](gallery_files/figure-html/col-flip-1.png)
 
+### Chicklet charts
+
+[`geom_sketch_chicklet()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_chicklet.md)
+is the hand-drawn take on `ggchicklet::geom_chicklet()`: a stacked bar
+whose segments are separately rounded “pills” with a small gap between
+them. Add
+[`coord_flip()`](https://ggplot2.tidyverse.org/reference/coord_flip.html)
+for the classic horizontal layout.
+
+``` r
+
+seasons <- expand.grid(season = factor(2019:2024),
+                       result = c("Win", "Draw", "Loss"))
+seasons$games <- c(22, 18, 14, 20, 25, 19,
+                   8, 10, 12, 9, 6, 11,
+                   8, 10, 12, 9, 7, 8)
+
+ggplot(seasons, aes(season, games, fill = result)) +
+  geom_sketch_chicklet(seed = 3L) +
+  coord_flip() +
+  scale_fill_manual(values = c(Win = "#4C9F70", Draw = "#E4B363",
+                               Loss = "#C1666B")) +
+  labs(title = "Season results by outcome", x = NULL, y = "Games",
+       fill = NULL) +
+  theme_sketch()
+```
+
+![](gallery_files/figure-html/chicklet-1.png)
+
 ### Lollipops
 
 [`geom_sketch_lollipop()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_lollipop.md)

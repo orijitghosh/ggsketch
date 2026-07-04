@@ -215,6 +215,9 @@ The signature filled look — roughened outlines with hachure-style fills.
   [`geom_sketch_col()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_col.md)
   [`geom_sketch_bar()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_col.md)
   : Sketchy column / bar geom
+- [`GeomSketchChicklet`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_chicklet.md)
+  [`geom_sketch_chicklet()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_chicklet.md)
+  : Sketchy chicklet chart
 - [`GeomSketchRect`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_rect.md)
   [`geom_sketch_rect()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_rect.md)
   [`GeomSketchTile`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_rect.md)

@@ -1,26 +1,36 @@
-# Sketchy curved connector
+# Sketchy chicklet chart
 
-Draws a hand-drawn curved segment from `(x, y)` to `(xend, yend)` - the
-sketch analogue of
-[`ggplot2::geom_curve()`](https://ggplot2.tidyverse.org/reference/geom_segment.html).
-The curve is a quadratic Bezier whose bend is controlled by `curvature`.
+Draws a stacked bar whose segments are separately rounded "chicklets"
+with a small gap between them – the hand-drawn take on
+`ggchicklet::geom_chicklet()` (cf. `ggchicklet`). It is
+[`geom_sketch_col()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_col.md)
+with rounded corners on, a `segment_gap` inset between stacked segments,
+and a solid fill by default. As with `ggchicklet`, add
+[`ggplot2::coord_flip()`](https://ggplot2.tidyverse.org/reference/coord_flip.html)
+for the classic horizontal layout.
 
 ## Usage
 
 ``` r
-GeomSketchCurve
+GeomSketchChicklet
 
-geom_sketch_curve(
+geom_sketch_chicklet(
   mapping = NULL,
   data = NULL,
   stat = "identity",
-  position = "identity",
+  position = "stack",
   ...,
-  curvature = 0.5,
-  roughness = 1,
+  roughness = NULL,
   bowing = 1,
   n_passes = 2L,
   seed = NULL,
+  fill_style = "solid",
+  hachure_angle = 45,
+  hachure_gap = NULL,
+  fill_weight = 0.5,
+  width = NULL,
+  corner_radius = 0.5,
+  segment_gap = 0.02,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -40,31 +50,25 @@ geom_sketch_curve(
 
 - stat:
 
-  Statistical transformation. Default `"identity"`.
+  Statistical transformation. Default `"identity"` for
+  [`geom_sketch_col()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_col.md);
+  `"count"` for
+  [`geom_sketch_bar()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_col.md).
 
 - position:
 
-  Position adjustment. Default `"identity"`.
+  Position adjustment. Default `"stack"`.
 
 - ...:
 
   Other arguments passed on to the layer.
 
-- curvature:
-
-  Amount of bend. `0` is a straight line; positive curves to one side,
-  negative to the other. Default `0.5`.
-
 - roughness:
 
-  Non-negative roughness (0 = straight). Default 1. For
-  [`geom_sketch_segment()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_segment.md)
-  this is a mappable aesthetic (map it per segment with
-  `aes(roughness = )`, rescaled by
-  [`scale_roughness_continuous()`](https://orijitghosh.github.io/ggsketch/reference/scale_roughness_continuous.md));
-  for
-  [`geom_sketch_step()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_segment.md)
-  it is a layer parameter (one path per group).
+  Non-negative roughness (0 = straight lines). A mappable aesthetic
+  (default 1): pass a constant, or map it per bar with
+  `aes(roughness = )` (rescaled by
+  [`scale_roughness_continuous()`](https://orijitghosh.github.io/ggsketch/reference/scale_roughness_continuous.md)).
 
 - bowing:
 
@@ -77,6 +81,40 @@ geom_sketch_curve(
 - seed:
 
   Integer seed. `NULL` uses `getOption("ggsketch.seed", 1L)`.
+
+- fill_style:
+
+  Fill style; see
+  [`geom_sketch_col()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_col.md).
+  Default `"solid"` for the flat chicklet look; pass `"hachure"` etc.
+  for a sketchier fill.
+
+- hachure_angle:
+
+  Fill line angle in degrees. Default 45.
+
+- hachure_gap:
+
+  Fill line gap in device inches (`NULL` = 15% of the bar's smaller
+  drawn side, clamped to \[0.04, 0.4\] inches).
+
+- fill_weight:
+
+  Stroke weight for fill lines. Default 0.5.
+
+- width:
+
+  Bar width override. `NULL` uses 90% of resolution.
+
+- corner_radius:
+
+  Corner rounding as a fraction \[0, 1\] of each half-side. Default
+  `0.5`; `0` gives square segments.
+
+- segment_gap:
+
+  Gap between stacked segments, as a fraction of the panel's total drawn
+  height. Default `0.02`; `0` stacks the pills flush.
 
 - na.rm:
 
@@ -102,9 +140,9 @@ Other sketch-geoms:
 [`GeomSketchBoxplot`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_boxplot.md),
 [`GeomSketchBracket`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_bracket.md),
 [`GeomSketchCallout`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_callout.md),
-[`GeomSketchChicklet`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_chicklet.md),
 [`GeomSketchCol`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_col.md),
 [`GeomSketchContourFilled`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_contour_filled.md),
+[`GeomSketchCurve`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_curve.md),
 [`GeomSketchDotplot`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_dotplot.md),
 [`GeomSketchDumbbell`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_dumbbell.md),
 [`GeomSketchEdge`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_edge.md),
@@ -173,9 +211,10 @@ Other sketch-geoms:
 
 ``` r
 library(ggplot2)
-df <- data.frame(x = 1, y = 1, xend = 3, yend = 3)
-ggplot(df, aes(x, y)) +
-  geom_sketch_curve(aes(xend = xend, yend = yend), curvature = 0.4,
-                    seed = 1L) +
+df <- expand.grid(week = factor(1:4), team = c("A", "B", "C"))
+df$pct <- c(4, 3, 2, 5, 3, 4, 5, 2, 3, 3, 3, 4)
+ggplot(df, aes(week, pct, fill = team)) +
+  geom_sketch_chicklet(seed = 1L) +
+  coord_flip() +
   theme_sketch()
 ```

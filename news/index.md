@@ -1,5 +1,17 @@
 # Changelog
 
+## ggsketch (development version)
+
+- **Chicklet charts.** New
+  [`geom_sketch_chicklet()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_chicklet.md)
+  – a hand-drawn take on `ggchicklet::geom_chicklet()`. It stacks
+  rounded “pill” segments with a small `segment_gap` between them and a
+  solid fill by default; add
+  [`coord_flip()`](https://ggplot2.tidyverse.org/reference/coord_flip.html)
+  for the classic horizontal layout. Built on
+  [`geom_sketch_col()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_col.md),
+  so it inherits every fill style, drawing medium, and sketch parameter.
+
 ## ggsketch 2.0.0
 
 The 2.0 series turns ggsketch from a *line style* into a

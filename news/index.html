@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ggsketch</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,9 +43,14 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/orijitghosh/ggsketch/blob/v2.0.0/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/orijitghosh/ggsketch/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="development version" id="ggsketch-development-version">ggsketch (development version)<a class="anchor" aria-label="anchor" href="#ggsketch-development-version"></a></h2>
+<ul><li>
+<strong>Chicklet charts.</strong> New <code><a href="../reference/geom_sketch_chicklet.html">geom_sketch_chicklet()</a></code> – a hand-drawn take on <code>ggchicklet::geom_chicklet()</code>. It stacks rounded “pill” segments with a small <code>segment_gap</code> between them and a solid fill by default; add <code><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html" class="external-link">coord_flip()</a></code> for the classic horizontal layout. Built on <code><a href="../reference/geom_sketch_col.html">geom_sketch_col()</a></code>, so it inherits every fill style, drawing medium, and sketch parameter.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.0.0" id="ggsketch-200">ggsketch 2.0.0<a class="anchor" aria-label="anchor" href="#ggsketch-200"></a></h2>
 <p>The 2.0 series turns ggsketch from a <em>line style</em> into a <em>drawing-medium</em> simulator. This first piece is the engine that makes it possible.</p>
