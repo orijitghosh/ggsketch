@@ -153,7 +153,11 @@ animate_sketch <- function(plot,
   direction <- match.arg(direction)
   easing    <- match.arg(easing)
   renderer  <- match.arg(renderer)
-  if (!ggplot2::is.ggplot(plot)) {
+  is_ggplot <- tryCatch(
+    getExportedValue("ggplot2", "is_ggplot"),  # ggplot2 >= 3.5.2
+    error = function(e) ggplot2::is.ggplot      # older releases
+  )
+  if (!is_ggplot(plot)) {
     cli::cli_abort("{.arg plot} must be a {.cls ggplot} object.")
   }
   nframes <- max(2L, as.integer(nframes))

@@ -100,10 +100,11 @@ sketch_style <- function(style, palette = TRUE, ...) {
 
   # ggplot2 >= 4.0 can retheme the default geom ink, so unmapped strokes read
   # on a dark ground too; earlier versions silently keep their defaults.
+  # element_geom() is resolved at run time so R CMD check against ggplot2 < 4.0
+  # (where the object does not exist) sees no static ggplot2::element_geom ref.
   if (utils::packageVersion("ggplot2") >= "4.0.0") {
-    out <- c(out, list(ggplot2::theme(
-      geom = ggplot2::element_geom(ink = spec$ink)
-    )))
+    element_geom <- getExportedValue("ggplot2", "element_geom")
+    out <- c(out, list(ggplot2::theme(geom = element_geom(ink = spec$ink))))
   }
 
   if (isTRUE(palette)) {

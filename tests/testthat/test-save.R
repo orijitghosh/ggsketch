@@ -17,6 +17,8 @@ test_that("ggsketch_save writes a png and returns the path invisibly", {
 })
 
 test_that("ggsketch_save writes a pdf through cairo_pdf", {
+  skip_if_not(cairo_device_works(grDevices::cairo_pdf, ".pdf"),
+              "cairo_pdf device unavailable on this machine")
   out <- withr::local_tempfile(fileext = ".pdf")
   ggsketch_save(out, save_plot(), width = 3, height = 2)
   expect_true(file.exists(out))
@@ -24,6 +26,8 @@ test_that("ggsketch_save writes a pdf through cairo_pdf", {
 })
 
 test_that("postscript output warns towards pdf", {
+  skip_if_not(cairo_device_works(grDevices::cairo_ps, ".eps"),
+              "cairo_ps device unavailable on this machine")
   out <- withr::local_tempfile(fileext = ".eps")
   expect_warning(
     ggsketch_save(out, save_plot(), width = 3, height = 2),
