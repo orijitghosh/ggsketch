@@ -189,6 +189,117 @@ geom_sketch_col <- function(mapping       = NULL,
   )
 }
 
+# ---- GeomSketchChicklet -----------------------------------------------------
+# Kept in this file (after GeomSketchCol) on purpose: it inherits GeomSketchCol,
+# and the package has no Collate, so R/*.R loads alphabetically -- a separate
+# geom-sketch-chicklet.R would sort *before* geom-sketch-col.R and fail to find
+# its parent at load time.
+
+#' @rdname geom_sketch_chicklet
+#' @export
+GeomSketchChicklet <- ggplot2::ggproto(
+  "GeomSketchChicklet", GeomSketchCol,
+
+  parameters = function(self, extra = FALSE) {
+    union(GeomSketchCol$parameters(), "segment_gap")
+  },
+
+  # Inset each stacked segment along y by `segment_gap` so the rounded pills read
+  # as separate chicklets, then hand off to the parent's rounded-rect drawing.
+  # `segment_gap` is a fraction of the panel's total drawn height, so every gap
+  # is the same visual size regardless of segment value. Segments too short to
+  # survive the inset are left flush (drawn full) rather than collapsed.
+  draw_panel = function(data, panel_params, coord, ..., segment_gap = 0.02) {
+    if (nrow(data) == 0L) return(nullGrob())
+
+    if (segment_gap > 0) {
+      rng <- diff(range(c(data$ymin, data$ymax)))
+      d   <- segment_gap * rng / 2
+      keep <- (data$ymax - data$ymin) > 2 * d
+      data$ymin[keep] <- data$ymin[keep] + d
+      data$ymax[keep] <- data$ymax[keep] - d
+    }
+
+    GeomSketchCol$draw_panel(data, panel_params, coord, ...)
+  }
+)
+
+# ---- geom_sketch_chicklet ---------------------------------------------------
+
+#' Sketchy chicklet chart
+#'
+#' Draws a stacked bar whose segments are separately rounded "chicklets" with a
+#' small gap between them -- the hand-drawn take on `ggchicklet::geom_chicklet()`
+#' (cf. `ggchicklet`). It is `geom_sketch_col()` with rounded corners on, a
+#' `segment_gap` inset between stacked segments, and a solid fill by default. As
+#' with `ggchicklet`, add [ggplot2::coord_flip()] for the classic horizontal
+#' layout.
+#'
+#' @inheritParams geom_sketch_col
+#' @param position Position adjustment. Default `"stack"`.
+#' @param fill_style Fill style; see [geom_sketch_col()]. Default `"solid"` for
+#'   the flat chicklet look; pass `"hachure"` etc. for a sketchier fill.
+#' @param corner_radius Corner rounding as a fraction \[0, 1\] of each
+#'   half-side. Default `0.5`; `0` gives square segments.
+#' @param segment_gap Gap between stacked segments, as a fraction of the panel's
+#'   total drawn height. Default `0.02`; `0` stacks the pills flush.
+#' @return A `ggplot2` layer object.
+#' @family sketch-geoms
+#' @export
+#' @examples
+#' library(ggplot2)
+#' df <- expand.grid(week = factor(1:4), team = c("A", "B", "C"))
+#' df$pct <- c(4, 3, 2, 5, 3, 4, 5, 2, 3, 3, 3, 4)
+#' ggplot(df, aes(week, pct, fill = team)) +
+#'   geom_sketch_chicklet(seed = 1L) +
+#'   coord_flip() +
+#'   theme_sketch()
+geom_sketch_chicklet <- function(mapping       = NULL,
+                                 data          = NULL,
+                                 stat          = "identity",
+                                 position      = "stack",
+                                 ...,
+                                 roughness     = NULL,
+                                 bowing        = 1,
+                                 n_passes      = 2L,
+                                 seed          = NULL,
+                                 fill_style    = "solid",
+                                 hachure_angle = 45,
+                                 hachure_gap   = NULL,
+                                 fill_weight   = 0.5,
+                                 width         = NULL,
+                                 corner_radius = 0.5,
+                                 segment_gap   = 0.02,
+                                 na.rm         = FALSE,
+                                 show.legend   = NA,
+                                 inherit.aes   = TRUE) {
+  params <- list(
+    bowing        = bowing,
+    n_passes      = as.integer(n_passes),
+    seed          = seed,
+    fill_style    = fill_style,
+    hachure_angle = hachure_angle,
+    hachure_gap   = hachure_gap,
+    fill_weight   = fill_weight,
+    width         = width,
+    corner_radius = corner_radius,
+    segment_gap   = segment_gap,
+    na.rm         = na.rm,
+    ...
+  )
+  if (!is.null(roughness)) params$roughness <- roughness
+  ggplot2::layer(
+    data        = data,
+    mapping     = mapping,
+    stat        = stat,
+    geom        = GeomSketchChicklet,
+    position    = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params      = params
+  )
+}
+
 #' @rdname geom_sketch_col
 #' @export
 geom_sketch_bar <- function(mapping       = NULL,

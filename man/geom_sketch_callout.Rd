@@ -106,6 +106,7 @@ Other sketch-geoms:
 \code{\link{GeomSketchArrow}},
 \code{\link{GeomSketchBoxplot}},
 \code{\link{GeomSketchBracket}},
+\code{\link{GeomSketchChicklet}},
 \code{\link{GeomSketchCol}},
 \code{\link{GeomSketchContourFilled}},
 \code{\link{GeomSketchCurve}},

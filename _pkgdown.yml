@@ -38,6 +38,7 @@ reference:
     desc: The signature filled look — roughened outlines with hachure-style fills.
     contents:
       - geom_sketch_col
+      - geom_sketch_chicklet
       - geom_sketch_rect
       - geom_sketch_lollipop
   - title: Comparisons & change

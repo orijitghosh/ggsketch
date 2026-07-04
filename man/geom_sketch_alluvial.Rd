@@ -85,6 +85,7 @@ Other sketch-geoms:
 \code{\link{GeomSketchBoxplot}},
 \code{\link{GeomSketchBracket}},
 \code{\link{GeomSketchCallout}},
+\code{\link{GeomSketchChicklet}},
 \code{\link{GeomSketchCol}},
 \code{\link{GeomSketchContourFilled}},
 \code{\link{GeomSketchCurve}},
