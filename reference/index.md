@@ -46,6 +46,32 @@ The signature filled look — roughened outlines with hachure-style fills.
   [`geom_sketch_lollipop()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_lollipop.md)
   : Sketchy lollipop chart
 
+## Comparisons & change
+
+Paired and ranked values — gaps, before/after, rate of change, and rank
+over time.
+
+- [`GeomSketchDumbbell`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_dumbbell.md)
+  [`geom_sketch_dumbbell()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_dumbbell.md)
+  : Sketchy dumbbell chart
+- [`GeomSketchSlope`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_slope.md)
+  [`geom_sketch_slope()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_slope.md)
+  : Sketchy slope graph
+- [`geom_sketch_bump()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_bump.md)
+  : Sketchy bump (ranking) chart
+- [`StatSketchWaterfall`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_waterfall.md)
+  [`GeomSketchWaterfall`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_waterfall.md)
+  [`geom_sketch_waterfall()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_waterfall.md)
+  : Sketchy waterfall chart
+- [`StatSketchFunnel`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_funnel.md)
+  [`GeomSketchFunnel`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_funnel.md)
+  [`geom_sketch_funnel()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_funnel.md)
+  : Sketchy funnel chart
+- [`StatSketchPyramid`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_pyramid.md)
+  [`GeomSketchPyramid`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_pyramid.md)
+  [`geom_sketch_pyramid()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_pyramid.md)
+  : Sketchy population pyramid
+
 ## Distributions
 
 - [`geom_sketch_histogram()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_histogram.md)
@@ -53,6 +79,10 @@ The signature filled look — roughened outlines with hachure-style fills.
   : Sketchy histogram and frequency polygon
 - [`geom_sketch_density()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_density.md)
   : Sketchy density geom
+- [`StatSketchDensityRidges`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_ridgeline.md)
+  [`GeomSketchRidgeline`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_ridgeline.md)
+  [`geom_sketch_ridgeline()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_ridgeline.md)
+  : Sketchy ridgeline (joyplot)
 - [`GeomSketchDotplot`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_dotplot.md)
   [`geom_sketch_dotplot()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_dotplot.md)
   : Sketchy dot plot
@@ -64,6 +94,9 @@ The signature filled look — roughened outlines with hachure-style fills.
 - [`GeomSketchBoxplot`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_boxplot.md)
   [`geom_sketch_boxplot()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_boxplot.md)
   : Sketchy boxplot
+- [`StatSketchBeeswarm`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_beeswarm.md)
+  [`geom_sketch_beeswarm()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_beeswarm.md)
+  : Sketchy beeswarm chart
 - [`geom_sketch_bin2d()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_bin2d.md)
   [`geom_sketch_bin_2d()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_bin2d.md)
   : Sketchy 2-D bin heatmap
@@ -84,6 +117,23 @@ The signature filled look — roughened outlines with hachure-style fills.
   [`geom_sketch_density2d_filled()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_contour_filled.md)
   : Sketchy filled contour and 2-D density bands
 
+## Engraving & tonal shading
+
+Continuous tone built from hatch-line density (etching / banknote
+style), computed from geometry rather than tiled from a motif.
+
+- [`GeomSketchEngrave`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_engrave.md)
+  [`GeomSketchShade`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_engrave.md)
+  [`geom_sketch_engrave()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_engrave.md)
+  [`geom_sketch_shade()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_engrave.md)
+  : Sketchy engraving: tonal shading by hatch-line density
+
+- [`scale_tone_continuous()`](https://orijitghosh.github.io/ggsketch/reference/scale_tone_continuous.md)
+  [`scale_engrave()`](https://orijitghosh.github.io/ggsketch/reference/scale_tone_continuous.md)
+  :
+
+  Continuous scale for the engraving `tone` aesthetic
+
 ## Models & quantiles
 
 - [`geom_sketch_quantile()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_quantile.md)
@@ -102,6 +152,9 @@ The signature filled look — roughened outlines with hachure-style fills.
   [`GeomSketchArea`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_ribbon.md)
   [`geom_sketch_area()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_ribbon.md)
   : Sketchy ribbon and area geoms
+- [`StatSketchStream`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_streamgraph.md)
+  [`geom_sketch_streamgraph()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_streamgraph.md)
+  : Sketchy streamgraph
 - [`GeomSketchSmooth`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_smooth.md)
   [`geom_sketch_smooth()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_smooth.md)
   : Sketchy smoothed conditional mean
@@ -147,14 +200,128 @@ The signature filled look — roughened outlines with hachure-style fills.
   [`geom_sketch_spoke()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_spoke.md)
   : Sketchy spoke geom
 
-## Pie & donut charts
+## Pie, donut & rose charts
 
-Hand-drawn part-to-whole charts that stay round on any panel shape.
+Hand-drawn radial part-to-whole charts that stay round on any panel
+shape, including the Nightingale coxcomb rose.
 
 - [`GeomSketchPie`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_pie.md)
   [`geom_sketch_pie()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_pie.md)
   [`geom_sketch_donut()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_pie.md)
   : Sketchy pie and donut charts
+- [`geom_sketch_rose()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_rose.md)
+  : Sketchy coxcomb / Nightingale rose chart
+
+## Part-to-whole
+
+Square, nested and radial part-to-whole charts.
+
+- [`StatSketchWaffle`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_waffle.md)
+  [`geom_sketch_waffle()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_waffle.md)
+  : Sketchy waffle chart
+- [`StatSketchTreemap`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_treemap.md)
+  [`GeomSketchTreemap`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_treemap.md)
+  [`geom_sketch_treemap()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_treemap.md)
+  : Sketchy treemap
+- [`geom_sketch_sunburst()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_sunburst.md)
+  : Sketchy sunburst (hierarchy) chart
+
+## Calendar & time
+
+Hand-drawn heatmaps over the calendar and whiteboard project plans.
+
+- [`StatSketchCalendar`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_calendar.md)
+  [`geom_sketch_calendar()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_calendar.md)
+  : Sketchy calendar heatmap
+- [`GeomSketchGantt`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_gantt.md)
+  [`geom_sketch_gantt()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_gantt.md)
+  : Sketchy Gantt / timeline chart
+
+## Trees & clustering
+
+Hierarchical-clustering trees with roughened elbow connectors.
+
+- [`geom_sketch_dendrogram()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_dendrogram.md)
+  : Sketchy dendrogram (hierarchical-clustering tree)
+
+## Networks
+
+Hand-drawn graphs - roughened nodes and edges, placed by a pure-R
+force-directed layout (no graph dependency required).
+
+- [`GeomSketchEdge`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_edge.md)
+  [`geom_sketch_edge()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_edge.md)
+  [`GeomSketchNode`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_edge.md)
+  [`geom_sketch_node()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_edge.md)
+  : Sketchy network edges and nodes
+- [`sketch_graph()`](https://orijitghosh.github.io/ggsketch/reference/sketch_graph.md)
+  : Build node and edge data for a sketch network
+- [`force_layout()`](https://orijitghosh.github.io/ggsketch/reference/force_layout.md)
+  : Force-directed graph layout (Fruchterman-Reingold)
+
+## Maps
+
+Hand-drawn simple-features (sf) maps - roughened polygon, line and point
+geometry in one call (plots in planar coordinates).
+
+- [`GeomSketchSfPolygon`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_sf.md)
+  [`geom_sketch_sf()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_sf.md)
+  : Sketchy simple-features (sf) maps
+
+## Radar
+
+Spider / radar charts - one roughened polygon per series over a web.
+
+- [`StatSketchRadar`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_radar.md)
+  [`GeomSketchRadar`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_radar.md)
+  [`geom_sketch_radar()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_radar.md)
+  : Sketchy radar (spider) chart
+
+## Chord & arc diagrams
+
+Relational diagrams - nodes on a circular rim with ribbons through the
+centre, or nodes on a line joined by semicircular arcs.
+
+- [`geom_sketch_chord()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_chord.md)
+  : Sketchy chord diagram
+- [`geom_sketch_arc_diagram()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_arc_diagram.md)
+  : Sketchy arc diagram
+
+## Alluvial & Sankey
+
+Categorical axes joined by frequency-weighted flows.
+
+- [`geom_sketch_alluvial()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_alluvial.md)
+  : Sketchy alluvial / Sankey diagram
+
+## Parallel coordinates
+
+Numeric axes crossed by one roughened polyline per observation.
+
+- [`geom_sketch_parallel()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_parallel.md)
+  : Sketchy parallel-coordinates plot
+
+## Mosaic & Marimekko
+
+Area-proportional tiles - two categoricals as a mosaic, or
+variable-width stacked bars as a Marimekko.
+
+- [`geom_sketch_mosaic()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_mosaic.md)
+  : Sketchy mosaic plot
+- [`geom_sketch_marimekko()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_marimekko.md)
+  : Sketchy Marimekko (variable-width stacked bar) chart
+
+## Motion
+
+Animate a sketch plot - re-seed its wobble each frame for the hand-drawn
+“boiling line” effect, or progressively reveal it with a draw-on wipe.
+[`boil_gganimate()`](https://orijitghosh.github.io/ggsketch/reference/boil_gganimate.md)
+adds the boil on top of a gganimate data transition.
+
+- [`animate_sketch()`](https://orijitghosh.github.io/ggsketch/reference/animate_sketch.md)
+  : Animate a sketch plot by "boiling" its lines
+- [`boil_gganimate()`](https://orijitghosh.github.io/ggsketch/reference/boil_gganimate.md)
+  : Boil a gganimate animation (sketch wobble + data transitions)
 
 ## Text, annotations, theme & fonts
 
@@ -164,6 +331,11 @@ one-off annotations, theming, and font helpers.
 - [`geom_sketch_text()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_text.md)
   [`geom_sketch_label()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_text.md)
   : Sketchy text and labels
+- [`GeomSketchTextRepel`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_text_repel.md)
+  [`GeomSketchLabelRepel`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_text_repel.md)
+  [`geom_sketch_text_repel()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_text_repel.md)
+  [`geom_sketch_label_repel()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_text_repel.md)
+  : Sketchy repelled text and labels
 - [`annotate_sketch()`](https://orijitghosh.github.io/ggsketch/reference/annotate_sketch.md)
   : Sketchy annotations
 - [`GeomSketchBracket`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_bracket.md)
@@ -179,6 +351,9 @@ one-off annotations, theming, and font helpers.
   : Sketchy callouts (boxed labels with a leader arrow)
 - [`annotate_sketch_callout()`](https://orijitghosh.github.io/ggsketch/reference/annotate_sketch_callout.md)
   : Add a one-off sketchy callout annotation
+- [`annotate_sketch_highlight()`](https://orijitghosh.github.io/ggsketch/reference/annotate_sketch_highlight.md)
+  [`annotate_sketch_underline()`](https://orijitghosh.github.io/ggsketch/reference/annotate_sketch_highlight.md)
+  : Highlighter swipes and hand-drawn underlines
 - [`GeomSketchMarkHull`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_mark_hull.md)
   [`geom_sketch_mark_hull()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_mark_hull.md)
   : Sketchy hull marks around point groups
@@ -195,6 +370,44 @@ one-off annotations, theming, and font helpers.
   : Check for optional handwriting fonts
 - [`register_sketch_font()`](https://orijitghosh.github.io/ggsketch/reference/register_sketch_font.md)
   : Register a handwriting font for reproducible sketch text
+- [`ggsketch_save()`](https://orijitghosh.github.io/ggsketch/reference/ggsketch_save.md)
+  : Save a sketch plot with a font-aware device
+
+## Drawing media
+
+The `medium` system — how a stroke is laid down (pen, ink, fountain pen,
+ballpoint, brush, pencil, charcoal, pastel, marker, crayon, spray) — and
+its mappable scale.
+
+- [`sketch_media()`](https://orijitghosh.github.io/ggsketch/reference/sketch_media.md)
+  : The available drawing media
+
+- [`scale_medium_discrete()`](https://orijitghosh.github.io/ggsketch/reference/scale_medium_discrete.md)
+  :
+
+  Discrete scale for the drawing `medium` aesthetic
+
+## Paper & ground
+
+Drawing surfaces for `theme_sketch(paper = )` — ruled, gridded, aged,
+blueprint, chalkboard and kraft grounds rendered as vector textures.
+
+- [`sketch_papers()`](https://orijitghosh.github.io/ggsketch/reference/sketch_papers.md)
+  : The available paper grounds
+- [`paper_grain()`](https://orijitghosh.github.io/ggsketch/reference/paper_grain.md)
+  : Wash-feathering grain factor for a paper ground
+- [`element_sketch_paper()`](https://orijitghosh.github.io/ggsketch/reference/element_sketch_paper.md)
+  : Paper-ground theme element
+
+## Style presets
+
+One-call looks — paper, palette and default ink bundled per style
+(notebook, chalkboard, blueprint, field notes, graphite).
+
+- [`sketch_style()`](https://orijitghosh.github.io/ggsketch/reference/sketch_style.md)
+  : Apply a complete hand-drawn style in one call
+- [`sketch_styles()`](https://orijitghosh.github.io/ggsketch/reference/sketch_styles.md)
+  : The available style presets
 
 ## Sketch frame & colour scales
 
@@ -204,6 +417,12 @@ matching paper-and-ink colour palette.
 - [`element_sketch_line()`](https://orijitghosh.github.io/ggsketch/reference/element_sketch_line.md)
   [`element_sketch_rect()`](https://orijitghosh.github.io/ggsketch/reference/element_sketch_line.md)
   : Hand-drawn theme elements
+
+- [`coord_sketch()`](https://orijitghosh.github.io/ggsketch/reference/coord_sketch.md)
+  : A hand-drawn coordinate system
+
+- [`coord_sketch_polar()`](https://orijitghosh.github.io/ggsketch/reference/coord_sketch_polar.md)
+  : A hand-drawn polar coordinate system
 
 - [`scale_colour_sketch()`](https://orijitghosh.github.io/ggsketch/reference/scale_sketch.md)
   [`scale_color_sketch()`](https://orijitghosh.github.io/ggsketch/reference/scale_sketch.md)
@@ -219,6 +438,12 @@ matching paper-and-ink colour palette.
 
   Continuous scale for the sketch `roughness` aesthetic
 
+- [`scale_pressure_continuous()`](https://orijitghosh.github.io/ggsketch/reference/scale_pressure_continuous.md)
+  [`scale_pressure()`](https://orijitghosh.github.io/ggsketch/reference/scale_pressure_continuous.md)
+  :
+
+  Continuous scale for the sketch `pressure` aesthetic
+
 - [`sketch_palette()`](https://orijitghosh.github.io/ggsketch/reference/sketch_palette.md)
   : The ggsketch qualitative colour palette
 
@@ -227,6 +452,7 @@ matching paper-and-ink colour palette.
 The sketchy `draw_key` functions wired into every geom.
 
 - [`draw_key_sketch_path()`](https://orijitghosh.github.io/ggsketch/reference/draw_key_sketch.md)
+  [`draw_key_sketch_medium()`](https://orijitghosh.github.io/ggsketch/reference/draw_key_sketch.md)
   [`draw_key_sketch_point()`](https://orijitghosh.github.io/ggsketch/reference/draw_key_sketch.md)
   [`draw_key_sketch_polygon()`](https://orijitghosh.github.io/ggsketch/reference/draw_key_sketch.md)
   : Sketchy legend keys
@@ -238,6 +464,10 @@ Lower-level grobs that re-roughen in device space inside
 
 - [`sketch_path_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_path_grob.md)
   : Create a sketchy path grob
+- [`sketch_stroke_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_stroke_grob.md)
+  : Create a variable-width sketch stroke grob
+- [`sketch_spray_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_spray_grob.md)
+  : Create an airbrush / spray stroke grob
 - [`sketch_polygon_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_polygon_grob.md)
   : Create a sketchy polygon grob with optional hachure fill
 - [`sketch_ellipse_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_ellipse_grob.md)
@@ -248,8 +478,12 @@ Lower-level grobs that re-roughen in device space inside
   : Create a sketchy arrow grob
 - [`sketch_callout_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_callout_grob.md)
   : Create a sketchy callout grob (boxed label + leader arrow)
+- [`sketch_repel_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_repel_grob.md)
+  : Create a sketchy repelled-label grob
 - [`sketch_band_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_band_grob.md)
   : Create a sketchy filled-band grob (hole-aware region)
+- [`sketch_engrave_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_engrave_grob.md)
+  : Create a sketchy engraving grob (tonal cross-hatch by line density)
 - [`sketch_dotplot_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_dotplot_grob.md)
   : Create a sketchy dot-plot grob (stacked circular dots)
 
@@ -259,19 +493,76 @@ The number-to-number routines that produce the hand-drawn coordinates.
 
 - [`roughen_polyline()`](https://orijitghosh.github.io/ggsketch/reference/roughen_polyline.md)
   : Roughen a polyline (multiple connected segments)
+
 - [`rough_ellipse()`](https://orijitghosh.github.io/ggsketch/reference/rough_ellipse.md)
   : Roughen an ellipse into one or more sketch stroke paths
+
 - [`rough_arc()`](https://orijitghosh.github.io/ggsketch/reference/rough_arc.md)
   : Roughen an elliptical arc into one or more sketch stroke paths
+
 - [`rough_bezier()`](https://orijitghosh.github.io/ggsketch/reference/rough_bezier.md)
   : Roughen a cubic Bezier curve
+
 - [`hachure_fill()`](https://orijitghosh.github.io/ggsketch/reference/hachure_fill.md)
   : Fill a polygon with hachure lines using the AET scan-line algorithm
+
 - [`hachure_fill_multi()`](https://orijitghosh.github.io/ggsketch/reference/hachure_fill_multi.md)
   : Fill a multi-ring region with hachure lines (hole-aware)
+
 - [`sketch_fill()`](https://orijitghosh.github.io/ggsketch/reference/sketch_fill.md)
   : Dispatch fill-style to the appropriate Layer-1 fill function
+
 - [`sketch_fill_multi()`](https://orijitghosh.github.io/ggsketch/reference/sketch_fill_multi.md)
   : Dispatch fill-style for a multi-ring (hole-aware) region
+
+- [`engrave_fill()`](https://orijitghosh.github.io/ggsketch/reference/engrave_fill.md)
+  : Fill a region with tonal engraving (line density follows a tone
+  field)
+
+- [`engrave_ladder()`](https://orijitghosh.github.io/ggsketch/reference/engrave_ladder.md)
+  : Build a tonal hatch ladder for engraving fills
+
 - [`curve_fill()`](https://orijitghosh.github.io/ggsketch/reference/curve_fill.md)
   : Flatten a closed Bezier boundary to a polygon, then fill
+
+- [`stroke_profile()`](https://orijitghosh.github.io/ggsketch/reference/stroke_profile.md)
+  :
+
+  Width-profile presets for
+  [`stroke_ribbon()`](https://orijitghosh.github.io/ggsketch/reference/stroke_ribbon.md)
+
+- [`stroke_ribbon()`](https://orijitghosh.github.io/ggsketch/reference/stroke_ribbon.md)
+  : Build a variable-width stroke as a closed polygon ribbon
+
+- [`sketch_arrowheads()`](https://orijitghosh.github.io/ggsketch/reference/sketch_arrowheads.md)
+  : The available arrowhead styles
+
+- [`arrowhead()`](https://orijitghosh.github.io/ggsketch/reference/arrowhead.md)
+  : Build the ideal paths for one arrowhead
+
+- [`leader_path()`](https://orijitghosh.github.io/ggsketch/reference/leader_path.md)
+  : Route a leader line from a box edge to a target
+
+- [`repel_layout()`](https://orijitghosh.github.io/ggsketch/reference/repel_layout.md)
+  : Repel overlapping label boxes away from each other and their anchors
+
+- [`spray_scatter()`](https://orijitghosh.github.io/ggsketch/reference/spray_scatter.md)
+  : Scatter a cloud of dots along a path (airbrush / spray)
+
+- [`watercolor_wash()`](https://orijitghosh.github.io/ggsketch/reference/watercolor_wash.md)
+  : Build a watercolour wash for a polygon region
+
+- [`watercolor_wash_multi()`](https://orijitghosh.github.io/ggsketch/reference/watercolor_wash_multi.md)
+  : Build a hole-aware watercolour wash for a multi-ring region
+
+- [`wash_bleed()`](https://orijitghosh.github.io/ggsketch/reference/wash_bleed.md)
+  : Pigment bleed between two overlapping wash regions
+
+- [`treemap_layout()`](https://orijitghosh.github.io/ggsketch/reference/treemap_layout.md)
+  : Squarified treemap layout
+
+- [`paper_spec()`](https://orijitghosh.github.io/ggsketch/reference/paper_spec.md)
+  : Palette + layout spec for a paper ground
+
+- [`paper_primitives()`](https://orijitghosh.github.io/ggsketch/reference/paper_primitives.md)
+  : Build the vector primitives for a paper ground

@@ -14,7 +14,7 @@ themselves
 [`geom_sketch_bracket()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_bracket.md))
 are hand-drawn.
 
-## Bars and columns
+### Bars and columns
 
 [`geom_sketch_col()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_col.md)
 draws a roughened outline with a hachure (pencil-shading) fill.
@@ -74,7 +74,7 @@ ggplot(sales, aes(reorder(product, units), units)) +
 
 ![](gallery_files/figure-html/col-flip-1.png)
 
-## Lollipops
+### Lollipops
 
 [`geom_sketch_lollipop()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_lollipop.md)
 is a tidy alternative to bars for ranked or sparse values: a roughened
@@ -91,7 +91,7 @@ ggplot(sales, aes(reorder(product, units), units)) +
 
 ![](gallery_files/figure-html/lollipop-1.png)
 
-## Histograms and frequency polygons
+### Histograms and frequency polygons
 
 [`geom_sketch_histogram()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_histogram.md)
 bins a continuous variable and draws hand-drawn bars;
@@ -118,7 +118,7 @@ ggplot(mpg, aes(hwy, colour = drv)) +
 
 ![](gallery_files/figure-html/freqpoly-1.png)
 
-## Dot plots
+### Dot plots
 
 [`geom_sketch_dotplot()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_dotplot.md)
 bins the data and stacks one roughened circular dot per observation. The
@@ -136,7 +136,7 @@ ggplot(faithful, aes(eruptions)) +
 
 ![](gallery_files/figure-html/dotplot-1.png)
 
-## Empirical CDF
+### Empirical CDF
 
 [`geom_sketch_ecdf()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_ecdf.md)
 draws the empirical cumulative distribution as a hand-drawn stairstep.
@@ -151,7 +151,7 @@ ggplot(mpg, aes(hwy, colour = drv)) +
 
 ![](gallery_files/figure-html/ecdf-1.png)
 
-## Lines, paths, and points
+### Lines, paths, and points
 
 ``` r
 
@@ -204,7 +204,7 @@ ggplot(ggplot2::economics_long, aes(date, value01, colour = variable)) +
 
 ![](gallery_files/figure-html/line-groups-1.png)
 
-## Point sizes
+### Point sizes
 
 `size` behaves like any ggplot2 point size. Set it to a constant for
 bigger or smaller markers:
@@ -251,7 +251,7 @@ ggplot(grid, aes(x, y, size = s)) +
 
 ![](gallery_files/figure-html/point-size-grid-1.png)
 
-## Point roughness
+### Point roughness
 
 For
 [`geom_sketch_point()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_point.md),
@@ -294,7 +294,7 @@ Use [`I()`](https://rdrr.io/r/base/AsIs.html) to pass raw roughness
 through unscaled, or `scale_roughness_continuous(range = ...)` to widen
 the band.
 
-## Jitter and count
+### Jitter and count
 
 [`geom_sketch_jitter()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_jitter.md)
 spreads overplotted points;
@@ -324,7 +324,7 @@ ggplot(mpg, aes(cty, hwy)) +
 
 ![](gallery_files/figure-html/count-1.png)
 
-## Rectangles and tiles
+### Rectangles and tiles
 
 ``` r
 
@@ -385,7 +385,7 @@ ggplot(faithful, aes(eruptions, waiting)) +
 
 ![](gallery_files/figure-html/hex-1.png)
 
-## Polygons, ribbons, areas, and densities
+### Polygons, ribbons, areas, and densities
 
 Concave polygons fill correctly (the hachure respects every notch):
 
@@ -439,7 +439,7 @@ ggplot(faithful, aes(eruptions)) +
 
 ![](gallery_files/figure-html/density-1.png)
 
-## Violins
+### Violins
 
 [`geom_sketch_violin()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_violin.md)
 mirrors a kernel density into a closed polygon and hachure-fills it.
@@ -456,7 +456,7 @@ ggplot(mpg, aes(class, hwy, fill = class)) +
 
 ![](gallery_files/figure-html/violin-1.png)
 
-## Smooths
+### Smooths
 
 A hand-drawn fit with a roughened confidence band:
 
@@ -482,7 +482,7 @@ ggplot(mpg, aes(displ, hwy)) +
 
 ![](gallery_files/figure-html/smooth-loess-1.png)
 
-## Function curves
+### Function curves
 
 [`geom_sketch_function()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_function.md)
 sketches an analytic curve over the x range, for example to overlay a
@@ -501,7 +501,7 @@ ggplot(data.frame(x = c(-4, 4)), aes(x)) +
 
 ![](gallery_files/figure-html/function-1.png)
 
-## Q-Q plots
+### Q-Q plots
 
 [`geom_sketch_qq()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_qq.md)
 draws the quantile-quantile points and
@@ -519,7 +519,7 @@ ggplot(mtcars, aes(sample = mpg)) +
 
 ![](gallery_files/figure-html/qq-1.png)
 
-## Quantile regression
+### Quantile regression
 
 [`geom_sketch_quantile()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_quantile.md)
 fits and draws quantile regression lines (requires the optional
@@ -537,7 +537,7 @@ ggplot(mpg, aes(displ, hwy)) +
 
 ![](gallery_files/figure-html/quantile-1.png)
 
-## Circles and ellipses
+### Circles and ellipses
 
 Radii are in data units, so use
 [`coord_equal()`](https://ggplot2.tidyverse.org/reference/coord_fixed.html)
@@ -568,7 +568,7 @@ ggplot(edf, aes(x, y, a = a, b = b, fill = factor(x))) +
 
 ![](gallery_files/figure-html/ellipse-1.png)
 
-## Segments and steps
+### Segments and steps
 
 ``` r
 
@@ -595,7 +595,7 @@ ggplot(stp, aes(x, y)) +
 
 ![](gallery_files/figure-html/step-1.png)
 
-## Curves and spokes
+### Curves and spokes
 
 [`geom_sketch_curve()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_curve.md)
 is a curved connector (a quadratic Bézier); `curvature` sets how much it
@@ -636,7 +636,7 @@ ggplot(field, aes(x, y)) +
 
 ![](gallery_files/figure-html/spoke-1.png)
 
-## Rugs
+### Rugs
 
 [`geom_sketch_rug()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_rug.md)
 adds marginal ticks along the panel edges (`sides`).
@@ -652,7 +652,7 @@ ggplot(mtcars, aes(wt, mpg)) +
 
 ![](gallery_files/figure-html/rug-1.png)
 
-## Intervals and uncertainty
+### Intervals and uncertainty
 
 The interval family draws hand-drawn ranges:
 [`geom_sketch_linerange()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_linerange.md),
@@ -700,7 +700,7 @@ ggplot(est, aes(group, mean)) +
 
 ![](gallery_files/figure-html/crossbar-1.png)
 
-## Reference lines
+### Reference lines
 
 [`geom_sketch_abline()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_abline.md),
 [`geom_sketch_hline()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_abline.md),
@@ -722,7 +722,7 @@ ggplot(mtcars, aes(wt, mpg)) +
 
 ![](gallery_files/figure-html/reference-1.png)
 
-## Contours and 2-D density
+### Contours and 2-D density
 
 [`geom_sketch_contour()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_contour.md)
 draws contour lines of a surface (needs `z`);
@@ -775,7 +775,68 @@ ggplot(faithful, aes(eruptions, waiting)) +
 
 ![](gallery_files/figure-html/density-2d-filled-1.png)
 
-## Text
+### Engraving and tonal shading
+
+[`geom_sketch_engrave()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_engrave.md)
+shades a surface the way an etcher or banknote engraver does: continuous
+tone is built from the *density* of hatch lines, with cross-hatching
+deepening the shadows. It takes an `x`/`y`/`z` grid; high `z` is dark.
+Unlike the fill-pattern packages it *computes* tone from geometry rather
+than tiling a motif.
+
+``` r
+
+ggplot(faithfuld, aes(waiting, eruptions, z = density)) +
+  geom_sketch_engrave(seed = 1L) +
+  labs(title = "geom_sketch_engrave()") +
+  theme_sketch()
+```
+
+![](gallery_files/figure-html/engrave-1.png)
+
+With no pre-computed grid, shade raw points through a density stat:
+
+``` r
+
+ggplot(faithful, aes(eruptions, waiting)) +
+  geom_sketch_engrave(stat = "density_2d", contour = FALSE,
+                      aes(z = after_stat(density)), seed = 1L) +
+  labs(title = "geom_sketch_engrave() from raw points") +
+  theme_sketch()
+```
+
+![](gallery_files/figure-html/engrave-raw-1.png)
+
+[`geom_sketch_shade()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_engrave.md)
+shades each polygon region with a *uniform* density set by a `tone`
+aesthetic in `[0, 1]`, so a mapped value reads directly as darkness.
+Mapping a raw variable to `tone` rescales it with
+[`scale_tone_continuous()`](https://orijitghosh.github.io/ggsketch/reference/scale_tone_continuous.md)
+(alias
+[`scale_engrave()`](https://orijitghosh.github.io/ggsketch/reference/scale_tone_continuous.md)),
+just as
+[`scale_size()`](https://ggplot2.tidyverse.org/reference/scale_size.html)
+rescales size.
+
+``` r
+
+hex <- data.frame(
+  x = cos(seq(0, 2 * pi, length.out = 7))[-7],
+  y = sin(seq(0, 2 * pi, length.out = 7))[-7]
+)
+regions <- do.call(rbind, lapply(1:3, function(k) {
+  transform(hex, x = x + (k - 1) * 2.3, g = k, val = c(0.25, 0.55, 0.9)[k])
+}))
+ggplot(regions, aes(x, y, group = g)) +
+  geom_sketch_shade(aes(tone = val), seed = 2L) +
+  coord_equal() +
+  labs(title = "geom_sketch_shade(): value → density") +
+  theme_sketch()
+```
+
+![](gallery_files/figure-html/shade-1.png)
+
+### Text
 
 The sketch of text is a *handwriting font*, not roughened glyphs.
 [`geom_sketch_text()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_text.md)
@@ -789,13 +850,15 @@ lab <- data.frame(x = c(2, 4, 3), y = c(3, 4, 1.5),
 ggplot(lab, aes(x, y, label = txt)) +
   geom_sketch_point(size = 3, colour = "#C0392B") +
   geom_sketch_text(size = 7, nudge_y = 0.4) +
+  scale_x_continuous(expand = expansion(mult = 0.15)) +
+  scale_y_continuous(expand = expansion(mult = 0.12)) +
   labs(title = "geom_sketch_text()") +
   theme_sketch()
 ```
 
 ![](gallery_files/figure-html/text-1.png)
 
-## Boxplots
+### Boxplots
 
 A composed geom: rough IQR box, thick median, whiskers, and sketchy
 outliers.
@@ -827,7 +890,7 @@ ggplot(mpg, aes(class, hwy, fill = class)) +
 
 ![](gallery_files/figure-html/boxplot-hachure-1.png)
 
-## Annotations
+### Annotations
 
 [`annotate_sketch()`](https://orijitghosh.github.io/ggsketch/reference/annotate_sketch.md)
 adds one-off hand-drawn marks (no
@@ -850,7 +913,7 @@ ggplot(mtcars, aes(wt, mpg)) +
 
 ![](gallery_files/figure-html/annotate-1.png)
 
-## Significance brackets
+### Significance brackets
 
 [`geom_sketch_bracket()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_bracket.md)
 draws a hand-drawn comparison bracket with an optional handwriting
@@ -877,9 +940,9 @@ ggplot(mpg, aes(drv, hwy)) +
 
 ![](gallery_files/figure-html/bracket-1.png)
 
-## Pie & annotation toolkit
+### Pie & annotation toolkit
 
-### Pie and donut charts
+#### Pie and donut charts
 
 [`geom_sketch_pie()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_pie.md)
 draws a hand-drawn pie sized by the `amount` aesthetic and coloured by
@@ -921,7 +984,7 @@ ggplot(shares, aes(amount = amount, fill = group)) +
 
 ![](gallery_files/figure-html/donut-1.png)
 
-### Rounded bars
+#### Rounded bars
 
 Rectangular geoms
 ([`geom_sketch_rect()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_rect.md),
@@ -942,7 +1005,7 @@ ggplot(shares, aes(group, amount, fill = group)) +
 
 ![](gallery_files/figure-html/rounded-col-1.png)
 
-### Content-aware arrows
+#### Content-aware arrows
 
 [`annotate_sketch_arrow()`](https://orijitghosh.github.io/ggsketch/reference/annotate_sketch_arrow.md)
 points at a feature with a hand-drawn arrow. It is *content-aware*: the
@@ -967,7 +1030,7 @@ ggplot(mtcars, aes(wt, mpg)) +
 
 ![](gallery_files/figure-html/arrow-1.png)
 
-### Callouts
+#### Callouts
 
 [`annotate_sketch_callout()`](https://orijitghosh.github.io/ggsketch/reference/annotate_sketch_callout.md)
 puts a handwriting note in a roughened rounded box that auto-sizes to
@@ -987,7 +1050,7 @@ ggplot(faithful, aes(eruptions, waiting)) +
 
 ![](gallery_files/figure-html/callout-1.png)
 
-### Hull marks
+#### Hull marks
 
 [`geom_sketch_mark_hull()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_mark_hull.md)
 circles a group of points with a roughened hull — the sketch take on
@@ -1007,7 +1070,7 @@ ggplot(iris, aes(Sepal.Length, Sepal.Width, colour = Species)) +
 
 ![](gallery_files/figure-html/mark-hull-1.png)
 
-### Bounding marks
+#### Bounding marks
 
 [`geom_sketch_mark_ellipse()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_mark_circle.md),
 [`geom_sketch_mark_circle()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_mark_circle.md),
@@ -1041,7 +1104,858 @@ ggplot(iris, aes(Sepal.Length, Sepal.Width, colour = Species)) +
 
 ![](gallery_files/figure-html/mark-rect-1.png)
 
-## Composition: facets, scales, coords
+## New in 2.0
+
+ggsketch 2.0 grows in two directions: new chart families (all built from
+the same roughened grobs, so they inherit every fill style for free) and
+a *drawing-medium simulator* — strokes that imitate pencil, ink, brush,
+charcoal, marker and crayon, watercolour washes, textured papers, and
+hand-drawn coords.
+
+### Dumbbell and slope charts
+
+[`geom_sketch_dumbbell()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_dumbbell.md)
+draws a connector between two values per row, capped with a sketch dot
+at each end — ideal for before/after comparisons.
+
+``` r
+
+dumb <- data.frame(g = c("Alpha", "Bravo", "Charlie", "Delta"),
+                   before = c(20, 35, 28, 42),
+                   after  = c(34, 51, 22, 47))
+ggplot(dumb, aes(x = before, xend = after, y = reorder(g, after))) +
+  geom_sketch_dumbbell(colour_x = "#B03A2E", colour_xend = "#1F618D",
+                       seed = 1L) +
+  labs(title = "Before vs after", x = "value", y = NULL) +
+  theme_sketch()
+```
+
+![](gallery_files/figure-html/dumbbell-1.png)
+
+[`geom_sketch_slope()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_slope.md)
+connects each group across two (or more) categories, for showing how a
+ranking changes.
+
+``` r
+
+slope <- data.frame(
+  time  = factor(rep(c("Before", "After"), each = 4),
+                 levels = c("Before", "After")),
+  value = c(20, 35, 28, 42, 34, 51, 22, 47),
+  who   = rep(c("Alpha", "Bravo", "Charlie", "Delta"), 2)
+)
+ggplot(slope, aes(time, value, group = who, colour = who)) +
+  geom_sketch_slope(seed = 1L) +
+  scale_colour_sketch() +
+  labs(title = "Slope chart", x = NULL) +
+  theme_sketch()
+```
+
+![](gallery_files/figure-html/slope-1.png)
+
+### Waterfall
+
+[`geom_sketch_waterfall()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_waterfall.md)
+floats each step’s delta from the running total before it to the running
+total after it, with dotted hand-drawn connectors carrying the level
+across the gaps. Rows flagged `measure = "total"` draw the running total
+from zero.
+
+``` r
+
+ledger <- data.frame(
+  step  = factor(c("Start", "Sales", "Refunds", "Costs", "Tax", "Net"),
+                 levels = c("Start", "Sales", "Refunds", "Costs", "Tax", "Net")),
+  delta = c(120, 80, -25, -60, -18, 0),
+  kind  = c("relative", "relative", "relative", "relative", "relative", "total")
+)
+ggplot(ledger, aes(step, delta, measure = kind)) +
+  geom_sketch_waterfall(seed = 1L) +
+  labs(title = "geom_sketch_waterfall()", x = NULL, y = "amount") +
+  theme_sketch()
+```
+
+![](gallery_files/figure-html/waterfall-1.png)
+
+### Funnel and pyramid
+
+[`geom_sketch_funnel()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_funnel.md)
+centres one bar per stage on zero, its width the stage’s value, with
+translucent trapezoids carrying each stage into the next.
+[`geom_sketch_pyramid()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_pyramid.md)
+mirrors bars about zero by a two-level `side` aesthetic — the population
+pyramid.
+
+``` r
+
+funnel <- data.frame(
+  stage = factor(c("Visited", "Signed up", "Activated", "Paid"),
+                 levels = rev(c("Visited", "Signed up", "Activated", "Paid"))),
+  n     = c(1200, 460, 210, 80)
+)
+ggplot(funnel, aes(n, stage, fill = stage)) +
+  geom_sketch_funnel(seed = 1L, show.legend = FALSE) +
+  scale_fill_sketch() +
+  scale_x_continuous(labels = abs) +
+  labs(title = "geom_sketch_funnel()", x = "users", y = NULL) +
+  theme_sketch()
+```
+
+![](gallery_files/figure-html/funnel-pyramid-1.png)
+
+``` r
+
+
+pop <- data.frame(
+  age = factor(rep(c("0-19", "20-39", "40-59", "60+"), 2),
+               levels = c("0-19", "20-39", "40-59", "60+")),
+  sex = rep(c("Female", "Male"), each = 4),
+  n   = c(340, 420, 380, 240, 360, 440, 370, 200)
+)
+ggplot(pop, aes(n, age, side = sex, fill = sex)) +
+  geom_sketch_pyramid(seed = 1L) +
+  scale_fill_manual(values = c(Female = "#b56b6f", Male = "#5b7290")) +
+  scale_x_continuous(labels = abs) +
+  labs(title = "geom_sketch_pyramid()", x = "count", y = NULL) +
+  theme_sketch()
+```
+
+![](gallery_files/figure-html/funnel-pyramid-2.png)
+
+### Beeswarm
+
+[`geom_sketch_beeswarm()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_beeswarm.md)
+spreads points sideways so none overlap, keeping their exact value — a
+deterministic, seeded swarm.
+
+``` r
+
+ggplot(iris, aes(Species, Sepal.Length, colour = Species)) +
+  geom_sketch_beeswarm(size = 2.5, seed = 1L, show.legend = FALSE) +
+  scale_colour_sketch() +
+  labs(title = "geom_sketch_beeswarm()", x = NULL) +
+  theme_sketch()
+```
+
+![](gallery_files/figure-html/beeswarm-1.png)
+
+### Ridgelines
+
+[`geom_sketch_ridgeline()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_ridgeline.md)
+stacks per-group densities into overlapping ridges, drawn back-to-front.
+Any `fill_style` works, including watercolour.
+
+``` r
+
+ggplot(iris, aes(Sepal.Length, Species, fill = Species)) +
+  geom_sketch_ridgeline(scale = 1.6, seed = 1L, show.legend = FALSE) +
+  scale_fill_sketch() +
+  labs(title = "geom_sketch_ridgeline()", y = NULL) +
+  theme_sketch()
+```
+
+![](gallery_files/figure-html/ridgeline-1.png)
+
+### Streamgraphs
+
+[`geom_sketch_streamgraph()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_streamgraph.md)
+stacks group values around a flowing baseline (`offset = "silhouette"`,
+`"zero"`, or `"wiggle"`).
+
+``` r
+
+set.seed(1)
+stream <- expand.grid(t = 1:12, grp = c("a", "b", "c", "d"))
+stream$v <- abs(sin(stream$t / 3 + match(stream$grp, letters)) + 1.2) * 5
+ggplot(stream, aes(t, v, fill = grp)) +
+  geom_sketch_streamgraph(seed = 1L) +
+  scale_fill_sketch() +
+  labs(title = "geom_sketch_streamgraph()", x = "time", y = NULL) +
+  theme_sketch()
+```
+
+![](gallery_files/figure-html/streamgraph-1.png)
+
+### Waffle and treemap
+
+[`geom_sketch_waffle()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_waffle.md)
+turns counts into a grid of squares (largest-remainder rounding to 100
+cells by default).
+
+``` r
+
+waf <- data.frame(grp = c("Rent", "Food", "Travel", "Other"),
+                  spend = c(45, 25, 20, 10))
+ggplot(waf, aes(fill = grp, weight = spend)) +
+  geom_sketch_waffle(seed = 1L) +
+  scale_fill_sketch() +
+  coord_equal() +
+  labs(title = "geom_sketch_waffle()") +
+  theme_void()
+```
+
+![](gallery_files/figure-html/waffle-1.png)
+
+[`geom_sketch_treemap()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_treemap.md)
+lays out nested rectangles by `area` (a squarified treemap) and can
+label each tile.
+
+``` r
+
+tm <- data.frame(grp = c("Alpha", "Bravo", "Charlie", "Delta", "Echo"),
+                 val = c(40, 25, 15, 12, 8))
+ggplot(tm, aes(area = val, fill = grp, label = grp)) +
+  geom_sketch_treemap(seed = 1L, show.legend = FALSE) +
+  scale_fill_sketch() +
+  coord_equal() +
+  labs(title = "geom_sketch_treemap()") +
+  theme_void()
+```
+
+![](gallery_files/figure-html/treemap-1.png)
+
+### Calendar heatmaps
+
+[`geom_sketch_calendar()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_calendar.md)
+maps a `date` aesthetic onto a GitHub-style grid of weeks (columns) and
+weekdays (rows).
+
+``` r
+
+set.seed(1)
+cal <- data.frame(day = as.Date("2024-01-01") + 0:180)
+cal$value <- cumsum(rnorm(nrow(cal)))
+ggplot(cal, aes(date = day, fill = value)) +
+  geom_sketch_calendar(seed = 1L) +
+  scale_fill_viridis_c() +
+  coord_equal() +
+  labs(title = "geom_sketch_calendar()") +
+  theme_sketch() +
+  theme(axis.title = element_blank())
+```
+
+![](gallery_files/figure-html/calendar-1.png)
+
+### Gantt charts
+
+[`geom_sketch_gantt()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_gantt.md)
+draws one bar per task from `x` (start) to `xend` (end) on a discrete
+`y` — the whiteboard project plan. Map `progress` (0–1) to overlay the
+completed fraction as a darker solid bar.
+
+``` r
+
+plan <- data.frame(
+  task  = factor(c("Design", "Build", "Test", "Ship"),
+                 levels = rev(c("Design", "Build", "Test", "Ship"))),
+  start = as.Date(c("2026-01-05", "2026-01-19", "2026-02-09", "2026-02-23")),
+  end   = as.Date(c("2026-01-23", "2026-02-13", "2026-02-27", "2026-03-06")),
+  done  = c(1, 0.7, 0.25, 0)
+)
+ggplot(plan, aes(start, xend = end, y = task, fill = task, progress = done)) +
+  geom_sketch_gantt(seed = 1L, show.legend = FALSE) +
+  scale_fill_sketch() +
+  labs(title = "geom_sketch_gantt()", x = NULL, y = NULL) +
+  theme_sketch()
+```
+
+![](gallery_files/figure-html/gantt-1.png)
+
+### Hand-drawn networks
+
+[`sketch_graph()`](https://orijitghosh.github.io/ggsketch/reference/sketch_graph.md)
+turns an edge list (or an **igraph** object) into ready-to-plot `nodes`
+and `edges` frames, placing the nodes with a pure-R force-directed
+layout — so the feature needs no graph dependency. Draw the result with
+[`geom_sketch_edge()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_edge.md)
+(roughened, optionally curved connectors) and
+[`geom_sketch_node()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_edge.md)
+(roughened markers with optional handwriting labels).
+
+``` r
+
+edges <- data.frame(
+  from = c("A", "A", "A", "B", "C", "C", "D", "E", "E", "F", "B", "G"),
+  to   = c("B", "C", "D", "C", "D", "E", "E", "F", "G", "G", "E", "H")
+)
+g <- sketch_graph(edges, seed = 1L)
+
+ggplot() +
+  geom_sketch_edge(data = g$edges,
+                   aes(x = x, y = y, xend = xend, yend = yend),
+                   colour = "grey55", seed = 1L) +
+  geom_sketch_node(data = g$nodes, aes(x = x, y = y, label = name),
+                   size = 7, colour = "#1F618D", seed = 2L) +
+  coord_equal() +
+  labs(title = "A hand-drawn network") +
+  theme_void()
+```
+
+![](gallery_files/figure-html/network-basic-1.png)
+
+Any node or edge column carried through
+[`sketch_graph()`](https://orijitghosh.github.io/ggsketch/reference/sketch_graph.md)
+maps like a normal aesthetic, and `curvature` bows the edges. Here node
+size encodes degree:
+
+``` r
+
+deg <- table(c(edges$from, edges$to))
+g2  <- sketch_graph(edges, seed = 4L)
+g2$nodes$degree <- as.integer(deg[g2$nodes$name])
+
+ggplot() +
+  geom_sketch_edge(data = g2$edges,
+                   aes(x = x, y = y, xend = xend, yend = yend),
+                   curvature = 0.25, colour = "#B9770E", seed = 3L) +
+  geom_sketch_node(data = g2$nodes,
+                   aes(x = x, y = y, size = degree, label = name),
+                   colour = "#7D3C98", show.legend = FALSE, seed = 4L) +
+  scale_size_area(max_size = 13) +
+  coord_equal() +
+  labs(title = "Curved edges, nodes sized by degree") +
+  theme_void()
+```
+
+![](gallery_files/figure-html/network-curved-1.png)
+
+Pass an **igraph** object straight to
+[`sketch_graph()`](https://orijitghosh.github.io/ggsketch/reference/sketch_graph.md)
+for richer generators and graph algorithms:
+
+``` r
+
+set.seed(1)
+ig <- igraph::sample_pa(16, directed = FALSE)
+g3 <- sketch_graph(ig, seed = 7L)
+
+ggplot() +
+  geom_sketch_edge(data = g3$edges,
+                   aes(x = x, y = y, xend = xend, yend = yend),
+                   colour = "grey60", seed = 5L) +
+  geom_sketch_node(data = g3$nodes, aes(x = x, y = y),
+                   size = 5, colour = "#148F77", seed = 6L) +
+  coord_equal() +
+  labs(title = "A preferential-attachment graph (via igraph)") +
+  theme_void()
+```
+
+![](gallery_files/figure-html/network-igraph-1.png)
+
+### Hand-drawn maps (sf)
+
+[`geom_sketch_sf()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_sf.md)
+is a sketch take on
+[`geom_sf()`](https://ggplot2.tidyverse.org/reference/ggsf.html): in one
+call it roughens whichever simple-features geometry is present —
+`(MULTI)POLYGON` features get a hole-aware hachure (or any
+`fill_style`), `(MULTI)LINESTRING` features become sketch paths, and
+`(MULTI)POINT` features become sketch points. It needs the optional
+**sf** package and plots in planar coordinates (pre-project lon/lat data
+with
+[`sf::st_transform()`](https://r-spatial.github.io/sf/reference/st_transform.html)
+for a faithful map).
+
+``` r
+
+nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
+
+ggplot() +
+  geom_sketch_sf(data = nc, aes(fill = BIR74), seed = 1L) +
+  scale_fill_viridis_c(option = "magma") +
+  labs(title = "North Carolina births, 1974") +
+  theme_void()
+```
+
+![](gallery_files/figure-html/sf-choropleth-1.png)
+
+Switch the `fill_style`, exactly like any other sketch fill:
+
+``` r
+
+ggplot() +
+  geom_sketch_sf(data = nc, aes(fill = SID74), fill_style = "cross_hatch",
+                 seed = 2L) +
+  scale_fill_distiller(palette = "RdPu", direction = 1) +
+  labs(title = "Cross-hatched choropleth of SIDS cases") +
+  theme_void()
+```
+
+![](gallery_files/figure-html/sf-crosshatch-1.png)
+
+### Radar charts
+
+[`geom_sketch_radar()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_radar.md)
+draws a spider chart: each series is a closed polygon over evenly spaced
+axes, with a roughened web (rings, spokes, and labels) behind. Map
+`axis`, `value`, `group`, and `colour`/`fill`; like the pie geoms it
+lives in its own square space, so pair it with
+[`coord_equal()`](https://ggplot2.tidyverse.org/reference/coord_fixed.html)
+and
+[`theme_void()`](https://ggplot2.tidyverse.org/reference/ggtheme.html).
+
+``` r
+
+skills <- data.frame(
+  axis  = rep(c("Speed", "Power", "Range", "Control", "Stamina", "Magic"), 2),
+  value = c(8, 6, 9, 5, 7, 4, 5, 9, 4, 8, 6, 9),
+  who   = rep(c("Aria", "Bilo"), each = 6)
+)
+ggplot(skills, aes(axis = axis, value = value, group = who,
+                   colour = who, fill = who)) +
+  geom_sketch_radar(alpha = 0.3, seed = 1L) +
+  scale_colour_sketch() +
+  scale_fill_sketch() +
+  coord_equal() +
+  labs(title = "Character stats") +
+  theme_void()
+```
+
+![](gallery_files/figure-html/radar-1.png)
+
+A single series reads cleanly with a watercolour wash and more grid
+rings:
+
+``` r
+
+ggplot(subset(skills, who == "Aria"),
+       aes(axis = axis, value = value, group = who)) +
+  geom_sketch_radar(fill = "#2E86C1", fill_style = "watercolor",
+                    n_rings = 5, seed = 3L) +
+  coord_equal() +
+  labs(title = "One series, watercolour") +
+  theme_void()
+```
+
+![](gallery_files/figure-html/radar-one-1.png)
+
+### Chord diagrams
+
+[`geom_sketch_chord()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_chord.md)
+lays nodes on a circle — each given a rim arc sized by its total flow —
+and draws every weighted relation as a ribbon through the centre. Give
+it an edge table and the `from`, `to`, and `value` columns; ribbons
+colour by source node.
+
+``` r
+
+trade <- data.frame(
+  from  = c("Asia", "Asia", "Europe", "Africa", "Africa", "America",
+            "America", "Asia"),
+  to    = c("Europe", "America", "America", "Asia", "Europe", "Africa",
+            "Europe", "Africa"),
+  value = c(8, 6, 5, 3, 2, 4, 7, 5)
+)
+ggplot() +
+  geom_sketch_chord(trade, from, to, value, seed = 1L) +
+  scale_fill_sketch() +
+  coord_equal() +
+  labs(title = "Trade flows") +
+  theme_void()
+```
+
+![](gallery_files/figure-html/chord-1.png)
+
+### Arc diagrams
+
+[`geom_sketch_arc_diagram()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_arc_diagram.md)
+is a linear cousin of the chord diagram: nodes sit on a horizontal line
+and each weighted relation arcs over the axis as a roughened semicircle,
+coloured by source and thickened by `value`.
+
+``` r
+
+rel <- data.frame(
+  from  = c("Anna", "Anna", "Ben", "Cara", "Cara", "Dan", "Eve", "Anna"),
+  to    = c("Ben", "Cara", "Cara", "Dan", "Eve", "Eve", "Anna", "Dan"),
+  value = c(3, 1, 2, 4, 2, 1, 3, 2)
+)
+ggplot() +
+  geom_sketch_arc_diagram(rel, from, to, value, seed = 5L, max_linewidth = 3) +
+  scale_colour_sketch() +
+  labs(title = "Who talks to whom") +
+  theme_void() +
+  theme(legend.position = "none", plot.title = element_text(hjust = 0.5))
+```
+
+![](gallery_files/figure-html/arc-diagram-1.png)
+
+### Dendrograms
+
+[`geom_sketch_dendrogram()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_dendrogram.md)
+draws a hierarchical-clustering tree — the right-angle elbows roughened
+into a hand-drawn wobble. Pass an `hclust` object or a numeric data
+frame (it clusters for you).
+
+``` r
+
+cars12 <- mtcars[1:12, c("mpg", "disp", "hp", "wt", "qsec")]
+ggplot() +
+  geom_sketch_dendrogram(cars12, seed = 3L, line_width = 1) +
+  labs(title = "Clustering cars") +
+  theme_void() +
+  theme(plot.title = element_text(hjust = 0.5),
+        plot.margin = margin(8, 8, 28, 14))
+```
+
+![](gallery_files/figure-html/dendrogram-1.png)
+
+### Bump (ranking) charts
+
+[`geom_sketch_bump()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_bump.md)
+draws each series’ rank at every time point, joined across adjacent
+times by smooth roughened curves so a crossing reads as an overtake.
+Give it long data with the time, series, and value columns.
+
+``` r
+
+standings <- data.frame(
+  year = rep(2018:2023, each = 5),
+  team = rep(c("Falcons", "Bears", "Wolves", "Hawks", "Lions"), times = 6),
+  pts  = c(20, 18, 15, 12, 10,  15, 20, 18, 10, 12,  18, 12, 20, 15, 8,
+           12, 18, 15, 20, 14,  10, 15, 12, 18, 22,  22, 14, 10, 16, 18)
+)
+ggplot() +
+  geom_sketch_bump(standings, year, team, pts, seed = 4L, point_size = 4) +
+  scale_colour_sketch() +
+  labs(title = "Season standings") +
+  theme_void() +
+  theme(legend.position = "none", plot.title = element_text(hjust = 0.5))
+```
+
+![](gallery_files/figure-html/bump-1.png)
+
+### Alluvial / Sankey diagrams
+
+[`geom_sketch_alluvial()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_alluvial.md)
+draws two or more categorical axes as stacks of strata, joined by flows
+whose thickness is the frequency of each category combination. Give it a
+wide data frame, the `axes` columns in order, and an optional `value`
+weight; flows colour by the first axis (or a named `fill` column).
+
+``` r
+
+titanic <- as.data.frame(Titanic)
+ggplot() +
+  geom_sketch_alluvial(titanic, axes = c("Class", "Sex", "Age", "Survived"),
+                       value = "Freq", seed = 1L) +
+  scale_fill_sketch() +
+  labs(title = "Titanic passengers", fill = "Class") +
+  theme_void()
+```
+
+![](gallery_files/figure-html/alluvial-1.png)
+
+### Parallel coordinates
+
+[`geom_sketch_parallel()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_parallel.md)
+draws several numeric columns as vertical axes and every observation as
+a roughened polyline crossing them. Axes scale independently; map
+`colour` to a grouping column.
+
+``` r
+
+ggplot() +
+  geom_sketch_parallel(iris,
+    axes = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"),
+    colour = "Species", alpha = 0.6, seed = 1L) +
+  scale_colour_sketch() +
+  labs(title = "Iris parallel coordinates") +
+  theme_void() +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+![](gallery_files/figure-html/parallel-1.png)
+
+### Mosaic plots
+
+[`geom_sketch_mosaic()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_mosaic.md)
+splits the square into columns by the marginal counts of `x`, then each
+column by the conditional counts of `y`, so every tile’s area is the
+joint frequency.
+
+``` r
+
+titanic <- as.data.frame(Titanic)
+ggplot() +
+  geom_sketch_mosaic(titanic, x = Class, y = Survived, value = Freq,
+                     seed = 1L) +
+  scale_fill_sketch() +
+  labs(title = "Survival by class", fill = "Survived") +
+  theme_void() +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+![](gallery_files/figure-html/mosaic-1.png)
+
+### Coxcomb / Nightingale rose
+
+[`geom_sketch_rose()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_rose.md)
+gives each category an equal angular wedge whose radius (or, with
+`area_true = TRUE`, whose *area*) encodes the value — Florence
+Nightingale’s coxcomb. An optional `fill` stacks radially within each
+wedge.
+
+``` r
+
+mortality <- data.frame(
+  quarter = rep(c("Q1", "Q2", "Q3", "Q4", "Q5", "Q6"), each = 3),
+  cause   = rep(c("Disease", "Wounds", "Other"), times = 6),
+  n       = c(20, 8, 4,  30, 10, 5,  18, 6, 3,  12, 9, 2,  8, 5, 2,  14, 7, 3)
+)
+ggplot() +
+  geom_sketch_rose(mortality, quarter, n, fill = cause, area_true = TRUE,
+                   seed = 8L, alpha = 0.85) +
+  scale_fill_sketch() +
+  labs(title = "Mortality by quarter (area-true)", fill = NULL) +
+  coord_equal() +
+  theme_void() +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+![](gallery_files/figure-html/rose-1.png)
+
+### Marimekko charts
+
+[`geom_sketch_marimekko()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_marimekko.md)
+draws variable-width stacked bars: column width is one category’s share
+of the total, the stacked segments are a second category’s shares, and
+each tile’s area is the joint value. Width percentages sit on top.
+
+``` r
+
+revenue_mix <- data.frame(
+  region  = rep(c("North America", "Europe", "Asia", "Other"), each = 3),
+  product = rep(c("Phones", "Laptops", "Tablets"), times = 4),
+  revenue = c(50, 35, 15,  30, 40, 20,  45, 25, 30,  10, 12, 6)
+)
+ggplot() +
+  geom_sketch_marimekko(revenue_mix, region, product, revenue, seed = 6L) +
+  scale_fill_sketch() +
+  labs(title = "Revenue share by region and product", fill = NULL) +
+  theme_void() +
+  theme(plot.title = element_text(hjust = 0.5),
+        plot.margin = margin(10, 10, 18, 10))
+```
+
+![](gallery_files/figure-html/marimekko-1.png)
+
+### Sunburst charts
+
+[`geom_sketch_sunburst()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_sunburst.md)
+draws a hierarchy as nested rings of annular sectors: the columns in
+`levels` go from the inner root ring outward, and each deeper ring
+splits its parent’s angle by the children’s summed `value`, so a child
+always nests inside its parent. Fill by the top-level ancestor for the
+classic look.
+
+``` r
+
+gss <- data.frame(
+  region = rep(c("West", "East", "North"), each = 4),
+  dept   = rep(c("Sales", "Sales", "Eng", "Eng"), 3),
+  team   = paste0("T", 1:12),
+  n      = c(6, 3, 8, 2, 5, 4, 3, 7, 2, 6, 4, 5)
+)
+ggplot() +
+  geom_sketch_sunburst(gss, levels = c("region", "dept", "team"), value = "n",
+                       fill_by = "root", label = TRUE, label_size = 2.6,
+                       seed = 7L) +
+  scale_fill_sketch() +
+  coord_equal() +
+  labs(title = "Headcount by region › dept › team") +
+  theme_void() +
+  theme(legend.position = "none", plot.title = element_text(hjust = 0.5))
+```
+
+![](gallery_files/figure-html/sunburst-1.png)
+
+### Animation: boiling lines
+
+[`animate_sketch()`](https://orijitghosh.github.io/ggsketch/reference/animate_sketch.md)
+animates a sketch plot two ways. `type = "boil"` re-renders it while
+shifting every roughening seed per frame, so the whole drawing shimmers
+like a hand-animated cel; `type = "draw_on"` reveals the finished
+drawing behind a moving wipe, as if a hand were drawing it on. Frames
+are stitched into a GIF when **gifski** or **magick** is installed;
+otherwise the frame paths are returned. It animates any sketch plot with
+no change to its code.
+
+``` r
+
+p <- ggplot(mpg, aes(class)) +
+  geom_sketch_bar(fill = "#7BAFD4", seed = 1L) +
+  labs(title = "Boiling bars", x = NULL) +
+  theme_sketch() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+
+gif <- animate_sketch(p, nframes = 10, fps = 8,
+                      file = knitr::fig_path(".gif"),
+                      width = 6, height = 4, res = 110)
+knitr::include_graphics(gif)
+```
+
+![](gallery_files/figure-html/animate-1.gif)
+
+And the same plot drawn on, left to right:
+
+``` r
+
+drawn <- animate_sketch(p, type = "draw_on", nframes = 14, fps = 10,
+                        file = knitr::fig_path(".gif"),
+                        width = 6, height = 4, res = 110)
+knitr::include_graphics(drawn)
+```
+
+![](gallery_files/figure-html/animate-drawon-1.gif)
+
+### Drawing media
+
+The `medium` controls *how* a stroke is laid down.
+[`sketch_media()`](https://orijitghosh.github.io/ggsketch/reference/sketch_media.md)
+lists all of them — from pen and pencil through brush, charcoal, chalk,
+marker, highlighter, and spray; set one as a constant on a
+line/path/segment geom, or **map** it as an aesthetic with
+[`scale_medium_discrete()`](https://orijitghosh.github.io/ggsketch/reference/scale_medium_discrete.md).
+
+``` r
+
+sketch_media()
+#>  [1] "pen"          "ink"          "fountain_pen" "ballpoint"    "brush"       
+#>  [6] "pencil"       "charcoal"     "pastel"       "chalk"        "marker"      
+#> [11] "highlighter"  "crayon"       "spray"
+```
+
+``` r
+
+lv <- c("pencil", "ink", "brush", "charcoal", "marker")
+waves <- data.frame(x = rep(1:40, length(lv)),
+                    g = factor(rep(lv, each = 40), levels = lv))
+waves$y <- as.integer(waves$g) + sin(waves$x / 4) * 0.3
+ggplot(waves, aes(x, y, group = g, medium = g, colour = g)) +
+  geom_sketch_line(linewidth = 1.1, seed = 1L) +
+  scale_medium_discrete(media = lv) +
+  scale_colour_sketch() +
+  labs(title = "medium mapped to a variable", x = NULL, y = NULL) +
+  theme_sketch()
+```
+
+![](gallery_files/figure-html/medium-aes-1.png)
+
+### Watercolour fills
+
+`fill_style = "watercolor"` paints stacked translucent washes with soft
+bleeds and granulation, on any polygon-, ribbon-, ellipse-, or
+band-filled geom.
+
+``` r
+
+ang  <- seq(0, 2 * pi, length.out = 11)[-11]
+r    <- rep(c(1, 0.45), length.out = 10)
+star <- data.frame(x = r * cos(ang), y = r * sin(ang))
+ggplot(star, aes(x, y)) +
+  geom_sketch_polygon(fill = "#2E86C1", fill_style = "watercolor", seed = 1L) +
+  coord_equal() +
+  labs(title = "fill_style = \"watercolor\"") +
+  theme_sketch()
+```
+
+![](gallery_files/figure-html/watercolor-poly-1.png)
+
+``` r
+
+ggplot(mpg, aes(class, hwy, fill = class)) +
+  geom_sketch_violin(fill_style = "watercolor", seed = 1L, show.legend = FALSE) +
+  scale_fill_brewer(palette = "Set2") +
+  labs(title = "Watercolour violins", x = NULL) +
+  theme_sketch() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+```
+
+![](gallery_files/figure-html/watercolor-violin-1.png)
+
+### Textured paper
+
+`theme_sketch(paper = )` draws the panel on a textured ground —
+[`sketch_papers()`](https://orijitghosh.github.io/ggsketch/reference/sketch_papers.md)
+lists them (notebook, graph, dotted, aged, blueprint, chalkboard,
+kraft). Dark grounds flip the text light automatically.
+
+``` r
+
+sketch_papers()
+#> [1] "none"       "notebook"   "graph"      "dotted"     "aged"      
+#> [6] "blueprint"  "chalkboard" "kraft"
+```
+
+``` r
+
+ggplot(sales, aes(product, units)) +
+  geom_sketch_col(fill = "#7BAFD4", seed = 1L) +
+  labs(title = "Notebook paper", x = NULL) +
+  theme_sketch(paper = "notebook")
+```
+
+![](gallery_files/figure-html/paper-notebook-1.png)
+
+``` r
+
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_sketch_point(colour = "white", seed = 1L) +
+  labs(title = "Blueprint ground") +
+  theme_sketch(paper = "blueprint")
+```
+
+![](gallery_files/figure-html/paper-blueprint-1.png)
+
+You can also drop a paper onto any theme via
+[`element_sketch_paper()`](https://orijitghosh.github.io/ggsketch/reference/element_sketch_paper.md):
+
+``` r
+
+ggplot(faithful, aes(eruptions, waiting)) +
+  geom_sketch_point(colour = "#1F618D", seed = 1L) +
+  theme_sketch() +
+  theme(panel.background = element_sketch_paper("graph"))
+```
+
+![](gallery_files/figure-html/paper-element-1.png)
+
+### Hand-drawn coordinate frames
+
+[`coord_sketch()`](https://orijitghosh.github.io/ggsketch/reference/coord_sketch.md)
+roughens the gridlines and ticks under *any* theme — no need for a
+sketch theme at all:
+
+``` r
+
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_sketch_point(seed = 1L) +
+  labs(title = "coord_sketch() under a plain theme") +
+  coord_sketch(seed = 1L)
+```
+
+![](gallery_files/figure-html/coord-sketch-1.png)
+
+[`coord_sketch_polar()`](https://orijitghosh.github.io/ggsketch/reference/coord_sketch_polar.md)
+is the polar companion — a wobbly circular grid for rose and pie-style
+charts:
+
+``` r
+
+rose <- data.frame(g = c("a", "b", "c", "d", "e", "f"),
+                   v = c(3, 5, 2, 4, 6, 3))
+ggplot(rose, aes(g, v, fill = g)) +
+  geom_sketch_col(seed = 1L, show.legend = FALSE) +
+  scale_fill_sketch() +
+  coord_sketch_polar(seed = 1L) +
+  labs(title = "coord_sketch_polar()", x = NULL, y = NULL) +
+  theme_sketch()
+```
+
+![](gallery_files/figure-html/coord-polar-1.png)
+
+### Composition: facets, scales, coords
 
 Sketch geoms respect the full grammar.
 
@@ -1057,7 +1971,7 @@ ggplot(mpg, aes(displ, hwy)) +
 
 ![](gallery_files/figure-html/facet-1.png)
 
-## Dark mode
+### Dark mode
 
 Every example above works with `theme_sketch(dark = TRUE)`:
 
@@ -1072,7 +1986,7 @@ ggplot(sales, aes(product, units, fill = product)) +
 
 ![](gallery_files/figure-html/dark-1.png)
 
-## A hand-drawn frame
+### A hand-drawn frame
 
 By default
 [`theme_sketch()`](https://orijitghosh.github.io/ggsketch/reference/theme_sketch.md)
@@ -1110,7 +2024,7 @@ ggplot(mtcars, aes(wt, mpg)) +
 
 ![](gallery_files/figure-html/element-sketch-1.png)
 
-## A matching palette
+### A matching palette
 
 [`scale_colour_sketch()`](https://orijitghosh.github.io/ggsketch/reference/scale_sketch.md)
 /
@@ -1144,7 +2058,7 @@ ggplot(faithful, aes(eruptions, waiting, colour = waiting)) +
 
 ![](gallery_files/figure-html/scale-continuous-1.png)
 
-## The scribble fill
+### The scribble fill
 
 `"scribble"` is one continuous winding stroke that overshoots the
 boundary, like scribbling to fill a shape:
@@ -1160,33 +2074,35 @@ ggplot(sales, aes(product, units, fill = product)) +
 
 ![](gallery_files/figure-html/scribble-1.png)
 
-It works anywhere a `fill_style` is accepted. The eight styles:
+It works anywhere a `fill_style` is accepted. The ten stroked styles
+(the eleventh, `"watercolor"`, is painted rather than stroked — see
+below):
 
 ``` r
 
-styles <- c("hachure", "cross_hatch", "zigzag", "zigzag_line",
-            "scribble", "dots", "dashed", "solid")
-grid <- expand.grid(col = 1:4, row = 1:2)
+styles <- c("hachure", "cross_hatch", "zigzag", "zigzag_line", "scribble",
+            "dots", "dashed", "stipple", "pencil_shade", "solid")
+grid <- expand.grid(col = 1:5, row = c(2.2, 1))
 grid$style <- styles
 ggplot(grid) +
   lapply(seq_len(nrow(grid)), function(i) {
     geom_sketch_rect(
       data = grid[i, ],
       aes(xmin = col - 0.45, xmax = col + 0.45,
-          ymin = row - 0.4,  ymax = row + 0.4),
+          ymin = row - 0.35, ymax = row + 0.35),
       fill = "#7BAFD4", fill_style = grid$style[i], seed = i
     )
   }) +
-  geom_sketch_text(aes(col, row - 0.55, label = style), size = 4) +
+  geom_sketch_text(aes(col, row - 0.52, label = style), size = 3.4) +
   coord_equal() +
-  labs(title = "The eight fill styles", x = NULL, y = NULL) +
+  labs(title = "The stroked fill styles", x = NULL, y = NULL) +
   theme_sketch() +
   theme(axis.text = element_blank())
 ```
 
 ![](gallery_files/figure-html/fill-styles-1.png)
 
-## Reproducible handwriting fonts
+### Reproducible handwriting fonts
 
 [`geom_sketch_text()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_text.md)
 picks up a handwriting face preinstalled on your OS, but for results

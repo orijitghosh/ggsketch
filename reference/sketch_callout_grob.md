@@ -22,6 +22,9 @@ sketch_callout_grob(
   seed = NULL,
   arrow_length = NULL,
   arrow_angle = 25,
+  arrow_head = NULL,
+  leader = "straight",
+  curvature = 0.3,
   text_gp = gpar(),
   box_gp = gpar(),
   arrow_gp = gpar(),
@@ -62,6 +65,21 @@ sketch_callout_grob(
   Leader arrowhead size (see
   [`sketch_arrow_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_arrow_grob.md)).
 
+- arrow_head:
+
+  Leader head style (see
+  [`sketch_arrowheads()`](https://orijitghosh.github.io/ggsketch/reference/sketch_arrowheads.md));
+  `NULL` = the open V.
+
+- leader:
+
+  Leader routing: `"straight"` (default), `"elbow"` (horizontal then
+  vertical) or `"curved"` (a bowed Bezier).
+
+- curvature:
+
+  Bow size when `leader = "curved"`. Default 0.3.
+
 - text_gp, box_gp, arrow_gp:
 
   `gpar()`s for the label, the box (outline; its `fill` paints the box),
@@ -82,6 +100,10 @@ Other grob-layer:
 [`sketch_band_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_band_grob.md),
 [`sketch_dotplot_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_dotplot_grob.md),
 [`sketch_ellipse_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_ellipse_grob.md),
+[`sketch_engrave_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_engrave_grob.md),
 [`sketch_path_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_path_grob.md),
 [`sketch_polygon_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_polygon_grob.md),
+[`sketch_repel_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_repel_grob.md),
+[`sketch_spray_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_spray_grob.md),
+[`sketch_stroke_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_stroke_grob.md),
 [`sketch_wedge_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_wedge_grob.md)

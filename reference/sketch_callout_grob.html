@@ -13,7 +13,7 @@ the target."><meta property="og:image" content="https://orijitghosh.github.io/gg
 
     <a class="navbar-brand me-2" href="../index.html">ggsketch</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,6 +76,9 @@ the target.</p>
 <span>  seed <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  arrow_length <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  arrow_angle <span class="op">=</span> <span class="fl">25</span>,</span>
+<span>  arrow_head <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  leader <span class="op">=</span> <span class="st">"straight"</span>,</span>
+<span>  curvature <span class="op">=</span> <span class="fl">0.3</span>,</span>
 <span>  text_gp <span class="op">=</span> <span class="fu">gpar</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  box_gp <span class="op">=</span> <span class="fu">gpar</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  arrow_gp <span class="op">=</span> <span class="fu">gpar</span><span class="op">(</span><span class="op">)</span>,</span>
@@ -118,6 +121,20 @@ the target.</p>
 <code><a href="sketch_arrow_grob.html">sketch_arrow_grob()</a></code>).</p></dd>
 
 
+<dt id="arg-arrow-head">arrow_head<a class="anchor" aria-label="anchor" href="#arg-arrow-head"></a></dt>
+<dd><p>Leader head style (see <code><a href="sketch_arrowheads.html">sketch_arrowheads()</a></code>); <code>NULL</code> = the
+open V.</p></dd>
+
+
+<dt id="arg-leader">leader<a class="anchor" aria-label="anchor" href="#arg-leader"></a></dt>
+<dd><p>Leader routing: <code>"straight"</code> (default), <code>"elbow"</code> (horizontal
+then vertical) or <code>"curved"</code> (a bowed Bezier).</p></dd>
+
+
+<dt id="arg-curvature">curvature<a class="anchor" aria-label="anchor" href="#arg-curvature"></a></dt>
+<dd><p>Bow size when <code>leader = "curved"</code>. Default 0.3.</p></dd>
+
+
 <dt id="arg-text-gp-box-gp-arrow-gp">text_gp, box_gp, arrow_gp<a class="anchor" aria-label="anchor" href="#arg-text-gp-box-gp-arrow-gp"></a></dt>
 <dd><p><code>gpar()</code>s for the label, the box (outline; its
 <code>fill</code> paints the box), and the leader.</p></dd>
@@ -138,8 +155,12 @@ the target.</p>
 <code><a href="sketch_band_grob.html">sketch_band_grob()</a></code>,
 <code><a href="sketch_dotplot_grob.html">sketch_dotplot_grob()</a></code>,
 <code><a href="sketch_ellipse_grob.html">sketch_ellipse_grob()</a></code>,
+<code><a href="sketch_engrave_grob.html">sketch_engrave_grob()</a></code>,
 <code><a href="sketch_path_grob.html">sketch_path_grob()</a></code>,
 <code><a href="sketch_polygon_grob.html">sketch_polygon_grob()</a></code>,
+<code><a href="sketch_repel_grob.html">sketch_repel_grob()</a></code>,
+<code><a href="sketch_spray_grob.html">sketch_spray_grob()</a></code>,
+<code><a href="sketch_stroke_grob.html">sketch_stroke_grob()</a></code>,
 <code><a href="sketch_wedge_grob.html">sketch_wedge_grob()</a></code></p></div>
     </div>
 

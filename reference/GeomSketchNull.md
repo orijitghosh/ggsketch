@@ -19,8 +19,3 @@ geom_sketch_null(
   inherit.aes = TRUE
 )
 ```
-
-## Format
-
-An object of class `GeomSketchNull` (inherits from `Geom`, `ggproto`,
-`gg`) of length 5.

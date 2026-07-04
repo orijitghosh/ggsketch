@@ -32,7 +32,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ggsketch</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -167,6 +167,33 @@ pass; <code>3+</code> looks heavily worked.</p>
 <p><img src="customizing_files/figure-html/passes-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"><img src="customizing_files/figure-html/passes-2.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"><img src="customizing_files/figure-html/passes-3.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
+<h2 id="medium-line-geoms">
+<code>medium</code> (line geoms)<a class="anchor" aria-label="anchor" href="#medium-line-geoms"></a>
+</h2>
+<p>The line family — <code><a href="../reference/geom_sketch_line.html">geom_sketch_line()</a></code>,
+<code><a href="../reference/geom_sketch_path.html">geom_sketch_path()</a></code>, <code><a href="../reference/geom_sketch_segment.html">geom_sketch_segment()</a></code>,
+<code><a href="../reference/geom_sketch_segment.html">geom_sketch_step()</a></code> — also takes a <code>medium</code>,
+which sets <em>how</em> the stroke is laid down: a tapering pencil, a
+wet ink line, a crisp fountain pen, a thin ballpoint, a broad brush,
+charcoal, soft pastel, dusty chalk (best on
+<code>paper = "chalkboard"</code>), marker, a translucent highlighter
+band, or crayon. <code><a href="../reference/sketch_media.html">sketch_media()</a></code> lists them.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">for</span> <span class="op">(</span><span class="va">m</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"pencil"</span>, <span class="st">"ink"</span>, <span class="st">"brush"</span>, <span class="st">"charcoal"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">d</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>      <span class="fu"><a href="../reference/geom_sketch_line.html">geom_sketch_line</a></span><span class="op">(</span>medium <span class="op">=</span> <span class="va">m</span>, linewidth <span class="op">=</span> <span class="fl">1.2</span>, seed <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span> <span class="op">+</span></span>
+<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"medium ="</span>, <span class="va">m</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>      <span class="fu"><a href="../reference/theme_sketch.html">theme_sketch</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">9</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p><img src="customizing_files/figure-html/medium-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"><img src="customizing_files/figure-html/medium-2.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"><img src="customizing_files/figure-html/medium-3.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"><img src="customizing_files/figure-html/medium-4.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
+<p>You can also <em>map</em> <code>medium</code> to a variable with
+<code><a href="../reference/scale_medium_discrete.html">scale_medium_discrete()</a></code> (see the gallery). The default,
+<code>"pen"</code>, reproduces the classic constant-width sketch line,
+so existing plots are unchanged.</p>
+</div>
+<div class="section level2">
 <h2 id="seed-reproducible-wobble">
 <code>seed</code> — reproducible wobble<a class="anchor" aria-label="anchor" href="#seed-reproducible-wobble"></a>
 </h2>
@@ -174,7 +201,7 @@ pass; <code>3+</code> looks heavily worked.</p>
 <code>seed</code> always produces the same drawing, so figures are
 reproducible across renders and devices. Change the seed for a fresh
 “hand”.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">8</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span>, <span class="fl">3</span>, <span class="fl">8</span>, <span class="fl">6</span>, <span class="fl">9</span>, <span class="fl">7</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="kw">for</span> <span class="op">(</span><span class="va">s</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">42</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span></span>
@@ -194,7 +221,7 @@ differs.</p>
 <p>If you do not pass <code>seed</code>, geoms use
 <code>getOption("ggsketch.seed", 1L)</code>. Set it once to make a whole
 document reproducible:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>ggsketch.seed <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span></code></pre></div>
 <p>ggsketch never touches your global random state: each randomized
 routine draws from its own seeded stream and restores

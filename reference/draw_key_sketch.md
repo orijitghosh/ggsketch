@@ -10,6 +10,8 @@ with the same hand-drawn character. Not called directly; passed as the
 ``` r
 draw_key_sketch_path(data, params, size)
 
+draw_key_sketch_medium(data, params, size)
+
 draw_key_sketch_point(data, params, size)
 
 draw_key_sketch_polygon(data, params, size)

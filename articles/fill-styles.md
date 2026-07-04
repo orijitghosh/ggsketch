@@ -13,12 +13,12 @@ are produced by a single Active-Edge-Table scan-line filler
 ([`hachure_fill()`](https://orijitghosh.github.io/ggsketch/reference/hachure_fill.md)
 and friends) that works on arbitrary — including concave — polygons.
 
-## The seven styles
+## The ten stroked styles
 
 ``` r
 
-styles <- c("hachure", "cross_hatch", "zigzag", "zigzag_line",
-            "dots", "dashed", "solid")
+styles <- c("hachure", "cross_hatch", "zigzag", "zigzag_line", "scribble",
+            "dots", "dashed", "stipple", "pencil_shade", "solid")
 
 bars <- do.call(rbind, lapply(styles, function(s) {
   data.frame(style = s, x = c("A", "B", "C"), y = c(4, 6, 3))
@@ -38,7 +38,7 @@ plots <- lapply(styles, function(s) {
 for (p in plots) print(p)
 ```
 
-![](fill-styles_files/figure-html/all-styles-1.png)![](fill-styles_files/figure-html/all-styles-2.png)![](fill-styles_files/figure-html/all-styles-3.png)![](fill-styles_files/figure-html/all-styles-4.png)![](fill-styles_files/figure-html/all-styles-5.png)![](fill-styles_files/figure-html/all-styles-6.png)![](fill-styles_files/figure-html/all-styles-7.png)
+![](fill-styles_files/figure-html/all-styles-1.png)![](fill-styles_files/figure-html/all-styles-2.png)![](fill-styles_files/figure-html/all-styles-3.png)![](fill-styles_files/figure-html/all-styles-4.png)![](fill-styles_files/figure-html/all-styles-5.png)![](fill-styles_files/figure-html/all-styles-6.png)![](fill-styles_files/figure-html/all-styles-7.png)![](fill-styles_files/figure-html/all-styles-8.png)![](fill-styles_files/figure-html/all-styles-9.png)![](fill-styles_files/figure-html/all-styles-10.png)
 
 | Style | Look | Notes |
 |----|----|----|
@@ -46,9 +46,38 @@ for (p in plots) print(p)
 | `cross_hatch` | Hachure at `angle` **and** `angle + 90°` | Denser, “darker” shading. |
 | `zigzag` | Hachure lines joined by diagonal connectors | A continuous scribble feel. |
 | `zigzag_line` | Just the connectors, as one path | Lighter than `zigzag`. |
-| `dots` | Tiny rough circles sampled along the lines | Stippled fill. |
+| `scribble` | One continuous winding stroke that overshoots the edge | Like scribbling to fill a shape. |
+| `dots` | Tiny rough circles sampled along the lines | Regular dotted texture. |
 | `dashed` | Hachure broken into dashes | Airy, sketchy texture. |
-| `solid` | No fill lines (outline only) | Use when you want only the rough outline. |
+| `stipple` | Tiny rough dots scattered with blue-noise spacing | Denser than `dots`, engraving-like. |
+| `pencil_shade` | Overlapping side-of-pencil strokes | Soft graphite tone. |
+| `solid` | One flat swatch under the roughened outline | A plain fill that keeps the hand-drawn edge. |
+
+## Watercolour washes
+
+`fill_style = "watercolor"` is a different beast: instead of scan-line
+strokes it lays down several translucent, slightly bled and scaled
+copies of the shape, plus fine granulation specks — a painted wash
+rather than a drawn hatch. It honours holes (so it works on
+[`geom_sketch_contour_filled()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_contour_filled.md)
+bands and donut slices) and applies to every polygon-, ribbon-,
+ellipse-, and band-filled geom.
+
+``` r
+
+ang  <- seq(0, 2 * pi, length.out = 9)[-9]
+hex  <- data.frame(x = cos(ang), y = sin(ang))
+ggplot(hex, aes(x, y)) +
+  geom_sketch_polygon(fill = "#2E86C1", fill_style = "watercolor", seed = 1L) +
+  coord_equal() +
+  labs(title = "fill_style = \"watercolor\"") +
+  theme_sketch()
+```
+
+![](fill-styles_files/figure-html/watercolor-1.png)
+
+Because it is a wash, the hachure-tuning parameters below
+(`hachure_angle`, `hachure_gap`, `fill_weight`) do not apply to it.
 
 ## Tuning the hachure
 

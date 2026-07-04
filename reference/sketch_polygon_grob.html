@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ggsketch</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,7 +65,7 @@
 <span>  outline_gp <span class="op">=</span> <span class="fu">gpar</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  fill_style <span class="op">=</span> <span class="st">"hachure"</span>,</span>
 <span>  hachure_angle <span class="op">=</span> <span class="fl">45</span>,</span>
-<span>  hachure_gap <span class="op">=</span> <span class="fl">0.07</span>,</span>
+<span>  hachure_gap <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  fill_weight <span class="op">=</span> <span class="fl">0.5</span>,</span>
 <span>  fill_roughness <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  fill_seed <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -99,7 +99,9 @@
 
 
 <dt id="arg-fill-style-hachure-angle-hachure-gap-fill-weight">fill_style, hachure_angle, hachure_gap, fill_weight<a class="anchor" aria-label="anchor" href="#arg-fill-style-hachure-angle-hachure-gap-fill-weight"></a></dt>
-<dd><p>Fill parameters.</p></dd>
+<dd><p>Fill parameters
+(<code>hachure_gap</code> in device inches; <code>NULL</code> picks 15% of the shape's smaller
+drawn extent, clamped to [0.04, 0.4] inches).</p></dd>
 
 
 <dt id="arg-fill-roughness">fill_roughness<a class="anchor" aria-label="anchor" href="#arg-fill-roughness"></a></dt>
@@ -129,7 +131,11 @@ texture independently of the outline.</p></dd>
 <code><a href="sketch_callout_grob.html">sketch_callout_grob()</a></code>,
 <code><a href="sketch_dotplot_grob.html">sketch_dotplot_grob()</a></code>,
 <code><a href="sketch_ellipse_grob.html">sketch_ellipse_grob()</a></code>,
+<code><a href="sketch_engrave_grob.html">sketch_engrave_grob()</a></code>,
 <code><a href="sketch_path_grob.html">sketch_path_grob()</a></code>,
+<code><a href="sketch_repel_grob.html">sketch_repel_grob()</a></code>,
+<code><a href="sketch_spray_grob.html">sketch_spray_grob()</a></code>,
+<code><a href="sketch_stroke_grob.html">sketch_stroke_grob()</a></code>,
 <code><a href="sketch_wedge_grob.html">sketch_wedge_grob()</a></code></p></div>
     </div>
 

@@ -9,7 +9,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ggsketch</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,7 +56,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">sketch_palette</span><span class="op">(</span>n <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">sketch_palette</span><span class="op">(</span>n <span class="op">=</span> <span class="cn">NULL</span>, interpolate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -64,7 +64,14 @@
 
 
 <dl><dt id="arg-n">n<a class="anchor" aria-label="anchor" href="#arg-n"></a></dt>
-<dd><p>Number of colours to return (max 8). If <code>NULL</code>, all are returned.</p></dd>
+<dd><p>Number of colours to return. If <code>NULL</code>, the eight anchor colours are
+returned. Up to eight are taken verbatim; beyond that they are interpolated
+(or recycled, if <code>interpolate = FALSE</code>).</p></dd>
+
+
+<dt id="arg-interpolate">interpolate<a class="anchor" aria-label="anchor" href="#arg-interpolate"></a></dt>
+<dd><p>When <code>n &gt; 8</code>, interpolate the eight anchors into <code>n</code>
+colours (the default). <code>FALSE</code> recycles the anchors with a warning.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -72,13 +79,27 @@
     <p>A character vector of hex colours.</p>
     </div>
     <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>The first eight colours are returned exactly, so small categorical plots keep
+their recognisable hues. Ask for <strong>more than eight</strong> and the palette is
+<em>interpolated</em>: a smooth <code><a href="https://rdrr.io/r/grDevices/colorRamp.html" class="external-link">colorRampPalette()</a></code> ramp through all eight anchors
+yields <code>n</code> distinct ink tones, so the discrete sketch scales keep working for
+large factors and for quasi-continuous use. Set <code>interpolate = FALSE</code> to fall
+back to the old recycling behaviour instead.</p>
+    </div>
+    <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other sketch-theme:
+<code><a href="coord_sketch.html">CoordSketch</a></code>,
+<code><a href="coord_sketch_polar.html">CoordSketchPolar</a></code>,
 <code><a href="element_sketch_line.html">element_sketch_line()</a></code>,
 <code><a href="ggsketch_check_fonts.html">ggsketch_check_fonts()</a></code>,
+<code><a href="ggsketch_save.html">ggsketch_save()</a></code>,
 <code><a href="register_sketch_font.html">register_sketch_font()</a></code>,
+<code><a href="scale_pressure_continuous.html">scale_pressure_continuous()</a></code>,
 <code><a href="scale_roughness_continuous.html">scale_roughness_continuous()</a></code>,
 <code><a href="scale_sketch.html">scale_sketch</a></code>,
+<code><a href="scale_tone_continuous.html">scale_tone_continuous()</a></code>,
 <code><a href="theme_sketch.html">theme_sketch()</a></code></p></div>
     </div>
 
@@ -86,6 +107,10 @@
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">sketch_palette</span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "#7BAFD4" "#C8553D" "#88B398" "#9B6FB0"</span>
+<span class="r-in"><span><span class="fu">sketch_palette</span><span class="op">(</span><span class="fl">20</span><span class="op">)</span>             <span class="co"># interpolated ramp through all eight anchors</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "#7AAED3" "#AA909A" "#C06F63" "#C46146" "#B48566" "#99A588" "#8EA59D"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] "#968CA6" "#9A72AE" "#B57E96" "#CE9276" "#D9A059" "#AB8B65" "#7A766E"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [15] "#6B6974" "#8A6576" "#A75E79" "#9B6B7A" "#7B7D7B" "#4D8C7D"</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

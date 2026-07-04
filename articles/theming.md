@@ -35,6 +35,150 @@ ggplot(sales, aes(product, units, fill = product)) +
 On a dark background, give the geoms a light outline `colour`
 (e.g. `"grey85"`) so the rough strokes read clearly.
 
+## The sketch palette
+
+[`scale_colour_sketch()`](https://orijitghosh.github.io/ggsketch/reference/scale_sketch.md)
+/
+[`scale_fill_sketch()`](https://orijitghosh.github.io/ggsketch/reference/scale_sketch.md)
+apply a muted qualitative palette
+([`sketch_palette()`](https://orijitghosh.github.io/ggsketch/reference/sketch_palette.md))
+tuned for the hand-drawn look; the `*_sketch_c()` variants give a
+continuous ink-on-paper gradient.
+
+``` r
+
+ggplot(mpg, aes(displ, hwy, colour = drv)) +
+  geom_sketch_point(size = 2.5, seed = 1L) +
+  scale_colour_sketch() +
+  labs(title = "scale_colour_sketch()") +
+  theme_sketch()
+```
+
+![](theming_files/figure-html/palette-1.png)
+
+``` r
+
+ggplot(faithful, aes(eruptions, waiting, colour = waiting)) +
+  geom_sketch_point(size = 2.5, seed = 1L) +
+  scale_colour_sketch_c() +
+  labs(title = "scale_colour_sketch_c()") +
+  theme_sketch()
+```
+
+![](theming_files/figure-html/palette-c-1.png)
+
+## Textured paper
+
+`theme_sketch(paper = )` draws the panel on a textured ground.
+[`sketch_papers()`](https://orijitghosh.github.io/ggsketch/reference/sketch_papers.md)
+lists them; dark grounds (blueprint, chalkboard) flip the text and grid
+to a light ink automatically.
+
+``` r
+
+sketch_papers()
+#> [1] "none"       "notebook"   "graph"      "dotted"     "aged"      
+#> [6] "blueprint"  "chalkboard" "kraft"
+```
+
+``` r
+
+ggplot(sales, aes(product, units, fill = product)) +
+  geom_sketch_col(seed = 1L, show.legend = FALSE) +
+  scale_fill_sketch() +
+  labs(title = "paper = \"notebook\"", x = NULL) +
+  theme_sketch(paper = "notebook")
+```
+
+![](theming_files/figure-html/paper-notebook-1.png)
+
+``` r
+
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_sketch_point(colour = "white", seed = 1L) +
+  labs(title = "paper = \"blueprint\"") +
+  theme_sketch(paper = "blueprint")
+```
+
+![](theming_files/figure-html/paper-blueprint-1.png)
+
+For finer control, drop a paper onto any single theme element with
+[`element_sketch_paper()`](https://orijitghosh.github.io/ggsketch/reference/element_sketch_paper.md):
+
+``` r
+
+ggplot(faithful, aes(eruptions, waiting)) +
+  geom_sketch_point(colour = "#1F618D", seed = 1L) +
+  theme_sketch() +
+  theme(panel.background = element_sketch_paper("graph"))
+```
+
+![](theming_files/figure-html/paper-element-1.png)
+
+## A hand-drawn frame
+
+By default the gridlines, panel border, and ticks stay crisp.
+`rough_frame = TRUE` roughens them to match the marks:
+
+``` r
+
+ggplot(sales, aes(product, units)) +
+  geom_sketch_col(fill = "#7BAFD4", seed = 1L) +
+  labs(title = "rough_frame = TRUE", x = NULL) +
+  theme_sketch(rough_frame = TRUE, seed = 1L)
+```
+
+![](theming_files/figure-html/rough-frame-1.png)
+
+Those are real theme elements —
+[`element_sketch_line()`](https://orijitghosh.github.io/ggsketch/reference/element_sketch_line.md)
+and
+[`element_sketch_rect()`](https://orijitghosh.github.io/ggsketch/reference/element_sketch_line.md)
+— so you can roughen individual elements and tune their `roughness`,
+`bowing`, and `seed`:
+
+``` r
+
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_sketch_point(seed = 1L) +
+  theme_sketch() +
+  theme(
+    panel.grid.major = element_sketch_line(roughness = 0.8, seed = 7L),
+    axis.ticks       = element_sketch_line(roughness = 0.6, seed = 8L)
+  )
+```
+
+![](theming_files/figure-html/element-sketch-1.png)
+
+[`coord_sketch()`](https://orijitghosh.github.io/ggsketch/reference/coord_sketch.md)
+roughens the frame under *any* theme — even a non-sketch one — and
+[`coord_sketch_polar()`](https://orijitghosh.github.io/ggsketch/reference/coord_sketch_polar.md)
+does the same for circular plots:
+
+``` r
+
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_sketch_point(seed = 1L) +
+  labs(title = "coord_sketch() under theme_bw()") +
+  coord_sketch(seed = 1L) +
+  theme_bw()
+```
+
+![](theming_files/figure-html/coord-sketch-1.png)
+
+``` r
+
+rose <- data.frame(g = c("a", "b", "c", "d", "e", "f"), v = c(3, 5, 2, 4, 6, 3))
+ggplot(rose, aes(g, v, fill = g)) +
+  geom_sketch_col(seed = 1L, show.legend = FALSE) +
+  scale_fill_sketch() +
+  coord_sketch_polar(seed = 1L) +
+  labs(title = "coord_sketch_polar()", x = NULL, y = NULL) +
+  theme_sketch()
+```
+
+![](theming_files/figure-html/coord-polar-1.png)
+
 ## Base size and the rest of the grammar
 
 [`theme_sketch()`](https://orijitghosh.github.io/ggsketch/reference/theme_sketch.md)

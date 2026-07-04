@@ -32,7 +32,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ggsketch</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -101,7 +101,11 @@ roughened coordinates — no grid, no ggplot2, no drawing. This is where
 the rough.js <em>algorithms</em> are reimplemented in original R: point
 roughening, cubic-Bézier sampling, ellipse generation, and an
 Active-Edge-Table scan-line filler for hachure (including concave
-polygons).</p>
+polygons). ggsketch 2.0 adds more pure-geometry modules in the same
+spirit — variable-width stroke ribbons (<code><a href="../reference/stroke_ribbon.html">stroke_ribbon()</a></code>),
+watercolour washes (<code><a href="../reference/watercolor_wash.html">watercolor_wash()</a></code>), paper textures
+(<code><a href="../reference/paper_primitives.html">paper_primitives()</a></code>), and a squarified treemap layout
+(<code><a href="../reference/treemap_layout.html">treemap_layout()</a></code>).</p>
 <p>You can call them directly:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Two passes of a roughened polyline through three points</span></span>

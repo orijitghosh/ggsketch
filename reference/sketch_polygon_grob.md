@@ -17,7 +17,7 @@ sketch_polygon_grob(
   outline_gp = gpar(),
   fill_style = "hachure",
   hachure_angle = 45,
-  hachure_gap = 0.07,
+  hachure_gap = NULL,
   fill_weight = 0.5,
   fill_roughness = NULL,
   fill_seed = NULL,
@@ -51,7 +51,8 @@ sketch_polygon_grob(
 
 - fill_style, hachure_angle, hachure_gap, fill_weight:
 
-  Fill parameters.
+  Fill parameters (`hachure_gap` in device inches; `NULL` picks 15% of
+  the shape's smaller drawn extent, clamped to \[0.04, 0.4\] inches).
 
 - fill_roughness:
 
@@ -80,5 +81,9 @@ Other grob-layer:
 [`sketch_callout_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_callout_grob.md),
 [`sketch_dotplot_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_dotplot_grob.md),
 [`sketch_ellipse_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_ellipse_grob.md),
+[`sketch_engrave_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_engrave_grob.md),
 [`sketch_path_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_path_grob.md),
+[`sketch_repel_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_repel_grob.md),
+[`sketch_spray_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_spray_grob.md),
+[`sketch_stroke_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_stroke_grob.md),
 [`sketch_wedge_grob()`](https://orijitghosh.github.io/ggsketch/reference/sketch_wedge_grob.md)

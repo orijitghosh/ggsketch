@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ggsketch</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -158,8 +158,9 @@ draw one layer (or panel) per style. Here is
 <p><img src="ggsketch_files/figure-html/fill-one-1.png" class="r-plt" alt="" width="660"></p>
 <p>The available styles are <code>"hachure"</code>,
 <code>"cross_hatch"</code>, <code>"zigzag"</code>,
-<code>"zigzag_line"</code>, <code>"dots"</code>, <code>"dashed"</code>,
-and <code>"solid"</code>.</p>
+<code>"zigzag_line"</code>, <code>"scribble"</code>,
+<code>"dots"</code>, <code>"dashed"</code>, and <code>"solid"</code> —
+plus a painted <code>"watercolor"</code> wash.</p>
 </div>
 <div class="section level2">
 <h2 id="composing-like-any-ggplot2-layer">Composing like any ggplot2 layer<a class="anchor" aria-label="anchor" href="#composing-like-any-ggplot2-layer"></a>
@@ -183,6 +184,20 @@ and <code>"solid"</code>.</p>
 <span>                  fill <span class="op">=</span> <span class="cn">NA</span>, colour <span class="op">=</span> <span class="st">"#FFD166"</span>, seed <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/theme_sketch.html">theme_sketch</a></span><span class="op">(</span>dark <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ggsketch_files/figure-html/annotate-1.png" class="r-plt" alt="" width="660"></p>
+</div>
+<div class="section level2">
+<h2 id="beyond-the-basics">Beyond the basics<a class="anchor" aria-label="anchor" href="#beyond-the-basics"></a>
+</h2>
+<p>ggsketch covers far more than bars and lines: distribution geoms
+(violin, ridgeline, beeswarm, boxplot), part-to-whole charts (pie,
+waffle, treemap), streamgraphs, calendar heatmaps, an engraving /
+tonal-shading family, and a content-aware annotation toolkit (arrows,
+callouts, brackets, hull marks). The drawing look extends too — pencil /
+ink / brush / charcoal <strong>media</strong>,
+<strong>watercolour</strong> fills, textured <strong>paper</strong>
+grounds, and hand-drawn <strong>coords</strong>. The gallery shows every
+geom; the other articles cover fill styles, theming, and the shared
+sketch controls in depth.</p>
 </div>
 <div class="section level2">
 <h2 id="where-the-look-comes-from">Where the look comes from<a class="anchor" aria-label="anchor" href="#where-the-look-comes-from"></a>

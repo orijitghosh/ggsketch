@@ -15,7 +15,7 @@ shaft length."><meta property="og:image" content="https://orijitghosh.github.io/
 
     <a class="navbar-brand me-2" href="../index.html">ggsketch</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,6 +79,8 @@ shaft length.</p>
 <span>  arrow_length <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  arrow_angle <span class="op">=</span> <span class="fl">25</span>,</span>
 <span>  arrow_type <span class="op">=</span> <span class="st">"open"</span>,</span>
+<span>  arrow_head <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ends <span class="op">=</span> <span class="st">"last"</span>,</span>
 <span>  gp <span class="op">=</span> <span class="fu">gpar</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  name <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  vp <span class="op">=</span> <span class="cn">NULL</span></span>
@@ -117,7 +119,18 @@ the shaft length.</p></dd>
 
 <dt id="arg-arrow-type">arrow_type<a class="anchor" aria-label="anchor" href="#arg-arrow-type"></a></dt>
 <dd><p><code>"open"</code> (default) draws a two-stroke V; <code>"closed"</code> draws a
-filled rough triangle.</p></dd>
+filled rough triangle. Superseded by <code>arrow_head</code>; kept for back-compat.</p></dd>
+
+
+<dt id="arg-arrow-head">arrow_head<a class="anchor" aria-label="anchor" href="#arg-arrow-head"></a></dt>
+<dd><p>Head style, one of <code><a href="sketch_arrowheads.html">sketch_arrowheads()</a></code>
+(<code>"triangle_open"</code>, <code>"triangle_filled"</code>, <code>"barb"</code>, <code>"fishtail"</code>, <code>"dot"</code>,
+<code>"bar"</code>). <code>NULL</code> (default) derives it from <code>arrow_type</code>.</p></dd>
+
+
+<dt id="arg-ends">ends<a class="anchor" aria-label="anchor" href="#arg-ends"></a></dt>
+<dd><p>Which end(s) carry a head: <code>"last"</code> (default), <code>"first"</code>, or
+<code>"both"</code>.</p></dd>
 
 
 <dt id="arg-gp">gp<a class="anchor" aria-label="anchor" href="#arg-gp"></a></dt>
@@ -139,8 +152,12 @@ filled rough triangle.</p></dd>
 <code><a href="sketch_callout_grob.html">sketch_callout_grob()</a></code>,
 <code><a href="sketch_dotplot_grob.html">sketch_dotplot_grob()</a></code>,
 <code><a href="sketch_ellipse_grob.html">sketch_ellipse_grob()</a></code>,
+<code><a href="sketch_engrave_grob.html">sketch_engrave_grob()</a></code>,
 <code><a href="sketch_path_grob.html">sketch_path_grob()</a></code>,
 <code><a href="sketch_polygon_grob.html">sketch_polygon_grob()</a></code>,
+<code><a href="sketch_repel_grob.html">sketch_repel_grob()</a></code>,
+<code><a href="sketch_spray_grob.html">sketch_spray_grob()</a></code>,
+<code><a href="sketch_stroke_grob.html">sketch_stroke_grob()</a></code>,
 <code><a href="sketch_wedge_grob.html">sketch_wedge_grob()</a></code></p></div>
     </div>
 

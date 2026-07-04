@@ -34,7 +34,7 @@
 
     <a class="navbar-brand me-2" href="index.html">ggsketch</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -92,7 +92,7 @@
 </p>
 <p><img src="reference/figures/README-hero.png" alt="Sketchy hachure-filled violin plots of highway mpg by vehicle class, with a handwriting-font title" width="90%"></p>
 
-<p><code>ggsketch</code> gives you ggplot2 geoms (<code><a href="reference/geom_sketch_col.html">geom_sketch_col()</a></code>, <code><a href="reference/geom_sketch_line.html">geom_sketch_line()</a></code>, <code><a href="reference/geom_sketch_point.html">geom_sketch_point()</a></code>, …) that render with a wobbly, hand-drawn look: roughened double-stroke outlines and hachure / cross-hatch / zigzag / dots / dashed fills. Because the geoms are real grid grobs wrapped in <code>ggproto</code>, they compose with <code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes()</a></code>, stats, scales, facets, and coords, and draw correctly on <strong>every</strong> R graphics device — screen, PNG, PDF, and SVG.</p>
+<p><code>ggsketch</code> gives you ggplot2 geoms (<code><a href="reference/geom_sketch_col.html">geom_sketch_col()</a></code>, <code><a href="reference/geom_sketch_line.html">geom_sketch_line()</a></code>, <code><a href="reference/geom_sketch_point.html">geom_sketch_point()</a></code>, …) that render with a wobbly, hand-drawn look: roughened double-stroke outlines and hachure / cross-hatch / zigzag / dots / dashed fills. It even shades by <strong>tonal engraving</strong> — continuous tone built from hatch-line density, the way an etcher or banknote engraver works (<code><a href="reference/geom_sketch_engrave.html">geom_sketch_engrave()</a></code>), something the fill-pattern packages can’t do because they tile a motif rather than compute tone. Because the geoms are real grid grobs wrapped in <code>ggproto</code>, they compose with <code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes()</a></code>, stats, scales, facets, and coords, and draw correctly on <strong>every</strong> R graphics device — screen, PNG, PDF, and SVG.</p>
 <div class="section level2">
 <h2 id="why-another-sketch-package">Why another sketch package?<a class="anchor" aria-label="anchor" href="#why-another-sketch-package"></a>
 </h2>
@@ -181,6 +181,16 @@
 </p>
 <p><img src="reference/figures/README-boxplot.png" alt="Hachure-filled sketch boxplots of highway mpg by vehicle class" width="100%"></p>
 
+<p>The 2.0 line adds whole chart families that compose with <code>+</code> — here a hierarchy as a hand-drawn sunburst, and weighted flows as a chord diagram:</p>
+<p align="center">
+</p>
+<p><img src="reference/figures/README-sunburst.png" alt="Hand-drawn sunburst chart of headcount nested by region, department and team" width="48%"><img src="reference/figures/README-chord.png" alt="Hand-drawn chord diagram of trade flows between continents" width="48%"></p>
+
+<p>It also simulates the <em>medium</em>, not just the line. The <code>"watercolor"</code> fill paints translucent washes that bleed wet-on-wet where regions overlap — mingling into new colours — and feather along the paper tooth set by <code>theme_sketch(paper = )</code>:</p>
+<p align="center">
+</p>
+<p><img src="reference/figures/README-watercolor.png" alt="Overlapping translucent watercolour petals that blend into new colours where they meet, feathered against an aged-paper ground" width="60%"></p>
+
 </div>
 <div class="section level2">
 <h2 id="the-geoms">The geoms<a class="anchor" aria-label="anchor" href="#the-geoms"></a>
@@ -204,7 +214,7 @@
 <tr>
 <td>Bars &amp; tiles</td>
 <td>
-<code><a href="reference/geom_sketch_col.html">geom_sketch_col()</a></code>, <code><a href="reference/geom_sketch_col.html">geom_sketch_bar()</a></code>, <code><a href="reference/geom_sketch_rect.html">geom_sketch_rect()</a></code>, <code><a href="reference/geom_sketch_rect.html">geom_sketch_tile()</a></code>
+<code><a href="reference/geom_sketch_col.html">geom_sketch_col()</a></code>, <code><a href="reference/geom_sketch_col.html">geom_sketch_bar()</a></code>, <code><a href="reference/geom_sketch_rect.html">geom_sketch_rect()</a></code>, <code><a href="reference/geom_sketch_rect.html">geom_sketch_tile()</a></code>, <code><a href="reference/geom_sketch_lollipop.html">geom_sketch_lollipop()</a></code>
 </td>
 </tr>
 <tr>
@@ -214,21 +224,55 @@
 </td>
 </tr>
 <tr>
+<td>Distributions</td>
+<td>
+<code><a href="reference/geom_sketch_histogram.html">geom_sketch_histogram()</a></code>, <code><a href="reference/geom_sketch_violin.html">geom_sketch_violin()</a></code>, <code><a href="reference/geom_sketch_boxplot.html">geom_sketch_boxplot()</a></code>, <code><a href="reference/geom_sketch_beeswarm.html">geom_sketch_beeswarm()</a></code>, <code><a href="reference/geom_sketch_ridgeline.html">geom_sketch_ridgeline()</a></code>, <code><a href="reference/geom_sketch_dotplot.html">geom_sketch_dotplot()</a></code>, <code><a href="reference/geom_sketch_ecdf.html">geom_sketch_ecdf()</a></code>
+</td>
+</tr>
+<tr>
+<td>Comparisons &amp; change</td>
+<td>
+<code><a href="reference/geom_sketch_dumbbell.html">geom_sketch_dumbbell()</a></code>, <code><a href="reference/geom_sketch_slope.html">geom_sketch_slope()</a></code>, <code><a href="reference/geom_sketch_bump.html">geom_sketch_bump()</a></code>, <code><a href="reference/geom_sketch_waterfall.html">geom_sketch_waterfall()</a></code>, <code><a href="reference/geom_sketch_funnel.html">geom_sketch_funnel()</a></code>, <code><a href="reference/geom_sketch_pyramid.html">geom_sketch_pyramid()</a></code>
+</td>
+</tr>
+<tr>
 <td>Circular &amp; composed</td>
 <td>
-<code><a href="reference/geom_sketch_circle.html">geom_sketch_circle()</a></code>, <code><a href="reference/geom_sketch_circle.html">geom_sketch_ellipse()</a></code>, <code><a href="reference/geom_sketch_segment.html">geom_sketch_segment()</a></code>, <code><a href="reference/geom_sketch_segment.html">geom_sketch_step()</a></code>, <code><a href="reference/geom_sketch_boxplot.html">geom_sketch_boxplot()</a></code>
+<code><a href="reference/geom_sketch_circle.html">geom_sketch_circle()</a></code>, <code><a href="reference/geom_sketch_circle.html">geom_sketch_ellipse()</a></code>, <code><a href="reference/geom_sketch_segment.html">geom_sketch_segment()</a></code>, <code><a href="reference/geom_sketch_segment.html">geom_sketch_step()</a></code>
 </td>
+</tr>
+<tr>
+<td>Engraving &amp; tone</td>
+<td>
+<code><a href="reference/geom_sketch_engrave.html">geom_sketch_engrave()</a></code> (shade an <code>x</code>/<code>y</code>/<code>z</code> surface by hatch-line density), <code><a href="reference/geom_sketch_engrave.html">geom_sketch_shade()</a></code> (<code>aes(tone = …)</code> value → density), <code><a href="reference/scale_tone_continuous.html">scale_engrave()</a></code>
+</td>
+</tr>
+<tr>
+<td>Charts &amp; diagrams</td>
+<td>
+<code><a href="reference/geom_sketch_pie.html">geom_sketch_pie()</a></code>, <code><a href="reference/geom_sketch_waffle.html">geom_sketch_waffle()</a></code>, <code><a href="reference/geom_sketch_treemap.html">geom_sketch_treemap()</a></code>, <code><a href="reference/geom_sketch_sunburst.html">geom_sketch_sunburst()</a></code>, <code><a href="reference/geom_sketch_radar.html">geom_sketch_radar()</a></code>, <code><a href="reference/geom_sketch_chord.html">geom_sketch_chord()</a></code>, <code><a href="reference/geom_sketch_arc_diagram.html">geom_sketch_arc_diagram()</a></code>, <code><a href="reference/geom_sketch_alluvial.html">geom_sketch_alluvial()</a></code>, <code><a href="reference/geom_sketch_parallel.html">geom_sketch_parallel()</a></code>, <code><a href="reference/geom_sketch_mosaic.html">geom_sketch_mosaic()</a></code>, <code><a href="reference/geom_sketch_marimekko.html">geom_sketch_marimekko()</a></code>, <code><a href="reference/geom_sketch_rose.html">geom_sketch_rose()</a></code>, <code><a href="reference/geom_sketch_calendar.html">geom_sketch_calendar()</a></code>, <code><a href="reference/geom_sketch_gantt.html">geom_sketch_gantt()</a></code>, <code><a href="reference/geom_sketch_dendrogram.html">geom_sketch_dendrogram()</a></code>
+</td>
+</tr>
+<tr>
+<td>Networks &amp; maps</td>
+<td>
+<code><a href="reference/geom_sketch_edge.html">geom_sketch_edge()</a></code> / <code><a href="reference/sketch_graph.html">sketch_graph()</a></code> (force-directed layout, no graph dep), <code><a href="reference/geom_sketch_sf.html">geom_sketch_sf()</a></code> (hand-drawn simple-features maps)</td>
+</tr>
+<tr>
+<td>Motion</td>
+<td>
+<code><a href="reference/animate_sketch.html">animate_sketch()</a></code> (boiling-line shimmer or draw-on reveal → GIF)</td>
 </tr>
 <tr>
 <td>Helpers &amp; annotation</td>
 <td>
-<code><a href="reference/annotate_sketch.html">annotate_sketch()</a></code>, <code><a href="reference/geom_sketch_bracket.html">geom_sketch_bracket()</a></code> (significance brackets), <code><a href="reference/theme_sketch.html">theme_sketch()</a></code>
+<code><a href="reference/annotate_sketch.html">annotate_sketch()</a></code>, <code><a href="reference/geom_sketch_bracket.html">geom_sketch_bracket()</a></code> (significance brackets), <code><a href="reference/annotate_sketch_arrow.html">annotate_sketch_arrow()</a></code> / <code><a href="reference/annotate_sketch_callout.html">annotate_sketch_callout()</a></code> (content-aware pointers), <code><a href="reference/annotate_sketch_highlight.html">annotate_sketch_highlight()</a></code> / <code><a href="reference/annotate_sketch_highlight.html">annotate_sketch_underline()</a></code> (marker emphasis), <code><a href="reference/geom_sketch_text_repel.html">geom_sketch_text_repel()</a></code> (non-overlapping labels), <code><a href="reference/theme_sketch.html">theme_sketch()</a></code>, <code><a href="reference/sketch_style.html">sketch_style()</a></code> (one-call style presets), <code><a href="reference/ggsketch_save.html">ggsketch_save()</a></code>
 </td>
 </tr>
 <tr>
 <td>Frame &amp; scales</td>
 <td>
-<code><a href="reference/element_sketch_line.html">element_sketch_line()</a></code>, <code><a href="reference/element_sketch_line.html">element_sketch_rect()</a></code> (via <code>theme_sketch(rough_frame = TRUE)</code>), <code><a href="reference/scale_sketch.html">scale_colour_sketch()</a></code>, <code><a href="reference/scale_sketch.html">scale_fill_sketch()</a></code>, <code><a href="reference/register_sketch_font.html">register_sketch_font()</a></code>
+<code><a href="reference/element_sketch_line.html">element_sketch_line()</a></code>, <code><a href="reference/element_sketch_line.html">element_sketch_rect()</a></code> (via <code>theme_sketch(rough_frame = TRUE)</code>), <code><a href="reference/coord_sketch.html">coord_sketch()</a></code> / <code><a href="reference/coord_sketch_polar.html">coord_sketch_polar()</a></code>, <code><a href="reference/scale_sketch.html">scale_colour_sketch()</a></code>, <code><a href="reference/scale_sketch.html">scale_fill_sketch()</a></code>, <code><a href="reference/scale_medium_discrete.html">scale_medium_discrete()</a></code> (mappable drawing media), <code><a href="reference/register_sketch_font.html">register_sketch_font()</a></code>
 </td>
 </tr>
 </tbody>
@@ -265,7 +309,7 @@
 <tr>
 <td><code>fill_style</code></td>
 <td>
-<code>"hachure"</code>, <code>"cross_hatch"</code>, <code>"zigzag"</code>, <code>"zigzag_line"</code>, <code>"scribble"</code>, <code>"dots"</code>, <code>"dashed"</code>, <code>"solid"</code>
+<code>"hachure"</code>, <code>"cross_hatch"</code>, <code>"zigzag"</code>, <code>"zigzag_line"</code>, <code>"scribble"</code>, <code>"dots"</code>, <code>"dashed"</code>, <code>"stipple"</code>, <code>"pencil_shade"</code>, <code>"solid"</code>, <code>"watercolor"</code>
 </td>
 </tr>
 <tr>

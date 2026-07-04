@@ -18,6 +18,7 @@ theme_sketch(
   dark = FALSE,
   rough_frame = FALSE,
   roughness = 0.5,
+  paper = "none",
   seed = NULL
 )
 ```
@@ -59,16 +60,29 @@ theme_sketch(
 - rough_frame:
 
   If `TRUE`, draw the *frame* itself hand-drawn: the major gridlines,
-  panel border, and axis ticks become roughened sketch grobs (via
+  panel border, axis ticks, facet strip backgrounds, and the
+  continuous-scale colourbar frame and ticks become roughened sketch
+  grobs (via
   [`element_sketch_line()`](https://orijitghosh.github.io/ggsketch/reference/element_sketch_line.md)
   /
   [`element_sketch_rect()`](https://orijitghosh.github.io/ggsketch/reference/element_sketch_line.md))
-  so the frame matches the marks. Default `FALSE`.
+  so the whole frame matches the marks. Default `FALSE`.
 
 - roughness:
 
   Roughness for the rough frame (only used when `rough_frame = TRUE`).
   Default 0.5.
+
+- paper:
+
+  Paper ground drawn behind the data: one of
+  [`sketch_papers()`](https://orijitghosh.github.io/ggsketch/reference/sketch_papers.md)
+  (`"none"` (default), `"notebook"`, `"graph"`, `"dotted"`, `"aged"`,
+  `"blueprint"`, `"chalkboard"`, `"kraft"`). A non-`"none"` paper paints
+  a simulated texture as the panel background, recolours the plot ground
+  and text to suit it (light text on the dark blueprint / chalkboard
+  grounds), and suppresses the default gridlines where the paper
+  supplies its own ruling.
 
 - seed:
 
@@ -83,11 +97,16 @@ object.
 ## See also
 
 Other sketch-theme:
+[`CoordSketch`](https://orijitghosh.github.io/ggsketch/reference/coord_sketch.md),
+[`CoordSketchPolar`](https://orijitghosh.github.io/ggsketch/reference/coord_sketch_polar.md),
 [`element_sketch_line()`](https://orijitghosh.github.io/ggsketch/reference/element_sketch_line.md),
 [`ggsketch_check_fonts()`](https://orijitghosh.github.io/ggsketch/reference/ggsketch_check_fonts.md),
+[`ggsketch_save()`](https://orijitghosh.github.io/ggsketch/reference/ggsketch_save.md),
 [`register_sketch_font()`](https://orijitghosh.github.io/ggsketch/reference/register_sketch_font.md),
+[`scale_pressure_continuous()`](https://orijitghosh.github.io/ggsketch/reference/scale_pressure_continuous.md),
 [`scale_roughness_continuous()`](https://orijitghosh.github.io/ggsketch/reference/scale_roughness_continuous.md),
 [`scale_sketch`](https://orijitghosh.github.io/ggsketch/reference/scale_sketch.md),
+[`scale_tone_continuous()`](https://orijitghosh.github.io/ggsketch/reference/scale_tone_continuous.md),
 [`sketch_palette()`](https://orijitghosh.github.io/ggsketch/reference/sketch_palette.md)
 
 ## Examples
@@ -100,4 +119,6 @@ p + theme_sketch()
 p + theme_sketch(dark = TRUE)
 
 p + theme_sketch(rough_frame = TRUE)
+
+p + theme_sketch(paper = "notebook")
 ```

@@ -86,6 +86,40 @@ for (n in c(1, 2, 4)) {
 
 ![](customizing_files/figure-html/passes-1.png)![](customizing_files/figure-html/passes-2.png)![](customizing_files/figure-html/passes-3.png)
 
+## `medium` (line geoms)
+
+The line family —
+[`geom_sketch_line()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_line.md),
+[`geom_sketch_path()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_path.md),
+[`geom_sketch_segment()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_segment.md),
+[`geom_sketch_step()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_segment.md)
+— also takes a `medium`, which sets *how* the stroke is laid down: a
+tapering pencil, a wet ink line, a crisp fountain pen, a thin ballpoint,
+a broad brush, charcoal, soft pastel, dusty chalk (best on
+`paper = "chalkboard"`), marker, a translucent highlighter band, or
+crayon.
+[`sketch_media()`](https://orijitghosh.github.io/ggsketch/reference/sketch_media.md)
+lists them.
+
+``` r
+
+for (m in c("pencil", "ink", "brush", "charcoal")) {
+  print(
+    ggplot(d, aes(x, y)) +
+      geom_sketch_line(medium = m, linewidth = 1.2, seed = 2L) +
+      labs(subtitle = paste("medium =", m)) +
+      theme_sketch(base_size = 9)
+  )
+}
+```
+
+![](customizing_files/figure-html/medium-1.png)![](customizing_files/figure-html/medium-2.png)![](customizing_files/figure-html/medium-3.png)![](customizing_files/figure-html/medium-4.png)
+
+You can also *map* `medium` to a variable with
+[`scale_medium_discrete()`](https://orijitghosh.github.io/ggsketch/reference/scale_medium_discrete.md)
+(see the gallery). The default, `"pen"`, reproduces the classic
+constant-width sketch line, so existing plots are unchanged.
+
 ## `seed` — reproducible wobble
 
 The sketch is random, but **seeded**. A given `seed` always produces the

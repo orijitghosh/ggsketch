@@ -81,10 +81,15 @@ A ggplot2 theme element carrying an `element_sketch_*` subclass.
 ## See also
 
 Other sketch-theme:
+[`CoordSketch`](https://orijitghosh.github.io/ggsketch/reference/coord_sketch.md),
+[`CoordSketchPolar`](https://orijitghosh.github.io/ggsketch/reference/coord_sketch_polar.md),
 [`ggsketch_check_fonts()`](https://orijitghosh.github.io/ggsketch/reference/ggsketch_check_fonts.md),
+[`ggsketch_save()`](https://orijitghosh.github.io/ggsketch/reference/ggsketch_save.md),
 [`register_sketch_font()`](https://orijitghosh.github.io/ggsketch/reference/register_sketch_font.md),
+[`scale_pressure_continuous()`](https://orijitghosh.github.io/ggsketch/reference/scale_pressure_continuous.md),
 [`scale_roughness_continuous()`](https://orijitghosh.github.io/ggsketch/reference/scale_roughness_continuous.md),
 [`scale_sketch`](https://orijitghosh.github.io/ggsketch/reference/scale_sketch.md),
+[`scale_tone_continuous()`](https://orijitghosh.github.io/ggsketch/reference/scale_tone_continuous.md),
 [`sketch_palette()`](https://orijitghosh.github.io/ggsketch/reference/sketch_palette.md),
 [`theme_sketch()`](https://orijitghosh.github.io/ggsketch/reference/theme_sketch.md)
 

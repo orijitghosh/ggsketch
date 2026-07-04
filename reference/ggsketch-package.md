@@ -25,3 +25,7 @@ Useful links:
 ## Author
 
 **Maintainer**: Arijit Ghosh <arijitghosh2009@gmail.com>
+
+Authors:
+
+- Arijit Ghosh <arijitghosh2009@gmail.com>
