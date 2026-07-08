@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ggsketch</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,14 +47,10 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="ggsketch-development-version">ggsketch (development version)<a class="anchor" aria-label="anchor" href="#ggsketch-development-version"></a></h2>
-<ul><li>
-<strong>Chicklet charts.</strong> New <code><a href="../reference/geom_sketch_chicklet.html">geom_sketch_chicklet()</a></code> – a hand-drawn take on <code>ggchicklet::geom_chicklet()</code>. It stacks rounded “pill” segments with a small <code>segment_gap</code> between them and a solid fill by default; add <code><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html" class="external-link">coord_flip()</a></code> for the classic horizontal layout. Built on <code><a href="../reference/geom_sketch_col.html">geom_sketch_col()</a></code>, so it inherits every fill style, drawing medium, and sketch parameter.</li>
-</ul></div>
-    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.0.0" id="ggsketch-200">ggsketch 2.0.0<a class="anchor" aria-label="anchor" href="#ggsketch-200"></a></h2>
 <p>The 2.0 series turns ggsketch from a <em>line style</em> into a <em>drawing-medium</em> simulator. This first piece is the engine that makes it possible.</p>
-<ul><li><p><strong>Repelled labels escape panel corners.</strong> The <code><a href="../reference/repel_layout.html">repel_layout()</a></code> solver now picks its separation axis by the room left inside the panel bounds, so labels pressed into a corner fan out along the edge instead of being clamped back on top of each other (previously e.g. three overlapping boxes in a scatter’s corner).</p></li>
+<ul><li><p><strong>Chicklet charts.</strong> New <code><a href="../reference/geom_sketch_chicklet.html">geom_sketch_chicklet()</a></code> – a hand-drawn take on <code>ggchicklet::geom_chicklet()</code>. It stacks rounded “pill” segments with a small <code>segment_gap</code> between them and a solid fill by default; add <code><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html" class="external-link">coord_flip()</a></code> for the classic horizontal layout. Built on <code><a href="../reference/geom_sketch_col.html">geom_sketch_col()</a></code>, so it inherits every fill style, drawing medium, and sketch parameter.</p></li>
+<li><p><strong>Repelled labels escape panel corners.</strong> The <code><a href="../reference/repel_layout.html">repel_layout()</a></code> solver now picks its separation axis by the room left inside the panel bounds, so labels pressed into a corner fan out along the edge instead of being clamped back on top of each other (previously e.g. three overlapping boxes in a scatter’s corner).</p></li>
 <li><p><strong>Calendar axes read as calendars.</strong> <code><a href="../reference/geom_sketch_calendar.html">geom_sketch_calendar()</a></code> now labels the y axis with weekday names (honouring <code>week_start</code>) and the x axis with month names instead of raw grid numbers; set <code>labels = FALSE</code> to supply your own scales.</p></li>
 <li><p><strong>Saner default hachure pitch.</strong> When <code>hachure_gap</code> is <code>NULL</code>, <code><a href="../reference/sketch_polygon_grob.html">sketch_polygon_grob()</a></code> now picks the gap at draw time in device inches – 15% of the shape’s smaller drawn extent, clamped to [0.04, 0.4] – instead of geoms guessing in data units. Wide flat rectangles (Gantt/funnel/pyramid bars, long tiles) no longer degenerate into a few huge strokes escaping the outline, and <code><a href="../reference/geom_sketch_gantt.html">geom_sketch_gantt()</a></code>/<code>funnel()</code>/<code>pyramid()</code> drop their fixed 0.12 workaround pitch. An explicit <code>hachure_gap</code> is honoured unchanged, but default-gap output shifts slightly.</p></li>
 <li><p><strong>Rect geoms bend under nonlinear coords.</strong> <code><a href="../reference/geom_sketch_rect.html">geom_sketch_rect()</a></code>, <code><a href="../reference/geom_sketch_rect.html">geom_sketch_tile()</a></code>, and <code><a href="../reference/geom_sketch_col.html">geom_sketch_col()</a></code>/<code>bar()</code> now densify their boundaries before the coordinate transform, so bars under <code><a href="https://ggplot2.tidyverse.org/reference/coord_radial.html" class="external-link">coord_polar()</a></code> / <code><a href="../reference/coord_sketch_polar.html">coord_sketch_polar()</a></code> curve into proper wedges and rings instead of straight-edged quads.</p></li>

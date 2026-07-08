@@ -118,7 +118,7 @@ for boiling or drawing-on a static plot.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+# \donttest{
 library(ggplot2)
 library(gganimate)
 p <- ggplot(mpg, aes(class, fill = drv)) +
@@ -127,5 +127,5 @@ p <- ggplot(mpg, aes(class, fill = drv)) +
   theme_sketch() +
   transition_states(drv, transition_length = 2, state_length = 1)
 boil_gganimate(p, nframes = 30, file = tempfile(fileext = ".gif"))
-} # }
+# }
 ```

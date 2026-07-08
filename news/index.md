@@ -1,6 +1,10 @@
 # Changelog
 
-## ggsketch (development version)
+## ggsketch 2.0.0
+
+The 2.0 series turns ggsketch from a *line style* into a
+*drawing-medium* simulator. This first piece is the engine that makes it
+possible.
 
 - **Chicklet charts.** New
   [`geom_sketch_chicklet()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_chicklet.md)
@@ -11,12 +15,6 @@
   for the classic horizontal layout. Built on
   [`geom_sketch_col()`](https://orijitghosh.github.io/ggsketch/reference/geom_sketch_col.md),
   so it inherits every fill style, drawing medium, and sketch parameter.
-
-## ggsketch 2.0.0
-
-The 2.0 series turns ggsketch from a *line style* into a
-*drawing-medium* simulator. This first piece is the engine that makes it
-possible.
 
 - **Repelled labels escape panel corners.** The
   [`repel_layout()`](https://orijitghosh.github.io/ggsketch/reference/repel_layout.md)
