@@ -76,8 +76,8 @@ gganimate_internal <- function(name, call = rlang::caller_env()) {
 #'   frame image paths.
 #' @seealso [animate_sketch()] for boiling or drawing-on a static plot.
 #' @export
-#' @examples
-#' \dontrun{
+#' @examplesIf requireNamespace("gganimate", quietly = TRUE) && requireNamespace("gifski", quietly = TRUE)
+#' \donttest{
 #' library(ggplot2)
 #' library(gganimate)
 #' p <- ggplot(mpg, aes(class, fill = drv)) +

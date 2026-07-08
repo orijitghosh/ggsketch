@@ -1,15 +1,13 @@
-# ggsketch (development version)
+# ggsketch 2.0.0
+
+The 2.0 series turns ggsketch from a *line style* into a *drawing-medium*
+simulator. This first piece is the engine that makes it possible.
 
 * **Chicklet charts.** New `geom_sketch_chicklet()` -- a hand-drawn take on
   `ggchicklet::geom_chicklet()`. It stacks rounded "pill" segments with a small
   `segment_gap` between them and a solid fill by default; add `coord_flip()` for
   the classic horizontal layout. Built on `geom_sketch_col()`, so it inherits
   every fill style, drawing medium, and sketch parameter.
-
-# ggsketch 2.0.0
-
-The 2.0 series turns ggsketch from a *line style* into a *drawing-medium*
-simulator. This first piece is the engine that makes it possible.
 
 * **Repelled labels escape panel corners.** The `repel_layout()` solver now
   picks its separation axis by the room left inside the panel bounds, so

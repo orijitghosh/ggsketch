@@ -78,7 +78,8 @@ if neither is installed the frame paths are returned. \pkg{gganimate} itself
 is an optional dependency.
 }
 \examples{
-\dontrun{
+\dontshow{if (requireNamespace("gganimate", quietly = TRUE) && requireNamespace("gifski", quietly = TRUE)) withAutoprint(\{ # examplesIf}
+\donttest{
 library(ggplot2)
 library(gganimate)
 p <- ggplot(mpg, aes(class, fill = drv)) +
@@ -88,6 +89,7 @@ p <- ggplot(mpg, aes(class, fill = drv)) +
   transition_states(drv, transition_length = 2, state_length = 1)
 boil_gganimate(p, nframes = 30, file = tempfile(fileext = ".gif"))
 }
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link[=animate_sketch]{animate_sketch()}} for boiling or drawing-on a static plot.
