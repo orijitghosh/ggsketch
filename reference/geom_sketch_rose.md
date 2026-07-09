@@ -65,7 +65,8 @@ geom_sketch_rose(
 - area_true:
 
   If `TRUE`, sector area is proportional to value (radius is the square
-  root) - Nightingale's convention. Default `FALSE` (radius ∝ value).
+  root) - Nightingale's convention. Default `FALSE` (radius is
+  proportional to value).
 
 - fill_style:
 
