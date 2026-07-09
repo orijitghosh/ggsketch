@@ -20,11 +20,22 @@
 * Image-based (vdiffr) snapshot tests are skipped on CRAN and on platforms whose
   rendering toolchain differs from the reference; the primary regression gate is
   deterministic numeric geometry snapshots.
+* The words flagged as possibly misspelled in DESCRIPTION are not misspellings:
+  "geoms"/"Geoms", "hachure", "composable", and "reimplemented" are the correct
+  technical terms, and "Shihn" is a surname (attribution in the description).
 * The `boil_gganimate` example is wrapped in `\donttest{}` and guarded with
   `@examplesIf requireNamespace(...)` because it renders a GIF animation via the
   suggested 'gganimate' and 'gifski' packages (slow, and only runnable when
   those are installed). No `\dontrun{}` is used anywhere in the package. The
   function is also exercised by the test suite.
+
+## Resubmission
+
+This resubmission of 2.0.0 fixes the incoming pre-test failure: an Rd file
+(`geom_sketch_rose`) contained a Unicode "proportional to" sign (U+221D) that
+broke the LaTeX build of the PDF manual (the ERROR and WARNING). It is now
+plain ASCII, and the PDF manual builds cleanly. No other non-ASCII math glyphs
+remain in the documentation.
 
 ## Previous review feedback
 

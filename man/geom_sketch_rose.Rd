@@ -36,7 +36,8 @@ radially within each wedge (\code{NULL} = one segment per wedge, coloured by \co
 \item{...}{Other arguments passed on to the sector layer.}
 
 \item{area_true}{If \code{TRUE}, sector area is proportional to value (radius is the
-square root) - Nightingale's convention. Default \code{FALSE} (radius ∝ value).}
+square root) - Nightingale's convention. Default \code{FALSE} (radius is
+proportional to value).}
 
 \item{fill_style}{Sector fill style; see \code{\link[=geom_sketch_polygon]{geom_sketch_polygon()}}. Default
 \code{"solid"}.}

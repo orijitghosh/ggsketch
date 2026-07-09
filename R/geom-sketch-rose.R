@@ -89,7 +89,8 @@ rose_layout <- function(cat, value, seg = NULL, area_true = FALSE) {
 #' @param fill Optional unquoted column name of a second category to stack
 #'   radially within each wedge (`NULL` = one segment per wedge, coloured by `x`).
 #' @param area_true If `TRUE`, sector area is proportional to value (radius is the
-#'   square root) - Nightingale's convention. Default `FALSE` (radius ∝ value).
+#'   square root) - Nightingale's convention. Default `FALSE` (radius is
+#'   proportional to value).
 #' @param fill_style Sector fill style; see [geom_sketch_polygon()]. Default
 #'   `"solid"`.
 #' @param alpha Sector opacity. Default 0.9.
