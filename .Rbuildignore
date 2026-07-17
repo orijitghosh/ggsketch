@@ -12,3 +12,4 @@
 ^vignettes/articles$
 ^pkgdown$
 ^CRAN-SUBMISSION$
+^\.Rproj\.user$

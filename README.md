@@ -2,7 +2,7 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/orijitghosh/ggsketch/actions/workflows/check.yaml/badge.svg)](https://github.com/orijitghosh/ggsketch/actions/workflows/check.yaml) [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT) [![pkgdown site](https://img.shields.io/badge/docs-pkgdown-blue.svg)](https://orijitghosh.github.io/ggsketch/)
+[![CRAN status](https://www.r-pkg.org/badges/version/ggsketch)](https://CRAN.R-project.org/package=ggsketch) [![CRAN downloads](https://cranlogs.r-pkg.org/badges/grand-total/ggsketch)](https://cran.r-project.org/package=ggsketch) [![R-CMD-check](https://github.com/orijitghosh/ggsketch/actions/workflows/check.yaml/badge.svg)](https://github.com/orijitghosh/ggsketch/actions/workflows/check.yaml) [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT) [![pkgdown site](https://img.shields.io/badge/docs-pkgdown-blue.svg)](https://orijitghosh.github.io/ggsketch/)
 
 <!-- badges: end -->
 
@@ -29,6 +29,12 @@
 The `ggrough` maintainer himself notes that "a nice way to create sketchy visualisations would be a neat addition to the {ggplot2} ecosystem." `ggsketch` fills that gap with native geoms.
 
 ## Installation
+
+``` r
+install.packages("ggsketch")
+```
+
+Development version from GitHub:
 
 ``` r
 # install.packages("pak")
