@@ -2,6 +2,8 @@
 
 ## ggsketch 2.0.0
 
+CRAN release: 2026-07-17
+
 The 2.0 series turns ggsketch from a *line style* into a
 *drawing-medium* simulator. This first piece is the engine that makes it
 possible.

@@ -47,7 +47,7 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.0.0" id="ggsketch-200">ggsketch 2.0.0<a class="anchor" aria-label="anchor" href="#ggsketch-200"></a></h2>
+<h2 class="pkg-version" data-toc-text="2.0.0" id="ggsketch-200">ggsketch 2.0.0<a class="anchor" aria-label="anchor" href="#ggsketch-200"></a></h2><p class="text-muted">CRAN release: 2026-07-17</p>
 <p>The 2.0 series turns ggsketch from a <em>line style</em> into a <em>drawing-medium</em> simulator. This first piece is the engine that makes it possible.</p>
 <ul><li><p><strong>Chicklet charts.</strong> New <code><a href="../reference/geom_sketch_chicklet.html">geom_sketch_chicklet()</a></code> – a hand-drawn take on <code>ggchicklet::geom_chicklet()</code>. It stacks rounded “pill” segments with a small <code>segment_gap</code> between them and a solid fill by default; add <code><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html" class="external-link">coord_flip()</a></code> for the classic horizontal layout. Built on <code><a href="../reference/geom_sketch_col.html">geom_sketch_col()</a></code>, so it inherits every fill style, drawing medium, and sketch parameter.</p></li>
 <li><p><strong>Repelled labels escape panel corners.</strong> The <code><a href="../reference/repel_layout.html">repel_layout()</a></code> solver now picks its separation axis by the room left inside the panel bounds, so labels pressed into a corner fan out along the edge instead of being clamped back on top of each other (previously e.g. three overlapping boxes in a scatter’s corner).</p></li>

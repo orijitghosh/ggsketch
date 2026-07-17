@@ -40,6 +40,13 @@ ecosystem.” `ggsketch` fills that gap with native geoms.
 
 ``` r
 
+install.packages("ggsketch")
+```
+
+Development version from GitHub:
+
+``` r
+
 # install.packages("pak")
 pak::pak("orijitghosh/ggsketch")
 ```
